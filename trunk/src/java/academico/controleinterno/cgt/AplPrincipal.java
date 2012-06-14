@@ -10,10 +10,7 @@ import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import java.util.List;
 
-/**
- *
- * @author erigamonte
- */
+
 public class AplPrincipal {
     // TODO: O método main não existe, é só teste!
     public static void main(String[] args) {

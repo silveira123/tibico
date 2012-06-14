@@ -1,0 +1,21 @@
+<?page title="Dados Curso" contentType="text/html;charset=UTF-8"?>
+<zk>
+    <div align="center">
+        <window title="Eventos Curso" border="normal" width="50%" apply = "academico.controleinterno.cih.PagEventosCurso" id="winDadosCurso" closable="true">
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader label="Nome" sort="auto" />
+                </listhead>
+
+            </listbox>
+
+            <separator/>
+            <button label="Incluir" id = "Incluir" />
+            <button label="Excluir" id = "Excluir" />
+            <button label="Editar"  id = "Editar" />
+            <button label="Consultar"  id = "Consultar" />
+            <button label="Adicionar Disciplina"  id = "addDisciplina" />
+
+        </window>
+    </div>
+</zk>

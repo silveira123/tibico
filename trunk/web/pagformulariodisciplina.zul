@@ -1,0 +1,48 @@
+<?page title="Cadastro Disciplina" contentType="text/html;charset=UTF-8"?>
+<zk>
+	
+    <window id = "winCadastro" action="show: slideDown;hide: slideUp" title="Cadastro" border="normal" width="50%" apply = "academico.controleinterno.cih.PagFormularioDisciplina" closable="true" mode="modal" position="center">
+        <grid>
+            <columns>
+                    <column label="" />
+                    <column label="" />
+            </columns>
+            <rows>
+                <row>
+                    <label value="Nome: " />
+                    <textbox id="nome" width = "275px"/>
+                </row>
+                <row>
+                    <label value="Carga horária: " />
+                    <intbox id="cargaHoraria" />
+                </row>
+                <row>
+                    <label value="Número de créditos: " />
+                    <intbox id="numCreditos" />
+                </row>
+                <row>
+                    <label value="Área de Conhecimento: " />
+                    <combobox id = "areaConhecimento" readonly="true" width = "200px">
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Periodo Correspondente: " />
+                    <intbox id="periodoCorrespondente" />
+                </row>
+                
+                <row>
+                    <label value="Pré-Requisitos: " />
+                    <listbox id="preRequisitos" width="" height="" onSelect="">
+                            <listhead>
+                                    <listheader label=""/>
+                            </listhead>
+                    </listbox>   
+                </row>
+            </rows>
+        </grid>
+        <separator />
+        <div align="center">
+                <button label="Salvar" id = "Salvar"/>
+        </div>
+    </window>	
+</zk>

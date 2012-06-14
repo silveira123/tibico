@@ -1,0 +1,98 @@
+package academico.controleinterno.cgt;
+
+import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cdp.Disciplina;
+import academico.controleinterno.cgd.DisciplinaDAOJPA;
+import academico.util.academico.cdp.AreaConhecimento;
+import academico.util.academico.cdp.GrandeAreaConhecimento;
+import academico.util.academico.cdp.GrauInstrucao;
+import academico.util.academico.cdp.Regime;
+import academico.util.persistencia.DAO;
+import academico.util.persistencia.DAOFactory;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class AplCadastroCursoDisciplina {
+
+    private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
+    private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
+    private DAO apDaoGrandeAreaConhecimento = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
+    private DAO apDaoAreaConhecimento = DAOFactory.obterDAO("JPA", AreaConhecimento.class);
+    
+    private AplCadastroCursoDisciplina() {
+    }
+    private static AplCadastroCursoDisciplina instance = null;
+
+    public static AplCadastroCursoDisciplina getInstance() {
+        if (instance == null) {
+            instance = new AplCadastroCursoDisciplina();
+        }
+        return instance;
+    }
+
+    public Curso incluirCurso(ArrayList<Object> args) throws Exception {
+        Curso curso = new Curso();
+        curso.setNome((String) args.get(0));
+        curso.setDuracao((Integer) args.get(1));
+        curso.setDescricao((String) args.get(2));
+        curso.setGrauInstrucao((GrauInstrucao) args.get(3));
+        curso.setGrandeAreaConhecimento((GrandeAreaConhecimento) args.get(4));
+        curso.setRegime((Regime) args.get(5));
+
+        return (Curso) apDaoCurso.salvar(curso);
+    }
+
+    public Curso alterarCurso(Curso curso) throws Exception {
+        return (Curso) apDaoCurso.salvar(curso);
+    }
+
+    public void apagarCurso(Curso curso) throws Exception {
+        apDaoCurso.excluir(curso);
+    }
+
+    public List<Curso> obterCursos() {
+        return (List<Curso>) apDaoCurso.obter(Curso.class);
+    }
+
+    public Disciplina incluirDisciplina(ArrayList<Object> args) throws Exception {
+        Disciplina disciplina = new Disciplina();
+        disciplina.setNome((String) args.get(0));
+        disciplina.setCargaHoraria((Integer) args.get(1));
+        disciplina.setNumCreditos((Integer) args.get(2));
+        disciplina.setPeriodoCorrespondente((Integer) args.get(3));
+        Set<Disciplina> prerequisitos =  (Set) args.get(4);
+        if(prerequisitos!=null)
+            disciplina.setPrerequisito(new ArrayList<Disciplina>(prerequisitos));
+        
+        disciplina.setCurso((Curso) args.get(5));
+        disciplina.setAreaConhecimento((AreaConhecimento) args.get(6));
+
+        return (Disciplina) apDaoDisciplina.salvar(disciplina);
+    }
+
+    public Disciplina alterarDisciplina(Disciplina disciplina) throws Exception {
+        return (Disciplina) apDaoDisciplina.salvar(disciplina);
+    }
+
+    public void apagarDisciplina(Disciplina disciplina) throws Exception {
+        apDaoDisciplina.excluir(disciplina);
+    }
+
+    public List<Disciplina> obterDisciplinas() {
+        return (List<Disciplina>) apDaoDisciplina.obter(Disciplina.class);
+    }
+
+    public List<Disciplina> obterDisciplinas(Curso curso) {
+        return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
+    }
+    
+    public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() {
+        return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);
+    }
+
+    public List<AreaConhecimento> obterAreaConhecimentos() {
+        return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
+    }
+}

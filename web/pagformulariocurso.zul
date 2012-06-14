@@ -1,0 +1,45 @@
+<?page title="Cadastro Curso" contentType="text/html;charset=UTF-8"?>
+<zk>
+	
+    <window id = "winCadastro" action="show: slideDown;hide: slideUp" title="Cadastro" border="normal" width="50%" apply = "academico.controleinterno.cih.PagFormularioCurso" closable="true" mode="modal" position="center">
+        <grid>
+            <columns>
+                    <column label="" />
+                    <column label="" />
+            </columns>
+            <rows>
+                <row>
+                    <label value="Nome: " />
+                    <textbox id="nome" width = "275px"/>
+                </row>
+                <row>
+                    <label value="Duração: " />
+                    <intbox id="duracao" />
+                </row>
+                <row>
+                    <label value="Descrição: " />
+                    <textbox id="descricao" width = "275px"/>
+                </row>
+                <row>
+                    <label value="Grau de instrução: " />
+                    <combobox id = "grauInstrucao" readonly="true" width = "200px">
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Grande área de conhecimento: " />
+                    <combobox id = "grandeAreaConhecimento" readonly="true" width = "200px">
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Regime: " />
+                    <combobox id = "regime" readonly="true" width = "200px">
+                    </combobox>
+                </row>
+            </rows>
+        </grid>
+        <separator />
+        <div align="center">
+                <button label="Salvar" id = "Salvar"/>
+        </div>
+    </window>	
+</zk>

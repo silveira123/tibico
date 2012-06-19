@@ -1,0 +1,86 @@
+<?page title="Formulario Calendário" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<separator />
+		<div align="center">
+			<label value="Tibico - SRA"
+				style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+			</label>
+		</div>
+	<separator />
+	
+	<div align="center">
+		<window title="Página Formulário Calendário" border="normal" width="60%">
+			<separator />
+			<grid>
+				<columns>
+					<column width="25%"/>
+					<column width="25%"/>
+					<column width="25%"/>
+					<column width="25%"/>
+				</columns>
+				<rows>
+						
+					<row>
+						Identificador:
+							<textbox id="identificador" width="30%"/>
+							
+						Duração:
+							<textbox id="duracao" width="80%"/>
+					</row>
+						
+					
+					<row>
+						Início do Calendário Acadêmico:
+							<datebox id="dataInicioCA" readonly="true"/>
+						
+						Fim do Calendário Acadêmico:
+							<datebox id="dataFimCA" readonly="true"/>				
+					</row>
+					
+					<row>
+						Início do Período Letivo:
+							<datebox id="dataInicioPL" readonly="true"/>
+						
+						Fim do Período Letivo:
+							<datebox id="dataFimPL" readonly="true"/>				
+					</row>
+					
+					<row>
+						Início do Período Matrícula:
+							<datebox id="dataInicioPM" readonly="true"/>
+						
+						Fim do Período Matrícula:
+							<datebox id="dataFimPM" readonly="true"/>				
+					</row>
+					
+					<row>
+						  <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+						  <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+					</row>
+				
+				</rows>
+			</grid>
+
+			<separator />
+			
+			<button width="10%" label="Ok" onClick=""></button>
+			<button width="10%" label="Cancelar" onClick=""></button>
+						
+		</window>
+	</div>
+	<script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
+	<script type="text/javascript" src="/watermarkinput.js" />
+	<script type="text/javascript">
+		zk.afterMount(function() {
+
+		jq("$duracao").Watermark(" semestral, bimestral, etc","gray");
+
+		jq("$identificador").mask(" 9999/9");
+	
+		
+
+		});
+	</script>
+	
+	
+</zk>

@@ -1,0 +1,66 @@
+<?page title="Eventos Turma"?>
+
+<zk>
+	<separator />
+		<div align="center">
+			<label value="Tibico - SRA"
+				style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+			</label>
+		</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Evento Turma" border="normal"
+			width="50%">
+
+			<separator height="35px"/>
+
+			<fisheyebar>
+				<fisheye tooltiptext="Incluir uma turma"
+					image="/img/incluir.jpg" />
+				<fisheye tooltiptext="alterar uma turma"
+					image="/img/alterar.jpg" />
+				<fisheye tooltiptext="consultar uma turma"
+					image="/img/consultar.jpg" />
+				<fisheye tooltiptext="excluir uma turma"
+					image="/img/excluir.jpg" />
+			</fisheyebar>
+
+			<separator height="35px"/>
+
+			<menubar>
+				<menuitem tooltiptext="Incluir uma turma" label="Incluir"
+					width="20%" />
+				<menuitem tooltiptext="alterar uma turma" label="Alterar"
+					width="20%" />
+				<menuitem tooltiptext="consultar uma turma"
+					label="Consultar" width="20%" />
+				<menuitem tooltiptext="excluir uma turma" label="Excluir"
+					width="20%" />
+			</menubar>
+
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center" label="Turmas Cadastradas" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Disciplina" />
+					<column align="center" label="Calendário" />
+					<column align="center" label="Professor" />
+
+				</columns>
+
+
+			</grid>
+
+
+		</window>
+	</div>
+
+</zk>

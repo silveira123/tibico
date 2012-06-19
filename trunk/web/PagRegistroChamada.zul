@@ -1,0 +1,103 @@
+<?page title="Registro Chamada"?>
+
+<zk>
+
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Registro Chamada" border="normal"
+			width="50%">
+	
+			
+	
+			<grid>
+				<columns>
+					<column width="20%" label=""/>
+					<column width="80%" label=""/>
+				</columns>
+				<rows>
+					
+					<row>			
+				 		Turma: 		 
+				  			<textbox id="nome" width="50%"/>
+					</row>
+					
+					
+					<row>
+						Data:
+							<datebox id="data" readonly="true" />	
+					</row>
+					
+					<row>
+						Quantidade de Aulas:
+							<intbox id="qtdAulas" width="8%"/>	
+					</row>
+					
+					<row>
+						Conteúdo:
+							<textbox id="conteudo" multiline="true" rows="5" width="50%"/>	
+					</row>
+				
+										
+				</rows>
+			</grid>
+			
+			<separator height="10px"/>
+		
+			
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center"
+					label="Aulas Cadastradas" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Matrícula" width="15%"/>
+					<column align="center" label="Nome" width="45%"/>
+					<column align="center" label="Faltas Acumuladas" width="20%"/>
+					<column align="center" label="Quantidade de Faltas" width="20%" />
+				</columns>
+				
+				<rows>
+				
+					<row>
+						<label value="20092bsi0292"/>
+						<label value="Geann valfréé"/>
+						<label value="20"/>
+						<intbox width="20%"/>
+					</row>
+					
+					<row>
+						<label value="20092bsi0292"/>
+						<label value="JotaPÉ"/>
+						<label value="2"/>
+						<intbox width="20%"/>
+					</row>
+				
+				</rows>	
+
+			</grid>
+			
+			<separator height="8px"/>
+			
+			<button width="10%" label="Salvar" onClick=""></button>
+			<button width="10%" label="Cancelar" onClick=""></button>
+						
+		</window>
+	</div>
+	
+
+</zk>
+
+

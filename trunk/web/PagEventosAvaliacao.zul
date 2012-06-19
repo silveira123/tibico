@@ -1,0 +1,79 @@
+<?page title="Eventos Avaliação"?>
+
+<zk>
+
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Evento Avaliação" border="normal"
+			width="50%">
+
+			<grid>
+				<columns>
+					<column width="20%" label=""/>
+					<column width="80%" label=""/>
+				</columns>
+				<rows>
+				
+					<row>
+						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+					</row>
+					
+					
+					<row>			
+				 		Turma: 		 
+				  			<textbox id="nome" width="50%"/>
+					</row>
+					
+					<row>
+						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+					</row>
+					
+				</rows>
+			</grid>
+			
+			
+
+			<menubar>
+				<menuitem tooltiptext="Incluir Avaliação" label="Incluir"/>
+				<menuitem tooltiptext="Alterar Avaliação" label="Alterar"/>
+				<menuitem tooltiptext="Consultar Avaliação" label="Consultar"/>
+				<menuitem tooltiptext="Excluir Avaliação" label="Excluir"/>
+				<menuitem tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
+			</menubar>
+
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center"
+					label="Avaliações Cadastradas" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Nome" />
+					<column align="center" label="Peso" />
+				</columns>
+
+
+			</grid>
+
+
+		</window>
+	</div>
+	
+
+</zk>
+
+

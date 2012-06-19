@@ -1,0 +1,74 @@
+<?page title="Eventos Calendário"?>
+
+<zk>
+
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Evento Calendário" border="normal"
+			width="50%">
+
+			<separator height="35px"/>
+
+			<fisheyebar>
+				<fisheye tooltiptext="Incluir um calendário"
+					image="/img/incluir.jpg" />
+				<fisheye tooltiptext="alterar um calendário"
+					image="/img/alterar.jpg" />
+				<fisheye tooltiptext="consultar um calendário"
+					image="/img/consultar.jpg" />
+				<fisheye tooltiptext="excluir um calendário"
+					image="/img/excluir.jpg" />
+			</fisheyebar>
+
+			<separator height="35px"/>
+
+			<menubar>
+				<menuitem tooltiptext="Incluir um calendário"
+					label="Incluir" width="20%" />
+				<menuitem tooltiptext="alterar um calendário"
+					label="Alterar" width="20%" />
+				<menuitem tooltiptext="consultar um calendário"
+					label="Consultar" width="20%" />
+				<menuitem tooltiptext="excluir um calendário"
+					label="Excluir" width="20%" />
+			</menubar>
+
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center"
+					label="Calendários Cadastrados" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Identificador" />
+					<column align="center" label="Data de Inicio Calendário Acadêmico" />
+					<column align="center" label="Data de Fim Calendário Acadêmico" />
+				</columns>
+
+
+			</grid>
+
+
+		</window>
+	</div>
+
+
+
+
+
+
+</zk>
+
+

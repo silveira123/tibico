@@ -1,0 +1,104 @@
+<?page title="Relatório Resultados"?>
+
+<zk>
+
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Relatório Resultados" border="normal"
+			width="70%">
+	
+			<separator height="10px"/>
+	
+			<grid>
+				<columns>
+					<column width="20%" label=""/>
+					<column width="80%" label=""/>
+				</columns>
+				<rows>
+					
+					<row>			
+				 		Curso: 		 
+				  			<combobox id="curso" width="50%"/>
+					</row>
+					
+					
+					<row>
+						Calendário Acadêmico:
+							<combobox id="calendarioAcademico"/>	
+					</row>
+					
+					<row>
+						Turma:
+							<combobox id="turma" width="50%"/>	
+					</row>
+													
+										
+				</rows>
+			</grid>
+			
+			<separator height="10px"/>
+							
+			<auxhead>
+				<auxheader align="center"
+					label="Relatório de Resultados" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Matrícula" width="10%"/>
+					<column align="center" label="Nome" width="40%"/>
+					<column align="center" label="Freqência (%)" width="15%"/>
+					<column align="center" label="Nota Final" width="8%" />
+					<column align="center" label="Média da Turma" width="12%" />
+					<column align="center" label="Situação" width="15%" />
+					
+					
+				</columns>
+				
+				<rows>
+					<row>
+						<label value="20092bsi0292"/>
+						<label value="Geann Valfréé"/>
+						<label value="10%"/>
+						<label value="85"/>
+						<label value="45"/>
+						<label value="Aprovado"/>
+					
+					</row>
+					
+					<row>
+						<label value="20092bsi0292"/>
+						<label value="Geann Valfréé"/>
+						<label value="10%"/>
+						<label value="85"/>
+						<label value="45"/>
+						<label value="Aprovado"/>
+					
+					</row>
+					
+				
+				</rows>	
+
+			</grid>
+			
+			<separator height="8px"/>
+			
+			<button id="fechar" width="10%" label="Fechar" onClick=""></button>
+			
+						
+		</window>
+	</div>
+	
+
+</zk>
+
+

@@ -1,0 +1,53 @@
+<?page title="Formulário Avaliação"?>
+
+<zk>
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Formulário Avaliação" border="normal" width="30%">
+
+			<separator height="15px" />
+				<grid>
+					<columns>
+						<column width="30%"/>
+						<column width="70%"/>
+					</columns>
+					<rows>
+						
+						<row>
+							Turma:
+								<textbox id="turma"/>
+						</row>
+						
+						<row>
+							Nome da Avaliação:
+								<textbox id="nomeAvaliacao" width="20%"/>
+						</row>
+						
+						<row>
+							Peso:
+								<intbox id="peso" width="8%"/>
+						</row>
+						
+					</rows>
+				</grid>
+
+			<separator/>
+			<button  label="Salvar" onClick="" />
+			<button  label="Cancelar" onClick="" />
+			
+			
+			
+
+
+		</window>
+	</div>
+</zk>
+
+

@@ -1,0 +1,72 @@
+<?page title="Eventos Professor"?>
+
+<zk>
+
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Evento Professor" border="normal"
+			width="50%">
+
+			<separator height="35px"/>
+
+			<fisheyebar>
+				<fisheye tooltiptext="Incluir um professor"
+					image="/img/incluir.jpg" />
+				<fisheye tooltiptext="alterar um professor"
+					image="/img/alterar.jpg" />
+				<fisheye tooltiptext="consultar um professor"
+					image="/img/consultar.jpg" />
+				<fisheye tooltiptext="excluir um professor"
+					image="/img/excluir.jpg" />
+			</fisheyebar>
+
+			<separator height="35px"/>
+
+			<menubar>
+				<menuitem tooltiptext="Incluir um professor"
+					label="Incluir" width="20%" />
+				<menuitem tooltiptext="alterar um professor"
+					label="Alterar" width="20%" />
+				<menuitem tooltiptext="consultar um professor"
+					label="Consultar" width="20%" />
+				<menuitem tooltiptext="excluir um professor"
+					label="Excluir" width="20%" />
+			</menubar>
+
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center"
+					label="Professores Cadastrados" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Nome" />
+				</columns>
+
+
+			</grid>
+
+
+		</window>
+	</div>
+
+
+
+
+
+
+</zk>
+
+

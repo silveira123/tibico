@@ -1,0 +1,203 @@
+<?page title="Boletim" contentType="text/html;charset=UTF-8"?>
+<zk>
+<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+    	
+    	<div align="center">
+	    	<window title="Página Boletim" border="normal" width="50%">
+	    	<separator height="35px" />
+			<separator/>
+			<grid>
+				<columns>
+						<column width="20%"/>
+						<column width="20%"/>
+						<column width="70%"/>
+					</columns>
+				<rows>
+					
+					<row>
+						Aluno:
+						<intbox id="matricula" width="98%" />
+		
+						<combobox id="nome" width="80%" autocomplete="true"
+							autodrop="true" buttonVisible="true" />
+					</row>
+					<row>
+						Calendário Acadêmico:<cell colspan="3">
+						<combobox id="calendario" width="30%" autocomplete="true"
+							autodrop="true" buttonVisible="true" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<separator/>
+			<grid>
+				<columns>
+						<column width="20%"/>
+						<column width="80%"/>
+						<column width="20%"/>
+						<column width="30%"/>
+					</columns>
+				<rows>
+					<row>
+						Curso:
+						<label id="curso" width="98%" value="Engenharia da Pesca"/>  
+					 	 Coeficiente:
+						<label id="coeficiente" width="98%" value="80,3"/> 
+					</row>
+					
+					<row>
+						Disciplinas Cursadas:
+							<cell colspan="3">
+								<listbox id="disciplinas"  checkmark="false" multiple="true" height="500px">
+									<listhead >
+										<listheader label="Disciplina" width="50%" align="center"/>
+										<listheader label="Faltas" width="16%" align="center"/>
+										<listheader label="Nota" width="15%" align="center"/>
+										<listheader label="Situacão" width="19%" align="center"/>
+									</listhead>
+									<listitem>
+										<listcell label="Cálculo I"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Lógica"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Programação I"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="FSI"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Programação II"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Cálculo II"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Teoria Geral da Administração"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Matemática Nada Discreta"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Estrutura de Dados"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Programação Orientada a Objetos I"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Programação Orientada a Objetos II"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Análise de Sistemas"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Projeto de Sistemas"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Gerencia de Projetos"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia do Trabalho"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca I"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca II"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca III"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca VI"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca V"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca VI"/>
+										<listcell label="0"/>
+										<listcell label="85,0"/>
+										<listcell label="Aprovado"/>
+									</listitem>
+									
+									
+									
+								</listbox>
+							</cell>
+					</row> 
+				</rows>
+			</grid>
+
+		    <button id="fechar" width="10%" label="Fechar" onClick=""></button>
+		    
+		    </window>
+	    </div>
+</zk>

@@ -1,21 +1,74 @@
-<?page title="Dados Curso" contentType="text/html;charset=UTF-8"?>
+<?page title="Eventos Curso"?>
+
 <zk>
-    <div align="center">
-        <window title="Eventos Curso" border="normal" width="50%" apply = "academico.controleinterno.cih.PagEventosCurso" id="winDadosCurso" closable="true">
-            <listbox id = "listbox" mold="paging" pageSize="10">
-                <listhead>
-                    <listheader label="Nome" sort="auto" />
-                </listhead>
 
-            </listbox>
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
 
-            <separator/>
-            <button label="Incluir" id = "Incluir" />
-            <button label="Excluir" id = "Excluir" />
-            <button label="Editar"  id = "Editar" />
-            <button label="Consultar"  id = "Consultar" />
-            <button label="Adicionar Disciplina"  id = "addDisciplina" />
+	<div align="center">
+		<window title="Página Evento Curso" border="normal"
+			width="50%">
 
-        </window>
-    </div>
+			<separator height="35px"/>
+
+			<fisheyebar itemMaxWidth="100" itemMaxHeight="100">
+				<fisheye tooltiptext="Incluir um Curso"
+					image="/img/incluir.jpg" />
+				<fisheye tooltiptext="alterar um Curso"
+					image="/img/alterar.jpg" />
+				<fisheye tooltiptext="consultar um Curso"
+					image="/img/consultar.jpg" />
+				<fisheye tooltiptext="excluir um Curso"
+					image="/img/excluir.jpg" />
+			</fisheyebar>
+
+			<separator height="35px"/>
+
+			<menubar>
+				<menuitem tooltiptext="Incluir um Curso"
+					label="Incluir" width="20%" />
+				<menuitem tooltiptext="Alterar um Curso"
+					label="Alterar" width="20%" />
+				<menuitem tooltiptext="Consultar um Curso"
+					label="Consultar" width="20%" />
+				<menuitem tooltiptext="Excluir um Curso"
+					label="Excluir" width="20%" />
+			</menubar>
+
+			<separator />
+			<separator />
+
+			<auxhead>
+				<auxheader align="center"
+					label="Cursos Cadastrados" />
+			</auxhead>
+
+			<separator />
+
+			<grid>
+				<columns>
+					<column align="center" label="Nome" />
+					<column align="center" label="Grau Instrução" />
+					<column align="center" label="Duração" />
+				</columns>
+
+
+			</grid>
+
+
+		</window>
+	</div>
+
+
+
+
+
+
 </zk>
+
+

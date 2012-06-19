@@ -1,48 +1,208 @@
-<?page title="Cadastro Disciplina" contentType="text/html;charset=UTF-8"?>
+<?page title="Formulário Disciplina"?>
+
 <zk>
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Formulário Disciplina" border="normal" width="60%">
+
+			<separator height="15px" />
+				<grid>
+					<columns>
+						<column width="30%"/>
+						<column width="5%"/>
+						<column width="70%"/>
+					</columns>
+					<rows>
+						<row>
+							Curso:
+							<cell colspan="2">
+								<combobox id="curso" width="30%"/>
+							</cell>
+						</row>
+						<row>
+							Nome:
+								<cell colspan="2">
+								<textbox id="disciplina" width="60%"/>
+								</cell>
+						</row>
+						<row>
+							Área de Conhecimeto:
+							<cell colspan="2">
+								<listbox id="areaConhecimento"  checkmark="true" multiple="true" height="200px">
+									<listhead>
+										<listheader label="     Marcar Todas"/>
+									</listhead>
+									<listitem>
+										<listcell label="Matemática"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Ciência da Computação"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Probabilidade e Estatística"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Física"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Astronomia"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Química"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Oceonografia"/>
+										
+									</listitem>
+									
+									
+									
+								</listbox>
+							</cell>
+						</row>
+						
+						
+						<row>
+							Carga Hórario:
+								<intbox id="cargaHorario" width="90%"/>
+								
+								Horas
+						</row>
+						<row>
+							Créditos:
+							<cell colspan="2">
+								<intbox id="creditos" width="4%"/>
+							</cell>
+						</row>
+						<row>
+							Período Correspondente:
+							<cell colspan="2">
+								<intbox id="periodo" width="4%"/>
+							</cell>
+						</row>
+						<row>
+							Pré-Requisitos:
+							<cell colspan="2">
+								<listbox checkmark="true" multiple="true" height="200px">
+									<listhead>
+										<listheader label="     Marcar Todas"/>
+									</listhead>
+									<listitem>
+										<listcell label="Cálculo I"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Lógica"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Programação I"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="FSI"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Programação II"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Cálculo II"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Teoria Geral da Administração"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Matemática Nada Discreta"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Estrutura de Dados"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Programação Orientada a Objetos I"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Programação Orientada a Objetos II"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Análise de Sistemas"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Projeto de Sistemas"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Gerencia de Projetos"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia do Trabalho"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca I"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca II"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca III"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca VI"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca V"/>
+										
+									</listitem>
+									<listitem>
+										<listcell label="Engenharia da Pesca VI"/>
+										
+									</listitem>
+								</listbox>
+							</cell>
+						</row>
+						
+					</rows>
+				</grid>
+
+			<separator/>
+			<button  label="Salvar" onClick="" />
+			<button  label="Cancelar" onClick="" />
+			
+			
+			
+
+
+		</window>
+	</div>
 	
-    <window id = "winCadastro" action="show: slideDown;hide: slideUp" title="Cadastro" border="normal" width="50%" apply = "academico.controleinterno.cih.PagFormularioDisciplina" closable="true" mode="modal" position="center">
-        <grid>
-            <columns>
-                    <column label="" />
-                    <column label="" />
-            </columns>
-            <rows>
-                <row>
-                    <label value="Nome: " />
-                    <textbox id="nome" width = "275px"/>
-                </row>
-                <row>
-                    <label value="Carga horária: " />
-                    <intbox id="cargaHoraria" />
-                </row>
-                <row>
-                    <label value="Número de créditos: " />
-                    <intbox id="numCreditos" />
-                </row>
-                <row>
-                    <label value="Área de Conhecimento: " />
-                    <combobox id = "areaConhecimento" readonly="true" width = "200px">
-                    </combobox>
-                </row>
-                <row>
-                    <label value="Periodo Correspondente: " />
-                    <intbox id="periodoCorrespondente" />
-                </row>
-                
-                <row>
-                    <label value="Pré-Requisitos: " />
-                    <listbox id="preRequisitos">
-                            <listhead>
-                                    <listheader label=""/>
-                            </listhead>
-                    </listbox>   
-                </row>
-            </rows>
-        </grid>
-        <separator />
-        <div align="center">
-                <button label="Salvar" id = "salvar"/>
-        </div>
-    </window>	
+	
 </zk>
+
+

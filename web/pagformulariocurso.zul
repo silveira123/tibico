@@ -1,45 +1,78 @@
-<?page title="Cadastro Curso" contentType="text/html;charset=UTF-8"?>
+<?page title="Formulário Curso"?>
+
 <zk>
+	<separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator />
+
+	<div align="center">
+		<window title="Página Formulário Curso" border="normal" width="60%">
+
+			<separator height="15px" />
+				<grid>
+					<columns>
+						<column width="30%"/>
+						<column width="5%"/>
+						<column width="70%"/>
+					</columns>
+					<rows>
+						
+						<row>
+							Nome:
+								<cell colspan="2">
+								<textbox id="curso" width="60%"/>
+								</cell>
+						</row>
+						<row>
+							Grande Área de Conhecimeto:
+							<cell colspan="2">
+								<combobox id="grandeArea" width="40%"/>
+							</cell>
+						</row>
+						<row>
+							Grau de Instrução:
+							<cell colspan="2">
+								<combobox id="grauInstrucao" width="30%"/>
+							</cell>
+						</row>
+						<row>
+							Regime:
+								<cell colspan="2">
+								<combobox id="regime" width="30%"/>
+								</cell>
+						</row>
+						<row>
+							Duracão:
+								<intbox id="duracao" width="90%"/>
+								
+								Número de Períodos
+						</row>
+						<row>
+							Descrição:
+							<cell colspan="2">
+								<textbox id="descricao" width="60%" multiline="true" rows="8"  />
+								</cell>
+						</row>
+						
+					</rows>
+				</grid>
+
+			<separator/>
+			<button  label="Salvar" onClick="" />
+			<button  label="Cancelar" onClick="" />
+			
+			
+			
+
+
+		</window>
+	</div>
 	
-    <window id = "winCadastro" action="show: slideDown;hide: slideUp" title="Cadastro" border="normal" width="50%" apply = "academico.controleinterno.cih.PagFormularioCurso" closable="true" mode="modal" position="center">
-        <grid>
-            <columns>
-                    <column label="" />
-                    <column label="" />
-            </columns>
-            <rows>
-                <row>
-                    <label value="Nome: " />
-                    <textbox id="nome" width = "275px"/>
-                </row>
-                <row>
-                    <label value="Duração: " />
-                    <intbox id="duracao" />
-                </row>
-                <row>
-                    <label value="Descrição: " />
-                    <textbox id="descricao" width = "275px"/>
-                </row>
-                <row>
-                    <label value="Grau de instrução: " />
-                    <combobox id = "grauInstrucao" readonly="true" width = "200px">
-                    </combobox>
-                </row>
-                <row>
-                    <label value="Grande área de conhecimento: " />
-                    <combobox id = "grandeAreaConhecimento" readonly="true" width = "200px">
-                    </combobox>
-                </row>
-                <row>
-                    <label value="Regime: " />
-                    <combobox id = "regime" readonly="true" width = "200px">
-                    </combobox>
-                </row>
-            </rows>
-        </grid>
-        <separator />
-        <div align="center">
-                <button label="Salvar" id = "salvar"/>
-        </div>
-    </window>	
+	
 </zk>
+
+

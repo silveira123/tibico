@@ -21,12 +21,21 @@
 				<rows>
 						
 					<row>
-						Identificador:
+						Curso:
+							<combobox id="curso" width="80%"/>
+                                                
+                                                Identificador:
 							<textbox id="identificador" width="30%"/>
-							
+						
+					</row>
+                                        
+                                        <row>							
 						Duração:
 							<textbox id="duracao" width="80%"/>
+                                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"/>
 					</row>
+                                        
+                                        
 						
 					
 					<row>

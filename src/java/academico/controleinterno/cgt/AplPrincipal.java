@@ -35,7 +35,7 @@ public class AplPrincipal {
         DAO daoGA = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
         GrandeAreaConhecimento g = new GrandeAreaConhecimento();
         g.setNome("Exatas");
-        daoGA.salvar(g);
+//        daoGA.salvar(g);
         
     }
 

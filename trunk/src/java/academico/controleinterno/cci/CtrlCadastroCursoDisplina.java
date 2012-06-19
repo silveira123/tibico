@@ -7,18 +7,13 @@ package academico.controleinterno.cci;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cgt.AplCadastroCursoDisciplina;
-import academico.controleinterno.cih.PagFormularioCurso;
+import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpServletResponse;
-import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -55,7 +50,7 @@ public class CtrlCadastroCursoDisplina {
         apl.apagarCurso(curso);
     }
 
-    public List<Curso> obterCursos() {
+    public List<Curso> obterCursos() throws AcademicoException {
         return apl.obterCursos();
     }
 
@@ -71,7 +66,7 @@ public class CtrlCadastroCursoDisplina {
         apl.apagarDisciplina(disciplina);
     }
 
-    public List<Disciplina> obterDisciplinas() {
+    public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return apl.obterDisciplinas();
     }
 
@@ -79,11 +74,11 @@ public class CtrlCadastroCursoDisplina {
         return apl.obterDisciplinas(curso);
     }
 
-    public List<GrandeAreaConhecimento> obterGrandeAreaConhecimento() {
+    public List<GrandeAreaConhecimento> obterGrandeAreaConhecimento() throws AcademicoException {
         return apl.obterGrandeAreaConhecimentos();
     }
 
-    public List<AreaConhecimento> obterAreaConhecimento() {
+    public List<AreaConhecimento> obterAreaConhecimento() throws AcademicoException {
         return apl.obterAreaConhecimentos();
     }
 

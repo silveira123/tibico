@@ -3,6 +3,7 @@ package academico.controleinterno.cgt;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cgd.DisciplinaDAOJPA;
+import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -32,7 +33,7 @@ public class AplCadastroCursoDisciplina {
         return instance;
     }
 
-    public Curso incluirCurso(ArrayList<Object> args) throws Exception {
+    public Curso incluirCurso(ArrayList<Object> args) throws AcademicoException {
         Curso curso = new Curso();
         curso.setNome((String) args.get(0));
         curso.setDuracao((Integer) args.get(1));
@@ -52,11 +53,11 @@ public class AplCadastroCursoDisciplina {
         apDaoCurso.excluir(curso);
     }
 
-    public List<Curso> obterCursos() {
+    public List<Curso> obterCursos() throws AcademicoException {
         return (List<Curso>) apDaoCurso.obter(Curso.class);
     }
 
-    public Disciplina incluirDisciplina(ArrayList<Object> args) throws Exception {
+    public Disciplina incluirDisciplina(ArrayList<Object> args) throws AcademicoException {
         Disciplina disciplina = new Disciplina();
         disciplina.setNome((String) args.get(0));
         disciplina.setCargaHoraria((Integer) args.get(1));
@@ -69,7 +70,7 @@ public class AplCadastroCursoDisciplina {
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
-    public Disciplina alterarDisciplina(Disciplina disciplina) throws Exception {
+    public Disciplina alterarDisciplina(Disciplina disciplina) throws AcademicoException {
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
@@ -77,7 +78,7 @@ public class AplCadastroCursoDisciplina {
         apDaoDisciplina.excluir(disciplina);
     }
 
-    public List<Disciplina> obterDisciplinas() {
+    public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return (List<Disciplina>) apDaoDisciplina.obter(Disciplina.class);
     }
 
@@ -85,11 +86,11 @@ public class AplCadastroCursoDisciplina {
         return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
     }
     
-    public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() {
+    public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {
         return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);
     }
 
-    public List<AreaConhecimento> obterAreaConhecimentos() {
+    public List<AreaConhecimento> obterAreaConhecimentos() throws AcademicoException {
         return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
     }
 }

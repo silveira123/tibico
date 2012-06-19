@@ -21,6 +21,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
     private Intbox duracao;
     private Combobox grauInstrucao, grandeAreaConhecimento, regime;
     private Curso obj;
+    private Button salvar;
     private int MODO;
 
     @Override
@@ -57,6 +58,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
             obj = (Curso) arg.get("obj");
             preencherTela();
             if (MODO == ctrl.CONSULTAR) {
+                this.salvar.setVisible(false);
                 bloquearTela();
             }
         }
@@ -102,7 +104,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
         regime.setDisabled(true);
     }
 
-    public void onClick$Salvar(Event event) {
+    public void onClick$salvar(Event event) {
 
         Curso c = null;
         try {

@@ -4,6 +4,7 @@
  */
 package academico.util.persistencia;
 
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -16,23 +17,32 @@ public abstract class DAOJPA<T extends ObjetoPersistente> implements DAO<T> {
             Persistence.createEntityManagerFactory("JPA").
             createEntityManager();
 
-    public T salvar(T obj) {
-        // Inicia uma transação com o banco de dados.
-        entityManager.getTransaction().begin();
-        // Verifica se o curso ainda não está salvo no banco de dados.
-        if (obj.getId() == null) {
-            //Salva os dados do curso.
-            entityManager.persist(obj);
-        } else {
-            //Atualiza os dados do curso.
-            obj = entityManager.merge(obj);
+    public T salvar(T obj) throws AcademicoException {
+
+        try {
+            // Inicia uma transação com o banco de dados.
+            entityManager.getTransaction().begin();
+            // Verifica se o curso ainda não está salvo no banco de dados.
+            if (obj.getId() == null) {
+                //Salva os dados do curso.
+                entityManager.persist(obj);
+            }
+            else {
+                //Atualiza os dados do curso.
+                obj = entityManager.merge(obj);
+            }
+            // Finaliza a transação.
+            entityManager.getTransaction().commit();
         }
-        // Finaliza a transação.
-        entityManager.getTransaction().commit();
+        catch (Exception e) {
+            obj = null;
+            System.err.println("Erro ao obter " + e);
+            throw new AcademicoException("Erro ao obter " + e);
+        }
         return obj;
     }
 
-    public void excluir(T obj) {
+    public void excluir(T obj) throws AcademicoException {
         try {
             // Inicia uma transação com o banco de dados.
             entityManager.getTransaction().begin();
@@ -40,15 +50,24 @@ public abstract class DAOJPA<T extends ObjetoPersistente> implements DAO<T> {
             entityManager.remove(obj);
             // Finaliza a transação.
             entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            System.err.println("Erro no excluir curso " + e);
+        }
+        catch (Exception e) {
+            System.err.println("Erro ao excluir " + e);
+            throw new AcademicoException("Erro ao excluir " + e);
         }
     }
 
     //TODO tentar resolver a passagem do .class
-    public List<T> obter(Class<T> classe) {
-        Query query = entityManager.createQuery("SELECT t FROM " + classe.getSimpleName() + " t");
-        List<T> lista = query.getResultList();
+    public List<T> obter(Class<T> classe) throws AcademicoException {
+        List<T> lista = null;
+        try {
+            Query query = entityManager.createQuery("SELECT t FROM " + classe.getSimpleName() + " t");
+            lista = query.getResultList();
+        }
+        catch (Exception e) {
+            System.err.println("Erro ao obter " + e);
+            throw new AcademicoException("Erro ao obter " + e);
+        }
         return lista;
     }
 }

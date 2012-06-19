@@ -15,7 +15,6 @@ public abstract class DAOFactory {
         System.out.println(nome);
         nome = nome.replace("cdp", "cgd");
         nome = nome + "DAO" + tipo;
-        
         try {
             return (DAO) Class.forName(nome).newInstance();
         } catch (ClassNotFoundException ex) {

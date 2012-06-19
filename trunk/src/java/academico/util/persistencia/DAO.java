@@ -4,6 +4,7 @@
  */
 package academico.util.persistencia;
 
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
  */
 
 public interface DAO<T> {
-    public T salvar(T obj);
-    public void excluir(T obj);
-    public List<T> obter(Class<T> classe);
+    public T salvar(T obj) throws AcademicoException;
+    public void excluir(T obj) throws AcademicoException;
+    public List<T> obter(Class<T> classe) throws AcademicoException;
     //public T obterId(long id);
     //public void addCriterio(String); ???
 }

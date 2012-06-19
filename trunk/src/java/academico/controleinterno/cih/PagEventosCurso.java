@@ -5,6 +5,8 @@ import academico.controleinterno.cdp.Curso;
 import academico.util.persistencia.ObjetoPersistente;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -72,8 +74,7 @@ public class PagEventosCurso extends GenericForwardComposer {
     public void onClick$addDisciplina(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirEventosDisciplina((Curso) listitem.getValue());
+            ctrl.abrirEventosDisciplina((Curso)listitem.getValue());
         }
-    }
-    
+    }   
 }

@@ -19,5 +19,18 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 }}IS_RIGHT
 -->
 <zk xmlns="http://www.zkoss.org/2005/zul">
-    <a href="/pageventoscurso.zul">Cadastro Curso</a>
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+    </style>
+    
+    <separator />
+	<div align="center">
+		<label value="Tibico - SRA"
+			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+		</label>
+	</div>
+	<separator/>
+	<a href="/pageventoscurso.zul">Cadastro Curso</a>
 </zk>

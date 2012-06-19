@@ -77,7 +77,7 @@ public class Disciplina extends ObjetoPersistente {
         this.curso = curso;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.PERSIST)
     @JoinTable(name = "prerequisito",
     joinColumns = {
         @JoinColumn(name = "disciplina_id")},

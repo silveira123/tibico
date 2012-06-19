@@ -4,13 +4,12 @@ import academico.controleinterno.cci.CtrlCadastroCursoDisplina;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.util.academico.cdp.AreaConhecimento;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
+import org.zkoss.zul.ext.Selectable;
 
 public class PagFormularioDisciplina extends GenericForwardComposer {
 
@@ -22,6 +21,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     private Listbox preRequisitos;
     private Disciplina obj;
     private Curso objCurso;
+    private Button salvar;
     private int MODO;
 
     @Override
@@ -39,6 +39,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         }
         areaConhecimento.setModel(new ListModelList(vetAreaConhecimentos, true));
         preRequisitos.setModel(new ListModelList(data, true));
+        ((ListModelList)preRequisitos.getModel()).setMultiple(true);
     }
 
     public void onCreate$winCadastro() {
@@ -50,6 +51,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             obj = (Disciplina) arg.get("obj");
             preencherTela();
             if (MODO == ctrl.CONSULTAR) {
+                this.salvar.setVisible(false);
                 bloquearTela();
             }
         }
@@ -60,14 +62,23 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         cargaHoraria.setValue(obj.getCargaHoraria());
         numCreditos.setValue(obj.getNumCreditos());
         periodoCorrespondente.setValue(obj.getPeriodoCorrespondente());
+        
+        
         if (obj.getPrerequisito().size() > 0) {
-            preRequisitos.setSelectedItems(new HashSet(obj.getPrerequisito()));
+            List<Listitem> listItems = preRequisitos.getItems();
+            List selects = obj.getPrerequisito();
+            
+            for (int i = 0; i < listItems.size(); i++) {
+                if(selects.contains(listItems.get(i).getValue()))
+                    preRequisitos.addItemToSelection(listItems.get(i));
+            }
         }
 
-        List<Comboitem> a = areaConhecimento.getItems(); // retornado a lista de areadeconhecimento
+        // retornado a lista de areadeconhecimento
+        List<Comboitem> a = areaConhecimento.getItems();
         for (int i = 0; i < a.size(); i++) {
-            if (a.get(i).getValue() == obj.getAreaConhecimento()) // verificando qual a area de conhecimento cadastrado
-            {
+            // verificando qual a area de conhecimento cadastrado
+            if (a.get(i).getValue() == obj.getAreaConhecimento()) {
                 areaConhecimento.setSelectedItem(a.get(i));
             }
         }
@@ -82,7 +93,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         preRequisitos.setDisabled(true);
     }
 
-    public void onClick$Salvar(Event event) {
+    public void onClick$salvar(Event event) {
 
         Disciplina d = null;
         try {
@@ -93,45 +104,41 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 obj.setAreaConhecimento((AreaConhecimento) areaConhecimento.getSelectedItem().getValue());
                 obj.setPeriodoCorrespondente(periodoCorrespondente.getValue());
                 obj.setCurso(objCurso);
-                
-                //TODO fazer a conversao de set listitem para list disciplina
-//                if (preRequisitos.getSelectedCount() != 0) {
-//                    (preRequisitos.getSelectedItems());
-//                } else {
-//                    list.add(null);
-//                }
+
+                Set aux = ((Selectable) preRequisitos.getModel()).getSelection();
+                obj.setPrerequisito(new ArrayList<Disciplina>(aux));
 
                 d = ctrl.alterarDisciplina(obj);
                 alert("Cadastro editado!");
-            } else {
+            }
+            else {
                 ArrayList<Object> list = new ArrayList<Object>();
 
                 list.add(nome.getText());
                 list.add(cargaHoraria.getValue());
                 list.add(numCreditos.getValue());
                 list.add(periodoCorrespondente.getValue());
-                if (preRequisitos.getSelectedCount() != 0) {
-                    list.add(preRequisitos.getSelectedItems());
-                } else {
-                    list.add(null);
-                }
+
+                Set aux = ((Selectable) preRequisitos.getModel()).getSelection();
+                list.add(new ArrayList<Disciplina>(aux));
 
                 list.add(objCurso);
                 list.add(areaConhecimento.getSelectedItem().getValue());
 
                 d = ctrl.incluirDisciplina(list);
                 alert("Cadastro feito!");
-                
+
                 limparCampos();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             alert("Falha no cadastro feito!");
         }
 
     }
 
     public void onClose$winCadastro(Event event) {
-        ctrl.redirectPag("/pageventosdisciplina.zul");
+        ctrl.abrirEventosDisciplina(objCurso);
     }
 
     public void limparCampos() {

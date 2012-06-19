@@ -10,10 +10,15 @@ import academico.controleinterno.cgt.AplCadastroCursoDisciplina;
 import academico.controleinterno.cih.PagFormularioCurso;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
+import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -130,9 +135,8 @@ public class CtrlCadastroCursoDisplina {
         map.put("obj", curso);
         Executions.createComponents("/pageventosdisciplina.zul", null, map);
     }
-
+    
     public void redirectPag(String url) {
-        //TODO botar o USE no .zul para atualizar tabela
-        //Executions.sendRedirect(url);
+        Executions.sendRedirect(url);
     }
 }

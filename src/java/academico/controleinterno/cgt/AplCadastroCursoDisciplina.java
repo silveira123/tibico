@@ -62,10 +62,7 @@ public class AplCadastroCursoDisciplina {
         disciplina.setCargaHoraria((Integer) args.get(1));
         disciplina.setNumCreditos((Integer) args.get(2));
         disciplina.setPeriodoCorrespondente((Integer) args.get(3));
-        Set<Disciplina> prerequisitos =  (Set) args.get(4);
-        if(prerequisitos!=null)
-            disciplina.setPrerequisito(new ArrayList<Disciplina>(prerequisitos));
-        
+        disciplina.setPrerequisito((List<Disciplina>)args.get(4));
         disciplina.setCurso((Curso) args.get(5));
         disciplina.setAreaConhecimento((AreaConhecimento) args.get(6));
 

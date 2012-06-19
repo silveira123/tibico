@@ -39,7 +39,7 @@
         </grid>
         <separator />
         <div align="center">
-                <button label="Salvar" id = "Salvar"/>
+                <button label="Salvar" id = "salvar"/>
         </div>
     </window>	
 </zk>

@@ -7,10 +7,12 @@ import academico.controleinterno.cdp.Disciplina;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.*;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Window;
 
 
 public class PagEventosDisciplina extends GenericForwardComposer {
@@ -56,20 +58,23 @@ public class PagEventosDisciplina extends GenericForwardComposer {
     }
 
     public void onClick$Incluir(Event event) {
-        ctrl.abrirIncluirDisciplina(curso);
+        this.winDadosDisciplina.onClose();
+        ctrl.abrirIncluirDisciplina(curso);      
     }
 
     public void onClick$Editar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirEditarDisciplina((Disciplina) listitem.getValue(), curso);
+            this.winDadosDisciplina.onClose();
+            ctrl.abrirEditarDisciplina((Disciplina) listitem.getValue(), curso); 
         }
     }
     
     public void onClick$Consultar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirConsultarDisciplina((Disciplina) listitem.getValue(), curso);
+            this.winDadosDisciplina.onClose();
+            ctrl.abrirConsultarDisciplina((Disciplina) listitem.getValue(), curso);  
         }
     }
 

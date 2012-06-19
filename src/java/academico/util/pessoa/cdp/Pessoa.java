@@ -29,6 +29,7 @@ import javax.persistence.*;
  * @see
  */
 @Entity
+@Inheritance(strategy= InheritanceType.JOINED)
 public class Pessoa extends ObjetoPersistente{
     private String nome;
     private Calendar dataNascimento;
@@ -93,7 +94,8 @@ public class Pessoa extends ObjetoPersistente{
      * @return 
      */
     @OneToOne(cascade= CascadeType.PERSIST)
-    @JoinColumn(nullable= false)
+    @JoinColumn(nullable= true)
+    //TODO colocar nullable = false
     public Endereco getEndereco() {
         return endereco;
     }

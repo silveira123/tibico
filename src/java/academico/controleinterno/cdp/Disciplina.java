@@ -83,6 +83,7 @@ public class Disciplina extends ObjetoPersistente {
         @JoinColumn(name = "disciplina_id")},
     inverseJoinColumns = {
         @JoinColumn(name = "prerequisito_id")})
+    
     public List<Disciplina> getPrerequisito() {
         return prerequisito;
     }

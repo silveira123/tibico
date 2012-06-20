@@ -24,5 +24,5 @@ package academico.util.academico.cdp;
  * @see
  */
 public enum GrauInstrucao {
-    TÉCNICO, GRADUANDO, POSGRADUAÇÃO, MESTRADO, DOUTORADO;
+    TÉCNICO, GRADUAÇÃO, POSGRADUAÇÃO, MESTRADO, DOUTORADO;
 }

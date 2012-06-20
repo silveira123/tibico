@@ -2,73 +2,77 @@
 
 <zk>
 
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
+    <separator />
+    <div align="center">
+        <label value="Tibico - SRA"
+               style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+        </label>
+    </div>
+    <separator />
 
-	<div align="center">
-		<window title="Página Evento Discilplina" border="normal"
-			width="50%">
+    <div align="center">
+        <window title="Página Evento Discilplina" border="normal"
+                width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-				<fisheye tooltiptext="Incluir um Discilplina"
-					image="/img/incluir.jpg" />
-				<fisheye tooltiptext="alterar um Discilplina"
-					image="/img/alterar.jpg" />
-				<fisheye tooltiptext="consultar um Discilplina"
-					image="/img/consultar.jpg" />
-				<fisheye tooltiptext="excluir um Discilplina"
-					image="/img/excluir.jpg" />
-			</fisheyebar>
+            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
+                <fisheye tooltiptext="Incluir uma Discilplina"
+                         image="/img/incluir.jpg" />
+                <fisheye tooltiptext="Alterar uma Discilplina"
+                         image="/img/alterar.jpg" />
+                <fisheye tooltiptext="Consultar uma Discilplina"
+                         image="/img/consultar.jpg" />
+                <fisheye tooltiptext="Excluir uma Discilplina"
+                         image="/img/excluir.jpg" />
+            </fisheyebar>
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<menubar>
-				<menuitem tooltiptext="Incluir um Discilplina"
-					label="Incluir" width="20%" />
-				<menuitem tooltiptext="Alterar um Discilplina"
-					label="Alterar" width="20%" />
-				<menuitem tooltiptext="Consultar um Discilplina"
-					label="Consultar" width="20%" />
-				<menuitem tooltiptext="Excluir um Discilplina"
-					label="Excluir" width="20%" />
-			</menubar>
+            <menubar>
+                <menuitem tooltiptext="Incluir uma Disciplina"
+                          label="Incluir" width="20%" id="incluirDisciplina"/>
+                <menuitem tooltiptext="Alterar uma Disciplina"
+                          label="Alterar" width="20%" id="alterarDisciplina"/>
+                <menuitem tooltiptext="Consultar uma Disciplina"
+                          label="Consultar" width="20%" id="consultarDisciplina"/>
+                <menuitem tooltiptext="Excluir uma Disciplina"
+                          label="Excluir" width="20%" id="excluirDisciplina"/>
+            </menubar>
+            <grid>
+                <columns>
+                    <column   width="10%"/>
+                    <column  width="90%"/>
+					
+                </columns>
+                <rows>
+                    <row>
+                        Curso:
+								
+                        <combobox id="cursoCombo" width="50%"/>
+								
+                    </row>
+                </rows>
+            </grid>
+            <separator />
+            <separator />
 
-			<separator />
-			<separator />
+            <auxhead>
+                <auxheader align="center"
+                           label="Discilplina Cadastradas" />
+            </auxhead>
 
-			<auxhead>
-				<auxheader align="center"
-					label="Discilplina Cadastradas" />
-			</auxhead>
+            <separator />
 
-			<separator />
-
-			<grid>
-				<columns>
-					<column align="center" label="Nome" />
-					<column align="center" label="Curso" />
-					<column align="center" label="Carga Horária" />
-				</columns>
-
-
-			</grid>
-
-
-		</window>
-	</div>
-
-
-
-
-
-
+            <listbox id="listDisciplina">
+                <listhead>
+                    <listheader align="center" label="Nome" />
+                    <listheader align="center" label="Curso" />
+                    <listheader align="center" label="Carga Horária" />
+                </listhead>
+            </listbox>
+        </window>
+    </div>
 </zk>
 
 

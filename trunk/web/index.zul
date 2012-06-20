@@ -33,4 +33,6 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 	</div>
 	<separator/>
 	<a href="/pageventoscurso.zul">Cadastro Curso</a>
+        <separator/>
+        <a href="/PagEventosdisciplina.zul">Cadastro Disciplina</a>
 </zk>

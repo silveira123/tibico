@@ -2,13 +2,13 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
-import academico.util.academico.cdp.GrauInstrucao;
-import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zkex.zul.Fisheye;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Window;
 
 public class PagEventosCurso extends GenericForwardComposer {
 

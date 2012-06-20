@@ -1,6 +1,6 @@
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCursoDisplina;
+import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -13,7 +13,7 @@ import org.zkoss.zul.ext.Selectable;
 
 public class PagFormularioDisciplina extends GenericForwardComposer {
 
-    private CtrlCadastroCursoDisplina ctrl = CtrlCadastroCursoDisplina.getInstance();
+    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     private Window winCadastro;
     private Textbox nome;
     private Intbox cargaHoraria, numCreditos, periodoCorrespondente;

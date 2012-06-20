@@ -1,6 +1,6 @@
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCursoDisplina;
+import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.util.persistencia.ObjetoPersistente;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.zkoss.zul.Window;
 
 public class PagEventosCurso extends GenericForwardComposer {
 
-    private CtrlCadastroCursoDisplina ctrl = CtrlCadastroCursoDisplina.getInstance();
+    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     private Window winDadosCurso;
     private Listbox listbox;
     private ListModelList list;

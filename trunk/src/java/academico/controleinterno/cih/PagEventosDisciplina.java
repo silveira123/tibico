@@ -1,7 +1,7 @@
 package academico.controleinterno.cih;
 
 
-import academico.controleinterno.cci.CtrlCadastroCursoDisplina;
+import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.zkoss.zul.Window;
 
 
 public class PagEventosDisciplina extends GenericForwardComposer {
-    private CtrlCadastroCursoDisplina ctrl = CtrlCadastroCursoDisplina.getInstance();
+    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     
     private Window winDadosDisciplina;
     private Listbox listbox;

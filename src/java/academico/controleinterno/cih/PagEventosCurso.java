@@ -3,7 +3,9 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import java.util.List;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -15,82 +17,58 @@ public class PagEventosCurso extends GenericForwardComposer {
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     private Window winEventosCurso;
     private Listbox listCurso;
-//    private Fisheye
-            
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         List<Curso> cursos = ctrl.obterCursos();
-        
         if (cursos != null) {
             for (int i = 0; i < cursos.size(); i++) {
-                Listitem linha = new Listitem(cursos.get(i).toString(), cursos.get(i));
-                
+                Curso c = cursos.get(i);
+                Listitem linha = new Listitem(cursos.get(i).toString(), c);
+
                 linha.appendChild(new Listcell(cursos.get(i).getGrandeAreaConhecimento().toString()));
-                linha.appendChild(new Listcell(cursos.get(i).getDuracao()+""));
-                
+                linha.appendChild(new Listcell(cursos.get(i).getDuracao() + ""));
+
                 linha.setParent(listCurso);
             }
         }
     }
-        
-//    private CtrlCadastroCursoDisplina ctrl = CtrlCadastroCursoDisplina.getInstance();
-//    private Window winDadosCurso;
-//    private Listbox listbox;
-//    private ListModelList list;
-//
-//    @Override
-//    public void doAfterCompose(Component comp) throws Exception {
-//        super.doAfterCompose(comp);
-//
-//        List<Curso> listaCursos = ctrl.obterCursos();
-//        List<Curso> data = new ArrayList<Curso>();
-//
-//        if (listaCursos != null) {
-//            for (int i = 0; i < listaCursos.size(); i++) {
-//                data.add(listaCursos.get(i));
-//            }
-//        }
-//        listbox.setModel(new ListModelList(data, true));
-//    }
-//
-//    public void onClick$Excluir(Event event) {
-//        Listitem listitem = listbox.getSelectedItem();
-//        if (listitem != null) {
-//            try {
-//                ctrl.apagarCurso((Curso) listitem.getValue());
-//                listbox.removeItemAt(listbox.getSelectedIndex());
-//            } catch (Exception e) {
-//                alert("Não foi possivel excluir o curso");
-//            }
-//        } else {
-//            alert("Selecione um curso");
-//        }
-//
-//    }
-//
-//    public void onClick$Incluir(Event event) {
-//        ctrl.abrirIncluirCurso();
-//    }
-//
-//    public void onClick$Editar(Event event) {
-//        Listitem listitem = listbox.getSelectedItem();
-//        if (listitem != null) {
-//            ctrl.abrirEditarCurso((Curso) listitem.getValue());
-//        }
-//    }
-//
-//    public void onClick$Consultar(Event event) {
-//        Listitem listitem = listbox.getSelectedItem();
-//        if (listitem != null) {
-//            ctrl.abrirConsultarCurso((Curso) listitem.getValue());
-//        }
-//    }
-//    
-//    public void onClick$addDisciplina(Event event) {
-//        Listitem listitem = listbox.getSelectedItem();
-//        if (listitem != null) {
-//            ctrl.abrirEventosDisciplina((Curso)listitem.getValue());
-//        }
-//    }   
+
+    public void onClick$excluirCurso(Event event) {
+        Listitem listitem = listCurso.getSelectedItem();
+        if (listitem != null) {
+            try {
+                Curso c = listitem.getValue();
+                ctrl.apagarCurso(c);
+                listCurso.removeItemAt(listCurso.getSelectedIndex());
+            }
+            catch (Exception e) {
+                Messagebox.show("Não foi possivel excluir o curso");
+            }
+        }
+        else {
+            Messagebox.show("Selecione um curso");
+        }
+    }
+
+    public void onClick$incluirCurso(Event event) {
+        ctrl.abrirIncluirCurso();
+    }
+
+    public void onClick$alterarCurso(Event event) {
+        Listitem listitem = listCurso.getSelectedItem();
+        if (listitem != null) {
+            Curso c = listitem.getValue();
+            ctrl.abrirEditarCurso(c);
+        }
+    }
+
+    public void onClick$consultarCurso(Event event) {
+        Listitem listitem = listCurso.getSelectedItem();
+        if (listitem != null) {
+            Curso c = listitem.getValue();
+            ctrl.abrirConsultarCurso(c);
+        }
+    }
 }

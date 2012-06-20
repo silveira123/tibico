@@ -102,35 +102,26 @@ public class CtrlCadastroCurso {
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
-    public void abrirIncluirDisciplina(Curso curso) {
+    public void abrirIncluirDisciplina() {
         Map map = new HashMap();
         map.put("tipo", CtrlCadastroCurso.SALVAR);
-        map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
-    public void abrirEditarDisciplina(Disciplina disciplina, Curso curso) {
+    public void abrirEditarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
         map.put("tipo", CtrlCadastroCurso.EDITAR);
         map.put("obj", disciplina);
-        map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
-    public void abrirConsultarDisciplina(Disciplina disciplina, Curso curso) {
+    public void abrirConsultarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
         map.put("tipo", CtrlCadastroCurso.CONSULTAR);
         map.put("obj", disciplina);
-        map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
-    public void abrirEventosDisciplina(Curso curso) {
-        Map map = new HashMap();
-        map.put("obj", curso);
-        Executions.createComponents("/pageventosdisciplina.zul", null, map);
-    }
-    
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }

@@ -2,73 +2,63 @@
 
 <zk>
 
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
+    <separator />
+    <div align="center">
+        <label value="Tibico - SRA"
+                       style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+        </label>
+    </div>
+    <separator />
 
-	<div align="center">
-		<window title="Página Evento Curso" border="normal"
-			width="50%">
+    <div align="center">
+        <window title="Página Evento Curso" border="normal"
+                        width="50%" id="winEventosCurso" apply ="academico.controleinterno.cih.PagEventosCurso">
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-				<fisheye tooltiptext="Incluir um Curso"
-					image="/img/incluir.jpg" />
-				<fisheye tooltiptext="alterar um Curso"
-					image="/img/alterar.jpg" />
-				<fisheye tooltiptext="consultar um Curso"
-					image="/img/consultar.jpg" />
-				<fisheye tooltiptext="excluir um Curso"
-					image="/img/excluir.jpg" />
-			</fisheyebar>
+            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
+                <fisheye tooltiptext="Incluir um Curso"
+                                         image="/img/incluir.jpg" />
+                <fisheye tooltiptext="alterar um Curso"
+                                         image="/img/alterar.jpg" />
+                <fisheye tooltiptext="consultar um Curso"
+                                         image="/img/consultar.jpg" />
+                <fisheye tooltiptext="excluir um Curso"
+                                         image="/img/excluir.jpg" />
+            </fisheyebar>
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<menubar>
-				<menuitem tooltiptext="Incluir um Curso"
-					label="Incluir" width="20%" />
-				<menuitem tooltiptext="Alterar um Curso"
-					label="Alterar" width="20%" />
-				<menuitem tooltiptext="Consultar um Curso"
-					label="Consultar" width="20%" />
-				<menuitem tooltiptext="Excluir um Curso"
-					label="Excluir" width="20%" />
-			</menubar>
+            <menubar>
+                <menuitem tooltiptext="Incluir um Curso"
+                                          label="Incluir" width="20%" id="incluirCurso"/>
+                <menuitem tooltiptext="Alterar um Curso"
+                                          label="Alterar" width="20%" id="alterarCurso"/>
+                <menuitem tooltiptext="Consultar um Curso"
+                                          label="Consultar" width="20%" id="consultarCurso"/>
+                <menuitem tooltiptext="Excluir um Curso"
+                                          label="Excluir" width="20%" id="excluirCurso"/>
+            </menubar>
 
-			<separator />
-			<separator />
+            <separator />
+            <separator />
 
-			<auxhead>
-				<auxheader align="center"
-					label="Cursos Cadastrados" />
-			</auxhead>
+            <auxhead>
+                <auxheader align="center"
+                                           label="Cursos Cadastrados" />
+            </auxhead>
 
-			<separator />
+            <separator />
 
-			<grid>
-				<columns>
-					<column align="center" label="Nome" />
-					<column align="center" label="Grau Instrução" />
-					<column align="center" label="Duração" />
-				</columns>
-
-
-			</grid>
-
-
-		</window>
-	</div>
-
-
-
-
-
-
+            <listbox id="listCurso">
+                <listhead>
+                    <listheader align="center" label="Nome" />
+                    <listheader align="center" label="Grau Instrução" />
+                    <listheader align="center" label="Duração" />
+                </listhead>
+            </listbox>
+        </window>
+    </div>
 </zk>
 
 

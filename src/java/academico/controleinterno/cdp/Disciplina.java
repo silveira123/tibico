@@ -20,7 +20,7 @@ public class Disciplina extends ObjetoPersistente {
     private String nome;
     private int cargaHoraria;
     private int numCreditos;
-    private AreaConhecimento areaConhecimento;
+    private List<AreaConhecimento> areaConhecimento;
     private int periodoCorrespondente;
     private List<Disciplina> prerequisito;
     private Curso curso;
@@ -49,13 +49,17 @@ public class Disciplina extends ObjetoPersistente {
         this.numCreditos = numCreditos;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false)
-    public AreaConhecimento getAreaConhecimento() {
+    @ManyToMany(cascade= CascadeType.PERSIST)
+    @JoinTable(name = "DisciplinaConhecimento",
+    joinColumns = {
+        @JoinColumn(name = "disciplina_id")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "aconhecimento_id")})
+    public List<AreaConhecimento> getAreaConhecimento() {
         return areaConhecimento;
     }
 
-    public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
+    public void setAreaConhecimento(List<AreaConhecimento> areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }
 

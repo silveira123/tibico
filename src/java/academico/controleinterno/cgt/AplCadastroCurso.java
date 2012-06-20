@@ -65,7 +65,7 @@ public class AplCadastroCurso {
         disciplina.setPeriodoCorrespondente((Integer) args.get(3));
         disciplina.setPrerequisito((List<Disciplina>)args.get(4));
         disciplina.setCurso((Curso) args.get(5));
-        disciplina.setAreaConhecimento((AreaConhecimento) args.get(6));
+        disciplina.setAreaConhecimento((List<AreaConhecimento>) args.get(6));
 
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }

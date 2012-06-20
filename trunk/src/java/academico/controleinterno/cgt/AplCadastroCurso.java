@@ -15,20 +15,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AplCadastroCursoDisciplina {
+public class AplCadastroCurso {
 
     private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
     private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
     private DAO apDaoGrandeAreaConhecimento = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
     private DAO apDaoAreaConhecimento = DAOFactory.obterDAO("JPA", AreaConhecimento.class);
     
-    private AplCadastroCursoDisciplina() {
+    private AplCadastroCurso() {
     }
-    private static AplCadastroCursoDisciplina instance = null;
+    private static AplCadastroCurso instance = null;
 
-    public static AplCadastroCursoDisciplina getInstance() {
+    public static AplCadastroCurso getInstance() {
         if (instance == null) {
-            instance = new AplCadastroCursoDisciplina();
+            instance = new AplCadastroCurso();
         }
         return instance;
     }

@@ -6,7 +6,7 @@ package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cgt.AplCadastroCursoDisciplina;
+import academico.controleinterno.cgt.AplCadastroCurso;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
@@ -20,22 +20,22 @@ import org.zkoss.zk.ui.Executions;
  *
  * @author Administrador
  */
-public class CtrlCadastroCursoDisplina {
+public class CtrlCadastroCurso {
 
     public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
-    private AplCadastroCursoDisciplina apl = AplCadastroCursoDisciplina.getInstance();
-    private static CtrlCadastroCursoDisplina instance = null;
+    private AplCadastroCurso apl = AplCadastroCurso.getInstance();
+    private static CtrlCadastroCurso instance = null;
 
-    public static CtrlCadastroCursoDisplina getInstance() {
+    public static CtrlCadastroCurso getInstance() {
         if (instance == null) {
-            instance = new CtrlCadastroCursoDisplina();
+            instance = new CtrlCadastroCurso();
         }
         return instance;
     }
 
-    private CtrlCadastroCursoDisplina() {
+    private CtrlCadastroCurso() {
     }
 
     public Curso incluirCurso(ArrayList<Object> args) throws Exception {
@@ -84,34 +84,34 @@ public class CtrlCadastroCursoDisplina {
 
     public void abrirIncluirCurso() {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCursoDisplina.SALVAR);
+        map.put("tipo", CtrlCadastroCurso.SALVAR);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirEditarCurso(Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCursoDisplina.EDITAR);
+        map.put("tipo", CtrlCadastroCurso.EDITAR);
         map.put("obj", curso);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirConsultarCurso(Curso curso) {
         Map map = new HashMap();
-        Object put = map.put("tipo", CtrlCadastroCursoDisplina.CONSULTAR);
+        Object put = map.put("tipo", CtrlCadastroCurso.CONSULTAR);
         map.put("obj", curso);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirIncluirDisciplina(Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCursoDisplina.SALVAR);
+        map.put("tipo", CtrlCadastroCurso.SALVAR);
         map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
     public void abrirEditarDisciplina(Disciplina disciplina, Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCursoDisplina.EDITAR);
+        map.put("tipo", CtrlCadastroCurso.EDITAR);
         map.put("obj", disciplina);
         map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
@@ -119,7 +119,7 @@ public class CtrlCadastroCursoDisplina {
 
     public void abrirConsultarDisciplina(Disciplina disciplina, Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCursoDisplina.CONSULTAR);
+        map.put("tipo", CtrlCadastroCurso.CONSULTAR);
         map.put("obj", disciplina);
         map.put("curso", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);

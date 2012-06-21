@@ -29,10 +29,19 @@ public abstract class ObjetoPersistente implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        ObjetoPersistente op = (ObjetoPersistente) obj;
-        
-        if(this.id == op.id) 
+
+        if(obj instanceof ObjetoPersistente &&
+            ((ObjetoPersistente)obj).id != null && 
+                this.id != null &&
+                    this.id == ((ObjetoPersistente)obj).id) 
             return true;
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

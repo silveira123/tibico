@@ -38,7 +38,7 @@ public class Turma extends ObjetoPersistente {
     private Calendario calendario;
     private Disciplina disciplina;
     private ArrayList<Horario> horario;
-    
+    //TODO fazer a parte do professor
     
     public Turma() {
         

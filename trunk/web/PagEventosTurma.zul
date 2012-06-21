@@ -10,8 +10,8 @@
 	<separator />
 
 	<div align="center">
-		<window title="Página Evento Turma" border="normal"
-			width="50%">
+		<window id="winEventosTurma" title="Página Evento Turma" border="normal"
+			width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
 
 			<separator height="35px"/>
 
@@ -29,13 +29,13 @@
 			<separator height="35px"/>
 
 			<menubar>
-				<menuitem tooltiptext="Incluir uma turma" label="Incluir"
+				<menuitem id="incluir" tooltiptext="Incluir uma turma" label="Incluir"
 					width="20%" />
-				<menuitem tooltiptext="alterar uma turma" label="Alterar"
+				<menuitem id="alterar" tooltiptext="alterar uma turma" label="Alterar"
 					width="20%" />
-				<menuitem tooltiptext="consultar uma turma"
+				<menuitem id="consultar" tooltiptext="consultar uma turma"
 					label="Consultar" width="20%" />
-				<menuitem tooltiptext="excluir uma turma" label="Excluir"
+				<menuitem id="excluir" tooltiptext="excluir uma turma" label="Excluir"
 					width="20%" />
 			</menubar>
 
@@ -47,19 +47,17 @@
 			</auxhead>
 
 			<separator />
+                        
+                        <listbox id = "listbox" mold="paging" pageSize="10">
+                            <listhead>
+                                <listheader align="center" label="Disciplina" sort="auto" />
+                                <listheader align="center" label="Calendário" sort="auto" />
+                                <listheader align="center" label="Professor" sort="auto" />
+                            </listhead>
 
-			<grid>
-				<columns>
-					<column align="center" label="Disciplina" />
-					<column align="center" label="Calendário" />
-					<column align="center" label="Professor" />
-
-				</columns>
-
-
-			</grid>
-
-
+                        </listbox>
+                        
+			
 		</window>
 	</div>
 

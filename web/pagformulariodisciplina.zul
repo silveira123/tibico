@@ -69,8 +69,8 @@
             </grid>
 
             <separator/>
-            <button  label="Salvar" onClick="" />
-            <button  label="Cancelar" onClick="" />
+            <button  label="Salvar" id="salvarDisciplina" />
+            <button  label="Cancelar" id="cancelarDisciplina" />
         </window>
     </div>
 	

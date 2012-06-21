@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class AplControlarTurma {
     private DAO apDaoTurma = DAOFactory.obterDAO("JPA", Turma.class);
+    private DAO apDaoHorario = DAOFactory.obterDAO("JPA", Horario.class);
     
     private AplControlarTurma() {
     }
@@ -57,5 +58,8 @@ public class AplControlarTurma {
 
     public List<Turma> obterTurmas() throws AcademicoException {
         return (List<Turma>) apDaoTurma.obter(Turma.class);
+    }
+    public List<Horario> obterHorarios() throws AcademicoException {
+        return (List<Horario>) apDaoHorario.obter(Horario.class);
     }
 }

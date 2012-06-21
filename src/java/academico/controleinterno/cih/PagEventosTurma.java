@@ -2,7 +2,7 @@ package academico.controleinterno.cih;
 
 
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Turma;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -12,7 +12,7 @@ import org.zkoss.zul.*;
 
 public class PagEventosTurma extends GenericForwardComposer {
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private Window winEventosCalendario;
+    private Window winFormularioTurma;
     private Menuitem incluir;
     private Menuitem excluir;
     private Menuitem consultar;
@@ -23,18 +23,14 @@ public class PagEventosTurma extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
 
-        List<Calendario> listaCalendario = ctrl.obterCalendario(); 
-        for (int i = 0; i < listaCalendario.size(); i++) {
-            Calendario c = listaCalendario.get(i);
-            Listitem linha = new Listitem(c.toString(), c);
+        List<Turma> listaTurma = ctrl.obterTurma(); 
+        for (int i = 0; i < listaTurma.size(); i++) {
+            Turma t = listaTurma.get(i);
+            Listitem linha = new Listitem(t.getDisciplina().toString(), t);
                 
-            linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
-                    (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
-            linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
-                    (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
-
+            linha.appendChild(new Listcell(t.getCalendario().toString()));
+           // linha.appendChild(new Listcell(t.));
+            //TODO fazer essa ultima linha para trazer o infeliz do professor
             linha.setParent(listbox);
         }
     }
@@ -43,34 +39,34 @@ public class PagEventosTurma extends GenericForwardComposer {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             try {
-                Calendario c = listitem.getValue();
-                ctrl.apagarCalendario(c);
+                Turma t = listitem.getValue();
+                ctrl.apagarTurma(t);
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir o calendario");
+                alert("Não foi possivel excluir a turma");
             }
         } else {
-            alert("Selecione um calendario");
+            alert("Selecione uma turma");
         }
     }
 
     public void onClick$incluir(Event event) {
-        ctrl.abrirIncluirCalendario();
+        ctrl.abrirIncluirTurma();
     }
 
     public void onClick$alterar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
-            Calendario c = listitem.getValue();
-            ctrl.abrirEditarCalendario(c);
+            Turma t = listitem.getValue();
+            ctrl.abrirEditarTurma(t);
         }
     }
     
     public void onClick$consultar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
-            Calendario c = listitem.getValue();
-            ctrl.abrirConsultarCalendario(c);
+            Turma t = listitem.getValue();
+            ctrl.abrirConsultarTurma(t);
         }
     }
 }

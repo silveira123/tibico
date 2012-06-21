@@ -54,7 +54,7 @@ public class Horario extends ObjetoPersistente{
     /**
      * Obtém o horário final (horarioFinal) de Horario
      */
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIME)
     public Calendar getHorarioFim() {
         return horarioFim;
     }
@@ -69,7 +69,7 @@ public class Horario extends ObjetoPersistente{
     /**
      * Obtém o horário de inicio (horarioInicio) de Horário
      */
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIME)
     public Calendar getHorarioInicio() {
         return horarioInicio;
     }

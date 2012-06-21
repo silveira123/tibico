@@ -4,7 +4,10 @@ import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cdp.Disciplina;
+import academico.controleinterno.cdp.Turma;
 import academico.util.Exceptions.AcademicoException;
+import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,30 +21,39 @@ import org.zkoss.zul.*;
 public class PagFormularioTurma extends GenericForwardComposer {
 
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
-    private Window winFormularioCalendario;
-    private Textbox identificador, duracao;
-    private Datebox dataInicioCA, dataFimCA, dataInicioPL, dataFimPL, dataInicioPM, dataFimPM;
-    private Combobox curso;
-    private Calendario obj;
-    private Button salvar, cancelar;
+    private CtrlCadastroCurso ctrlDisciplina = CtrlCadastroCurso.getInstance();
+    private Window winFormularioTurma;
+    private Combobox disciplina;
+    private Combobox calendario;
+    private Intbox numVagas;
+    private Listbox listHorario;
+    private Combobox professor;
+    private Button salvar;
+    private Button cancelar;
     private int MODO;
-
+    private Turma obj;
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
-        List<Curso> listaCurso = ctrlCurso.obterCursos();
-        curso.setModel(new ListModelList(listaCurso, true));
         
+        List<Disciplina> listaDisciplina = ctrlDisciplina.obterDisciplinas();
+        disciplina.setModel(new ListModelList(listaDisciplina, true));
         
+        List<Calendario> listaCalendario = ctrl.obterCalendario();
+        calendario.setModel(new ListModelList(listaCalendario, true));
+        
+        List<Horario> listaHorario = ctrl.obterHorario();
+        listHorario.setModel(new ListModelList(listaHorario, true));
+        //TODO tem que ver como vai fazer para botar os horários na tela
+        //TODO fazer toda parte do professor
     }
+    
 
-    public void onCreate$winFormularioCalendario() {
+    public void onCreate$winFormularioTurma() {
         MODO = (Integer) arg.get("tipo");
 
         if (MODO != ctrl.SALVAR) {
-            obj = (Calendario) arg.get("obj");
+            obj = (Turma) arg.get("obj");
             preencherTela();
             if (MODO == ctrl.CONSULTAR) {
                 this.salvar.setVisible(false);
@@ -51,86 +63,80 @@ public class PagFormularioTurma extends GenericForwardComposer {
     }
 
     private void preencherTela() {
-        List<Comboitem> a = curso.getItems();
+        List<Comboitem> a = disciplina.getItems();
         for (int i = 0; i < a.size(); i++) {
             // verificando qual a area de conhecimento cadastrado
-            if (a.get(i).getValue() == obj.getCurso()) {
-                curso.setSelectedItem(a.get(i));
+            if (a.get(i).getValue() == obj.getDisciplina()) {
+                disciplina.setSelectedItem(a.get(i));
+            }
+        }
+        a = calendario.getItems();
+        for (int i = 0; i < a.size(); i++) {
+            // verificando qual a area de conhecimento cadastrado
+            if (a.get(i).getValue() == obj.getCalendario()) {
+                calendario.setSelectedItem(a.get(i));
+            }
+        }
+        numVagas.setValue(obj.getNumVagas());
+        List<Listitem> itens = listHorario.getItems();
+        for (int i = 0; i < itens.size(); i++) {
+            // verificando qual a area de conhecimento cadastrado
+            for (int j = 0; j < obj.getHorario().size(); j++) {
+                if (itens.get(i).getValue() == obj.getHorario().get(j)) {
+                    listHorario.setSelectedItem(itens.get(i));
+                }
             }
         }
         
-        identificador.setValue(obj.getIdentificador());
-        duracao.setValue(obj.getDuracao());
-        dataInicioCA.setValue(obj.getDataInicioCA().getTime());
-        dataFimCA.setValue(obj.getDataFimCA().getTime());
-        dataInicioPL.setValue(obj.getDataInicioPL().getTime());
-        dataFimPL.setValue(obj.getDataFimPL().getTime());
-        dataInicioPM.setValue(obj.getDataInicioPM().getTime());
-        dataFimPM.setValue(obj.getDataFimPM().getTime());
+        //TODO fazer professor, pois ainda falta a apl
     }
 
     private void bloquearTela() {
-        curso.setDisabled(true);
-        identificador.setDisabled(true);
-        duracao.setDisabled(true);
-        dataInicioCA.setDisabled(true);
-        dataFimCA.setDisabled(true); 
-        dataInicioPL.setDisabled(true);
-        dataFimPL.setDisabled(true); 
-        dataInicioPM.setDisabled(true);
-        dataFimPM.setDisabled(true);
+        disciplina.setDisabled(true);
+        calendario.setDisabled(true);
+        numVagas.setDisabled(true);
+        listHorario.setDisabled(true);
+        professor.setDisabled(true); 
+        
     }
 
     public void onClick$salvar(Event event) {
         try {
-            Calendar cal = Calendar.getInstance();
             if(MODO == ctrl.SALVAR)
             {
                 ArrayList<Object> args = new ArrayList<Object>();
-                args.add(curso.getSelectedItem().getValue());
-                args.add(identificador.getValue());
-                args.add(duracao.getValue());
-                cal.setTime(dataInicioCA.getValue());
-                args.add(cal);
-                cal.setTime(dataFimCA.getValue());
-                args.add(cal);
-                cal.setTime(dataInicioPL.getValue());
-                args.add(cal);
-                cal.setTime(dataFimPL.getValue());
-                args.add(cal);
-                cal.setTime(dataInicioPM.getValue());
-                args.add(cal);
-                cal.setTime(dataFimPM.getValue());
-                args.add(cal);
+                args.add(disciplina.getSelectedItem().getValue());
+                args.add(calendario.getSelectedItem().getValue());
+                args.add(numVagas.getValue());
+                Object[] o = listHorario.getSelectedItems().toArray();
+                ArrayList<Horario> selecionados = new ArrayList<Horario>();
+                for (int i = 0; i < o.length; i++) {
+                    selecionados.add((Horario)o[i]);
+                }
+                obj.setHorario(selecionados);
+                args.add(selecionados);
                 
-               
-                ctrl.incluirCalendario(args);
+                //TODO fazer para o professor
+                ctrl.incluirTurma(args);
                 limparCampos();
-                ctrl.redirectPag("/PagEventosCalendario.zul");
+                ctrl.redirectPag("/PagEventosTurma.zul");
             }
             else
             {
-               obj.setCurso((Curso) curso.getSelectedItem().getValue());
-               obj.setIdentificador(identificador.getValue());
-               obj.setDuracao(duracao.getValue());
+               obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
+               obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
+               obj.setNumVagas(numVagas.getValue());
+               Object[] o = listHorario.getSelectedItems().toArray();
+               ArrayList<Horario> selecionados = new ArrayList<Horario>();
+               for (int i = 0; i < o.length; i++) {
+                    selecionados.add((Horario)o[i]);
+               }
+               obj.setHorario(selecionados);
+               //TODO fazer para o professor
+              
                
-               cal.setTime(dataInicioCA.getValue());
-               obj.setDataInicioCA(cal);
-               cal.setTime(dataFimCA.getValue());
-               obj.setDataFimCA(cal);
-               
-               cal.setTime(dataInicioPL.getValue());
-               obj.setDataInicioPL(cal);
-               cal.setTime(dataFimPL.getValue());
-               obj.setDataFimPL(cal);
-               
-               cal.setTime(dataInicioPM.getValue());
-               obj.setDataInicioPM(cal);
-               cal.setTime(dataFimPM.getValue());
-               obj.setDataFimPM(cal);
-               
-               ctrl.alterarCalendario(obj);
-               ctrl.redirectPag("/PagEventosCalendario.zul");
+               ctrl.alterarTurma(obj);
+               ctrl.redirectPag("/PagEventosTurma.zul");
             }
         } 
         catch (AcademicoException ex) {
@@ -142,22 +148,19 @@ public class PagFormularioTurma extends GenericForwardComposer {
     }
 
     public void onClick$cancelar(Event event) {
-        ctrl.redirectPag("/PagEventosCalendario.zul");
+        ctrl.redirectPag("/PagEventosTurma.zul");
     }
     
     public void onClose$winCadastro(Event event) {
-        ctrl.redirectPag("/PagEventosCalendario.zul");
+        ctrl.redirectPag("/PagEventosTurma.zul");
     }
 
     public void limparCampos() {
-        curso.setSelectedItem(null);
-        identificador.setValue("");
-        duracao.setValue("");
-        dataInicioCA.setValue(null);
-        dataFimCA.setValue(null); 
-        dataInicioPL.setValue(null);
-        dataFimPL.setValue(null); 
-        dataInicioPM.setValue(null); 
-        dataFimPM.setValue(null);
+        disciplina.setSelectedItem(null);
+        calendario.setSelectedItem(null);
+        numVagas.setValue(null);
+        listHorario.setSelectedItems(null);
+        professor.setSelectedItem(null);
+       
     }
 }

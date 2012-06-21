@@ -9,6 +9,7 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.util.Exceptions.AcademicoException;
+import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,6 +118,8 @@ public class CtrlLetivo {
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
-    
+    public List<Horario> obterHorario() throws AcademicoException {
+        return aplC.obterHorarios();
+    }
     
 }

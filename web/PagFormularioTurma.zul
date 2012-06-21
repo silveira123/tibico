@@ -10,13 +10,14 @@
                     <column width="85%"/>
                 </columns>
                 <rows>
-                    <row>
-                        Calendario 
-                        <combobox id="calendario"/>	
-                    </row>
+                    
                     <row>
                         Disciplina 
                         <combobox id="disciplina"/>	
+                    </row>
+                    <row>
+                        Calendario 
+                        <combobox id="calendario"/>	
                     </row>
                     <row>
                         Número de vagas 
@@ -55,71 +56,7 @@
                                     <checkbox id="slot6"/>
                                 </listcell>
                             </listitem>
-                            <listitem>
-												
-                                <listcell label="9:50 ~ 11:50" />
-                                <listcell>
-                                    <checkbox id="slot7"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot8"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot9"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot10"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot11"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot12"/>
-                                </listcell>
-                            </listitem>
-                            <listitem>
-                                <listcell label="13:00 ~ 15:00" />
-                                <listcell>
-                                    <checkbox id="slot13"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot14"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot15"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot16"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot17"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot18"/>
-                                </listcell>
-                            </listitem>
-                            <listitem>
-												
-                                <listcell label="15:20 ~ 17:20" />
-                                <listcell>
-                                    <checkbox id="slot19"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot20"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot21"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot22"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot23"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot24"/>
-                                </listcell>
-                            </listitem>
+                            
                         </listbox>
 
                     </row>

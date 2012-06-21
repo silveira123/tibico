@@ -48,9 +48,8 @@ public class Curso extends ObjetoPersistente {
         this.nome = nome;
     }
 
-    //TODO colocar GrandeAreaConhecimento como nullable = false
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = true)
+    @JoinColumn(nullable = false)
     public GrandeAreaConhecimento getGrandeAreaConhecimento() {
         return grandeAreaConhecimento;
     }

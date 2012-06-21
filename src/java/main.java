@@ -1,11 +1,8 @@
 
-import academico.controleinterno.cdp.Professor;
-import academico.controleinterno.cgd.ProfessorDAOJPA;
-import academico.util.academico.cdp.AreaConhecimento;
-import academico.util.academico.cdp.GrandeAreaConhecimento;
-import academico.util.pessoa.cdp.Sexo;
+import academico.controlepauta.cdp.Aula;
+import academico.controlepauta.cdp.Frequencia;
+import academico.controlepauta.cgd.AulaDAOJPA;
 import java.util.ArrayList;
-
 
 
 
@@ -24,30 +21,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-       Professor c = new Professor();
-       GrandeAreaConhecimento g = new GrandeAreaConhecimento();
-       AreaConhecimento a = new AreaConhecimento();
-       AreaConhecimento b = new AreaConhecimento();
-       ArrayList<AreaConhecimento> array = new ArrayList<AreaConhecimento>();
-       
-       g.setNome("garea1");
-       
-       a.setgAreaConhecimento(g);
-       b.setgAreaConhecimento(g);
-       a.setNome("area1");
-       b.setNome("area2");
-       
-       array.add(a);
-       array.add(b);
-       
-       c.setNome("Teste");
-       c.setCpf(1234);
-       c.setIdentidade("123423");
-       
-       c.setAreaConhecimento(array);
-
-       
-       ProfessorDAOJPA cjpa = new ProfessorDAOJPA();
-       cjpa.salvar(c);
+       Aula a = new Aula();
+       a.setConteudo("asd");
+             
+       AulaDAOJPA cjpa = new AulaDAOJPA();
+       cjpa.salvar(a);
     }
 }

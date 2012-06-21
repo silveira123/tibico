@@ -2,6 +2,8 @@
 import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Frequencia;
 import academico.controlepauta.cgd.AulaDAOJPA;
+import academico.util.academico.cdp.GrandeAreaConhecimento;
+import academico.util.academico.cgd.GrandeAreaConhecimentoDAOJPA;
 import java.util.ArrayList;
 
 
@@ -21,10 +23,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-       Aula a = new Aula();
-       a.setConteudo("asd");
+       GrandeAreaConhecimento a = new GrandeAreaConhecimento();
+       a.setNome("asd");
              
-       AulaDAOJPA cjpa = new AulaDAOJPA();
+       GrandeAreaConhecimentoDAOJPA cjpa = new GrandeAreaConhecimentoDAOJPA();
        cjpa.salvar(a);
     }
 }

@@ -29,6 +29,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        turma.setDisabled(true);
     }
 
     public void onCreate$winFormularioAvaliacao() {
@@ -36,6 +37,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
         if (MODO != ctrl.SALVAR) {
             obj = (Avaliacao) arg.get("obj");
+            
             preencherTela();
             if (MODO == ctrl.CONSULTAR) {
                 this.salvar.setVisible(false);
@@ -45,12 +47,12 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
         else 
         {
             obj2 = (Turma) arg.get("obj");
-            turma.setValue(obj2.toString()); 
-            turma.setDisabled(true);
+            turma.setValue(obj2.toString());   
         }
     }
 
     private void preencherTela() {
+        turma.setValue(obj.getTurma().toString());
         nomeAvaliacao.setValue(obj.getNome());
         peso.setValue(obj.getPeso());
     }
@@ -92,11 +94,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
     }
 
     public void onClick$cancelar(Event event) {
-        ctrl.redirectPag("/PagEventosAvaliacao.zul");
-    }
-    
-    public void onClose$winCadastro(Event event) {
-        ctrl.redirectPag("/PagEventosAvaliacao.zul");
+        winFormularioAvaliacao.onClose();
     }
 
     public void limparCampos() {

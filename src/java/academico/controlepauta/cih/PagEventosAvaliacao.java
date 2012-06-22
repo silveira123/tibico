@@ -7,7 +7,10 @@ import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Avaliacao;
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -32,18 +35,33 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
 
         List<Turma> listaTurma = ctrlTurma.obterTurma();
         nome.setModel(new ListModelList(listaTurma, true));
-        /*List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes(); 
-        for (int i = 0; i < listaAvaliacao.size(); i++) {
-            Avaliacao a = listaAvaliacao.get(i);
-            Listitem linha = new Listitem(a.toString(), a);
-                
-            linha.appendChild(new Listcell(a + ""));
-            linha.appendChild(new Listcell(a.getPeso() + ""));
-            
-            linha.setParent(listbox);
-        }*/
     }
 
+    public void onSelect$nome(Event event) { 
+        try {
+            System.out.println("oiiii");
+            Turma t = nome.getSelectedItem().getValue();
+            List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
+            
+            while(listbox.getItemCount() > 0)
+                listbox.removeItemAt(0);
+            
+            for (int i = 0; i < listaAvaliacao.size(); i++) {
+                Avaliacao a = listaAvaliacao.get(i);
+                if(a.getTurma() == t)
+                {
+                    Listitem linha = new Listitem(a.toString(), a);
+                    linha.appendChild(new Listcell(a.getPeso() + ""));
+
+                    linha.setParent(listbox);
+                }
+            }
+        } 
+        catch (AcademicoException ex) {
+            Logger.getLogger(PagEventosAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void onClick$excluir(Event event) { 
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

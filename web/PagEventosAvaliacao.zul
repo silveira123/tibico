@@ -11,7 +11,7 @@
 	<separator />
 
 	<div align="center">
-		<window title="Página Evento Avaliação" border="normal"
+		<window id="winEventosAvaliacao" title="Página Evento Avaliação" border="normal"
 			width="50%">
 
 			<grid>
@@ -29,7 +29,7 @@
 					
 					<row>			
 				 		Turma: 		 
-				  			<textbox id="nome" width="50%"/>
+				  			<combobox id="nome" width="50%"/>
 					</row>
 					
 					<row>
@@ -59,17 +59,14 @@
 			</auxhead>
 
 			<separator />
+                        
+                        <listbox id = "listbox" mold="paging" pageSize="10">
+                            <listhead>
+                                <listheader label="Nome" sort="auto" />
+                                <listheader label="Peso" sort="auto" />
+                            </listhead>
 
-			<grid>
-				<columns>
-					<column align="center" label="Nome" />
-					<column align="center" label="Peso" />
-				</columns>
-
-
-			</grid>
-
-
+                        </listbox>
 		</window>
 	</div>
 	

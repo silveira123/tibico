@@ -1,16 +1,8 @@
 <?page title="Formulário Avaliação"?>
 
 <zk>
-	<separator />
 	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window title="Página Formulário Avaliação" border="normal" width="30%">
+		<window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%">
 
 			<separator height="15px" />
 				<grid>
@@ -39,8 +31,8 @@
 				</grid>
 
 			<separator/>
-			<button  label="Salvar" onClick="" />
-			<button  label="Cancelar" onClick="" />
+			<button  id="salvar" label="Salvar" onClick="" />
+			<button  id="cancelar" label="Cancelar" onClick="" />
 			
 			
 			

@@ -86,4 +86,9 @@ public class Avaliacao extends ObjetoPersistente {
     public void setTurma(Turma turma) {
         this.turma = turma;
     }
+    
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

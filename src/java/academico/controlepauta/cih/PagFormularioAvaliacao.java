@@ -42,7 +42,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                 bloquearTela();
             }
         }
-        else
+        else 
         {
             obj2 = (Turma) arg.get("obj");
             turma.setValue(obj2.toString()); 
@@ -66,7 +66,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
             if(MODO == ctrl.SALVAR)
             {
                 ArrayList<Object> args = new ArrayList<Object>();
-                args.add(turma.getValue());
+                args.add(obj2);
                 args.add(nomeAvaliacao.getValue());
                 args.add(peso.getValue());
                 

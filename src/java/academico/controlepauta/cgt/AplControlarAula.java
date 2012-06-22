@@ -4,6 +4,7 @@
  */
 package academico.controlepauta.cgt;
 
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
@@ -31,8 +32,11 @@ public class AplControlarAula {
     }
 
     public Avaliacao incluirAvaliacao(ArrayList<Object> args) throws AcademicoException {
-        
-        return (Avaliacao) apDaoAvaliacao.salvar(null);
+        Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setTurma((Turma) args.get(0));
+        avaliacao.setNome((String) args.get(1));
+        avaliacao.setPeso((Integer) args.get(2));
+        return (Avaliacao) apDaoAvaliacao.salvar(avaliacao);
     }
 
     public Avaliacao alterarAvaliacao(Avaliacao avaliacao) throws Exception {

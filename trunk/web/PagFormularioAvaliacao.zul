@@ -15,7 +15,7 @@
 						
 						<row>
 							Turma:
-								<textbox id="turma"/>
+								<textbox id="turma" width="90%"/>
 						</row>
 						
 						<row>

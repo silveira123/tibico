@@ -2,7 +2,8 @@
 
 <zk>
 	<div align="center">
-		<window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%">
+		<window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%"
+                            apply = "academico.controlepauta.cih.PagFormularioAvaliacao">
 
 			<separator height="15px" />
 				<grid>

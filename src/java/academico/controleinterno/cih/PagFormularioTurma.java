@@ -44,6 +44,8 @@ public class PagFormularioTurma extends GenericForwardComposer {
         
         List<Horario> listaHorario = ctrl.obterHorario();
         listHorario.setModel(new ListModelList(listaHorario, true));
+        
+        
         //TODO tem que ver como vai fazer para botar os horários na tela
         //TODO fazer toda parte do professor
     }
@@ -65,22 +67,20 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private void preencherTela() {
         List<Comboitem> a = disciplina.getItems();
         for (int i = 0; i < a.size(); i++) {
-            // verificando qual a area de conhecimento cadastrado
             if (a.get(i).getValue() == obj.getDisciplina()) {
                 disciplina.setSelectedItem(a.get(i));
             }
         }
         a = calendario.getItems();
         for (int i = 0; i < a.size(); i++) {
-            // verificando qual a area de conhecimento cadastrado
-            if (a.get(i).getValue() == obj.getCalendario()) {
+           if (a.get(i).getValue() == obj.getCalendario()) {
                 calendario.setSelectedItem(a.get(i));
             }
         }
         numVagas.setValue(obj.getNumVagas());
+        
         List<Listitem> itens = listHorario.getItems();
         for (int i = 0; i < itens.size(); i++) {
-            // verificando qual a area de conhecimento cadastrado
             for (int j = 0; j < obj.getHorario().size(); j++) {
                 if (itens.get(i).getValue() == obj.getHorario().get(j)) {
                     listHorario.setSelectedItem(itens.get(i));

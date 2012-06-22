@@ -23,6 +23,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
     private Menuitem excluir;
     private Menuitem consultar;
     private Menuitem alterar;
+    private Menuitem inserirPontuacao;
     private Listbox listbox;
     
     @Override

@@ -12,7 +12,7 @@
 
 	<div align="center">
 		<window id="winEventosAvaliacao" title="Página Evento Avaliação" border="normal"
-			width="50%">
+			width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
 
 			<grid>
 				<columns>
@@ -43,11 +43,11 @@
 			
 
 			<menubar>
-				<menuitem tooltiptext="Incluir Avaliação" label="Incluir"/>
-				<menuitem tooltiptext="Alterar Avaliação" label="Alterar"/>
-				<menuitem tooltiptext="Consultar Avaliação" label="Consultar"/>
-				<menuitem tooltiptext="Excluir Avaliação" label="Excluir"/>
-				<menuitem tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
+				<menuitem id="incluir" tooltiptext="Incluir Avaliação" label="Incluir"/>
+				<menuitem id="alterar" tooltiptext="Alterar Avaliação" label="Alterar"/>
+				<menuitem id="consultar" tooltiptext="Consultar Avaliação" label="Consultar"/>
+				<menuitem id="excluir" tooltiptext="Excluir Avaliação" label="Excluir"/>
+				<menuitem id="inserirPontuacao" tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
 			</menubar>
 
 			<separator />

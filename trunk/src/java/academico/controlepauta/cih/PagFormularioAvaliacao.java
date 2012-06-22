@@ -29,8 +29,6 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        turma.setValue(obj2 + ""); 
-        turma.setDisabled(true);
     }
 
     public void onCreate$winFormularioAvaliacao() {
@@ -45,7 +43,11 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
             }
         }
         else
+        {
             obj2 = (Turma) arg.get("obj");
+            turma.setValue(obj2.toString()); 
+            turma.setDisabled(true);
+        }
     }
 
     private void preencherTela() {

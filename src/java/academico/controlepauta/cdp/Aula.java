@@ -117,7 +117,8 @@ public class Aula extends ObjetoPersistente {
      * @return 
      */
     
-    @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER) 
+    //TODO consertar a annotation para tirar a tabela aux do banco
+    @OneToMany(cascade= CascadeType.PERSIST, fetch= FetchType.EAGER)
     public ArrayList<Frequencia> getFrequencia() {
         return frequencia;
     }

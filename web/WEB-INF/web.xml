@@ -10,8 +10,8 @@
 Copyright (C) 2004 Potix Corporation. All Rights Reserved.
 -->
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <description>ZK App for JavaEE6</description>
-    <display-name>zkapp6</display-name>
+    <description>Tibico Academico</description>
+    <display-name>Tibico</display-name>
     <description>ZK Demo</description>
     <display-name>zkapp6</display-name>
     <!--
@@ -238,9 +238,9 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
         <mime-type>text/html</mime-type>
     </mime-mapping>
     <welcome-file-list>
-		<welcome-file>index.zul</welcome-file>
-		<welcome-file>index.zhtml</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		</welcome-file-list>
+        <welcome-file>index.zul</welcome-file>
+        <welcome-file>index.zhtml</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
 </web-app>

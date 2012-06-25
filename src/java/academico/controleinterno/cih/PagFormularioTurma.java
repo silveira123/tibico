@@ -3,14 +3,12 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.DiaSemana;
 import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +32,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private int MODO;
     private Turma obj;
     private Listhead listhead;
+    private ArrayList<Checkbox> horariosCheckbox = new ArrayList<Checkbox>();
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -41,10 +40,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
         List<Disciplina> listaDisciplina = ctrlDisciplina.obterDisciplinas();
         disciplina.setModel(new ListModelList(listaDisciplina, true));
-
+        disciplina.setReadonly(true);
+        
         List<Calendario> listaCalendario = ctrl.obterCalendario();
         calendario.setModel(new ListModelList(listaCalendario, true));
-
+        calendario.setReadonly(true);
+        
         List<Horario> listaHorario = ctrl.obterHorario();
         DiaSemana dia = null;
         if (listaHorario.size() > 0) {
@@ -71,6 +72,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
             int j;
             Listitem linha = new Listitem();
+            
             for (j = i; j < listhead.getChildren().size() - 1 + i; j++) {
                 Listcell cell = new Listcell();
                 Checkbox c = new Checkbox();
@@ -87,7 +89,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     cell.appendChild(c);
                     linha.appendChild(cell);
                 }
-
+                horariosCheckbox.add(c);
             }
             listHorario.appendChild(linha);
             i = j;
@@ -104,7 +106,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
         //TODO fazer toda parte do professor
     }
 
-    public void onCreate$winFormularioTurma() {
+    public void onCreate$winFormularioTurma() throws AcademicoException {
         MODO = (Integer) arg.get("tipo");
 
         if (MODO != CtrlLetivo.SALVAR) {
@@ -115,9 +117,10 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 bloquearTela();
             }
         }
+        
     }
 
-    private void preencherTela() {
+    private void preencherTela() throws AcademicoException {
         List<Comboitem> a = disciplina.getItems();
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i).getValue() == obj.getDisciplina()) {
@@ -132,15 +135,14 @@ public class PagFormularioTurma extends GenericForwardComposer {
         }
         numVagas.setValue(obj.getNumVagas());
         
-        List<Listitem> itens = listHorario.getItems();
-        for (int i = 0; i < itens.size(); i++) {
-            for (int j = 0; j < obj.getHorario().size(); j++) {
-                if (itens.get(i).getValue() == obj.getHorario().get(j)) {
-                    listHorario.setSelectedItem(itens.get(i));
-                }
-            }
+        List<Horario> listaHorario = ctrl.obterHorario();
+        
+        for (int i = 0; i < listaHorario.size(); i++) {
+            if(obj.getHorario().contains(listaHorario.get(i)))
+                horariosCheckbox.get(i).setChecked(true);
         }
-
+        
+        
         //TODO fazer professor, pois ainda falta a apl
     }
 
@@ -150,6 +152,9 @@ public class PagFormularioTurma extends GenericForwardComposer {
         numVagas.setDisabled(true);
         listHorario.setDisabled(true);
         professor.setDisabled(true);
+        for (int i = 0; i < horariosCheckbox.size(); i++) {
+            horariosCheckbox.get(i).setDisabled(true);
+        }
 
     }
 
@@ -160,7 +165,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 args.add(disciplina.getSelectedItem().getValue());
                 args.add(calendario.getSelectedItem().getValue());
                 args.add(numVagas.getValue());
-                ArrayList<Horario> selecionados = null;//getHorariosSelecionados();
+                ArrayList<Horario> selecionados = getHorariosSelecionados();
                 args.add(selecionados);
 
                 //TODO fazer para o professor
@@ -172,7 +177,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
                 obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
                 obj.setNumVagas(numVagas.getValue());
-                ArrayList<Horario> selecionados = null;//getHorariosSelecionados();
+                ArrayList<Horario> selecionados = getHorariosSelecionados();
                 obj.setHorario(selecionados);
                 //TODO fazer para o professor
 
@@ -206,28 +211,14 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
     }
 
-//    public ArrayList<Horario> getHorariosSelecionados() throws Exception {
-//        List<Horario> listaHorario = ctrl.obterHorario();
-//        ArrayList<Horario> horariosSelecionados = new ArrayList<Horario>();
-//
-//        for (int i = 0; i < listHorario.getChildren().size(); i++) {
-//            if (listHorario.getChildren().get(i) instanceof Listitem) {
-//                Listitem listitem = (Listitem) listHorario.getChildren().get(i);
-//                for (int j = 0; j < listitem.getChildren().size(); j++) {
-//                    if (listitem.getChildren().get(i) instanceof Listcell) {
-//                        Listcell listcell = (Listcell) listitem.getChildren().get(i);
-//                        if (listcell.getChildren().size() == 1) {
-//                            Checkbox check = (Checkbox) listcell.getChildren().get(0);
-//                            if (check.isChecked()) {
-//                                Horario h = (Horario) listcell.getValue();
-//                                horariosSelecionados.add(h);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        System.out.println(horariosSelecionados.size());
-//        return horariosSelecionados;
-//    }
+    public ArrayList<Horario> getHorariosSelecionados() throws Exception {
+        List<Horario> listaHorario = ctrl.obterHorario();
+        ArrayList<Horario> horariosMarcados = new ArrayList<Horario>();
+
+        for (int i = 0; i < listaHorario.size(); i++) {
+            if(horariosCheckbox.get(i).isChecked())
+                horariosMarcados.add(listaHorario.get(i));
+        }
+        return horariosMarcados;
+    }
 }

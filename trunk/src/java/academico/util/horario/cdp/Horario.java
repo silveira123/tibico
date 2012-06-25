@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.util.horario.cdp;
 
 import academico.util.persistencia.ObjetoPersistente;
@@ -25,17 +24,18 @@ import javax.persistence.Temporal;
 
 /**
  * Esta classe descrevem os horários de inicio, fim e o dia da semana que uma turma tem aula
- *
+ * <p/>
  * @author Gabriel Quézid
  * @version 0.1
  * @see
  */
 @Entity
-public class Horario extends ObjetoPersistente{
+public class Horario extends ObjetoPersistente {
+
     private Calendar horarioInicio;
     private Calendar horarioFim;
     private DiaSemana dia;
-    
+
     /**
      * Obtém o dia de Horario
      */
@@ -60,7 +60,7 @@ public class Horario extends ObjetoPersistente{
     }
 
     /**
-     * Altera o horário final (horárioFinal) de Horario 
+     * Altera o horário final (horárioFinal) de Horario
      */
     public void setHorarioFim(Calendar horarioFim) {
         this.horarioFim = horarioFim;
@@ -80,5 +80,43 @@ public class Horario extends ObjetoPersistente{
     public void setHorarioInicio(Calendar horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
-    
+
+    @Override
+    public String toString() {
+        String horario;
+        if (this.horarioInicio.get(Calendar.HOUR_OF_DAY) < 10) {
+            horario = "0" + this.horarioInicio.get(Calendar.HOUR_OF_DAY);
+        }
+        else {
+            horario = this.horarioInicio.get(Calendar.HOUR_OF_DAY) + "";
+        }
+        horario = horario + ":";
+
+        if (this.horarioInicio.get(Calendar.MINUTE) < 10) {
+            horario = horario + "0" + this.horarioInicio.get(Calendar.MINUTE);
+        }
+        else {
+            horario = horario + this.horarioInicio.get(Calendar.MINUTE) + "";
+        }
+
+        horario = horario + " ~ ";
+
+        if (this.horarioFim.get(Calendar.HOUR_OF_DAY) < 10) {
+            horario = horario+ "0" + this.horarioFim.get(Calendar.HOUR_OF_DAY);
+        }
+        else {
+            horario = horario+ this.horarioFim.get(Calendar.HOUR_OF_DAY) + "";
+        }
+        horario = horario + ":";
+
+        if (this.horarioFim.get(Calendar.MINUTE) < 10) {
+            horario = horario + "0" + this.horarioFim.get(Calendar.MINUTE);
+        }
+        else {
+            horario = horario + this.horarioFim.get(Calendar.MINUTE) + "";
+        }
+
+
+        return horario;
+    }
 }

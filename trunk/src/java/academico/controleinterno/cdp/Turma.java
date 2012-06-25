@@ -62,7 +62,7 @@ public class Turma extends ObjetoPersistente {
         this.calendario = calendario;
     }
     
-    @ManyToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
+    @ManyToMany(cascade= CascadeType.PERSIST, fetch= FetchType.EAGER)
     @JoinTable(name = "turmaHorario",
     joinColumns = {
         @JoinColumn(name = "id_turma")},

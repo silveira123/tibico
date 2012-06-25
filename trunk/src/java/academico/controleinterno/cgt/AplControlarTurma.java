@@ -36,13 +36,12 @@ public class AplControlarTurma {
 
     public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {
         Turma turma = new Turma();
-        Calendario c = (Calendario) args.get(0);
-        Disciplina d = (Disciplina) args.get(1);
-        ArrayList<Horario> h = (ArrayList<Horario>) args.get(2);
-        
-        turma.setCalendario(c);
+        Disciplina d = (Disciplina) args.get(0);
         turma.setDisciplina(d);
+        Calendario c = (Calendario) args.get(1);
+        turma.setCalendario(c);
         turma.setNumVagas((Integer)args.get(2));
+        ArrayList<Horario> h = (ArrayList<Horario>) args.get(3);       
         turma.setHorario(h);
         
         return (Turma) apDaoTurma.salvar(turma);

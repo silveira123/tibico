@@ -24,5 +24,5 @@ package academico.util.horario.cdp;
  * @see
  */
 public enum DiaSemana {
-    SEGUNDA, TERCA, QUARTA, QUINTA, SEXTA, SABADO, DOMINGO;
+    SEGUNDA, TERÇA, QUARTA, QUINTA, SEXTA, SABADO, DOMINGO;
 }

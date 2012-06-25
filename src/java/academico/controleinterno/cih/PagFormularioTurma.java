@@ -7,6 +7,7 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
 import academico.util.Exceptions.AcademicoException;
+import academico.util.horario.cdp.DiaSemana;
 import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,32 +33,84 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private Button cancelar;
     private int MODO;
     private Turma obj;
+    private Listhead listhead;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        
+
         List<Disciplina> listaDisciplina = ctrlDisciplina.obterDisciplinas();
         disciplina.setModel(new ListModelList(listaDisciplina, true));
-        
+
         List<Calendario> listaCalendario = ctrl.obterCalendario();
         calendario.setModel(new ListModelList(listaCalendario, true));
-        
+
         List<Horario> listaHorario = ctrl.obterHorario();
-        listHorario.setModel(new ListModelList(listaHorario, true));
+        DiaSemana dia = null;
+        if (listaHorario.size() > 0) {
+            dia = listaHorario.get(0).getDia();
+        }
+        for (int i = 0; i < listaHorario.size(); i++) {
+            Listheader lh = new Listheader();
+            lh.setAlign("Center");
+            if (i == 0) {
+                lh.setLabel("Dia");
+                listhead.appendChild(lh);
+            }
+            else if (listaHorario.get(i - 1).getDia().equals(dia)) {
+                lh.setLabel(listaHorario.get(i - 1).toString());
+                listhead.appendChild(lh);
+
+            }
+            else {
+                break;
+            }
+        }
+
+        for (int i = 0; i < listaHorario.size();) {
+
+            int j;
+            Listitem linha = new Listitem();
+            for (j = i; j < listhead.getChildren().size() - 1 + i; j++) {
+                Listcell cell = new Listcell();
+                Checkbox c = new Checkbox();
+                if (j == i) {
+                    cell.setLabel(listaHorario.get(j).getDia().toString());
+                    linha.appendChild(cell);
+                    cell = new Listcell();
+                    cell.setValue(listaHorario.get(j));
+                    cell.appendChild(c);
+                    linha.appendChild(cell);
+                }
+                else {
+                    cell.setValue(listaHorario.get(j));
+                    cell.appendChild(c);
+                    linha.appendChild(cell);
+                }
+
+            }
+            listHorario.appendChild(linha);
+            i = j;
+
+
+        }
+
+
+
+        // listHorario.setModel(new ListModelList(listaHorario, true));
         
         
         //TODO tem que ver como vai fazer para botar os horários na tela
         //TODO fazer toda parte do professor
     }
-    
 
     public void onCreate$winFormularioTurma() {
         MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrl.SALVAR) {
+        if (MODO != CtrlLetivo.SALVAR) {
             obj = (Turma) arg.get("obj");
             preencherTela();
-            if (MODO == ctrl.CONSULTAR) {
+            if (MODO == CtrlLetivo.CONSULTAR) {
                 this.salvar.setVisible(false);
                 bloquearTela();
             }
@@ -87,7 +140,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 }
             }
         }
-        
+
         //TODO fazer professor, pois ainda falta a apl
     }
 
@@ -96,49 +149,38 @@ public class PagFormularioTurma extends GenericForwardComposer {
         calendario.setDisabled(true);
         numVagas.setDisabled(true);
         listHorario.setDisabled(true);
-        professor.setDisabled(true); 
-        
+        professor.setDisabled(true);
+
     }
 
     public void onClick$salvar(Event event) {
         try {
-            if(MODO == ctrl.SALVAR)
-            {
+            if (MODO == ctrl.SALVAR) {
                 ArrayList<Object> args = new ArrayList<Object>();
                 args.add(disciplina.getSelectedItem().getValue());
                 args.add(calendario.getSelectedItem().getValue());
                 args.add(numVagas.getValue());
-                Object[] o = listHorario.getSelectedItems().toArray();
-                ArrayList<Horario> selecionados = new ArrayList<Horario>();
-                for (int i = 0; i < o.length; i++) {
-                    selecionados.add((Horario)o[i]);
-                }
-                obj.setHorario(selecionados);
+                ArrayList<Horario> selecionados = null;//getHorariosSelecionados();
                 args.add(selecionados);
-                
+
                 //TODO fazer para o professor
                 ctrl.incluirTurma(args);
                 limparCampos();
                 ctrl.redirectPag("/PagEventosTurma.zul");
             }
-            else
-            {
-               obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
-               obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
-               obj.setNumVagas(numVagas.getValue());
-               Object[] o = listHorario.getSelectedItems().toArray();
-               ArrayList<Horario> selecionados = new ArrayList<Horario>();
-               for (int i = 0; i < o.length; i++) {
-                    selecionados.add((Horario)o[i]);
-               }
-               obj.setHorario(selecionados);
-               //TODO fazer para o professor
-              
-               
-               ctrl.alterarTurma(obj);
-               ctrl.redirectPag("/PagEventosTurma.zul");
+            else {
+                obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
+                obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
+                obj.setNumVagas(numVagas.getValue());
+                ArrayList<Horario> selecionados = null;//getHorariosSelecionados();
+                obj.setHorario(selecionados);
+                //TODO fazer para o professor
+
+
+                ctrl.alterarTurma(obj);
+                ctrl.redirectPag("/PagEventosTurma.zul");
             }
-        } 
+        }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,7 +192,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
     public void onClick$cancelar(Event event) {
         ctrl.redirectPag("/PagEventosTurma.zul");
     }
-    
+
     public void onClose$winCadastro(Event event) {
         ctrl.redirectPag("/PagEventosTurma.zul");
     }
@@ -159,8 +201,33 @@ public class PagFormularioTurma extends GenericForwardComposer {
         disciplina.setSelectedItem(null);
         calendario.setSelectedItem(null);
         numVagas.setValue(null);
-        listHorario.setSelectedItems(null);
+        listHorario.clearSelection();
         professor.setSelectedItem(null);
-       
+
     }
+
+//    public ArrayList<Horario> getHorariosSelecionados() throws Exception {
+//        List<Horario> listaHorario = ctrl.obterHorario();
+//        ArrayList<Horario> horariosSelecionados = new ArrayList<Horario>();
+//
+//        for (int i = 0; i < listHorario.getChildren().size(); i++) {
+//            if (listHorario.getChildren().get(i) instanceof Listitem) {
+//                Listitem listitem = (Listitem) listHorario.getChildren().get(i);
+//                for (int j = 0; j < listitem.getChildren().size(); j++) {
+//                    if (listitem.getChildren().get(i) instanceof Listcell) {
+//                        Listcell listcell = (Listcell) listitem.getChildren().get(i);
+//                        if (listcell.getChildren().size() == 1) {
+//                            Checkbox check = (Checkbox) listcell.getChildren().get(0);
+//                            if (check.isChecked()) {
+//                                Horario h = (Horario) listcell.getValue();
+//                                horariosSelecionados.add(h);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println(horariosSelecionados.size());
+//        return horariosSelecionados;
+//    }
 }

@@ -161,8 +161,12 @@ public class Pessoa extends ObjetoPersistente{
      * Obtém o telefone de Pessoa
      * @return 
      */
-    @OneToMany(cascade= CascadeType.PERSIST)
-    @JoinColumn(nullable= true)
+    @ManyToMany(cascade= CascadeType.PERSIST, fetch= FetchType.EAGER)
+    @JoinTable(name = "PessoaTelefone",
+    joinColumns = {
+        @JoinColumn(name = "id_pessoa")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "id_telefone")})
     public List<Telefone> getTelefone() {
         return telefone;
     }

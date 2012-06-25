@@ -26,37 +26,8 @@
                     <row>
                         Horario  
                         <listbox id="listHorario">
-                            <listhead>
-                                <listheader label="Horário" sort="auto" align="center"/>
-                                <listheader label="Segunda" sort="auto" align="center"/>
-                                <listheader label="Terça" sort="auto" align="center"/>
-                                <listheader label="Quarta" sort="auto" align="center"/>
-                                <listheader label="Quinta" sort="auto" align="center"/>
-                                <listheader label="Sexta" sort="auto" align="center"/>
-                                <listheader label="Sabado" sort="auto" align="center"/>
-                            </listhead>
-                            <listitem>
-                                <listcell label="7:30 ~ 9:30" />
-                                <listcell>
-                                    <checkbox id="slot1"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot2"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot3"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot4"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot5"/>
-                                </listcell>
-                                <listcell>
-                                    <checkbox id="slot6"/>
-                                </listcell>
-                            </listitem>
-                            
+                            <listhead id="listhead"/>
+                         
                         </listbox>
 
                     </row>

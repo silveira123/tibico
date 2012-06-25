@@ -28,6 +28,7 @@ public class CtrlLetivo {
     private AplCadastrarCalendario apl = AplCadastrarCalendario.getInstance();
     private static CtrlLetivo instance = null;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
+
     public static CtrlLetivo getInstance() {
         if (instance == null) {
             instance = new CtrlLetivo();
@@ -38,7 +39,7 @@ public class CtrlLetivo {
     private CtrlLetivo() {
     }
 
-   public Calendario incluirCalendario(ArrayList<Object> args) throws AcademicoException {
+    public Calendario incluirCalendario(ArrayList<Object> args) throws AcademicoException {
 
         return apl.incluirCalendario(args);
     }
@@ -74,9 +75,7 @@ public class CtrlLetivo {
         map.put("obj", calendario);
         Executions.createComponents("/PagFormularioCalendario.zul", null, map);
     }
-     
-    
-    
+
     public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {
 
         return aplC.incluirTurma(args);
@@ -113,13 +112,12 @@ public class CtrlLetivo {
         map.put("obj", turma);
         Executions.createComponents("/PagFormularioTurma.zul", null, map);
     }
-    
-    
+
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
+
     public List<Horario> obterHorario() throws AcademicoException {
         return aplC.obterHorarios();
     }
-    
 }

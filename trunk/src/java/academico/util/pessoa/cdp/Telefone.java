@@ -29,49 +29,49 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Telefone extends ObjetoPersistente{
-    private int numero;
-    private int ddd;
-    private int ddi;
+    private Integer numero;
+    private Integer ddd;
+    private Integer ddi;
 
     /**
      * Obtém o DDD de Telefone.
      */
-    public int getDdd() {
+    public Integer getDdd() {
         return ddd;
     }
 
     /**
      * Altera o valor do DDD de Telefone.
      */
-    public void setDdd(int ddd) {
+    public void setDdd(Integer ddd) {
         this.ddd = ddd;
     }
 
     /**
      * Obtém o DDI de Telefone.
      */
-    public int getDdi() {
+    public Integer getDdi() {
         return ddi;
     }
 
     /**
      * Altera o valor do DDI de Telefone.
      */
-    public void setDdi(int ddi) {
+    public void setDdi(Integer ddi) {
         this.ddi = ddi;
     }
 
     /**
      * Obtém o número (numero) de Telefone.
      */
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
     /**
      * Altera o valor do número (numero) de Telefone.
      */
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
     

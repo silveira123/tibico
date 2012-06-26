@@ -2,69 +2,62 @@
 
 <zk>
 
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
+    <separator />
+    <div align="center">
+        <label value="Tibico - SRA"
+                       style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+        </label>
+    </div>
+    <separator />
 
-	<div align="center">
-		<window title="Página Evento Professor" border="normal"
-			width="50%">
+    <div align="center">
+        <window title="Página Evento Professor" border="normal"
+                        width="50%" apply = "academico.controleinterno.cih.PagEventosProfessor">
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<fisheyebar>
-				<fisheye tooltiptext="Incluir um professor"
-					image="/img/incluir.jpg" />
-				<fisheye tooltiptext="alterar um professor"
-					image="/img/alterar.jpg" />
-				<fisheye tooltiptext="consultar um professor"
-					image="/img/consultar.jpg" />
-				<fisheye tooltiptext="excluir um professor"
-					image="/img/excluir.jpg" />
-			</fisheyebar>
+            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
+                <fisheye tooltiptext="Incluir um Professor"
+                         image="/img/incluir.jpg" />
+                <fisheye tooltiptext="alterar um Professor"
+                         image="/img/alterar.jpg" />
+                <fisheye tooltiptext="consultar um Professor"
+                         image="/img/consultar.jpg" />
+                <fisheye tooltiptext="excluir um Professor"
+                         image="/img/excluir.jpg" />
+            </fisheyebar>
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<menubar>
-				<menuitem tooltiptext="Incluir um professor"
-					label="Incluir" width="20%" />
-				<menuitem tooltiptext="alterar um professor"
-					label="Alterar" width="20%" />
-				<menuitem tooltiptext="consultar um professor"
-					label="Consultar" width="20%" />
-				<menuitem tooltiptext="excluir um professor"
-					label="Excluir" width="20%" />
-			</menubar>
+            <menubar>
+                <menuitem tooltiptext="Incluir um Professor"
+                          label="Incluir" width="20%" id="incluirProfessor"/>
+                <menuitem tooltiptext="Alterar um Professor"
+                          label="Alterar" width="20%" id="alterarProfessor"/>
+                <menuitem tooltiptext="Consultar um Professor"
+                          label="Consultar" width="20%" id="consultarProfessor"/>
+                <menuitem tooltiptext="Excluir um Professor"
+                          label="Excluir" width="20%" id="excluirProfessor"/>
+            </menubar>
 
-			<separator />
-			<separator />
+            <separator />
+            <separator />
 
-			<auxhead>
-				<auxheader align="center"
-					label="Professores Cadastrados" />
-			</auxhead>
+            <auxhead>
+                <auxheader align="center"
+                           label="Professor(es) Cadastrado(s)" />
+            </auxhead>
 
-			<separator />
+            <separator />
 
-			<grid>
-				<columns>
-					<column align="center" label="Nome" />
-				</columns>
+            <listbox id="listProfessor">
+                <listhead>
+                    <listheader align="center" label="Nome" />
+                </listhead>
+            </listbox>
 
-
-			</grid>
-
-
-		</window>
-	</div>
-
-
-
-
+        </window>
+    </div>
 
 
 </zk>

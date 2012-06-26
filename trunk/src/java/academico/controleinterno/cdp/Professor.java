@@ -79,5 +79,9 @@ public class Professor extends Pessoa{
     public void setGrauInstrucao(GrauInstrucao grauInstrucao) {
         this.grauInstrucao = grauInstrucao;
     }
-  
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

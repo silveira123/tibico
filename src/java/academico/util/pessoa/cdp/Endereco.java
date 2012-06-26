@@ -32,8 +32,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Endereco  extends ObjetoPersistente{
     private String logradouro;
-    private int cep;
-    private int numero;
+    private Long cep;
+    private Integer numero;
     private String Complemento;
     private Bairro bairro;
 
@@ -57,7 +57,7 @@ public class Endereco  extends ObjetoPersistente{
      * Obtém cep de Endereco
      * @return 
      */
-    public int getCep() {
+    public Long getCep() {
         return cep;
     }
 
@@ -65,7 +65,7 @@ public class Endereco  extends ObjetoPersistente{
      * Altera o valor do cep em Endereco
      * @param cep 
      */
-    public void setCep(int cep) {
+    public void setCep(Long cep) {
         this.cep = cep;
     }
 
@@ -89,7 +89,7 @@ public class Endereco  extends ObjetoPersistente{
      * Obtém numero de Endereco
      * @return 
      */
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
@@ -97,7 +97,7 @@ public class Endereco  extends ObjetoPersistente{
      * Altera o valor de numero em Endereco
      * @param numero 
      */
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
     

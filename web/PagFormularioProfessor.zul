@@ -1,195 +1,177 @@
-<?page title="Auto Generated index.zul"?>
+<?page title="Formulário Professor" contentType="text/html;charset=UTF-8"?>
 
-<zk>
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
+<zk> 
+    <separator />
+    <div align="center">
+        <label value="Tibico - SRA"
+               style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
+        </label>
+    </div>
+    <separator />
 
-	<div align="center">
-		<window title="Página Formulário Professor" border="normal"
-			width="80%" height="70%">
+    <div align="center">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" action="show: slideDown;hide: slideUp" border="normal" width="80%" height="70%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+	
+            <grid>
+                <columns>
+                    <column />
+                    <column />
+                </columns>
+                <rows>
+                    <row>
+                        <grid>
+                            <columns>
+                                <column width="30%" />
+                                <column width="70%" />
+                            </columns>
+                            <rows>
+                                <row>	
+                                    Nome:
+                                    <textbox id="nome" width="80%" />		
+									
+                                </row>
+								
+                                <row>
+                                    Sexo:
+                                    <radiogroup Id="sexo" onCheck="">
+                                        <radio label="Masculino" />
+                                        <radio label="Feminino" />
+                                    </radiogroup>
+                                </row>
+								
+                                <row>
+                                    Data Nascimento:
+                                    <datebox id="dataNasc" readonly="true" />
+                                </row>
+                                <row>
+                                    Telefone:
+                                    <textbox id="telefone" width="30%" />
+                                </row>
+			
+			
+                                <row>
+                                    Celular:
+                                    <textbox id="celular" width="30%" />
+                                </row>
+									
+                                <row>
+                                    Email:
+                                    <textbox id="email" width="50%"
+                                             constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com" />
+                                </row>
+			
+			
+                                <row>
+                                    CPF:
+                                    <textbox id="cpf" width="30%" />
+                                </row>
+								
+                                <row>
+                                    RG:
+                                    <textbox id="rg" width="30%" />
+                                </row>
+				
+                                <row>
+                                    Área de Conhecimeto:
+                                    <cell colspan="2">
+                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px">
+                                            <listhead>
+                                                <listheader label="Marcar Todas"/>
+                                            </listhead>
+                                        </listbox>
+                                    </cell>
+                                </row>
+                                
+                            </rows>
+                        </grid>
+						
+						
+                        <grid>
+                            <columns>
+                                <column width="30%" />
+                                <column width="70%" />
+                            </columns>
+                            <rows>
+                                <row>
+                                    País:
+                                    <combobox id="pais"></combobox>
+                                </row>
+								
+                                <row>
+                                    CEP:
+                                    <textbox id="cep" width="20%" />
+                                </row>
+								
+                                <row>
+                                    Estado:
+                                    <combobox id="estado"></combobox>
+                                </row>
+			
+			
+                                <row>
+                                    Cidade:
+                                    <combobox id="cidade"></combobox>
+                                </row>
+								
+                                <row>
+                                    Bairro:
+                                    <combobox id="bairro"></combobox>
+                                </row>
+			
+								
+                                <row>
+                                    Logradouro:
+                                    <textbox id="logradouro" width="80%" />
+                                </row>
+			
+			
+                                <row>
+                                    Número:
+                                    <intbox width="15%" id="numero" />
+                                </row>
+								
+                                <row>
+                                    Complemento:
+                                    <textbox id="complemento" width="80%" />
+                                </row>
+			
+                                <row>
+                                    Grau de Instrução:
+                                    <cell colspan="2">
+                                        <combobox id="grauInstrucao" width="30%"/>
+                                    </cell>
+                                </row>
+								
+                                <row>
+                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                </row>
+										
+                            </rows>
+                        </grid>
+						
+                    </row>
+                </rows>
+            </grid>
+			
+            <button width="10%" label="Ok" id="salvarProfessor"></button>
+            <button width="10%" label="Cancelar" id="cancelarProfessor"></button>
+			
+        </window>
+    </div>
+    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
+    <script type="text/javascript" src="/watermarkinput.js" />
+    <script type="text/javascript">
+        zk.afterMount(function() {
 
-			<grid>
-				<columns>
-					<column />
-					<column />
-				</columns>
-				<rows>
-					<row>
-						<grid>
-							<columns>
-								<column width="30%" />
-								<column width="70%" />
-							</columns>
-							<rows>
-								<row>
-									Nome:
-									<textbox id="nome" width="80%" />
+        jq("$complemento").Watermark("casa, bloco, nº apartamento,etc","gray");
 
-								</row>
-
-								<row>
-									Sexo:
-									<radiogroup Id="" onCheck="">
-										<radio label="Masculino" />
-										<radio label="Feminino" />
-									</radiogroup>
-								</row>
-
-								<row>
-									Data Nascimento:
-									<datebox id="dataNasc"
-										readonly="true" />
-								</row>
-								<row>
-									Telefone:
-									<textbox id="telefone" width="30%" />
-								</row>
-
-
-								<row>
-									Celular:
-									<textbox id="celular" width="30%" />
-								</row>
-
-								<row>
-									Email:
-									<textbox id="email" width="50%"
-										constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com" />
-								</row>
-
-
-								<row>
-									CPF:
-									<textbox id="cpf" width="30%" />
-								</row>
-
-								<row>
-									RG:
-									<textbox id="rg" width="30%" />
-								</row>
-
-								<row>
-									Grau de Instrução:
-									<combobox id="grauInstrucao"></combobox>
-								</row>
-
-								<row>
-									Área de Conhecimento:
-									<combobox id="AreaConhecimento"></combobox>
-								</row>
-
-
-
-							</rows>
-						</grid>
-
-
-						<grid>
-							<columns>
-								<column width="30%" />
-								<column width="70%" />
-							</columns>
-							<rows>
-								<row>
-									País:
-									<combobox id="pais"></combobox>
-								</row>
-
-								<row>
-									CEP:
-									<textbox id="cep" width="20%" />
-								</row>
-
-								<row>
-									Estado:
-									<combobox id="estado"></combobox>
-								</row>
-
-
-								<row>
-									Cidade:
-									<combobox id="cidade"></combobox>
-								</row>
-
-								<row>
-									Bairro:
-									<combobox id="bairro"></combobox>
-								</row>
-
-
-								<row>
-									Logradouro:
-									<textbox id="logradouro"
-										width="80%" />
-								</row>
-
-
-								<row>
-									Número:
-									<intbox width="15%" id="numero" />
-								</row>
-
-								<row>
-									Complemento:
-									<textbox id="complemento"
-										width="80%" />
-								</row>
-
-								<row>
-									<label value="."
-										style="font-family:comic sans ms; color:#f7f7f7">
-									</label>
-									<label value="."
-										style="font-family:comic sans ms; color:#f7f7f7">
-									</label>
-								</row>
-								<row>
-									<label value="."
-										style="font-family:comic sans ms; color:#f7f7f7">
-									</label>
-									<label value="."
-										style="font-family:comic sans ms; color:#f7f7f7">
-									</label>
-								</row>
-
-
-							</rows>
-						</grid>
-
-
-
-
-
-					</row>
-				</rows>
-			</grid>
-
-			<button width="10%" label="Ok" onClick=""></button>
-			<button width="10%" label="Cancelar" onClick=""></button>
-
-		</window>
-	</div>
-	<script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
-	<script type="text/javascript" src="/watermarkinput.js" />
-	<script type="text/javascript">
-		zk.afterMount(function() {
-
-		jq("$complemento").Watermark("casa, bloco, nº
-		apartamento,etc","gray");
-
-		jq("$telefone").mask("(99) 9999-9999");
-		jq("$celular").mask("(99) 9999-9999");
-		jq("$cep").mask("99999-999"); jq("$cpf").mask("999.999.999-99");
+        jq("$telefone").mask("(99) 9999-9999");
+        jq("$celular").mask("(99) 9999-9999");
+        jq("$cep").mask("99999-999"); jq("$cpf").mask("999.999.999-99");
 
 
-		});
-	</script>
+        });
+    </script>
 
 </zk>
-
-

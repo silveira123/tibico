@@ -31,20 +31,20 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy= InheritanceType.JOINED)
 public class Pessoa extends ObjetoPersistente{
-    private String nome;
-    private Calendar dataNascimento;
-    private long cpf;
-    private String identidade;
-    private String email;
-    private Sexo sexo;
-    private Endereco endereco;
-    private List<Telefone> telefone;
+    protected String nome;
+    protected Calendar dataNascimento;
+    protected Long cpf;
+    protected String identidade;
+    protected String email;
+    protected Sexo sexo;
+    protected Endereco endereco;
+    protected List<Telefone> telefone;
 
     /**
      * Obtém o cpf de Pessoa
      * @return 
      */
-    public long getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
@@ -52,7 +52,7 @@ public class Pessoa extends ObjetoPersistente{
      * Altera o valor de cpf em Pessoa
      * @param cpf 
      */
-    public void setCpf(long cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
     

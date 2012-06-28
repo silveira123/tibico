@@ -8,11 +8,15 @@ import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 public abstract class DAOJPA<T extends ObjetoPersistente> implements DAO<T> {
 
     //Obtém o factory a partir da unidade de persistência.
+    @PersistenceContext(type= PersistenceContextType.EXTENDED)
+//    protected static EntityManager entityManager;
     protected static EntityManager entityManager =
             Persistence.createEntityManagerFactory("JPA").
             createEntityManager();

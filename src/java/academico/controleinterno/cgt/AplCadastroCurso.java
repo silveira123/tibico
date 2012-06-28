@@ -2,7 +2,7 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cgd.DisciplinaDAOJPA;
+import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
@@ -11,9 +11,7 @@ import academico.util.academico.cdp.Regime;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AplCadastroCurso {
 
@@ -83,7 +81,7 @@ public class AplCadastroCurso {
     }
 
     public List<Disciplina> obterDisciplinas(Curso curso) {
-        return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
+        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
     
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {

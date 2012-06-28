@@ -20,6 +20,7 @@ import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.pessoa.cdp.Pessoa;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 
@@ -36,7 +37,7 @@ import javax.persistence.*;
 public class Professor extends Pessoa{
     
     private GrauInstrucao grauInstrucao;
-    private ArrayList<AreaConhecimento> areaConhecimento;
+    private List<AreaConhecimento> areaConhecimento;
     
     public Professor() {
     }
@@ -51,7 +52,7 @@ public class Professor extends Pessoa{
         @JoinColumn(name = "id_pessoa")},
     inverseJoinColumns = {
         @JoinColumn(name = "id_aconhecimento")})
-    public ArrayList<AreaConhecimento> getAreaConhecimento() {
+    public List<AreaConhecimento> getAreaConhecimento() {
         return areaConhecimento;
     }
 
@@ -59,7 +60,7 @@ public class Professor extends Pessoa{
      * Altera o valor de areaConhecimento em Professor
      * @param areaConhecimento 
      */
-     public void setAreaConhecimento(ArrayList<AreaConhecimento> areaConhecimento) {
+     public void setAreaConhecimento(List<AreaConhecimento> areaConhecimento) {
         this.areaConhecimento = areaConhecimento;
     }
 

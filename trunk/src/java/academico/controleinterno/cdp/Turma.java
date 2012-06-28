@@ -19,6 +19,7 @@ package academico.controleinterno.cdp;
 import academico.util.horario.cdp.Horario;
 import academico.util.persistencia.ObjetoPersistente;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 
@@ -37,7 +38,7 @@ public class Turma extends ObjetoPersistente {
     private Integer numVagas;
     private Calendario calendario;
     private Disciplina disciplina;
-    private ArrayList<Horario> horario;
+    private List<Horario> horario;
     //TODO fazer a parte do professor
     
     public Turma() {
@@ -68,10 +69,10 @@ public class Turma extends ObjetoPersistente {
         @JoinColumn(name = "id_turma")},
     inverseJoinColumns = {
         @JoinColumn(name = "id_horario")})
-    public ArrayList<Horario> getHorario() {
+    public List<Horario> getHorario() {
         return horario;
     }
-    public void setHorario(ArrayList<Horario> horario) {
+    public void setHorario(List<Horario> horario) {
         this.horario = horario;
     }
 

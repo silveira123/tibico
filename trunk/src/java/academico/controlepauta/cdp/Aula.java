@@ -21,6 +21,7 @@ import academico.controleinterno.cdp.Turma;
 import academico.util.persistencia.ObjetoPersistente;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.*;
 
 
@@ -39,7 +40,7 @@ public class Aula extends ObjetoPersistente {
     private int quantidade;
     private String conteudo;
     private Turma turma;
-    private ArrayList<Frequencia> frequencia;
+    private List<Frequencia> frequencia;
     
     public Aula() {
     }
@@ -119,7 +120,7 @@ public class Aula extends ObjetoPersistente {
     
     //TODO consertar a annotation para tirar a tabela aux do banco
     @OneToMany(cascade= CascadeType.PERSIST, fetch= FetchType.EAGER)
-    public ArrayList<Frequencia> getFrequencia() {
+    public List<Frequencia> getFrequencia() {
         return frequencia;
     }
 
@@ -127,7 +128,7 @@ public class Aula extends ObjetoPersistente {
      * Altera o valor da lista de frequências de Aula
      * @param frequencia 
      */
-    public void setFrequencia(ArrayList<Frequencia> frequencia) {
+    public void setFrequencia(List<Frequencia> frequencia) {
         this.frequencia = frequencia;
     }
     

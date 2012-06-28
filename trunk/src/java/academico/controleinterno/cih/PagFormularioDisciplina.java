@@ -28,21 +28,22 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        
+
         //TODO Fazer a selecao de disciplinas por curso
         List<Curso> vetCurso = ctrl.obterCursos();
-        cursoCombo.setModel(new ListModelList(vetCurso, true));
+        cursoCombo.setModel(new ListModelList(vetCurso, false));
         cursoCombo.setReadonly(true);
 
         List<Disciplina> disciplinas = ctrl.obterDisciplinas();
         if (disciplinas != null) {
-            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+            listPreRequisitos.setModel(new ListModelList(disciplinas, false));
         }
         ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
 
+        // Populando o list de AreaConhecimento
         List<AreaConhecimento> areaConhecimentos = ctrl.obterAreaConhecimento();
         if (areaConhecimentos != null) {
-            listAreaConhecimento.setModel(new ListModelList(areaConhecimentos, true));
+            listAreaConhecimento.setModel(new ListModelList(areaConhecimentos, false));
         }
         ((ListModelList) listAreaConhecimento.getModel()).setMultiple(true);
     }
@@ -61,7 +62,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     }
 
     private void preencherTela() {
-        
+
         // retornado a lista de areadeconhecimento
         List<Comboitem> curso = cursoCombo.getItems();
         for (int i = 0; i < curso.size(); i++) {
@@ -70,42 +71,43 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 cursoCombo.setSelectedItem(curso.get(i));
             }
         }
-        
+
         nomeDisciplina.setText(obj.getNome());
         cargaHorario.setValue(obj.getCargaHoraria());
         creditos.setValue(obj.getNumCreditos());
         periodo.setValue(obj.getPeriodoCorrespondente());
-        
-        List<Listitem> listItems = listPreRequisitos.getItems();
-        
-        for (int i = 0; i < listItems.size(); i++) {
-            if (listItems.get(i).getValue().equals(obj)) {
-                listItems.remove(i);
-            }
-        }
-        
-        //seleciona os que devem ser marcados em prerequisito
-        if (obj.getPrerequisito().size() > 0) {
-            
-            List selects = obj.getPrerequisito();
-            
-            for (int i = 0; i < listItems.size(); i++) {
-                if (selects.contains(listItems.get(i).getValue())) {
-                    listPreRequisitos.addItemToSelection(listItems.get(i));
-                }
-            }
-        }
-        
-        //seleciona os que devem ser marcados em area de conhecimento
-        if (obj.getAreaConhecimento().size() > 0) {
-            List selects = obj.getAreaConhecimento();
 
-            for (int i = 0; i < listItems.size(); i++) {
-                if (selects.contains(listItems.get(i).getValue())) {
-                    listAreaConhecimento.addItemToSelection(listItems.get(i));
-                }
+        List<Listitem> listItemsPreRequisito = listPreRequisitos.getItems();
+
+        //retira o obj da lista das disciplinas prerequisito
+        for (int i = 0; i < listItemsPreRequisito.size(); i++) {
+            if (listItemsPreRequisito.get(i).getValue().equals(obj)) {
+                listItemsPreRequisito.remove(i);
             }
         }
+
+        //seleciona os que devem ser marcados em prerequisito
+//        List selects = obj.getPrerequisito();
+//        ListModel<Disciplina> modelP = listPreRequisitos.getModel();
+//        ((Selectable) modelP).setSelection(selects);
+//
+//        //seleciona os que devem ser marcados em area de conhecimento
+//        selects = obj.getAreaConhecimento();
+//        ListModel<AreaConhecimento> modelAC = listAreaConhecimento.getModel();
+//        ((Selectable) modelAC).setSelection(selects);
+
+        setSelecionadosList(listPreRequisitos, obj.getPrerequisito());
+        setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
+    }
+
+    public void setSelecionadosList(Listbox listbox, List selects) {
+        ListModel model = listbox.getModel();
+        ((Selectable) model).setSelection(selects);
+    }
+
+    public ArrayList getSelecionadosList(Listbox listbox) {
+        ListModel model = listbox.getModel();
+        return new ArrayList(((Selectable) model).getSelection());
     }
 
     private void bloquearTela() {
@@ -120,7 +122,6 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     public void onClick$salvarDisciplina(Event event) {
 
         Disciplina d = null;
-        int controle = 0;
         try {
             if (MODO == CtrlCadastroCurso.EDITAR) {
 
@@ -130,13 +131,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 obj.setPeriodoCorrespondente(periodo.getValue());
                 Curso c = cursoCombo.getSelectedItem().getValue();
                 obj.setCurso(c);
-
-                Set auxAC = ((Selectable) listAreaConhecimento.getModel()).getSelection();
-                obj.setAreaConhecimento(new ArrayList<AreaConhecimento>(auxAC));
-
-                Set auxP = ((Selectable) listPreRequisitos.getModel()).getSelection();
-                obj.setPrerequisito(new ArrayList<Disciplina>(auxP));
-
+                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                obj.setPrerequisito(auxP);
+                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                obj.setAreaConhecimento(auxAC);
                 d = ctrl.alterarDisciplina(obj);
 
                 Messagebox.show("Cadastro editado!");
@@ -149,16 +147,12 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 list.add(cargaHorario.getValue());
                 list.add(creditos.getValue());
                 list.add(periodo.getValue());
-
-                Set auxP = ((Selectable) listPreRequisitos.getModel()).getSelection();
-                list.add(new ArrayList<Disciplina>(auxP));
-
+                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                list.add(auxP);
                 Curso c = cursoCombo.getSelectedItem().getValue();
                 list.add(c);
-
-                Set auxAC = ((Selectable) listAreaConhecimento.getModel()).getSelection();
-                list.add(new ArrayList<AreaConhecimento>(auxAC));
-
+                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                list.add(auxAC);
                 d = ctrl.incluirDisciplina(list);
 
                 Messagebox.show("Cadastro feito!");
@@ -168,10 +162,17 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }
-        
+
         limparCampos();
         winFormularioDisciplina.onClose();
-        
+    }
+
+    public void onClick$cancelarDisciplina(Event event) {
+        winFormularioDisciplina.onClose();
+    }
+
+    public void onClose$winFormularioDisciplina(Event event) {
+        ctrl.redirectPag("/pageventosdisciplina.zul");
     }
 
     public void limparCampos() {

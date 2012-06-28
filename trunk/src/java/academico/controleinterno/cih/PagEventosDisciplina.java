@@ -20,7 +20,7 @@ public class PagEventosDisciplina extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
+        
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);

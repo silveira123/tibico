@@ -41,6 +41,6 @@ public class main {
        TurmaDAO tdao = new TurmaDAOJPA();
 //       tdao.salvar(t);
        
-       System.out.println(AplControlarTurma.getInstance().obterHorarios().size());
+       //System.out.println(AplControlarTurma.getInstance().obterHorarios().size());
     }
 }

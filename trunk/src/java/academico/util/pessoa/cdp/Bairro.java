@@ -68,4 +68,9 @@ public class Bairro extends ObjetoPersistente{
         this.nome = nome;
     }
     
+    @Override
+    public String toString(){
+        return nome;
+    }
+    
 }

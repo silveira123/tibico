@@ -106,7 +106,7 @@ public class Endereco  extends ObjetoPersistente{
      * @return 
      */
     @ManyToOne(cascade= CascadeType.PERSIST)
-    @JoinColumn(nullable= false)
+    @JoinColumn(nullable= true)
     public Bairro getBairro() {
         return bairro;
     }

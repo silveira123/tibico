@@ -12,7 +12,7 @@
     <separator />
 
     <div align="center">
-        <window title="Página Evento Aluno" border="normal"
+        <window id="winDadosAluno" title="Página Evento Aluno" border="normal"
                         width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
 
  
@@ -55,6 +55,7 @@
             <listbox id="listAluno">
                 <listhead>
                     <listheader align="center" label="Nome" />
+                    <listheader align="center" label="Curso" />
                 </listhead>
             </listbox>
 

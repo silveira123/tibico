@@ -17,7 +17,10 @@
 package academico.util.pessoa.cgd;
 
 import academico.util.persistencia.DAOJPA;
+import academico.util.pessoa.cdp.Estado;
 import academico.util.pessoa.cdp.Municipio;
+import java.util.List;
+import javax.persistence.Query;
 
 /**
  * Esta classe faz herança com DAOJPA e implementa MunicipioDAO
@@ -28,5 +31,9 @@ import academico.util.pessoa.cdp.Municipio;
  */
 public class MunicipioDAOJPA extends DAOJPA<Municipio> implements MunicipioDAO 
 {
-
+    public List<Municipio> obter(Estado e) {
+        Query query = entityManager.createQuery("Select pE from Municipio pE where pE.estado.id = ?1");
+        query.setParameter( 1, e.getId());
+        return query.getResultList();
+    }
 }

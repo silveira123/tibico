@@ -85,4 +85,8 @@ public class Estado  extends ObjetoPersistente{
         this.sigla = sigla;
     }
     
+    @Override
+    public String toString(){
+        return nome;
+    }
 }

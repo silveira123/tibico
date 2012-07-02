@@ -65,7 +65,7 @@ public class Aluno extends Pessoa{
      * @return 
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     public Curso getCurso() {
         return curso;
     }

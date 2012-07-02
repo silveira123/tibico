@@ -11,8 +11,8 @@
 	<separator />
 
 	<div align="center">
-		<window title="Página Evento Chamada" border="normal"
-			width="50%">
+		<window id="winEventosChamada" title="Página Evento Chamada" border="normal" 
+                width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
 
 			<grid>
 				<columns>
@@ -29,7 +29,7 @@
 					
 					<row>			
 				 		Turma: 		 
-				  			<textbox id="nome" width="50%"/>
+				  			<combobox id="nome" width="50%"/>
 					</row>
 					
 					<row>
@@ -43,10 +43,10 @@
 			
 
 			<menubar>
-				<menuitem tooltiptext="Incluir Chamada" label="Incluir"/>
-				<menuitem tooltiptext="Alterar Chamada" label="Alterar"/>
-				<menuitem tooltiptext="Consultar Chamada" label="Consultar"/>
-				<menuitem tooltiptext="Excluir Chamda" label="Excluir"/>
+				<menuitem id="incluir" tooltiptext="Incluir Chamada" label="Incluir"/>
+				<menuitem id="alterar" tooltiptext="Alterar Chamada" label="Alterar"/>
+				<menuitem id="consultar" tooltiptext="Consultar Chamada" label="Consultar"/>
+				<menuitem id="excluir" tooltiptext="Excluir Chamda" label="Excluir"/>
 			</menubar>
 
 			<separator />
@@ -59,14 +59,15 @@
 
 			<separator />
 
-			<grid>
-				<columns>
-					<column align="center" label="Data" />
-					<column align="center" label="Conteúdo" />
-					<column align="center" label="Quantidade de Aulas" />
-				</columns>
+			                        
+                        <listbox id = "listbox" mold="paging" pageSize="10">
+                            <listhead>
+                                <listheader label="Data"/>
+                                <listheader label="Conteúdo"/>
+                                <listheader label="Quantidade de Aulas"/>
+                            </listhead>
 
-			</grid>
+                        </listbox>
 
 
 		</window>

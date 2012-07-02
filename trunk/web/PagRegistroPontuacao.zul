@@ -2,17 +2,10 @@
 
 <zk>
 
-	<separator />
+	
 	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window title="Página Registro Pontuação" border="normal"
-			width="50%">
+		<window id="winRegistroPontuacao"  mode="modal" title="Página Registro Pontuação" border="normal"
+			width="50%" apply="academico.controlepauta.cih.PagRegistroPontuacao">
 	
 			
 	
@@ -48,47 +41,32 @@
 			
 			<separator />
 			<separator />
+                        <div align="center"> 
+                            <auxhead>
 
-			<auxhead>
-				<auxheader align="center"
-					label="Alunos Matriculados" />
-			</auxhead>
+                                    <auxheader label="Alunos Matriculados" />
 
+                            </auxhead>
+                        </div>
 			<separator />
+                        
+                        <listbox id = "listbox" mold="paging" pageSize="10">
+                            <listhead>
+                                <listheader label="Matrícula" sort="auto" width="15%"/>
+                                <listheader label="Nome" sort="auto" width="45%"/>
+                                <listheader label="Nota" width="10%"/>
+                                <listheader label="Observação" width="30%" />
+                            </listhead>
 
-			<grid>
-				<columns>
-					<column align="center" label="Matrícula" width="15%"/>
-					<column align="center" label="Nome" width="45%"/>
-					<column align="center" label="Nota" width="10%"/>
-					<column align="center" label="Observação" width="30%" />
-				</columns>
-				
-				<rows>
-				
-					<row>
-						<label value="20092bsi0292"/>
-						<label value="Geann valfréé"/>
-						<decimalbox width="45%"/>
-						<textbox width="100%"/>
-					</row>
-					
-					<row>
-						<label value="20092bsi0292"/>
-						<label value="Eduardo Irriga o monte"/>
-						<decimalbox width="45%"/>
-						<textbox width="100%"/>
-					</row>
-				
-				</rows>	
-
-			</grid>
+                        </listbox>
 			
 			<separator height="8px"/>
 			
-			<button width="10%" label="Salvar" onClick=""></button>
-			<button width="10%" label="Cancelar" onClick=""></button>
-						
+                    <div align="center">
+			<button id="salvar" width="10%" label="Salvar" onClick=""></button>
+			<button id="fechar" width="10%" label="Fechar" onClick=""></button>
+                    </div>
+                    
 		</window>
 	</div>
 	

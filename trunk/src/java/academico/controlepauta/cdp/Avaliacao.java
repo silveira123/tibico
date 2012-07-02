@@ -57,7 +57,7 @@ public class Avaliacao extends ObjetoPersistente {
      * Obtém o peso de uma Avaliação
      * @return 
      */
-    public int getPeso() {
+    public Integer getPeso() {
         return peso;
     }
     
@@ -65,7 +65,7 @@ public class Avaliacao extends ObjetoPersistente {
      * Altera o valor do peso de uma Avaliação
      * @param peso 
      */
-    public void setPeso(int peso) {
+    public void setPeso(Integer peso) {
         this.peso = peso;
     }
 

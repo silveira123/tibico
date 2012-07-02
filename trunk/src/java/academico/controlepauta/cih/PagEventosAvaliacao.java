@@ -1,9 +1,7 @@
 package academico.controlepauta.cih;
 
 
-import academico.controleinterno.cih.*;
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Avaliacao;
@@ -39,7 +37,6 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
 
     public void onSelect$nome(Event event) { 
         try {
-            System.out.println("oiiii");
             Turma t = nome.getSelectedItem().getValue();
             List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
             
@@ -99,6 +96,14 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirConsultarAvaliacao(c);
+        }
+    }
+    
+    public void onClick$inserirPontuacao(Event event) {
+        Listitem listitem = listbox.getSelectedItem();
+        if (listitem != null) {
+            Avaliacao c = listitem.getValue();
+            ctrl.abrirRegistroPontuacao(c);
         }
     }
 }

@@ -5,11 +5,13 @@
 package academico.controlepauta.cgt;
 
 import academico.controleinterno.cdp.Turma;
-import academico.controlepauta.cdp.Avaliacao;
+import academico.controlepauta.cdp.*;
+import academico.controlepauta.cgd.FrequenciaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,6 +20,9 @@ import java.util.List;
  */
 public class AplControlarAula {
     private DAO apDaoAvaliacao = DAOFactory.obterDAO("JPA", Avaliacao.class);
+    private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
+    private DAO apDaoAula = DAOFactory.obterDAO("JPA", Aula.class);
+    private DAO apDaoFrequencia = DAOFactory.obterDAO("JPA", Frequencia.class);
     
     private AplControlarAula() {
     }
@@ -50,4 +55,70 @@ public class AplControlarAula {
     public List<Avaliacao> obterAvaliacoes() throws AcademicoException {
         return (List<Avaliacao>) apDaoAvaliacao.obter(Avaliacao.class);
     }
+
+    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException{
+        List<Resultado> lista =  apDaoResultado.obter(Resultado.class);
+        boolean possui = false;
+        int j;
+        
+        for (int i = 0; i < notas.size(); i++) {
+            Resultado resultado = new Resultado();
+            resultado.setAvaliacao(obj);
+            resultado.setObservacao((String) observacoes.get(i));
+            resultado.setPontuacao((Double) notas.get(i));
+            resultado.setMatriculaTurma(matriculaturma.get(i));
+            
+            for (j = 0; j < lista.size(); j++) {
+                if(lista.get(j).getMatriculaTurma() == resultado.getMatriculaTurma())
+                {
+                    lista.get(j).setPontuacao((Double) notas.get(i));
+                    lista.get(j).setObservacao((String) observacoes.get(i));
+                    possui = true;
+                    break;
+                }
+            }
+            if(possui)
+            {
+                apDaoResultado.salvar(lista.get(j));
+                possui = false;
+            }
+            else
+            {
+                apDaoResultado.salvar(resultado);
+                possui = false;
+            }   
+        }
+    }
+    
+    public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
+        Aula aula = new Aula();
+        aula.setDia((Calendar) args.get(0));
+        aula.setQuantidade( (Integer) args.get(1));
+        aula.setConteudo( (String) args.get(2));
+        aula.setTurma((Turma) args.get(3));
+        aula.setFrequencia((List<Frequencia>) args.get(4));
+        
+        return (Aula) apDaoAula.salvar(aula);
+    }
+
+    public Aula alterarAula(Aula aula) throws Exception {
+        return (Aula) apDaoAula.salvar(aula);
+    }
+
+    public void apagarAula(Aula aula) throws Exception {
+        apDaoAula.excluir(aula);
+    }
+
+    public List<Frequencia> obterFrequencias() throws AcademicoException {
+        return (List<Frequencia>) apDaoFrequencia.obter(Frequencia.class);
+    }
+    
+    public List<Aula> obterAulas() throws AcademicoException {
+        return (List<Aula>) apDaoAula.obter(Aula.class);
+    }
+
+    public List<Frequencia> obterFrequencias(Turma t) {
+        return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(t);
+    }
+
 }

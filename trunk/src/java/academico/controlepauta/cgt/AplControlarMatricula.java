@@ -119,4 +119,9 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
+    
+    public List<MatriculaTurma> obter(Turma t)
+    {
+        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
+    }
 }

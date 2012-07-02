@@ -5,7 +5,10 @@
 package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Turma;
+import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Avaliacao;
+import academico.controlepauta.cdp.Frequencia;
+import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarAula;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Textbox;
 
 /**
  *
@@ -74,7 +79,65 @@ public class CtrlAula {
         Executions.createComponents("/PagFormularioAvaliacao.zul", null, map);
     }
 
+    public void abrirRegistroPontuacao(Avaliacao avaliacao) {
+        Map map = new HashMap();
+        Object put = map.put("tipo", CtrlAula.CONSULTAR);
+        map.put("obj", avaliacao);
+        Executions.createComponents("/PagRegistroPontuacao.zul", null, map);
+    }
+    
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
+
+    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes) throws AcademicoException {
+         apl.incluirResultado(obj, notas, observacoes, CtrlMatricula.getInstance().obter(obj.getTurma()));
+    }
+    
+    public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
+
+        return apl.incluirAula(args);
+    }
+
+    public Aula alterarAula(Aula aula) throws Exception {
+        return apl.alterarAula(aula);
+    }
+
+    public void apagarAula(Aula aula) throws Exception {
+        apl.apagarAula(aula);
+    }
+
+    public List<Frequencia> obterFrequencias() throws AcademicoException {
+        return apl.obterFrequencias();
+    }
+    
+    public List<Frequencia> obterFrequencias(Turma t) throws AcademicoException {
+        return apl.obterFrequencias(t);
+    }
+    
+     public List<Aula> obterAulas() throws AcademicoException {
+        return apl.obterAulas();
+    }
+
+    public void abrirIncluirAula(Turma turma) {
+        Map map = new HashMap();
+        map.put("tipo", CtrlAula.SALVAR);
+        map.put("obj", turma);
+        Executions.createComponents("/PagRegistroChamada.zul", null, map);
+    }
+
+    public void abrirEditarAula(Aula aula) {
+        Map map = new HashMap();
+        map.put("tipo", CtrlAula.EDITAR);
+        map.put("obj", aula);
+        Executions.createComponents("/PagRegistroChamada.zul", null, map);
+    }
+
+    public void abrirConsultarAula(Aula aula) {
+        Map map = new HashMap();
+        Object put = map.put("tipo", CtrlAula.CONSULTAR);
+        map.put("obj", aula);
+        Executions.createComponents("/PagRegistroChamada.zul", null, map);
+    }
+    
 }

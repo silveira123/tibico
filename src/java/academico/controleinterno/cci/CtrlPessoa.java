@@ -19,6 +19,7 @@ package academico.controleinterno.cci;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
+import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -202,5 +203,10 @@ public static final int SALVAR = 0;
 
     public List<Curso> obterCurso() throws AcademicoException {
         return apl.obterCursos();
+    }
+    
+    public List<Aluno> obterAlunosporTurma(Turma t)
+    {
+        return apl.obterAlunosporTurma(t);
     }
 }

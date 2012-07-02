@@ -19,6 +19,8 @@ package academico.controleinterno.cgt;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
+import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cgd.AlunoDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -110,6 +112,15 @@ public class AplCadastrarPessoa {
      */
     public List<Aluno> obterAlunos() throws AcademicoException {
         return (List<Aluno>) apDaoAluno.obter(Aluno.class);
+    }
+    
+    /**
+     * Obtém uma lista de todos os Alunos cadastrados
+     * @return 
+     */
+    public List<Aluno> obterAlunosporTurma(Turma t)
+    {
+        return ((AlunoDAOJPA) apDaoAluno).obterAlunosporTurma(t);
     }
     
     /**

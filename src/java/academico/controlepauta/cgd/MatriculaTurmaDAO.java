@@ -18,6 +18,7 @@ package academico.controlepauta.cgd;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.persistencia.DAO;
@@ -35,4 +36,5 @@ public interface MatriculaTurmaDAO extends DAO<MatriculaTurma> {
     public List<MatriculaTurma> obter(Aluno aluno);
     public List<MatriculaTurma> obter(Aluno aluno, SituacaoAlunoTurma situacao);
     public List<MatriculaTurma> obter(Aluno aluno, Calendario calendario);
+    public List<MatriculaTurma> obter(Turma t);
 }

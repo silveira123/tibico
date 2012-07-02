@@ -18,6 +18,7 @@ package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.util.Exceptions.AcademicoException;
@@ -107,6 +108,11 @@ public class CtrlMatricula {
      */
     public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
         return apl.emitirBoletim(aluno, calendario);
+    }
+    
+    public List<MatriculaTurma> obter(Turma t) throws AcademicoException
+    {
+        return apl.obter(t);
     }
 
  }

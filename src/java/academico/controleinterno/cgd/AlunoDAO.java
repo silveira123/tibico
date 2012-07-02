@@ -17,7 +17,9 @@
 package academico.controleinterno.cgd;
 
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Turma;
 import academico.util.persistencia.DAO;
+import java.util.List;
 
 
 /**
@@ -28,5 +30,5 @@ import academico.util.persistencia.DAO;
  * @see
  */
 public interface AlunoDAO extends DAO<Aluno>{
-    
+    public List<Aluno> obterAlunosporTurma(Turma t);
 }

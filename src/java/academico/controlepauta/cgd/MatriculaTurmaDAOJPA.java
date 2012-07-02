@@ -18,6 +18,7 @@ package academico.controlepauta.cgd;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.persistencia.DAOJPA;
@@ -52,5 +53,10 @@ public class MatriculaTurmaDAOJPA extends DAOJPA<MatriculaTurma> implements Matr
         query.setParameter(1, aluno.getId());
         query.setParameter(2, calendario.getId());
         return query.getResultList();
+    }
+    
+    public List<MatriculaTurma> obter(Turma t) {
+         List<MatriculaTurma> matriculaturma = entityManager.createQuery("select mt a from MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
+         return matriculaturma;
     }
 }

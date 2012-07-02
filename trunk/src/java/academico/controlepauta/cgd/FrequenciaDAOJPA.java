@@ -16,10 +16,12 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Frequencia;
 import academico.util.persistencia.DAOJPA;
 import java.util.List;
+import javax.persistence.Query;
 
 
 /**
@@ -34,5 +36,10 @@ public class FrequenciaDAOJPA extends DAOJPA<Frequencia> implements FrequenciaDA
     public List<Frequencia> obterFrequencias(Turma t) { 
          List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
          return frequencia;
+    }
+    
+    public List<Frequencia> obterFrequencias(Aluno a) { 
+         List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.aluno.id = ?1 and fr.matriculaTurma.id = mt.id").setParameter(1, a.getId()).getResultList();
+          return frequencia;
     }
 }

@@ -4,20 +4,19 @@
  */
 package academico.controlepauta.cci;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.Frequencia;
-import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarAula;
+import academico.controlepauta.cih.PagEventosChamada;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Textbox;
 
 /**
  *
@@ -107,12 +106,19 @@ public class CtrlAula {
         apl.apagarAula(aula);
     }
 
+    public void apagarFrequencia(Frequencia frequencia) throws Exception {
+        apl.apagarFrequencia(frequencia);
+    }
     public List<Frequencia> obterFrequencias() throws AcademicoException {
         return apl.obterFrequencias();
     }
     
     public List<Frequencia> obterFrequencias(Turma t) throws AcademicoException {
         return apl.obterFrequencias(t);
+    }
+    
+    public List<Frequencia> obterFrequencias(Aluno a) throws AcademicoException {
+        return apl.obterFrequencias(a);
     }
     
      public List<Aula> obterAulas() throws AcademicoException {
@@ -122,22 +128,23 @@ public class CtrlAula {
     public void abrirIncluirAula(Turma turma) {
         Map map = new HashMap();
         map.put("tipo", CtrlAula.SALVAR);
-        map.put("obj", turma);
+        map.put("obj2", turma);
         Executions.createComponents("/PagRegistroChamada.zul", null, map);
     }
 
-    public void abrirEditarAula(Aula aula) {
+    public void abrirEditarAula(Aula aula, Turma turma) {
         Map map = new HashMap();
         map.put("tipo", CtrlAula.EDITAR);
+        map.put("obj2", turma);
         map.put("obj", aula);
         Executions.createComponents("/PagRegistroChamada.zul", null, map);
     }
 
-    public void abrirConsultarAula(Aula aula) {
+    public void abrirConsultarAula(Aula aula, Turma turma) {
         Map map = new HashMap();
         Object put = map.put("tipo", CtrlAula.CONSULTAR);
+        map.put("obj2", turma);
         map.put("obj", aula);
         Executions.createComponents("/PagRegistroChamada.zul", null, map);
-    }
-    
+    }  
 }

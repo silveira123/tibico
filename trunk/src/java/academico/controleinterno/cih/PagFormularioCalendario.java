@@ -33,8 +33,8 @@ public class PagFormularioCalendario extends GenericForwardComposer {
 
         List<Curso> listaCurso = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(listaCurso, true));
-        
-        
+
+
     }
 
     public void onCreate$winFormularioCalendario() {
@@ -58,7 +58,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
                 curso.setSelectedItem(a.get(i));
             }
         }
-        
+
         identificador.setValue(obj.getIdentificador());
         duracao.setValue(obj.getDuracao());
         dataInicioCA.setValue(obj.getDataInicioCA().getTime());
@@ -74,69 +74,83 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         identificador.setDisabled(true);
         duracao.setDisabled(true);
         dataInicioCA.setDisabled(true);
-        dataFimCA.setDisabled(true); 
+        dataFimCA.setDisabled(true);
         dataInicioPL.setDisabled(true);
-        dataFimPL.setDisabled(true); 
+        dataFimPL.setDisabled(true);
         dataInicioPM.setDisabled(true);
         dataFimPM.setDisabled(true);
     }
 
     public void onClick$salvar(Event event) {
         try {
-            Calendar cal = Calendar.getInstance();
-            if(MODO == ctrl.SALVAR)
-            {
+            Calendar inicioCA = Calendar.getInstance();
+            Calendar fimCA = Calendar.getInstance();
+            Calendar inicioPL = Calendar.getInstance();
+            Calendar fimPL = Calendar.getInstance();
+            Calendar inicioPM = Calendar.getInstance();
+            Calendar fimPM = Calendar.getInstance();
+
+            if (MODO == ctrl.SALVAR) {
                 ArrayList<Object> args = new ArrayList<Object>();
                 args.add(curso.getSelectedItem().getValue());
                 args.add(identificador.getValue());
                 args.add(duracao.getValue());
-                cal.setTime(dataInicioCA.getValue());
-                args.add(cal);
-                cal.setTime(dataFimCA.getValue());
-                args.add(cal);
-                cal.setTime(dataInicioPL.getValue());
-                args.add(cal);
-                cal.setTime(dataFimPL.getValue());
-                args.add(cal);
-                cal.setTime(dataInicioPM.getValue());
-                args.add(cal);
-                cal.setTime(dataFimPM.getValue());
-                args.add(cal);
-                
-               
-                ctrl.incluirCalendario(args);
-                limparCampos();
-                ctrl.redirectPag("/PagEventosCalendario.zul");
+                inicioCA.setTime(dataInicioCA.getValue());
+                fimCA.setTime(dataFimCA.getValue());
+                inicioPL.setTime(dataInicioPL.getValue());
+                fimPL.setTime(dataFimPL.getValue());
+                inicioPM.setTime(dataInicioPM.getValue());
+                fimPM.setTime(dataFimPM.getValue());
+
+                int result = validar(inicioCA, fimCA, inicioPL, fimPL, inicioPM, fimPM);
+                if (result < 8) {
+                    imprimeValidacao(result);
+                } else {
+                    args.add(inicioCA);
+                    args.add(fimCA);
+                    args.add(inicioPL);
+                    args.add(fimPL);
+                    args.add(inicioPM);
+                    args.add(fimPM);
+
+                    ctrl.incluirCalendario(args);
+                    limparCampos();
+                    ctrl.redirectPag("/PagEventosCalendario.zul");
+                }
+            } else {
+                obj.setCurso((Curso) curso.getSelectedItem().getValue());
+                obj.setIdentificador(identificador.getValue());
+                obj.setDuracao(duracao.getValue());
+
+                inicioCA.setTime(dataInicioCA.getValue());
+                fimCA.setTime(dataFimCA.getValue());
+
+                inicioPL.setTime(dataInicioPL.getValue());
+                fimPL.setTime(dataFimPL.getValue());
+
+                inicioPM.setTime(dataInicioPM.getValue());
+                fimPM.setTime(dataFimPM.getValue());
+
+                int result = validar(inicioCA, fimCA, inicioPL, fimPL, inicioPM, fimPM);
+                if (result < 8) {
+                    imprimeValidacao(result);
+                } else {
+                    obj.setDataInicioCA(inicioCA);
+                    obj.setDataFimCA(fimCA);
+
+                    obj.setDataInicioPL(inicioPL);
+                    obj.setDataFimPL(fimPL);
+
+                    obj.setDataInicioPM(inicioPM);
+                    obj.setDataFimPM(fimPM);
+
+                    ctrl.alterarCalendario(obj);
+                    ctrl.redirectPag("/PagEventosCalendario.zul");
+                }
             }
-            else
-            {
-               obj.setCurso((Curso) curso.getSelectedItem().getValue());
-               obj.setIdentificador(identificador.getValue());
-               obj.setDuracao(duracao.getValue());
-               
-               cal.setTime(dataInicioCA.getValue());
-               obj.setDataInicioCA(cal);
-               cal.setTime(dataFimCA.getValue());
-               obj.setDataFimCA(cal);
-               
-               cal.setTime(dataInicioPL.getValue());
-               obj.setDataInicioPL(cal);
-               cal.setTime(dataFimPL.getValue());
-               obj.setDataFimPL(cal);
-               
-               cal.setTime(dataInicioPM.getValue());
-               obj.setDataInicioPM(cal);
-               cal.setTime(dataFimPM.getValue());
-               obj.setDataFimPM(cal);
-               
-               ctrl.alterarCalendario(obj);
-               ctrl.redirectPag("/PagEventosCalendario.zul");
-            }
-        } 
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -144,7 +158,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
     public void onClick$cancelar(Event event) {
         ctrl.redirectPag("/PagEventosCalendario.zul");
     }
-    
+
     public void onClose$winCadastro(Event event) {
         ctrl.redirectPag("/PagEventosCalendario.zul");
     }
@@ -154,10 +168,57 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         identificador.setValue("");
         duracao.setValue("");
         dataInicioCA.setValue(null);
-        dataFimCA.setValue(null); 
+        dataFimCA.setValue(null);
         dataInicioPL.setValue(null);
-        dataFimPL.setValue(null); 
-        dataInicioPM.setValue(null); 
+        dataFimPL.setValue(null);
+        dataInicioPM.setValue(null);
         dataFimPM.setValue(null);
+    }
+
+    public int validar(Calendar inicioCA, Calendar fimCA, Calendar inicioPL, Calendar fimPL, Calendar inicioPM, Calendar fimPM) {
+        if (inicioCA.after(fimCA)) {
+            return 1; //Caso o InicioCA seja depois do fim CA ele retorna
+        } else if (inicioPL.after(fimPL)) {
+            return 2;//Caso o inicioPL seja depois do fimPL ele retorna
+        } else if (inicioPL.before(inicioCA)) {
+            return 3;//Caso o inicioPL seja antes do inicioCA ele retorna
+        } else if (fimPL.after(fimCA)) {
+            return 4;//Caso o fimPL seja depois do fimCA ele retorna
+        } else if (inicioPM.after(fimPM)) {
+            return 5;//Caso o inicioPM seja depois do fimPM ele retorna
+        } else if (inicioPM.before(inicioPL)) {
+            return 6;//Caso o inicioPM seja antes do inicioPL ele retorna
+        } else if (fimPM.after(fimPL)) {
+            return 7;//Caso o fimPM seja depois do fimPL ele retorna
+        } else {
+            return 8;
+        }
+    }
+    
+    public void imprimeValidacao(int result)
+    {
+        if(result==1){
+            Messagebox.show("Inicio do Calendário Acadêmico não pode ser depois do FIM");
+        }
+        else if(result==2){
+            Messagebox.show("Inicio do Período Letivo não pode ser depois do FIM");
+        }
+        else if(result==3){
+            Messagebox.show("Inicio do Período Letivo não pode ser antes do Inicio do Calendário Acadêmico");
+        }
+        else if(result==4){
+             Messagebox.show("Fim do Período Letivo não pode ser depois do Fim do Calendário Acadêmico");
+        }
+        else if(result==5){
+            Messagebox.show("Inicio do Período Matrícula não pode ser depois do FIM");
+        }
+        else if(result==6){
+            Messagebox.show("Inicio do Período Matrícula não pode ser antes do Inicio do Período Letivo");
+        }
+        else if(result==7){
+            Messagebox.show("Fim do Período Matrícula não pode ser antes do Fim do Período Letivo");
+        }
+        
+    
     }
 }

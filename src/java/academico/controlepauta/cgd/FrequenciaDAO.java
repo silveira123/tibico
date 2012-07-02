@@ -16,6 +16,7 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Frequencia;
 import academico.util.persistencia.DAO;
@@ -31,4 +32,5 @@ import java.util.List;
  */
 public interface FrequenciaDAO extends DAO<Frequencia>{
     public List<Frequencia> obterFrequencias(Turma t);
+    public List<Frequencia> obterFrequencias(Aluno a);
 }

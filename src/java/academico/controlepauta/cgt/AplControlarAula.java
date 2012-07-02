@@ -4,6 +4,7 @@
  */
 package academico.controlepauta.cgt;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.FrequenciaDAO;
@@ -113,12 +114,20 @@ public class AplControlarAula {
         return (List<Frequencia>) apDaoFrequencia.obter(Frequencia.class);
     }
     
+    public List<Frequencia> obterFrequencias(Aluno a) throws AcademicoException {
+        return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(a);
+    }
+    
     public List<Aula> obterAulas() throws AcademicoException {
         return (List<Aula>) apDaoAula.obter(Aula.class);
     }
 
     public List<Frequencia> obterFrequencias(Turma t) {
         return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(t);
+    }
+
+    public void apagarFrequencia(Frequencia frequencia) throws Exception{
+        apDaoFrequencia.excluir(frequencia);
     }
 
 }

@@ -46,4 +46,8 @@ public class Pais extends ObjetoPersistente{
         this.nome = nome;
     }
     
+    @Override
+    public String toString(){
+        return nome;
+    }
 }

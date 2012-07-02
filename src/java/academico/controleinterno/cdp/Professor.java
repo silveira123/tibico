@@ -46,12 +46,12 @@ public class Professor extends Pessoa{
      * Obtém o conjunto de areaConhecimento de Professor
      * @return 
      */
-    @ManyToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
-    @JoinTable(name = "professorConhecimento",
+    @ManyToMany(cascade= CascadeType.PERSIST)
+    @JoinTable(name = "ProfessorConhecimento",
     joinColumns = {
-        @JoinColumn(name = "id_pessoa")},
+        @JoinColumn(name = "professor_id")},
     inverseJoinColumns = {
-        @JoinColumn(name = "id_aconhecimento")})
+        @JoinColumn(name = "aconhecimento_id")})
     public List<AreaConhecimento> getAreaConhecimento() {
         return areaConhecimento;
     }

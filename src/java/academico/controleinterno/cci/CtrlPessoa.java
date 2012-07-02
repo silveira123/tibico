@@ -23,11 +23,16 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
+import academico.util.pessoa.cdp.Bairro;
+import academico.util.pessoa.cdp.Estado;
+import academico.util.pessoa.cdp.Municipio;
 import academico.util.pessoa.cdp.Pais;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Executions;
 
 
@@ -95,6 +100,18 @@ public static final int SALVAR = 0;
     }
     
     /**
+     * Obtém uma lista de todos os Paises cadastrados
+     * @return 
+     */
+    public List<Pais> obterPaises() throws AcademicoException {
+        return apl.obterPais();
+    }
+    
+   public List<Curso> obterCurso() throws AcademicoException {
+        return apl.obterCursos();
+    }
+    
+    /**
      * Inclui os dados de um Professor no sistema
      * @param args
      * @return
@@ -137,6 +154,49 @@ public static final int SALVAR = 0;
      */
     public List<AreaConhecimento> obterAreaConhecimento() throws AcademicoException {
         return apl.obterAreaConhecimentos();
+    }
+    
+    /**
+     * Obtém uma lista com todas as Estados a partir de um país
+     * @return 
+     */
+    public List<Estado> obterEstados(Pais pais) {
+        try {
+            return apl.obterEstados(pais);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Obtém uma lista com todas as Municipio a partir de um Estado
+     * @return 
+     */
+    public List<Municipio> obterMunicipio(Estado estado){
+        try {
+            return apl.obterMunicipio(estado);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
+    
+    /**
+     * Obtém uma lista com todas as Bairro a partir de um Municipio
+     * @return 
+     */
+    public List<Bairro> obterBairro(Municipio municipio){
+        try {
+            return apl.obterBairro(municipio);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
     }
     
     public void abrirIncluirAluno(Aluno aluno) {
@@ -197,13 +257,6 @@ public static final int SALVAR = 0;
         Executions.sendRedirect(url);
     }
 
-    public List<Pais> obterPaises() throws AcademicoException {
-        return apl.obterPaises();
-    }
-
-    public List<Curso> obterCurso() throws AcademicoException {
-        return apl.obterCursos();
-    }
     
     public List<Aluno> obterAlunosporTurma(Turma t)
     {

@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Curso extends ObjetoPersistente {
 
     private String nome;
-    private int duracao;
+    private Integer duracao;
     private String descricao;
     private GrauInstrucao grauInstrucao;
     private GrandeAreaConhecimento grandeAreaConhecimento;
@@ -32,11 +32,11 @@ public class Curso extends ObjetoPersistente {
         this.descricao = descricao;
     }
 
-    public int getDuracao() {
+    public Integer getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(int duracao) {
+    public void setDuracao(Integer duracao) {
         this.duracao = duracao;
     }
 

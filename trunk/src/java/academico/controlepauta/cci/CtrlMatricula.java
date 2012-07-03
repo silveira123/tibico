@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Aluno;
@@ -23,12 +22,14 @@ import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import org.zkoss.zk.ui.Executions;
 
 /**
- * Controladora das aplicações de controle de matricula e de emitir relatórios. 
- * 
+ * Controladora das aplicações de controle de matricula e de emitir relatórios.
+ * <p/>
  * @author erigamonte
  * @version 0.1
  * @see
@@ -40,11 +41,9 @@ public class CtrlMatricula {
     //Variáveis de Classe:
 
     //Variáveis de Instância:
-    
     //Contrutores:
     private CtrlMatricula() {
     }
-
     private static CtrlMatricula instance = null;
 
     public static CtrlMatricula getInstance() {
@@ -55,12 +54,12 @@ public class CtrlMatricula {
     }
 
     /**
-    * Faz a matricula de um aluno em uma turma.
-    * <p/>
-    * @param args Lista de objetos representando os atributos do objeto MatriculaTurma.
-    * @return MatriculaTurma MatriculaTurma feita.
-    * @throws AcademicoException é retornado caso aconteça um erro na criação da matricula.
-    */
+     * Faz a matricula de um aluno em uma turma.
+     * <p/>
+     * @param args Lista de objetos representando os atributos do objeto MatriculaTurma.
+     * @return MatriculaTurma MatriculaTurma feita.
+     * @throws AcademicoException é retornado caso aconteça um erro na criação da matricula.
+     */
     public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
         return apl.efetuarMatricula(args);
     }
@@ -86,7 +85,7 @@ public class CtrlMatricula {
     public List<MatriculaTurma> obterMatriculadas(Aluno aluno) throws AcademicoException {
         return apl.obterMatriculadas(aluno);
     }
-    
+
     /**
      * Obtem o histórico do aluno.
      * <p/>
@@ -97,11 +96,11 @@ public class CtrlMatricula {
     public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
         return apl.emitirHistorico(aluno);
     }
-    
+
     /**
      * Obtem o boletim do aluno em um calendário academico.
      * <p/>
-     * @param aluno Aluno que terá o boletim buscado. 
+     * @param aluno Aluno que terá o boletim buscado.
      * @param calendario Calendário que definirá qual boletim buscar.
      * @return List<MatriculaTurma> Lista de MatriculaTurma representado o boletim.
      * @throws AcademicoException Caso não consiga buscar o boletim.
@@ -110,9 +109,28 @@ public class CtrlMatricula {
         return apl.emitirBoletim(aluno, calendario);
     }
     
+    /**
+     * Obtem as turmas que o aluno pode se matricular.
+     * <p/>
+     * @param aluno Aluno que terá as turmas buscadas.
+     * @return List<Turma> Lista de Turma que o aluno poderá se matricular.
+     */
+    public List<Turma> obterTurmasPossiveis(Aluno aluno) {
+        return apl.obterTurmasPossiveis(aluno);
+    }
+    
     public List<MatriculaTurma> obter(Turma t) throws AcademicoException
     {
         return apl.obter(t);
     }
 
- }
+    public void abrirMatricular(Aluno aluno) {
+        Map map = new HashMap();
+        map.put("aluno", aluno);
+        Executions.createComponents("/PagFormularioMatricula.zul", null, map);
+    }
+    
+    public void redirectPag(String url) {
+        Executions.sendRedirect(url);
+    }
+}

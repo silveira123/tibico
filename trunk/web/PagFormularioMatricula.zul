@@ -1,72 +1,33 @@
 <?page title="Formulário Matrícula"?>
-
 <zk>
-    <style>
-        .pointer {
-            cursor: pointer;
-        }
-    </style>
-    
-    <separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-    	
-    	<div align="center">
-	    	<window title="Página Formulário Matríucla" border="normal" width="50%">
-	    	<separator height="35px" />
-
-			<div align="left">
-
-				Aluno:
-				<intbox id="matricula" width="10%" />
-
-				<combobox id="nome" width="50%" autocomplete="true"
-					autodrop="true" buttonVisible="true" />
-			</div>
-			<separator height="35px" />
-	    	    <columnlayout>
-			        <columnchildren width="50%">
-			            <panel title="Disciplinas disponíveis para matrícula:">
-			                <panelchildren>
-			                    <listbox id="left" multiple="true" height="300px"
-			                        oddRowSclass="non-odd" checkmark="true">
-			                        <listitem selected="true">
-			                            <listcell label="ZK Forge"/>
-			                                
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK Mobile"/>
-			                               
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK GWT"/>
-			                                
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK JSF"/>
-			                               
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK JSP"/>
-			                               
-			                        </listitem>
-			                    </listbox>
-			                </panelchildren>
-			            </panel>
-			        </columnchildren>
-			        <columnchildren width="100px">
-			            <panel>
-			                <panelchildren style="margin: 70px 34px;">
-			                    <image sclass="pointer" tooltiptext="Add Project"
-			                        src="/img/ButtonArrowRight.jpg">
-			                        <attribute name="onClick"><![CDATA[
+    <div align="center">
+        <window title="Página Formulário Matrícula" id="winFormularioMatricula" action="show: slideDown;hide: slideUp" mode="modal" position="center"
+                closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagFormularioMatricula">
+            <separator height="35px" />
+            <div align="left">
+                <space width="10px"/>
+                Aluno:
+                <textbox id="nomeAluno" width="50%"/>
+            </div>
+            <separator height="35px" />
+            <columnlayout>
+                <columnchildren width="50%">
+                    <panel title="Disciplinas disponíveis para matrícula:">
+                        <panelchildren>
+                            <listbox id="left" multiple="true" height="300px"
+                                     oddRowSclass="non-odd" checkmark="true"/>
+                        </panelchildren>
+                    </panel>
+                </columnchildren>
+                <columnchildren width="100px">
+                    <panel>
+                        <panelchildren style="margin: 70px 34px;">
+                            <image sclass="pointer" tooltiptext="Add Project"
+                                   src="/img/ButtonArrowRight.jpg">
+                                <attribute name="onClick"><![CDATA[
 			                            Set items = left.getSelectedItems();
 			                            if (items.isEmpty()) {
-			                                alert("Please select at least one project to add!");
+			                                alert("Selecione uma turma para matricular-se!");
 			                            } else {
 			                                List al = new ArrayList(items);
 			                                for (Iterator it = al.iterator(); it.hasNext();) {
@@ -75,15 +36,16 @@
 			                                    right.appendChild(li);
 			                                }
 			                            }
-			                        ]]></attribute>
-			                    </image>
-			                    <separator height="15px"/>
-			                    <image sclass="pointer" tooltiptext="Remove Project"
-			                        src="/img/ButtonArrowLeft.jpg">
-			                        <attribute name="onClick"><![CDATA[
+			                        ]]>
+                                </attribute>
+                            </image>
+                            <separator height="15px"/>
+                            <image sclass="pointer" tooltiptext="Remove Project"
+                                   src="/img/ButtonArrowLeft.jpg">
+                                <attribute name="onClick"><![CDATA[
 			                            Set items = right.getSelectedItems();
 			                            if (items.isEmpty()) {
-			                                alert("Please select at least one project to remove!");
+			                                alert("Selecione uma Turma!");
 			                            } else {
 			                                List al = new ArrayList(items);
 			                                for (Iterator it = al.iterator(); it.hasNext();) {
@@ -92,41 +54,29 @@
 			                                    left.appendChild(li);
 			                                }
 			                            }
-			                        ]]></attribute>
-			                    </image>
-			                </panelchildren>
-			            </panel>
-			        </columnchildren>
-			        <columnchildren width="50%">
-			            <panel title="Disciplinas escolhidas para matrícula:">
-			                <panelchildren>
-			                    <listbox id="right" multiple="true" height="300px"
-			                        oddRowSclass="non-odd" checkmark="true">
-			                        <listitem>
-			                            <listcell label="ZK"/>
-			                               
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK Studio"/>
-			                               
-			                        </listitem>
-			                        <listitem>
-			                            <listcell label="ZK Spring"/>
-			                               
-			                        </listitem>
-			                    </listbox>            
-			                </panelchildren>
-			            </panel>
-			        </columnchildren>
-			    </columnlayout>
+			                        ]]>
+                                </attribute>
+                            </image>
+                        </panelchildren>
+                    </panel>
+                </columnchildren>
+                <columnchildren width="50%">
+                    <panel title="Disciplinas escolhidas para matrícula:">
+                        <panelchildren>
+                            <listbox id="right" multiple="true" height="300px"
+                                     oddRowSclass="non-odd" checkmark="true"/>
+                        </panelchildren>
+                    </panel>
+                </columnchildren>
+            </columnlayout>
 		    
-		    <separator/>
+            <separator/>
 		    
-		    <button width="10%" label="Salvar" onClick=""></button>
-			<button width="10%" label="Cancelar" onClick=""></button>
+            <button width="10%" label="Salvar" id="salvarMatricula"></button>
+            <button width="10%" label="Cancelar" id="cancelarMatricula"></button>
 		    
-		    </window>
-	    </div>
+        </window>
+    </div>
 </zk>
 
 

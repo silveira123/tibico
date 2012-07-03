@@ -6,7 +6,6 @@ import academico.controleinterno.cdp.Disciplina;
 import academico.util.academico.cdp.AreaConhecimento;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -16,6 +15,7 @@ import org.zkoss.zul.ext.Selectable;
 public class PagFormularioDisciplina extends GenericForwardComposer {
 
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
+    
     private Window winFormularioDisciplina;
     private Textbox nomeDisciplina;
     private Intbox cargaHorario, creditos, periodo;
@@ -31,19 +31,19 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
         //TODO Fazer a selecao de disciplinas por curso
         List<Curso> vetCurso = ctrl.obterCursos();
-        cursoCombo.setModel(new ListModelList(vetCurso, false));
+        cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
 
         List<Disciplina> disciplinas = ctrl.obterDisciplinas();
         if (disciplinas != null) {
-            listPreRequisitos.setModel(new ListModelList(disciplinas, false));
+            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
         }
         ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
 
         // Populando o list de AreaConhecimento
         List<AreaConhecimento> areaConhecimentos = ctrl.obterAreaConhecimento();
         if (areaConhecimentos != null) {
-            listAreaConhecimento.setModel(new ListModelList(areaConhecimentos, false));
+            listAreaConhecimento.setModel(new ListModelList(areaConhecimentos, true));
         }
         ((ListModelList) listAreaConhecimento.getModel()).setMultiple(true);
     }

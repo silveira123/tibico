@@ -18,7 +18,10 @@ package academico.controlepauta.cgt;
 // imports devem ficar aqui!
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cgd.DisciplinaDAO;
+import academico.controleinterno.cgd.TurmaDAO;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
@@ -64,14 +67,7 @@ public class AplControlarMatricula {
         matriculaTurma.setAluno(aluno);
         Turma turma = (Turma) args.get(1);
         matriculaTurma.setTurma(turma);
-        Double resultadoFinal = (Double) args.get(2);
-        matriculaTurma.setResultadoFinal(resultadoFinal);
-        Double percentualPresenca = (Double) args.get(3);
-        matriculaTurma.setResultadoFinal(percentualPresenca);
-        //SituacaoAlunoTurma situacao = (SituacaoAlunoTurma) args.get(4);
-        //TODO verificar a inicialização da SituacaoAlunoTurma
-        matriculaTurma.setSituacaoAluno(SituacaoAlunoTurma.MATRICULADO);
-        
+                
         return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
     }
 
@@ -123,5 +119,22 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> obter(Turma t)
     {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
+    }
+    
+    public List<Turma> obterTurmasPossiveis(Aluno aluno)
+    {
+        List<Disciplina> disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class))
+                .obterVinculadas(aluno);
+        
+        List<Turma> turmas = ((TurmaDAO) DAOFactory.obterDAO("JPA", Turma.class))
+                .obterTurmasAtuais(aluno);
+        
+        for (int i = 0; i < turmas.size();) {
+            if(disciplinas.contains(turmas.get(i).getDisciplina()))
+                turmas.remove(i);
+            else i++;
+        }
+        
+        return turmas;
     }
 }

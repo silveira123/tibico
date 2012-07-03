@@ -39,7 +39,7 @@ public class Turma extends ObjetoPersistente {
     private Calendario calendario;
     private Disciplina disciplina;
     private List<Horario> horario;
-    //TODO fazer a parte do professor
+    private Professor professor;
     
     public Turma() {
         
@@ -83,6 +83,17 @@ public class Turma extends ObjetoPersistente {
     public void setNumVagas(Integer numVagas) {
         this.numVagas = numVagas;
     }
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = true)
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+    
     @Override
     public String toString() {
         return this.disciplina+" "+this.calendario;

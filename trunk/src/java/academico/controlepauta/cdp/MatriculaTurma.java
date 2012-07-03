@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cdp;
 
 import academico.controleinterno.cdp.Aluno;
@@ -23,7 +22,7 @@ import javax.persistence.*;
 
 /**
  * Esta classe foi criada para conter os valores calculados do resultado final de um Aluno numa Turma, bem como seu percentual de presença.
- * 
+ * <p/>
  * @author Rodrigo Maia
  * @version 0.1
  * @see
@@ -31,16 +30,21 @@ import javax.persistence.*;
 @Entity
 public class MatriculaTurma extends ObjetoPersistente {
 
-    private double resultadoFinal;
-    private double percentualPresenca;
+    private Double resultadoFinal;
+    private Double percentualPresenca;
     private Aluno aluno;
     private Turma turma;
     private SituacaoAlunoTurma situacaoAluno;
 
-   /**
-    * Obtém o Aluno da relação MatriculaTurma
-    * @return 
-    */ 
+    public MatriculaTurma() {
+        situacaoAluno = SituacaoAlunoTurma.MATRICULADO;
+    }
+
+    /**
+     * Obtém o Aluno da relação MatriculaTurma
+     * <p/>
+     * @return
+     */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     public Aluno getAluno() {
@@ -49,7 +53,8 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     /**
      * Altera o valor de Aluno numa relação MatriculaTurma
-     * @param aluno 
+     * <p/>
+     * @param aluno
      */
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
@@ -57,23 +62,26 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     /**
      * Obtém o percentual de presença de um Aluno numa Turma
-     * @return 
+     * <p/>
+     * @return
      */
-    public double getPercentualPresenca() {
+    public Double getPercentualPresenca() {
         return percentualPresenca;
     }
 
     /**
      * Altera o valor do percentual de presença de um Aluno numa Turma
-     * @param percentualPresenca 
+     * <p/>
+     * @param percentualPresenca
      */
-    public void setPercentualPresenca(double percentualPresenca) {
+    public void setPercentualPresenca(Double percentualPresenca) {
         this.percentualPresenca = percentualPresenca;
     }
 
     /**
      * Obtém o resultado final de um Aluno numa Turma
-     * @return 
+     * <p/>
+     * @return
      */
     public double getResultadoFinal() {
         return resultadoFinal;
@@ -81,17 +89,19 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     /**
      * Altera o valor do resultado final de um Aluno numa Turma
-     * @param resultadoFinal 
+     * <p/>
+     * @param resultadoFinal
      */
-    public void setResultadoFinal(double resultadoFinal) {
+    public void setResultadoFinal(Double resultadoFinal) {
         this.resultadoFinal = resultadoFinal;
     }
 
     /**
      * Obtém a situação de um Aluno com relação à uma Turma
-     * @return 
+     * <p/>
+     * @return
      */
-    @Column(nullable=false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     public SituacaoAlunoTurma getSituacaoAluno() {
         return situacaoAluno;
@@ -99,7 +109,8 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     /**
      * Altera o valor da situação de um Aluno com relação à uma Turma
-     * @param situacaoAluno 
+     * <p/>
+     * @param situacaoAluno
      */
     public void setSituacaoAluno(SituacaoAlunoTurma situacaoAluno) {
         this.situacaoAluno = situacaoAluno;
@@ -107,19 +118,26 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     /**
      * Obtém a Turma da relação MatriculaTurma
-     * @return 
+     * <p/>
+     * @return
      */
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     public Turma getTurma() {
         return turma;
     }
-    
+
     /**
      * Altera o valor da Turma numa relação MatriculaTurma
-     * @param turma 
+     * <p/>
+     * @param turma
      */
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    @Override
+    public String toString() {
+        return turma.toString();
     }
 }

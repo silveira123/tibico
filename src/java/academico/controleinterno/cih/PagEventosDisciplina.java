@@ -62,8 +62,12 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         }
     }
 
-    public void onClick$incluirDisciplina(Event event) {
-        ctrl.abrirIncluirDisciplina();      
+    public void onClick$incluirDisciplina(Event event) { 
+        Comboitem comboitem = cursoCombo.getSelectedItem();
+        if (comboitem != null) {
+            Curso c = comboitem.getValue();
+            ctrl.abrirIncluirDisciplina(c);    
+        }
     }
 
     public void onClick$alterarDisciplina(Event event) {

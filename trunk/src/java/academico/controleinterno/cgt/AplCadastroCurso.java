@@ -76,8 +76,19 @@ public class AplCadastroCurso {
     }
 
     public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
-        if(disciplina.getPrerequisito().isEmpty() && !CtrlLetivo.getInstance().obterTurma().contains(disciplina))
-        {//TODO continuar aki o esquema.
+        List<Turma> listas = CtrlLetivo.getInstance().obterTurma();
+        boolean flag = false;
+        
+        for (int i = 0; i < listas.size(); i++) {
+            if(listas.get(i).getDisciplina().getId() == disciplina.getId())
+            {
+                flag = true;
+                break;
+            }
+        }
+        
+        if(disciplina.getPrerequisito().isEmpty() && !flag)
+        {
             apDaoDisciplina.excluir(disciplina);
             return true;
         }

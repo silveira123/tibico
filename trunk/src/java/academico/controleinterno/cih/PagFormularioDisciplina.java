@@ -22,6 +22,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     private Combobox cursoCombo;
     private Listbox listPreRequisitos, listAreaConhecimento;
     private Disciplina obj;
+    private Curso obj2;
     private Button salvarDisciplina;
     private int MODO;
 
@@ -33,6 +34,9 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
+        
+
+        cursoCombo.setDisabled(true);
 
         List<Disciplina> disciplinas = ctrl.obterDisciplinas();
         if (disciplinas != null) {
@@ -57,6 +61,17 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             if (MODO == CtrlCadastroCurso.CONSULTAR) {
                 this.salvarDisciplina.setVisible(false);
                 bloquearTela();
+            }
+        }
+        else
+        {
+            obj2 = (Curso) arg.get("obj"); 
+            List<Comboitem> curso = cursoCombo.getItems();
+            for (int i = 0; i < curso.size(); i++) {
+                // verificando qual a area de conhecimento cadastrado
+                if (obj2.equals(curso.get(i).getValue())) {
+                    cursoCombo.setSelectedItem(curso.get(i));
+                }
             }
         }
     }
@@ -85,16 +100,6 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 listItemsPreRequisito.remove(i);
             }
         }
-
-        //seleciona os que devem ser marcados em prerequisito
-//        List selects = obj.getPrerequisito();
-//        ListModel<Disciplina> modelP = listPreRequisitos.getModel();
-//        ((Selectable) modelP).setSelection(selects);
-//
-//        //seleciona os que devem ser marcados em area de conhecimento
-//        selects = obj.getAreaConhecimento();
-//        ListModel<AreaConhecimento> modelAC = listAreaConhecimento.getModel();
-//        ((Selectable) modelAC).setSelection(selects);
 
         setSelecionadosList(listPreRequisitos, obj.getPrerequisito());
         setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());

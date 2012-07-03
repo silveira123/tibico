@@ -102,9 +102,10 @@ public class CtrlCadastroCurso {
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
-    public void abrirIncluirDisciplina() {
+    public void abrirIncluirDisciplina(Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlCadastroCurso.SALVAR);
+        map.put("obj", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 

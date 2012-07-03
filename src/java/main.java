@@ -1,25 +1,7 @@
-import academico.controleinterno.cci.CtrlCadastroCurso;
-import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
-import academico.controleinterno.cgd.*;
+import academico.controleinterno.cgd.AlunoDAO;
+import academico.controleinterno.cgd.AlunoDAOJPA;
 import academico.controleinterno.cgt.AplCadastroCurso;
-import academico.controleinterno.cgt.AplControlarTurma;
-import academico.util.horario.cdp.Horario;
-import academico.controleinterno.cdp.Professor;
-import academico.controleinterno.cgt.AplCadastrarPessoa;
-import academico.util.Exceptions.AcademicoException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import academico.util.Exceptions.AcademicoException;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -56,8 +38,8 @@ public class main {
        AlunoDAO tdao = new AlunoDAOJPA();
 //       tdao.salvar(a);
         
-        TurmaDAO d = new TurmaDAOJPA();
+        //TurmaDAO d = new TurmaDAOJPA();
        
-       System.out.println(d.obterTurmasAtuais(tdao.obter(Aluno.class).get(0)).get(0));
+      // System.out.println(d.obterTurmasAtuais(tdao.obter(Aluno.class).get(0)).get(0));
     }
 }

@@ -38,6 +38,8 @@ public class MatriculaTurma extends ObjetoPersistente {
 
     public MatriculaTurma() {
         situacaoAluno = SituacaoAlunoTurma.MATRICULADO;
+        percentualPresenca = 100.00;
+        resultadoFinal = 0.0;
     }
 
     /**
@@ -83,7 +85,7 @@ public class MatriculaTurma extends ObjetoPersistente {
      * <p/>
      * @return
      */
-    public double getResultadoFinal() {
+    public Double getResultadoFinal() {
         return resultadoFinal;
     }
 

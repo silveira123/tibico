@@ -115,8 +115,19 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         cargaHorario.setReadonly(true);
         creditos.setReadonly(true);
         periodo.setReadonly(true);
-        listAreaConhecimento.setDisabled(true);
-        listPreRequisitos.setDisabled(true);
+
+        List<Listitem> listItemsPreRequisito = listPreRequisitos.getItems();
+        listPreRequisitos.setCheckmark(false);
+        for (int i = 0; i < listItemsPreRequisito.size(); i++) {
+           listItemsPreRequisito.get(i).setDisabled(true);
+        }
+
+        List<Listitem> listAreaConhecimentos = listAreaConhecimento.getItems();
+        listAreaConhecimento.setCheckmark(false);
+        for (int i = 0; i < listAreaConhecimentos.size(); i++) {
+           listAreaConhecimentos.get(i).setDisabled(true);
+        }
+        cursoCombo.setDisabled(true);
     }
 
     public void onClick$salvarDisciplina(Event event) {
@@ -164,7 +175,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         }
 
         limparCampos();
-        winFormularioDisciplina.onClose();
+        ctrl.redirectPag("/pageventosdisciplina.zul");
     }
 
     public void onClick$cancelarDisciplina(Event event) {

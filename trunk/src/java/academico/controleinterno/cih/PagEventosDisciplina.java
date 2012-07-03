@@ -3,6 +3,7 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -24,7 +25,10 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
+    }
 
+    public void onSelect$cursoCombo(Event event) throws AcademicoException
+    {
         List<Disciplina> disciplinas = ctrl.obterDisciplinas();
         if (disciplinas != null) {
             for (int i = 0; i < disciplinas.size(); i++) {
@@ -38,14 +42,16 @@ public class PagEventosDisciplina extends GenericForwardComposer {
             }
         }
     }
-
+    
     public void onClick$excluirDisciplina(Event event) {
         Listitem listitem = listDisciplina.getSelectedItem();
         if (listitem != null) {
             try {
                 Disciplina d = listitem.getValue();
-                ctrl.apagarDisciplina(d);
-                listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
+                if(ctrl.apagarDisciplina(d))
+                    listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
+                else
+                   Messagebox.show("Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma."); 
             }
             catch (Exception e) {
                 Messagebox.show("Não foi possivel excluir a disciplina");

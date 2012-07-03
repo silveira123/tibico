@@ -62,8 +62,8 @@ public class CtrlCadastroCurso {
         return apl.alterarDisciplina(args);
     }
 
-    public void apagarDisciplina(Disciplina disciplina) throws Exception {
-        apl.apagarDisciplina(disciplina);
+    public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
+        return apl.apagarDisciplina(disciplina);
     }
 
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
@@ -125,4 +125,5 @@ public class CtrlCadastroCurso {
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
+    
 }

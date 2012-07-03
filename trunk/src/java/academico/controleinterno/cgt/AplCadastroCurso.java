@@ -1,7 +1,10 @@
 package academico.controleinterno.cgt;
 
+import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
+import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -72,8 +75,14 @@ public class AplCadastroCurso {
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
-    public void apagarDisciplina(Disciplina disciplina) throws Exception {
-        apDaoDisciplina.excluir(disciplina);
+    public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
+        if(disciplina.getPrerequisito().isEmpty() && !CtrlLetivo.getInstance().obterTurma().contains(disciplina))
+        {//TODO continuar aki o esquema.
+            apDaoDisciplina.excluir(disciplina);
+            return true;
+        }
+        else
+            return false;
     }
 
     public List<Disciplina> obterDisciplinas() throws AcademicoException {

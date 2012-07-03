@@ -5,6 +5,8 @@
 package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplControlarTurma;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -120,4 +124,26 @@ public class CtrlLetivo {
     public List<Horario> obterHorario() throws AcademicoException {
         return aplC.obterHorarios();
     }
+    
+    public List<Disciplina> obterDisciplinas(Curso curso){
+        try {
+            return aplC.obterDisciplinas(curso);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+//    public List<Disciplina> obterDisciplinas(Curso curso){
+//        try {
+//            return aplC.obterDisciplinas(curso);
+//        }
+//        catch (AcademicoException ex) {
+//            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        return null;
+//    }
 }

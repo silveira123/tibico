@@ -12,6 +12,10 @@
                 <rows>
                     
                     <row>
+                        Curso
+                        <combobox id="curso"/>	
+                    </row>
+                    <row>
                         Disciplina 
                         <combobox id="disciplina"/>	
                     </row>

@@ -5,8 +5,10 @@
 package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cgd.DisciplinaDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
 import academico.util.persistencia.DAO;
@@ -21,6 +23,7 @@ import java.util.List;
 public class AplControlarTurma {
     private DAO apDaoTurma = DAOFactory.obterDAO("JPA", Turma.class);
     private DAO apDaoHorario = DAOFactory.obterDAO("JPA", Horario.class);
+    private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
     
     private AplControlarTurma() {
     }
@@ -60,5 +63,9 @@ public class AplControlarTurma {
     }
     public List<Horario> obterHorarios() throws AcademicoException {
         return (List<Horario>) apDaoHorario.obter(Horario.class);
+    }
+    
+    public List<Disciplina> obterDisciplinas(Curso curso) throws AcademicoException {
+        return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
     }
 }

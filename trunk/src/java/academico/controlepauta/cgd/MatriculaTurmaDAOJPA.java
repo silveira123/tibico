@@ -59,4 +59,11 @@ public class MatriculaTurmaDAOJPA extends DAOJPA<MatriculaTurma> implements Matr
          List<MatriculaTurma> matriculaturma = entityManager.createQuery("select mt from MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
          return matriculaturma;
     }
+
+    public List<Calendario> obterCalendarios(Aluno aluno) {
+        Query query = entityManager.createQuery("Select mt.turma.calendario from MatriculaTurma mt, Turma t, Calendario c where mt.turma.id = t.id and "
+                                                + "t.calendario.id = c.id and mt.aluno.id = ?1" );
+        query.setParameter(1, aluno.getId());
+        return query.getResultList();
+    }
 }

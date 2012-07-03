@@ -118,6 +118,15 @@ public class CtrlMatricula {
     public List<Turma> obterTurmasPossiveis(Aluno aluno) {
         return apl.obterTurmasPossiveis(aluno);
     }
+    /**
+     * Obtem os Calendários que o aluno teve uma matricula vinculada.
+     * <p/>
+     * @param aluno Aluno que terá as turmas buscadas.
+     * @return List<Calendario> Lista de Calendario que o aluno teve uma matricula vinculada.
+     */
+    public List<Calendario> buscaCalendarios(Aluno a){
+        return apl.buscaCalendarios(a);
+    }
     
     public List<MatriculaTurma> obter(Turma t) throws AcademicoException
     {

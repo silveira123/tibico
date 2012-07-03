@@ -62,16 +62,16 @@ public class AplControlarMatricula {
      */
     public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
         MatriculaTurma matriculaTurma = new MatriculaTurma();
-        
+
         Aluno aluno = (Aluno) args.get(0);
         matriculaTurma.setAluno(aluno);
         Turma turma = (Turma) args.get(1);
         matriculaTurma.setTurma(turma);
-                
+
         return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
     }
 
-     /**
+    /**
      * Cancela (exclui) uma matricula de um aluno em uma turma.
      * <p/>
      * @param matriculaTurma Matricula que será cancelada.
@@ -92,7 +92,7 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> obterMatriculadas(Aluno aluno) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, SituacaoAlunoTurma.MATRICULADO);
     }
-    
+
     /**
      * Obtem o histórico do aluno.
      * <p/>
@@ -103,11 +103,11 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, SituacaoAlunoTurma.APROVADO);
     }
-    
+
     /**
      * Obtem o boletim do aluno em um calendário academico.
      * <p/>
-     * @param aluno Aluno que terá o boletim buscado. 
+     * @param aluno Aluno que terá o boletim buscado.
      * @param calendario Calendário que definirá qual boletim buscar.
      * @return List<MatriculaTurma> Lista de MatriculaTurma representado o boletim.
      * @throws AcademicoException Caso não consiga buscar o boletim.
@@ -115,26 +115,40 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
-    
-    public List<MatriculaTurma> obter(Turma t)
-    {
+
+    public List<MatriculaTurma> obter(Turma t) {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
     }
-    
-    public List<Turma> obterTurmasPossiveis(Aluno aluno)
-    {
-        List<Disciplina> disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class))
-                .obterVinculadas(aluno);
-        
-        List<Turma> turmas = ((TurmaDAO) DAOFactory.obterDAO("JPA", Turma.class))
-                .obterTurmasAtuais(aluno);
-        
+
+    public List<Turma> obterTurmasPossiveis(Aluno aluno) {
+        //recupera as disciplinas que o aluno já está matriculado, cursando ou ja foi aprovado
+        List<Disciplina> disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class)).obterVinculadas(aluno);
+
+        //pega as turmas do calendario atual do curso do aluno
+        List<Turma> turmas = ((TurmaDAO) DAOFactory.obterDAO("JPA", Turma.class)).obterTurmasAtuais(aluno);
+
+        //tira do array as disciplinas que o aluno já está vinculado
         for (int i = 0; i < turmas.size();) {
-            if(disciplinas.contains(turmas.get(i).getDisciplina()))
+            if (disciplinas.contains(turmas.get(i).getDisciplina())) {
                 turmas.remove(i);
-            else i++;
+            }
+            else {
+                i++;
+            }
         }
-        
+
         return turmas;
+    }
+
+    /**
+     * Obtem todos os calendarios que o Aluno teve uma matricula vinculada.
+     * <p/>
+     * @param aluno Aluno que terá as matriculas buscadas.
+     * @return List<Calendario> Lista de MatriculaTurma.
+     * @throws AcademicoException caso não seja possivel buscar os calendarios.
+     */
+    public List<Calendario> buscaCalendarios(Aluno a) {
+        return (List<Calendario>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCalendarios(a);
+        
     }
 }

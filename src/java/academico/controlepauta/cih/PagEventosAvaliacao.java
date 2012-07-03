@@ -67,10 +67,10 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
                 ctrl.apagarAvaliacao(c);
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir a avaliação");
+                Messagebox.show("Não foi possivel excluir a avaliação");
             }
         } else {
-            alert("Selecione uma avaliação");
+            Messagebox.show("Selecione uma avaliação");
         }
     }
 

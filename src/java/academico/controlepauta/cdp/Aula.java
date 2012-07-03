@@ -19,7 +19,6 @@ package academico.controlepauta.cdp;
 
 import academico.controleinterno.cdp.Turma;
 import academico.util.persistencia.ObjetoPersistente;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
@@ -37,7 +36,7 @@ import javax.persistence.*;
 public class Aula extends ObjetoPersistente {
 
     private Calendar dia;
-    private int quantidade;
+    private Integer quantidade;
     private String conteudo;
     private Turma turma;
     private List<Frequencia> frequencia;
@@ -82,7 +81,7 @@ public class Aula extends ObjetoPersistente {
      * Obtém a quantidade de aulas
      * @return 
      */
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
@@ -90,7 +89,7 @@ public class Aula extends ObjetoPersistente {
      * Altera o valor da quantidade de aulas
      * @param quantidade 
      */
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

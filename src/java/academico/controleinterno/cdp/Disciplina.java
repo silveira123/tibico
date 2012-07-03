@@ -18,18 +18,18 @@ import javax.persistence.*;
 public class Disciplina extends ObjetoPersistente {
 
     private String nome;
-    private int cargaHoraria;
-    private int numCreditos;
+    private Integer cargaHoraria;
+    private Integer numCreditos;
     private List<AreaConhecimento> areaConhecimento;
-    private int periodoCorrespondente;
+    private Integer periodoCorrespondente;
     private List<Disciplina> prerequisito;
     private Curso curso;
 
-    public int getCargaHoraria() {
+    public Integer getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(int cargaHoraria) {
+    public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
@@ -41,11 +41,11 @@ public class Disciplina extends ObjetoPersistente {
         this.nome = nome;
     }
 
-    public int getNumCreditos() {
+    public Integer getNumCreditos() {
         return numCreditos;
     }
 
-    public void setNumCreditos(int numCreditos) {
+    public void setNumCreditos(Integer numCreditos) {
         this.numCreditos = numCreditos;
     }
 
@@ -63,11 +63,11 @@ public class Disciplina extends ObjetoPersistente {
         this.areaConhecimento = areaConhecimento;
     }
 
-    public int getPeriodoCorrespondente() {
+    public Integer getPeriodoCorrespondente() {
         return periodoCorrespondente;
     }
 
-    public void setPeriodoCorrespondente(int periodoCorrespondente) {
+    public void setPeriodoCorrespondente(Integer periodoCorrespondente) {
         this.periodoCorrespondente = periodoCorrespondente;
     }
 

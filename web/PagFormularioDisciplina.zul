@@ -28,11 +28,7 @@
                     <row>
                         Área de Conhecimeto:
                         <cell colspan="2">
-                            <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px">
-                                <listhead>
-                                    <listheader label="     Marcar Todas"/>
-                                </listhead>
-                            </listbox>
+                            <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px"/>
                         </cell>
                     </row>
 						
@@ -57,11 +53,7 @@
                     <row>
                         Pré-Requisitos:
                         <cell colspan="2">
-                            <listbox checkmark="true" multiple="true" height="200px" id="listPreRequisitos">
-                                <listhead>
-                                    <listheader label="     Marcar Todas"/>
-                                </listhead>
-                            </listbox>
+                            <listbox checkmark="true" multiple="true" height="200px" id="listPreRequisitos"/>
                         </cell>
                     </row>
 						

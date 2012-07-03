@@ -1,23 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package academico.util.persistencia;
 
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public abstract class DAOJPA<T extends ObjetoPersistente> implements DAO<T> {
 
     //Obtém o factory a partir da unidade de persistência.
-    //@PersistenceContext(type= PersistenceContextType.EXTENDED)
+//    @PersistenceContext(type= PersistenceContextType.EXTENDED)
 //    protected static EntityManager entityManager;
-    protected static EntityManager entityManager =
-            Persistence.createEntityManagerFactory("JPA").
-            createEntityManager();
+    protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPA");
+    protected static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public T salvar(T obj) throws AcademicoException {
 

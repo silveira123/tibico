@@ -129,6 +129,6 @@ public class Aluno extends Pessoa{
     
     @Override
     public String toString() {
-        return nome;
+        return nome + " " + matricula;
     }
 }

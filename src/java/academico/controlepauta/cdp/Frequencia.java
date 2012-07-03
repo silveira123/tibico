@@ -33,14 +33,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Frequencia extends ObjetoPersistente {
 
-    private int numFaltasAula;
+    private Integer numFaltasAula;
     private MatriculaTurma matriculaTurma;
 
     /**
      * Obtém o número de faltas de um Aluno em uma Aula
      * @return 
      */
-    public int getNumFaltasAula() {
+    public Integer getNumFaltasAula() {
         return numFaltasAula;
     }
 
@@ -48,7 +48,7 @@ public class Frequencia extends ObjetoPersistente {
      * Altera o valor do número de faltas de um Aluno em uma Aula
      * @param numFaltasAula 
      */
-    public void setNumFaltasAula(int numFaltasAula) {
+    public void setNumFaltasAula(Integer numFaltasAula) {
         this.numFaltasAula = numFaltasAula;
     }
         

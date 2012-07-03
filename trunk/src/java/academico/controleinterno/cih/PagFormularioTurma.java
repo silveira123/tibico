@@ -2,10 +2,7 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Curso;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.DiaSemana;
 import academico.util.horario.cdp.Horario;
@@ -228,5 +225,15 @@ public class PagFormularioTurma extends GenericForwardComposer {
         List<Disciplina> listDisciplinas = ctrl.obterDisciplinas((Curso) curso.getSelectedItem().getValue());
         disciplina.setModel(new ListModelList(listDisciplinas, true));        
         disciplina.setReadonly(true);
+        
+        List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
+        calendario.setModel(new ListModelList(listCalendarios, true));        
+        calendario.setReadonly(true);
     }
+    
+     public void onSelect$disciplina() {
+        List<Professor> listProfessor = ctrl.obterProfessores((Disciplina) disciplina.getSelectedItem().getValue());
+        professor.setModel(new ListModelList(listProfessor, true));        
+        professor.setReadonly(true);
+     }
 }

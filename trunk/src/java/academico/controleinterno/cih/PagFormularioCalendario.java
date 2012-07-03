@@ -186,10 +186,10 @@ public class PagFormularioCalendario extends GenericForwardComposer {
             return 4;//Caso o fimPL seja depois do fimCA ele retorna
         } else if (inicioPM.after(fimPM)) {
             return 5;//Caso o inicioPM seja depois do fimPM ele retorna
-        } else if (inicioPM.before(inicioPL)) {
-            return 6;//Caso o inicioPM seja antes do inicioPL ele retorna
-        } else if (fimPM.after(fimPL)) {
-            return 7;//Caso o fimPM seja depois do fimPL ele retorna
+        } else if (inicioPM.before(inicioCA)) {
+            return 6;//Caso o inicioPM seja antes do inicioCA ele retorna
+        } else if (fimPM.after(fimCA)) {
+            return 7;//Caso o fimPM seja depois do fimCA ele retorna
         } else {
             return 8;
         }
@@ -213,10 +213,10 @@ public class PagFormularioCalendario extends GenericForwardComposer {
             Messagebox.show("Inicio do Período Matrícula não pode ser depois do FIM");
         }
         else if(result==6){
-            Messagebox.show("Inicio do Período Matrícula não pode ser antes do Inicio do Período Letivo");
+            Messagebox.show("Inicio do Período Matrícula não pode ser antes do Inicio do Calendário Acadêmico");
         }
         else if(result==7){
-            Messagebox.show("Fim do Período Matrícula não pode ser antes do Fim do Período Letivo");
+            Messagebox.show("Fim do Período Matrícula não pode ser antes do Fim do Calendário Acadêmico");
         }
         
     

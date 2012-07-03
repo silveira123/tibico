@@ -24,9 +24,12 @@
                         <combobox id="calendario"/>	
                     </row>
                     <row>
-                        Número de vagas 
-                        <intbox id="numVagas" width="6%"/>	
+					
+                        Professor 
+                        <combobox id="professor"/>
+					
                     </row>
+                   
                     <row>
                         Horario  
                         <listbox id="listHorario">
@@ -47,11 +50,9 @@
 										
                         </cell>
                     </row>
-                    <row>
-					
-                        Professor 
-                        <combobox id="professor"/>
-					
+                     <row>
+                        Número de vagas 
+                        <intbox id="numVagas" width="6%"/>	
                     </row>
                 </rows>
             </grid>			

@@ -4,10 +4,7 @@
  */
 package academico.controleinterno.cci;
 
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Curso;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.util.Exceptions.AcademicoException;
@@ -136,14 +133,25 @@ public class CtrlLetivo {
         return null;
     }
     
-//    public List<Disciplina> obterDisciplinas(Curso curso){
-//        try {
-//            return aplC.obterDisciplinas(curso);
-//        }
-//        catch (AcademicoException ex) {
-//            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        return null;
-//    }
+    public List<Calendario> obterCalendarios(Curso curso){
+        try {
+            return apl.obterCalendarios(curso);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    public List<Professor> obterProfessores(Disciplina disciplina){
+        try {
+            return aplC.obterProfessores(disciplina);
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
 }

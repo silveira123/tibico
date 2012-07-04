@@ -243,9 +243,7 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.DiaSemana;
 import academico.util.horario.cdp.Horario;
@@ -261,8 +259,9 @@ import org.zkoss.zul.*;
 public class PagFormularioTurma extends GenericForwardComposer {
 
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private CtrlCadastroCurso ctrlDisciplina = CtrlCadastroCurso.getInstance();
+    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
     private Window winFormularioTurma;
+    private Combobox curso;
     private Combobox disciplina;
     private Combobox calendario;
     private Intbox numVagas;
@@ -278,14 +277,10 @@ public class PagFormularioTurma extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
-        List<Disciplina> listaDisciplina = ctrlDisciplina.obterDisciplinas();
-        disciplina.setModel(new ListModelList(listaDisciplina, true));
-        disciplina.setReadonly(true);
         
-        List<Calendario> listaCalendario = ctrl.obterCalendario();
-        calendario.setModel(new ListModelList(listaCalendario, true));
-        calendario.setReadonly(true);
+        List<Curso> listaCurso = ctrlCurso.obterCursos();
+        curso.setModel(new ListModelList(listaCurso, true));
+        curso.setReadonly(true);   
         
         List<Horario> listaHorario = ctrl.obterHorario();
         DiaSemana dia = null;
@@ -334,14 +329,8 @@ public class PagFormularioTurma extends GenericForwardComposer {
             }
             listHorario.appendChild(linha);
             i = j;
-
-
         }
-
-
-
         // listHorario.setModel(new ListModelList(listaHorario, true));
-        
         
         //TODO tem que ver como vai fazer para botar os horários na tela
         //TODO fazer toda parte do professor
@@ -462,4 +451,20 @@ public class PagFormularioTurma extends GenericForwardComposer {
         }
         return horariosMarcados;
     }
+    
+    public void onSelect$curso() {
+        List<Disciplina> listDisciplinas = ctrl.obterDisciplinas((Curso) curso.getSelectedItem().getValue());
+        disciplina.setModel(new ListModelList(listDisciplinas, true));        
+        disciplina.setReadonly(true);
+        
+        List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
+        calendario.setModel(new ListModelList(listCalendarios, true));        
+        calendario.setReadonly(true);
+    }
+    
+     public void onSelect$disciplina() {
+        List<Professor> listProfessor = ctrl.obterProfessores((Disciplina) disciplina.getSelectedItem().getValue());
+        professor.setModel(new ListModelList(listProfessor, true));        
+        professor.setReadonly(true);
+     }
 }

@@ -4,10 +4,7 @@
  */
 package academico.controleinterno.cgt;
 
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Curso;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
@@ -24,6 +21,7 @@ public class AplControlarTurma {
     private DAO apDaoTurma = DAOFactory.obterDAO("JPA", Turma.class);
     private DAO apDaoHorario = DAOFactory.obterDAO("JPA", Horario.class);
     private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
+    private AplCadastrarPessoa aplPessoa = AplCadastrarPessoa.getInstance();
     
     private AplControlarTurma() {
     }
@@ -67,5 +65,20 @@ public class AplControlarTurma {
     
     public List<Disciplina> obterDisciplinas(Curso curso) throws AcademicoException {
         return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
+    }
+    
+    public List<Professor> obterProfessores(Disciplina disciplina)throws AcademicoException{
+        List<Professor> listProfessor = aplPessoa.obterProfessor();
+        
+        for (int i = 0; i < listProfessor.size();) {
+            if (!listProfessor.get(i).getAreaConhecimento().containsAll(disciplina.getAreaConhecimento())) {
+                listProfessor.remove(i);
+            }
+            else{
+                i++;
+            }
+        }
+        
+        return listProfessor;
     }
 }

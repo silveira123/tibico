@@ -22,6 +22,7 @@ import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
+import academico.controleinterno.cgt.AplCadastroCurso;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
@@ -41,6 +42,7 @@ import java.util.List;
 public class AplControlarMatricula {
 
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
+    private AplCadastroCurso aplCadastroCurso = AplCadastroCurso.getInstance();
 
     private AplControlarMatricula() {
     }
@@ -116,8 +118,6 @@ public class AplControlarMatricula {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
 
-    
-
     public List<Turma> obterTurmasPossiveis(Aluno aluno) {
         //recupera as disciplinas que o aluno já está matriculado, cursando ou ja foi aprovado
         List<Disciplina> disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class)).obterVinculadas(aluno);
@@ -134,6 +134,18 @@ public class AplControlarMatricula {
                 i++;
             }
         }
+        //tira as turmas que ainda não foi cumprido o pré-requisito
+        for (int i = 0; i < turmas.size();i++) {
+            List<Disciplina> listPreRequisitos = aplCadastroCurso.obterPreRequisitos(turmas.get(i).getDisciplina());
+            for (int j = 0; j < listPreRequisitos.size(); j++) {
+                if (!disciplinas.contains(listPreRequisitos.get(j))) {
+                    turmas.remove(i);
+                    i--;
+                }
+
+            }
+
+        }
 
         return turmas;
     }
@@ -147,9 +159,9 @@ public class AplControlarMatricula {
      */
     public List<Calendario> buscaCalendarios(Aluno a) {
         return (List<Calendario>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCalendarios(a);
-        
+
     }
-    
+
     public List<MatriculaTurma> obter(Turma t) {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
     }

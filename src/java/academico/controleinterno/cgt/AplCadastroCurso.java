@@ -111,4 +111,8 @@ public class AplCadastroCurso {
     public List<AreaConhecimento> obterAreaConhecimentos() throws AcademicoException {
         return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
     }
+    
+    public List<Disciplina> obterPreRequisitos (Disciplina disciplina){
+        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(disciplina);
+    }
 }

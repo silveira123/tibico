@@ -26,11 +26,10 @@ public class PagEventosTurma extends GenericForwardComposer {
         List<Turma> listaTurma = ctrl.obterTurma(); 
         for (int i = 0; i < listaTurma.size(); i++) {
             Turma t = listaTurma.get(i);
-            Listitem linha = new Listitem(t.getDisciplina().toString(), t);
-                
+            Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
+            linha.appendChild(new Listcell(t.getDisciplina().toString()));
             linha.appendChild(new Listcell(t.getCalendario().toString()));
-           // linha.appendChild(new Listcell(t.));
-            //TODO fazer essa ultima linha para trazer o infeliz do professor
+            if(t.getProfessor() != null) linha.appendChild(new Listcell(t.getProfessor().toString()));
             linha.setParent(listbox);
         }
     }

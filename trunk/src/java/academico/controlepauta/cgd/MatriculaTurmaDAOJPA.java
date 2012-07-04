@@ -61,9 +61,17 @@ public class MatriculaTurmaDAOJPA extends DAOJPA<MatriculaTurma> implements Matr
     }
 
     public List<Calendario> obterCalendarios(Aluno aluno) {
-        Query query = entityManager.createQuery("Select mt.turma.calendario from MatriculaTurma mt, Turma t, Calendario c where mt.turma.id = t.id and "
+        Query query = entityManager.createQuery("Select distinct mt.turma.calendario from MatriculaTurma mt, Turma t, Calendario c where mt.turma.id = t.id and "
                                                 + "t.calendario.id = c.id and mt.aluno.id = ?1" );
         query.setParameter(1, aluno.getId());
+        return query.getResultList();
+    }
+    public List<MatriculaTurma> obterCursadas(Aluno aluno) {
+        Query query = entityManager.createQuery("Select mt from MatriculaTurma mt where mt.aluno.id = ?1 and (mt.situacaoAluno = ?2 or mt.situacaoAluno = ?3 or mt.situacaoAluno = ?4)" );
+        query.setParameter(1, aluno.getId());
+        query.setParameter(2, SituacaoAlunoTurma.APROVADO);
+        query.setParameter(3, SituacaoAlunoTurma.REPROVADOFALTA);
+        query.setParameter(4, SituacaoAlunoTurma.REPROVADONOTA);
         return query.getResultList();
     }
 }

@@ -101,7 +101,7 @@ public class AplControlarMatricula {
      * @throws AcademicoException caso não seja possivel possivel buscar as matriculas.
      */
     public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
-        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, SituacaoAlunoTurma.APROVADO);
+        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCursadas(aluno);
     }
 
     /**
@@ -116,9 +116,7 @@ public class AplControlarMatricula {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
 
-    public List<MatriculaTurma> obter(Turma t) {
-        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
-    }
+    
 
     public List<Turma> obterTurmasPossiveis(Aluno aluno) {
         //recupera as disciplinas que o aluno já está matriculado, cursando ou ja foi aprovado
@@ -150,5 +148,9 @@ public class AplControlarMatricula {
     public List<Calendario> buscaCalendarios(Aluno a) {
         return (List<Calendario>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCalendarios(a);
         
+    }
+    
+    public List<MatriculaTurma> obter(Turma t) {
+        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
     }
 }

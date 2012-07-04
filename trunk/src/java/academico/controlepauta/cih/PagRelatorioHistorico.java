@@ -70,8 +70,14 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         matricula.setValue(obj.getMatricula().toString());
         adicionaDisciplinas(obj);
     }
-
+    /**
+     * Função para adicionar no grid as turmas cursadas pelo aluno
+     * <p/>
+     * @param aluno aluno correspondente
+     * @return void
+     */
     public void adicionaDisciplinas(Aluno aluno) {
+        if(disciplinas.getRows()!=null)disciplinas.removeChild(disciplinas.getRows());
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirHistorico(obj);
             curso.setValue(obj.getCurso().toString());
@@ -98,12 +104,5 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     public void onClick$fechar(Event event) {
         winHistorico.onClose();
     }
-    /**
-     * <<descrição do método>>
-     * <p/>
-     * @param <<nome do parâmetro>> <<descrição do parâmetro>>
-     * @param ...
-     * @return <<descrição do retorno>>
-     * @throws <<Exception gerada e o motivo>>
-     */
+    
 }

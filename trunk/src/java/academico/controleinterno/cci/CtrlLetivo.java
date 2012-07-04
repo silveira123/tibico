@@ -136,14 +136,12 @@ public class CtrlLetivo {
 
     
     public List<Disciplina> obterDisciplinas(Curso curso){
-        try {
+       
             return aplC.obterDisciplinas(curso);
-        }
-        catch (AcademicoException ex) {
-            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        return null;
+        
+        
+        
     }
     
     public List<Calendario> obterCalendarios(Curso curso){

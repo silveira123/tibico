@@ -17,9 +17,11 @@ package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
+import academico.controlepauta.cgt.AplEmitirRelatorios;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class CtrlMatricula {
 
     //Constantes:
     private AplControlarMatricula apl = AplControlarMatricula.getInstance();
+    private AplEmitirRelatorios aplEmitirRelatorios = AplEmitirRelatorios.getInstance();
     //Variáveis de Classe:
 
     //Variáveis de Instância:
@@ -133,7 +136,23 @@ public class CtrlMatricula {
     {
         return apl.obter(t);
     }
-
+    
+    public List<Turma> obter(Calendario calendario) throws AcademicoException
+    {
+        return aplEmitirRelatorios.obterTurmas(calendario);
+    }
+    public List<Curso> obter() throws AcademicoException
+    {
+        return aplEmitirRelatorios.obterCursos();
+    }
+    
+    public List<Calendario> obter(Curso curso) throws AcademicoException
+    {
+        return aplEmitirRelatorios.obterCalendarios(curso);
+    }
+    
+    
+    
     public void abrirMatricular(Aluno aluno) {
         Map map = new HashMap();
         map.put("aluno", aluno);

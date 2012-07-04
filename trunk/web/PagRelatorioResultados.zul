@@ -1,67 +1,79 @@
 <?page title="Relatório Resultados"?>
 
 <zk>
+
+    
+    <window title="Página Resultados" id="winResultados"  position="center"
+                closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioResultados">
 	
-    <window title="Relatório de Resultados" border="normal" closable="true"
-			width="70%">
-	<div align="center">
-			<separator height="10px"/>
+        <div align="center">
+            <separator height="10px"/>
 	
-			<grid>
-				<columns>
-					<column width="20%" label=""/>
-					<column width="80%" label=""/>
-				</columns>
-				<rows>
+            <grid>
+                <columns>
+                    <column width="20%" label=""/>
+                    <column width="80%" label=""/>
+                </columns>
+                <rows>
 					
-					<row>			
-				 		Curso: 		 
-				  			<combobox id="curso" width="50%"/>
-					</row>
+                    <row>			
+                        Curso: 		 
+                        <combobox id="curso" width="50%"/>
+                    </row>
 					
 					
-					<row>
-						Calendário Acadêmico:
-							<combobox id="calendarioAcademico"/>	
-					</row>
+                    <row>
+                        Calendário Acadêmico:
+                        <combobox id="calendarioAcademico"/>	
+                    </row>
 					
-					<row>
-						Turma:
-							<combobox id="turma" width="50%"/>	
-					</row>
+                    <row>
+                        Turma:
+                        <combobox id="turma" width="50%"/>	
+                    </row>
+                    <row>
+                        Média da Turma: 
+                        <label id="media" width="25%"/>
+                    
+                    </row>
 													
 										
-				</rows>
-			</grid>
+                </rows>
+            </grid>
 			
-			<separator height="10px"/>
+            <separator height="10px"/>
 							
-			<auxhead>
-				<auxheader align="center"
-					label="Relatório de Resultados" />
-			</auxhead>
+            <auxhead>
+                <auxheader align="center"
+                           label="Relatório de Resultados" />
+            </auxhead>
 
-			<separator />
+            <separator />
 
-			<grid>
-				<columns>
-					<column align="center" label="Matrícula" width="10%"/>
-					<column align="center" label="Nome" width="40%"/>
-					<column align="center" label="Freqência (%)" width="15%"/>
-					<column align="center" label="Nota Final" width="8%" />
-					<column align="center" label="Média da Turma" width="12%" />
-					<column align="center" label="Situação" width="15%" />
+            <grid id = "matriculas">
+                <columns>
+                    <column align="center" label="Matrícula" width="20%"/>
+                    <column align="center" label="Nome" width="40%"/>
+                    <column align="center" label="Freqência (%)" width="15%"/>
+                    <column align="center" label="Nota Final" width="8%" />
+                    <column align="center" label="Situação" width="19%" />
 					
 					
-				</columns>
-			</grid>
+                </columns>
+
+				
+            </grid>
+
 			
-			<separator height="8px"/>
+            <separator height="8px"/>
 			
-			<button id="fechar" width="10%" label="Fechar" onClick=""></button>
+            <button id="fechar" width="10%" label="Fechar" onClick=""></button>
 			
-	</div>					
+
+        </div>					
     </window>
+    
+
 	
 	
 

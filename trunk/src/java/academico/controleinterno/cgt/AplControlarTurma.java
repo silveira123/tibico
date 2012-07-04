@@ -5,7 +5,9 @@
 package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
+import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.DisciplinaDAOJPA;
+import academico.controleinterno.cgd.TurmaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
 import academico.util.persistencia.DAO;
@@ -63,9 +65,16 @@ public class AplControlarTurma {
         return (List<Horario>) apDaoHorario.obter(Horario.class);
     }
     
-    public List<Disciplina> obterDisciplinas(Curso curso) throws AcademicoException {
-        return (List<Disciplina>) ((DisciplinaDAOJPA) apDaoDisciplina).obter(curso);
+    public List<Disciplina> obterDisciplinas(Curso curso) {
+        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
+
+    
+    public List<Turma> obterTurmas (Calendario calendario){
+        return (List<Turma>) ((TurmaDAO) apDaoTurma).obter(calendario);
+    }
+    
+
     
     public List<Professor> obterProfessores(Disciplina disciplina)throws AcademicoException{
         List<Professor> listProfessor = aplPessoa.obterProfessor();
@@ -81,4 +90,5 @@ public class AplControlarTurma {
         
         return listProfessor;
     }
+
 }

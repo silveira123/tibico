@@ -1,19 +1,9 @@
 <?page title="Eventos Chamada"?>
 
 <zk>
-
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window id="winEventosChamada" title="Página Evento Chamada" border="normal" 
+            <window id="winEventosChamada" title="Eventos Chamada" border="normal" closable="true" 
                 width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
-
+                <div align="center">
 			<grid>
 				<columns>
 					<column width="20%" label=""/>
@@ -69,9 +59,9 @@
 
                         </listbox>
 
-
-		</window>
-	</div>
+                </div>
+            </window>
+	
 	
 
 </zk>

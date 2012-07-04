@@ -1,17 +1,9 @@
 <?page title="Consulta Matrículas"?>
 
 <zk>  
-    <separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-    	
-    	<div align="center">
-	    	<window title="Página Consulta Matríuclas" border="normal" width="50%">
-	    	
+            <window title="Consulta de Matrículas" border="normal" width="50%" closable="true"
+                id="winConsultaMatriculas" apply ="">
+	    	<div align="center">
 	    	<separator height="25px" />
 	    	
     		<div align="left">
@@ -45,9 +37,8 @@
 		    
 		    <button width="10%" label="Fechar" onClick=""/>
 			
-		    
-		    </window>
-	    </div>
+                        </div>
+                </window>
 </zk>
 
 

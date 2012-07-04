@@ -1,19 +1,10 @@
 <?page title="Eventos Calendário"?>
 
 <zk>
-
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window id="winEventosCalendario" title="Página Evento Calendário" border="normal"
+	
+        <window id="winEventosCalendario" title="Eventos Calendário" border="normal" closable="true"
 			width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
-
+                <div align="center">
 			<separator height="35px"/>
 
 			<fisheyebar>
@@ -58,15 +49,8 @@
                             </listhead>
                         </listbox>
 
-
-		</window>
-	</div>
-
-
-
-
-
-
+                 	</div>
+       		</window>
 </zk>
 
 

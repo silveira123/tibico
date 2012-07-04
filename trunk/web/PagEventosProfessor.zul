@@ -2,18 +2,10 @@
 
 <zk>
 
-    <separator />
-    <div align="center">
-        <label value="Tibico - SRA"
-                       style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-        </label>
-    </div>
-    <separator />
-
-    <div align="center">
-        <window id="winDadosProfessor" title="Página Evento Professor" border="normal"
+     
+    <window id="winDadosProfessor" title="Eventos Professor" border="normal" closable="true"
                         width="50%" apply = "academico.controleinterno.cih.PagEventosProfessor">
-
+            <div align="center">
             <separator height="35px"/>
 
             <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
@@ -56,9 +48,8 @@
                     <listheader align="center" label="Grau de Instrução" />
                 </listhead>
             </listbox>
-
-        </window>
-    </div>
+        </div>
+    </window>
 
 
 </zk>

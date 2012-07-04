@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.zkoss.zk.ui.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Executions;
@@ -121,6 +122,18 @@ public class CtrlLetivo {
     public List<Horario> obterHorario() throws AcademicoException {
         return aplC.obterHorarios();
     }
+
+    
+    public Component abrirEventosTurma()
+    {
+        return Executions.createComponents("/pagEventosTurma.zul", null, null);
+    }
+     
+    public Component abrirEventosCalendario()
+    {
+        return Executions.createComponents("/pagEventosCalendario.zul", null, null);
+    }
+
     
     public List<Disciplina> obterDisciplinas(Curso curso){
         try {

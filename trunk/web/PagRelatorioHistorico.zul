@@ -1,8 +1,10 @@
 <?page title="Histórico" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <div align="center">
-        <window title="Página Historico" id="winHistorico" action="show: slideDown;hide: slideUp" mode="modal" position="center"
+    
+        <window title="Histórico" id="winHistorico" position="center"
                 closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioHistorico">
+            
+            <div align="center">
             <separator height="35px" />
             <separator/>
             <grid>
@@ -56,7 +58,7 @@
             </grid>
 
             <button id="fechar" width="10%" label="Fechar" onClick=""></button>
-		    
+		</div>    
         </window>
-    </div>
+    
 </zk>

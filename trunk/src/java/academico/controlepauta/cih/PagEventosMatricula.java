@@ -66,6 +66,9 @@ public class PagEventosMatricula extends GenericForwardComposer {
     }
 
     public void onSelect$nomeAluno(Event event) {
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            listbox.removeItemAt(0);
+        }
         Aluno select = (Aluno) nomeAluno.getSelectedItem().getValue();
         listbox.renderAll();
         try {

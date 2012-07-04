@@ -9,6 +9,7 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.persistencia.DAOJPA;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -36,5 +37,19 @@ public class DisciplinaDAOJPA extends DAOJPA<Disciplina> implements DisciplinaDA
         
         List<Disciplina> list = query.getResultList();
         return list;
+    }
+    
+    public List<Disciplina> obter(Disciplina disciplina) {
+        Query query;
+        List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+        for (int i = 0; i < disciplina.getPrerequisito().size(); i++) {
+            query = entityManager.createQuery("Select pd from Disciplina pd where pd.id = ?1" );
+            query.setParameter( 1, disciplina.getPrerequisito().get(i).getId());
+            List<Disciplina> lista = query.getResultList();
+            for (int j = 0; j < lista.size(); j++) {
+                disciplinas.add(lista.get(i));
+            }
+        }
+        return disciplinas;
     }
 }

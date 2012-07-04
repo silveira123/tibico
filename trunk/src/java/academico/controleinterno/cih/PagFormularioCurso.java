@@ -128,7 +128,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
                 list.add(Regime.valueOf(regime.getText()));
 
                 c = ctrl.incluirCurso(list);
-                alert("Cadastro feito!");
+                Messagebox.show("Cadastro feito!");
                 limparCampos();
             }
         }

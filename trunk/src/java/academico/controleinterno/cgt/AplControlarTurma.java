@@ -47,6 +47,11 @@ public class AplControlarTurma {
         ArrayList<Horario> h = (ArrayList<Horario>) args.get(3);       
         turma.setHorario(h);
         
+        if (args.get(4) != null) {
+            Professor p = (Professor) args.get(4);
+            turma.setProfessor(p);
+        }
+
         return (Turma) apDaoTurma.salvar(turma);
     }
 

@@ -38,18 +38,6 @@
                         </listbox>
 
                     </row>
-					
-                    <row >
-                        <cell >
-                            <button width="80%" label="Validar" onClick=""></button>
-                        </cell>
-                        <cell colspan="2">
-                            <label style="font-weight:bold; ">
-                                Clique no botão validar para confirmar os horários
-                            </label>
-										
-                        </cell>
-                    </row>
                      <row>
                         Número de vagas 
                         <intbox id="numVagas" width="6%"/>	

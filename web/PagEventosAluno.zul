@@ -1,20 +1,10 @@
 <?page title="Eventos Aluno"?>
 
 <zk>
-
-    <separator />
-    <div align="center">
-        <label value="Tibico - SRA"
-                       style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-        </label>
-				
-    </div>
-    <separator />
-
-    <div align="center">
-        <window id="winDadosAluno" title="Página Evento Aluno" border="normal"
+  
+    <window id="winDadosAluno" title="Eventos Aluno" border="normal" closable="true"
                         width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
-
+             <div align="center">                    
  
             <separator height="35px"/>
 
@@ -58,9 +48,9 @@
                     <listheader align="center" label="Curso" />
                 </listhead>
             </listbox>
-
-        </window>
-    </div>
+        </div>
+    </window>
+    
 
 
 

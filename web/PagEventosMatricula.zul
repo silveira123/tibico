@@ -2,18 +2,10 @@
 
 <zk>
 
-    <separator />
-    <div align="center">
-        <label value="Tibico - SRA"
-               style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-        </label>
-    </div>
-    <separator />
-
-    <div align="center">
-        <window title="Página Evento Matríucla" border="normal"
+    
+        <window title="Eventos Matrícula" border="normal" closable="true"
                 width="50%" id="winEventosMatricula" apply = "academico.controlepauta.cih.PagEventosMatricula">
-
+            <div align="center">
             <separator height="35px"/>
 
             <div align="left">
@@ -50,19 +42,8 @@
                 </listhead>
             </listbox>
 
-
-        </window>
-    </div>
-    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
-    <script type="text/javascript" src="/watermarkinput.js" />
-    <script type="text/javascript">
-        zk.afterMount(function() {
-
-        jq("$matricula").Watermark("nº matrícula","gray");
-				
-        });
-    </script>
-
+            </div>
+    </window>
 </zk>
 
 

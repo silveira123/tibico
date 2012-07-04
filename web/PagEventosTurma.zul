@@ -1,18 +1,10 @@
 <?page title="Eventos Turma"?>
 
 <zk>
-	<separator />
-		<div align="center">
-			<label value="Tibico - SRA"
-				style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-			</label>
-		</div>
-	<separator />
-
-	<div align="center">
-		<window id="winEventosTurma" title="Página Evento Turma" border="normal"
+	
+            <window id="winEventosTurma" title="Eventos Turma" border="normal" closable="true"
 			width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
-
+                <div align="center">
 			<separator height="35px"/>
 
 			<fisheyebar>
@@ -58,8 +50,8 @@
 
                         </listbox>
                         
-			
-		</window>
-	</div>
+		</div>	
+            </window>
+	
 
 </zk>

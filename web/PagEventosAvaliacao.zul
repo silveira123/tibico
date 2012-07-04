@@ -2,18 +2,9 @@
 
 <zk>
 
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window id="winEventosAvaliacao" title="Página Evento Avaliação" border="normal"
+            <window id="winEventosAvaliacao" title="Eventos Avaliação" border="normal" closable="true"
 			width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
-
+                <div align="center">
 			<grid>
 				<columns>
 					<column width="20%" label=""/>
@@ -67,9 +58,8 @@
                             </listhead>
 
                         </listbox>
-		</window>
-	</div>
-	
+		</div>
+           </window>
 
 </zk>
 

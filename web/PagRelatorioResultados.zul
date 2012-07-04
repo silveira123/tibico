@@ -1,19 +1,10 @@
 <?page title="Relatório Resultados"?>
 
 <zk>
-
-	<separator />
-	<div align="center">
-		<label value="Tibico - SRA"
-			style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-		</label>
-	</div>
-	<separator />
-
-	<div align="center">
-		<window title="Página Relatório Resultados" border="normal"
-			width="70%">
 	
+    <window title="Relatório de Resultados" border="normal" closable="true"
+			width="70%">
+	<div align="center">
 			<separator height="10px"/>
 	
 			<grid>
@@ -63,40 +54,15 @@
 					
 					
 				</columns>
-				
-				<rows>
-					<row>
-						<label value="20092bsi0292"/>
-						<label value="Geann Valfréé"/>
-						<label value="10%"/>
-						<label value="85"/>
-						<label value="45"/>
-						<label value="Aprovado"/>
-					
-					</row>
-					
-					<row>
-						<label value="20092bsi0292"/>
-						<label value="Geann Valfréé"/>
-						<label value="10%"/>
-						<label value="85"/>
-						<label value="45"/>
-						<label value="Aprovado"/>
-					
-					</row>
-					
-				
-				</rows>	
-
 			</grid>
 			
 			<separator height="8px"/>
 			
 			<button id="fechar" width="10%" label="Fechar" onClick=""></button>
 			
-						
-		</window>
-	</div>
+	</div>					
+    </window>
+	
 	
 
 </zk>

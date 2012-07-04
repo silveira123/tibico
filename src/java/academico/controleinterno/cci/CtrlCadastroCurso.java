@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -127,4 +128,13 @@ public class CtrlCadastroCurso {
         Executions.sendRedirect(url);
     }
     
+    public Component abrirEventosCurso()
+    {
+        return Executions.createComponents("/pagEventosCurso.zul", null, null);
+    }
+    
+    public Component abrirEventosDisciplina()
+    {
+        return Executions.createComponents("/pagEventosDisciplina.zul", null, null);
+    }
 }

@@ -14,6 +14,8 @@ import academico.util.persistencia.DAOFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 
 /**
  * Turma
@@ -129,5 +131,5 @@ public class AplControlarAula {
     public void apagarFrequencia(Frequencia frequencia) throws Exception{
         apDaoFrequencia.excluir(frequencia);
     }
-
+    
 }

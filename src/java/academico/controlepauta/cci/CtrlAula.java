@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -146,5 +147,15 @@ public class CtrlAula {
         map.put("obj2", turma);
         map.put("obj", aula);
         Executions.createComponents("/PagRegistroChamada.zul", null, map);
-    }  
+    }
+    
+    public Component abrirEventosAvaliacao()
+    {
+        return Executions.createComponents("/pagEventosAvaliacao.zul", null, null);
+    }
+    
+    public Component abrirEventosChamada()
+    {
+        return Executions.createComponents("/pagEventosChamada.zul", null, null);
+    }
 }

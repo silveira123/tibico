@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 
@@ -261,5 +262,15 @@ public static final int SALVAR = 0;
     public List<Aluno> obterAlunosporTurma(Turma t)
     {
         return apl.obterAlunosporTurma(t);
+    }
+    
+    public Component abrirEventosAluno()
+    {
+        return Executions.createComponents("/pagEventosAluno.zul", null, null);
+    }
+    
+    public Component abrirEventosProfessor()
+    {
+        return Executions.createComponents("/pagEventosProfessor.zul", null, null);
     }
 }

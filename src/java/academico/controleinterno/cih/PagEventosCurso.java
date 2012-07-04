@@ -17,7 +17,7 @@ public class PagEventosCurso extends GenericForwardComposer {
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     private Window winEventosCurso;
     private Listbox listCurso;
-
+   
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -71,4 +71,6 @@ public class PagEventosCurso extends GenericForwardComposer {
             ctrl.abrirConsultarCurso(c);
         }
     }
+    
+    
 }

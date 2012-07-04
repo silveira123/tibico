@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -141,5 +142,30 @@ public class CtrlMatricula {
     
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
+    }
+    
+    public Component abrirEventosMatricula()
+    {
+        return Executions.createComponents("/pagEventosMatricula.zul", null, null);
+    }
+    
+    public Component abrirConsultaMatriculas()
+    {
+        return Executions.createComponents("/pagConsultaMatriculas.zul", null, null);
+    }
+    
+    public Component abrirRelatorioBoletim()
+    {
+        return Executions.createComponents("/pagRelatorioBoletim.zul", null, null);
+    }
+    
+    public Component abrirRelatorioHistorico()
+    {
+        return Executions.createComponents("/pagRelatorioHistorico.zul", null, null);
+    }
+    
+    public Component abrirRelatorioResultados()
+    {
+        return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
     }
 }

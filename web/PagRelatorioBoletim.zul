@@ -1,7 +1,10 @@
 <?page title="Boletim" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <window title="Página Boletim" id="winBoletim" action="show: slideDown;hide: slideUp" mode="modal" position="center"
+    <window title="Boletim" id="winBoletim" position="center"
                 closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioBoletim">
+        
+        <div align="center">
+        
         <separator height="35px" />
         <separator/>
         <grid>
@@ -60,5 +63,6 @@
             </rows>
         </grid>
         <button id="fechar" width="10%" label="Fechar"></button>
+        </div>
     </window>
 </zk>

@@ -2,18 +2,10 @@
 
 <zk>
 
-    <separator />
-    <div align="center">
-        <label value="Tibico - SRA"
-               style="font-family:comic sans ms; font-weight:bold; font-size:22px; color:green">
-        </label>
-    </div>
-    <separator />
-
-    <div align="center">
-        <window title="Página Evento Discilplina" border="normal"
+       
+    <window title="Eventos Discilplina" border="normal" closable="true"
                 width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
-
+        <div align="center">
             <separator height="35px"/>
 
             <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
@@ -71,8 +63,9 @@
                     <listheader align="center" label="Carga Horária" />
                 </listhead>
             </listbox>
-        </window>
-    </div>
+         </div>
+    </window>
+   
 </zk>
 
 

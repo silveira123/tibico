@@ -141,11 +141,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
     public void onClick$cancelarCurso(Event event) {
         winFormularioCurso.onClose();
     }
-    
-    public void onClose$winFormularioCurso(Event event) {
-        ctrl.redirectPag("/pageventoscurso.zul");
-    }
-    
+
     public void limparCampos() {
         nomeCurso.setText("");
         descricao.setText("");

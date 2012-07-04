@@ -145,13 +145,13 @@ public class CtrlLetivo {
     }
     
     public List<Professor> obterProfessores(Disciplina disciplina){
-//        try {
-//            return aplC.obterProfessores(disciplina);
-//        }
-//        catch (AcademicoException ex) {
-//            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
+        try {
+            return aplC.obterProfessores(disciplina);
+        }
+        catch (Exception ex) {
+            Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return null;
     }
 }

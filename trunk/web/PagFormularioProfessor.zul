@@ -2,7 +2,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" closable="true" mode="modal" border="normal" width="80%" height="70%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="76%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>
@@ -64,11 +64,18 @@
                                 </row>
 				
                                 <row>
+                                    Grau de Instrução:
+                                    <cell colspan="2">
+                                        <combobox id="grauInstrucao" width="30%"/>
+                                    </cell>
+                                </row>
+                                
+                                <row>
                                     Área de Conhecimeto:
                                     <cell colspan="2">
                                         <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px">
                                             <listhead>
-                                                <listheader label="Marcar Todas"/>
+                                                
                                             </listhead>
                                         </listbox>
                                     </cell>
@@ -90,11 +97,6 @@
                                 </row>
 								
                                 <row>
-                                    CEP:
-                                    <textbox id="cep" width="20%" />
-                                </row>
-								
-                                <row>
                                     Estado:
                                     <combobox id="estado"></combobox>
                                 </row>
@@ -109,7 +111,11 @@
                                     Bairro:
                                     <combobox id="bairro"></combobox>
                                 </row>
-			
+                                
+                                <row>
+                                    CEP:
+                                    <textbox id="cep" width="20%" />
+                                </row>
 								
                                 <row>
                                     Logradouro:
@@ -127,13 +133,6 @@
                                     <textbox id="complemento" width="80%" />
                                 </row>
 			
-                                <row>
-                                    Grau de Instrução:
-                                    <cell colspan="2">
-                                        <combobox id="grauInstrucao" width="30%"/>
-                                    </cell>
-                                </row>
-								
                                 <row>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>

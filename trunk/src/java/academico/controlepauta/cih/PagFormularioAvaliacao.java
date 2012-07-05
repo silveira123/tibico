@@ -7,6 +7,7 @@ import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -37,17 +38,16 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
         if (MODO != ctrl.SALVAR) {
             obj = (Avaliacao) arg.get("obj");
-            
+
             preencherTela();
             if (MODO == ctrl.CONSULTAR) {
                 this.salvar.setVisible(false);
                 bloquearTela();
             }
         }
-        else 
-        {
+        else {
             obj2 = (Turma) arg.get("obj");
-            turma.setValue(obj2.toString());   
+            turma.setValue(obj2.toString());
         }
     }
 
@@ -65,26 +65,26 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
     public void onClick$salvar(Event event) {
         try {
-            if(MODO == ctrl.SALVAR)
-            {
-                ArrayList<Object> args = new ArrayList<Object>();
-                args.add(obj2);
-                args.add(nomeAvaliacao.getValue());
-                args.add(peso.getValue());
-                
-                ctrl.incluirAvaliacao(args);
-                limparCampos();
-                ctrl.redirectPag("/PagEventosAvaliacao.zul");
+            String msg = valido();
+            if (msg.trim().equals("")) {
+                if (MODO == ctrl.SALVAR) {
+                    ArrayList<Object> args = new ArrayList<Object>();
+                    args.add(obj2);
+                    args.add(nomeAvaliacao.getValue());
+                    args.add(peso.getValue());
+
+                    ctrl.incluirAvaliacao(args);
+                    limparCampos();
+                }
+                else {
+                    obj.setNome(nomeAvaliacao.getValue());
+                    obj.setPeso(peso.getValue());
+
+                    ctrl.alterarAvaliacao(obj);
+                }
             }
-            else
-            {
-               obj.setNome(nomeAvaliacao.getValue());
-               obj.setPeso(peso.getValue());
-               
-               ctrl.alterarAvaliacao(obj);
-               ctrl.redirectPag("/PagEventosAvaliacao.zul");
-            }
-        } 
+            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+        }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,5 +101,21 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
         turma.setValue("");
         nomeAvaliacao.setValue("");
         peso.setValue(null);
+    }
+
+    private String valido() {
+        String msg = "";
+
+        if (nomeAvaliacao.getText().trim().equals("")) {
+            msg += "- Nome da Avaliação\n";
+        }
+        if (peso.getValue() == null) {
+            msg += "- Peso da Avaliação\n";
+        }
+
+        if (!msg.trim().equals("")) {
+            msg = "Informe:\n" + msg;
+        }
+        return msg;
     }
 }

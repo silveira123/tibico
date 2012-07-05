@@ -97,46 +97,50 @@ public class PagRegistroChamada extends GenericForwardComposer {
     
     public void onClick$salvar(Event event) {
         try {
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            if(MODO == ctrl.SALVAR)
-            {
-                ArrayList<Object> args = new ArrayList<Object>();
-                cal.setTime(data.getValue());
-                args.add(cal);
-                args.add(qtdAulas.getValue());
-                args.add(conteudo.getValue());
-                args.add(obj2);
+            String msg = valido();
+            if(msg.trim().equals("")){
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                if(MODO == ctrl.SALVAR)
+                {
+                    ArrayList<Object> args = new ArrayList<Object>();
+                    cal.setTime(data.getValue());
+                    args.add(cal);
+                    args.add(qtdAulas.getValue());
+                    args.add(conteudo.getValue());
+                    args.add(obj2);
 
-                frequencias = new ArrayList<Frequencia>();
-                for (int i = 0; i < faltas.size(); i++) {
-                    Frequencia f = new Frequencia();
-                    f.setNumFaltasAula(faltas.get(i).getValue());
-                    f.setMatriculaTurma(matriculaturmas.get(i));
-                    frequencias.add(f);
+                    frequencias = new ArrayList<Frequencia>();
+                    for (int i = 0; i < faltas.size(); i++) {
+                        Frequencia f = new Frequencia();
+                        f.setNumFaltasAula(faltas.get(i).getValue());
+                        f.setMatriculaTurma(matriculaturmas.get(i));
+                        frequencias.add(f);
+                    }
+
+                    args.add(frequencias);
+                    ctrl.incluirAula(args);
+                    ctrl.redirectPag("/PagEventosChamada.zul");
                 }
-              
-                args.add(frequencias);
-                ctrl.incluirAula(args);
+                else
+                {
+                cal.setTime(data.getValue());
+                obj.setDia(cal); 
+                obj.setTurma(obj2);
+                obj.setQuantidade(qtdAulas.getValue());
+                obj.setConteudo(conteudo.getValue());
+
+                for (int i = 0; i < faltas.size(); i++) {
+                        if(obj.getFrequencia().get(i).getNumFaltasAula() == faltas.get(i).getValue())
+                            continue;
+                        else
+                            obj.getFrequencia().get(i).setNumFaltasAula(faltas.get(i).getValue());
+                }
+
+                ctrl.alterarAula(obj);
                 ctrl.redirectPag("/PagEventosChamada.zul");
+                }
             }
-            else
-            {
-               cal.setTime(data.getValue());
-               obj.setDia(cal); 
-               obj.setTurma(obj2);
-               obj.setQuantidade(qtdAulas.getValue());
-               obj.setConteudo(conteudo.getValue());
-               
-               for (int i = 0; i < faltas.size(); i++) {
-                    if(obj.getFrequencia().get(i).getNumFaltasAula() == faltas.get(i).getValue())
-                        continue;
-                    else
-                        obj.getFrequencia().get(i).setNumFaltasAula(faltas.get(i).getValue());
-               }
-               
-               ctrl.alterarAula(obj);
-               ctrl.redirectPag("/PagEventosChamada.zul");
-            }
+            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
         } 
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,5 +173,20 @@ public class PagRegistroChamada extends GenericForwardComposer {
         
         for (int i = 0; i < faltas.size(); i++) 
             faltas.get(i).setValue(obj.getFrequencia().get(i).getNumFaltasAula());
+    }
+    
+    private String valido() {
+        String msg = "";
+        
+        if (data.getValue() == null)
+            msg += "- Data\n";
+        if (qtdAulas.getText().trim().equals(""))
+            msg += "- Quantidade de Aulas\n";
+        if (conteudo.getText().trim().equals(""))
+            msg += "- Conteudo\n";
+        
+        if(!msg.trim().equals(""))
+            msg = "Informe:\n"+msg;
+        return msg;
     }
 }

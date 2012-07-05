@@ -26,6 +26,7 @@ public class AplControlarAula {
     private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
     private DAO apDaoAula = DAOFactory.obterDAO("JPA", Aula.class);
     private DAO apDaoFrequencia = DAOFactory.obterDAO("JPA", Frequencia.class);
+    private AplControlarMatricula aplControlarMatricula = AplControlarMatricula.getInstance();
     
     private AplControlarAula() {
     }
@@ -100,7 +101,7 @@ public class AplControlarAula {
         aula.setConteudo( (String) args.get(2));
         aula.setTurma((Turma) args.get(3));
         aula.setFrequencia((List<Frequencia>) args.get(4));
-        
+        aplControlarMatricula.editarFrequencia(aula.getFrequencia());
         return (Aula) apDaoAula.salvar(aula);
     }
 

@@ -23,6 +23,7 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.controleinterno.cgt.AplCadastroCurso;
+import academico.controlepauta.cdp.Frequencia;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
@@ -121,10 +122,8 @@ public class AplControlarMatricula {
     public List<Turma> obterTurmasPossiveis(Aluno aluno) {
         //recupera as disciplinas que o aluno já está matriculado, cursando ou ja foi aprovado
         List<Disciplina> disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class)).obterVinculadas(aluno);
-
         //pega as turmas do calendario atual do curso do aluno
         List<Turma> turmas = ((TurmaDAO) DAOFactory.obterDAO("JPA", Turma.class)).obterTurmasAtuais(aluno);
-
         //tira do array as disciplinas que o aluno já está vinculado
         for (int i = 0; i < turmas.size();) {
             if (disciplinas.contains(turmas.get(i).getDisciplina())) {
@@ -164,5 +163,14 @@ public class AplControlarMatricula {
 
     public List<MatriculaTurma> obter(Turma t) {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
+    }
+    
+    public void editarFrequencia(List<Frequencia> f) throws AcademicoException{
+        for (Frequencia frequencia : f) {
+            Integer faltas = frequencia.getNumFaltasAula();
+            Double calculo = (double)(faltas*100)/frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+            frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca()-calculo);
+            apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
+        }
     }
 }

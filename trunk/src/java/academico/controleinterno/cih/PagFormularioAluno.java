@@ -309,10 +309,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
                     list.add(obterSexo(sexo.getSelectedIndex()));
 
-                    list.add(nomePai.getText());
-
-                    list.add(obterEndereco());
-
                     c.setTime(dataNasc.getValue());
                     list.add(c);
 
@@ -338,10 +334,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
                     list.add(nomePai.getText());
 
                     list.add(obterEndereco());
-
-                    // TODO: É preciso editar as regras de negócio
-                    list.add(null); // matricula 
-
+                    
                     Curso curso = this.curso.getSelectedItem().getValue();
                     list.add(curso);
                     a = ctrlPessoa.incluirAluno(list);

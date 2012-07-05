@@ -91,7 +91,6 @@ public class Aluno extends Pessoa{
      * Altera o valor de matricula em aluno
      * @param matricula 
      */
-    //TODO criar regra para gerar matricula
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }

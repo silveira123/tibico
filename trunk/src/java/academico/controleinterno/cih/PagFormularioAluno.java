@@ -334,7 +334,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
                     list.add(nomePai.getText());
 
                     list.add(obterEndereco());
-                    
+
                     Curso curso = this.curso.getSelectedItem().getValue();
                     list.add(curso);
                     a = ctrlPessoa.incluirAluno(list);
@@ -353,6 +353,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
+            System.err.println(e);
         }
     }
 

@@ -119,7 +119,6 @@ public class PagRegistroChamada extends GenericForwardComposer {
 
                     args.add(frequencias);
                     ctrl.incluirAula(args);
-                    ctrl.redirectPag("/PagEventosChamada.zul");
                 }
                 else
                 {
@@ -137,7 +136,6 @@ public class PagRegistroChamada extends GenericForwardComposer {
                 }
 
                 ctrl.alterarAula(obj);
-                ctrl.redirectPag("/PagEventosChamada.zul");
                 }
             }
             else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
@@ -184,6 +182,15 @@ public class PagRegistroChamada extends GenericForwardComposer {
             msg += "- Quantidade de Aulas\n";
         if (conteudo.getText().trim().equals(""))
             msg += "- Conteudo\n";
+        
+        for (int i = 0; i < faltas.size(); i++) {
+            if(faltas.get(i).getValue() == null)
+            {
+                msg += "- Todos os campos Faltas\n";
+                break;
+            }
+        }
+
         
         if(!msg.trim().equals(""))
             msg = "Informe:\n"+msg;

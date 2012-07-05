@@ -311,17 +311,16 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 
                 list.add(obterEndereco());
                 
-                // TODO: É preciso editar as regras de negócio
-                list.add(null); // matricula 
-
                 Curso curso = this.curso.getSelectedItem().getValue();
                 list.add(curso);
-                
                 a = ctrlPessoa.incluirAluno(list);
-
-                alert("Cadastro feito!");
-
-                limparCampos();
+                if(a!=null){
+                    alert("Cadastro feito!");
+                    limparCampos();
+                }
+                
+                
+                
             }
         }
         catch (Exception e) {
@@ -424,7 +423,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     public void limparCampos() {
         nome.setText(null);
-        sexo.getSelectedItem().setSelected(false);
+        sexo.setSelectedItem(null);
         dataNasc.setText(null);
         telefone.setText(null);
         celular.setText(null);        

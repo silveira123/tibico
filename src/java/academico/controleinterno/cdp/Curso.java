@@ -23,7 +23,8 @@ public class Curso extends ObjetoPersistente {
     private GrauInstrucao grauInstrucao;
     private GrandeAreaConhecimento grandeAreaConhecimento;
     private Regime regime;
-
+    private String sigla;
+    
     public String getDescricao() {
         return descricao;
     }
@@ -80,4 +81,14 @@ public class Curso extends ObjetoPersistente {
     public String toString() {
         return this.nome;
     }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+    
+    
 }

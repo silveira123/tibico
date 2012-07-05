@@ -20,6 +20,12 @@
                         </cell>
                     </row>
                     <row>
+                        Sigla:
+                        <cell colspan="2">
+                            <textbox id="sigla" width="10%"/>
+                        </cell>
+                    </row>
+                    <row>
                         Grande Área de Conhecimeto:
                         <cell colspan="2">
                             <combobox id="grandeArea" width="40%"/>
@@ -43,6 +49,7 @@
 								
                         Número de Períodos
                     </row>
+                    
                     <row>
                         Descrição:
                         <cell colspan="2">

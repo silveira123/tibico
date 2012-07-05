@@ -42,6 +42,7 @@ public class AplCadastroCurso {
         curso.setGrauInstrucao((GrauInstrucao) args.get(3));
         curso.setGrandeAreaConhecimento((GrandeAreaConhecimento) args.get(4));
         curso.setRegime((Regime) args.get(5));
+        curso.setSigla((String) args.get(6));
 
         return (Curso) apDaoCurso.salvar(curso);
     }

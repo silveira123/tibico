@@ -41,5 +41,8 @@ public class main {
         //TurmaDAO d = new TurmaDAOJPA();
        
       // System.out.println(d.obterTurmasAtuais(tdao.obter(Aluno.class).get(0)).get(0));
+        
+        
+        
     }
 }

@@ -2,7 +2,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="76%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="57%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>
@@ -73,7 +73,7 @@
                                 <row>
                                     Área de Conhecimeto:
                                     <cell colspan="2">
-                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px">
+                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="60px">
                                             <listhead>
                                                 
                                             </listhead>
@@ -137,7 +137,7 @@
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                 </row>
-										
+					
                             </rows>
                         </grid>
 						

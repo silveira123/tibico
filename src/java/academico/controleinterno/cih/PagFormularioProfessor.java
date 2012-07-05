@@ -454,19 +454,24 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     }
 
     public void onSelect$pais() {
+        estado.setText(null);
+        cidade.setText(null);
+        bairro.setText(null);
         List<Estado> listEstados = ctrlPessoa.obterEstados((Pais) pais.getSelectedItem().getValue());
         estado.setModel(new ListModelList(listEstados, true));
         estado.setReadonly(true);
     }
 
     public void onSelect$estado() {
+        cidade.setText(null);
+        bairro.setText(null);
         List<Municipio> listMunicipio = ctrlPessoa.obterMunicipio((Estado) estado.getSelectedItem().getValue());
         cidade.setModel(new ListModelList(listMunicipio, true));
         cidade.setReadonly(true);
     }
 
     public void onSelect$cidade() {
-
+        bairro.setText(null);
         List<Bairro> listBairro = ctrlPessoa.obterBairro((Municipio) cidade.getSelectedItem().getValue());
         bairro.setModel(new ListModelList(listBairro, true));
         bairro.setReadonly(true);

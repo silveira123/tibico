@@ -257,8 +257,7 @@ public static final int SALVAR = 0;
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
-
-    
+ 
     public List<Aluno> obterAlunosporTurma(Turma t)
     {
         return apl.obterAlunosporTurma(t);

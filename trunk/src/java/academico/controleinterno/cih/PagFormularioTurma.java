@@ -112,7 +112,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private void preencherTela() throws AcademicoException {
 
         List<Comboitem> a = curso.getItems();
-        alert(a.size()+"");
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i).getValue() == obj.getDisciplina().getCurso()) {
                 curso.setSelectedItem(a.get(i));
@@ -127,6 +126,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 onSelect$disciplina();
             }
         }
+        
         a = calendario.getItems();
         for (int i = 0; i < a.size(); i++) {
            if (a.get(i).getValue() == obj.getCalendario()) {
@@ -240,16 +240,20 @@ public class PagFormularioTurma extends GenericForwardComposer {
     }
     
     public void onSelect$curso() {
+        disciplina.setText(null);
+        professor.setText(null);
         List<Disciplina> listDisciplinas = ctrl.obterDisciplinas((Curso) curso.getSelectedItem().getValue());
         disciplina.setModel(new ListModelList(listDisciplinas, true));        
         disciplina.setReadonly(true);
         
+        calendario.setText(null);
         List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
         calendario.setModel(new ListModelList(listCalendarios, true));        
         calendario.setReadonly(true);
     }
     
      public void onSelect$disciplina() {
+        professor.setText(null);
         List<Professor> listProfessor = ctrl.obterProfessores((Disciplina) disciplina.getSelectedItem().getValue());
         professor.setModel(new ListModelList(listProfessor, true));        
         professor.setReadonly(true);

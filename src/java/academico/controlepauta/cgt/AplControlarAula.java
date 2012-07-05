@@ -105,7 +105,8 @@ public class AplControlarAula {
         return (Aula) apDaoAula.salvar(aula);
     }
 
-    public Aula alterarAula(Aula aula) throws Exception {
+    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
+        aplControlarMatricula.editarFrequencia(frequencia, aula.getFrequencia());
         return (Aula) apDaoAula.salvar(aula);
     }
 
@@ -130,7 +131,9 @@ public class AplControlarAula {
     }
 
     public void apagarFrequencia(Frequencia frequencia) throws Exception{
+        aplControlarMatricula.excluirFrequencia(frequencia);
         apDaoFrequencia.excluir(frequencia);
+        
     }
     
 }

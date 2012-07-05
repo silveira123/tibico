@@ -177,7 +177,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     args.add(numVagas.getValue());
                     ArrayList<Horario> selecionados = getHorariosSelecionados();
                     args.add(selecionados);
-                    args.add(professor.getSelectedItem().getValue());            
+                    if (professor.getSelectedItem() != null) {
+                        args.add(professor.getSelectedItem().getValue());
+                    }
+                    else{
+                      args.add(null);  
+                    }            
                     limparCampos();
 
                     ctrl.incluirTurma(args);
@@ -261,7 +266,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
             msg += "- Calendário\n";
         
         if(!msg.trim().equals(""))
-            msg = "Selecione:\n"+msg;
+            msg = "Informe:\n"+msg;
         return msg;
     }
      

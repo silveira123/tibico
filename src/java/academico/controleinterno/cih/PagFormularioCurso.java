@@ -112,35 +112,39 @@ public class PagFormularioCurso extends GenericForwardComposer {
 
         Curso c = null;
         try {
-            if (MODO == ctrl.EDITAR) {
-                obj.setNome(nomeCurso.getText());
-                obj.setDuracao(duracao.getValue());
-                obj.setDescricao(descricao.getText());
-                obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText()));
-                obj.setGrandeAreaConhecimento((GrandeAreaConhecimento) grandeArea.getSelectedItem().getValue());
-                obj.setRegime(Regime.valueOf(regime.getText()));
-                obj.setSigla(sigla.getText());
-                c = ctrl.alterarCurso(obj);
-                Messagebox.show("Cadastro editado!");
-            }
-            else {
-                ArrayList<Object> list = new ArrayList<Object>();
-                list.add(nomeCurso.getText());
-                list.add(duracao.getValue());
-                list.add(descricao.getText());
-                list.add(GrauInstrucao.valueOf(grauInstrucao.getText()));
-                list.add(grandeArea.getSelectedItem().getValue());
-                list.add(Regime.valueOf(regime.getText()));
-                list.add(sigla.getText());
-                c = ctrl.incluirCurso(list);
-                Messagebox.show("Cadastro feito!");
-                limparCampos();
-            }
+            String msg = valido();
+            if(msg.trim().equals("")){
+				if (MODO == ctrl.EDITAR) {
+					obj.setNome(nomeCurso.getText());
+					obj.setDuracao(duracao.getValue());
+					obj.setDescricao(descricao.getText());
+					obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText()));
+					obj.setGrandeAreaConhecimento((GrandeAreaConhecimento) grandeArea.getSelectedItem().getValue());
+					obj.setRegime(Regime.valueOf(regime.getText()));
+					obj.setSigla(sigla.getText());
+					c = ctrl.alterarCurso(obj);
+					Messagebox.show("Cadastro editado!");
+				}
+				else {
+					ArrayList<Object> list = new ArrayList<Object>();
+					list.add(nomeCurso.getText());
+					list.add(duracao.getValue());
+					list.add(descricao.getText());
+					list.add(GrauInstrucao.valueOf(grauInstrucao.getText()));
+					list.add(grandeArea.getSelectedItem().getValue());
+					list.add(Regime.valueOf(regime.getText()));
+					list.add(sigla.getText());
+					c = ctrl.incluirCurso(list);
+					Messagebox.show("Cadastro feito!");
+					limparCampos();
+				}
+				winFormularioCurso.onClose();
+			}
+            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
         }
-        winFormularioCurso.onClose();
     }
 
     public void onClick$cancelarCurso(Event event) {
@@ -154,5 +158,24 @@ public class PagFormularioCurso extends GenericForwardComposer {
         grauInstrucao.setText("");
         grandeArea.setText("");
         regime.setText("");
+    }
+    
+    private String valido() {
+        String msg = "";
+        
+        if (nomeCurso.getText().trim().equals(""))
+            msg += "- Nome\n";
+		if (sigla.getText().trim().equals(""))
+            msg += "- Sigla\n";	
+        if (grandeArea.getSelectedItem() == null)
+            msg += "- Grande Área de Conhecimento\n";
+        if (grauInstrucao.getSelectedItem() == null)
+            msg += "- Grau de Instrução\n";
+        if (duracao.getValue() == null)
+            msg += "- Duração\n";
+        
+        if(!msg.trim().equals(""))
+            msg = "Informe:\n"+msg;
+        return msg;
     }
 }

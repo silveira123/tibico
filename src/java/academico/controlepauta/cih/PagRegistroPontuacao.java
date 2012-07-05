@@ -84,7 +84,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
         } catch (AcademicoException ex) {
             Logger.getLogger(PagRegistroPontuacao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        alert("Resultado salvos com sucesso!");
+        Messagebox.show("Resultado salvos com sucesso!");
     }
 
     public void onClick$fechar(Event event) {

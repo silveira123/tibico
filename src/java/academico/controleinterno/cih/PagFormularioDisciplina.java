@@ -18,7 +18,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     
     private Window winFormularioDisciplina;
     private Textbox nomeDisciplina;
-    private Intbox cargaHorario, creditos, periodo;
+    private Intbox cargaHoraria, creditos, periodo;
     private Combobox cursoCombo;
     private Listbox listPreRequisitos, listAreaConhecimento;
     private Disciplina obj;
@@ -88,7 +88,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         }
 
         nomeDisciplina.setText(obj.getNome());
-        cargaHorario.setValue(obj.getCargaHoraria());
+        cargaHoraria.setValue(obj.getCargaHoraria());
         creditos.setValue(obj.getNumCreditos());
         periodo.setValue(obj.getPeriodoCorrespondente());
 
@@ -117,7 +117,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
     private void bloquearTela() {
         nomeDisciplina.setReadonly(true);
-        cargaHorario.setReadonly(true);
+        cargaHoraria.setReadonly(true);
         creditos.setReadonly(true);
         periodo.setReadonly(true);
 
@@ -139,64 +139,82 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
         Disciplina d = null;
         try {
-            if (MODO == CtrlCadastroCurso.EDITAR) {
+            String msg = valido();
+            if(msg.trim().equals("")){
+                if (MODO == CtrlCadastroCurso.EDITAR) {
 
-                obj.setNome(nomeDisciplina.getText());
-                obj.setCargaHoraria(cargaHorario.getValue());
-                obj.setNumCreditos(creditos.getValue());
-                obj.setPeriodoCorrespondente(periodo.getValue());
-                Curso c = cursoCombo.getSelectedItem().getValue();
-                obj.setCurso(c);
-                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
-                obj.setPrerequisito(auxP);
-                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
-                obj.setAreaConhecimento(auxAC);
-                d = ctrl.alterarDisciplina(obj);
+                    obj.setNome(nomeDisciplina.getText());
+                    obj.setCargaHoraria(cargaHoraria.getValue());
+                    obj.setNumCreditos(creditos.getValue());
+                    obj.setPeriodoCorrespondente(periodo.getValue());
+                    Curso c = cursoCombo.getSelectedItem().getValue();
+                    obj.setCurso(c);
+                    ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                    obj.setPrerequisito(auxP);
+                    ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                    obj.setAreaConhecimento(auxAC);
+                    d = ctrl.alterarDisciplina(obj);
 
-                Messagebox.show("Cadastro editado!");
+                    Messagebox.show("Cadastro editado!");
 
+                }
+                else {
+                    ArrayList<Object> list = new ArrayList<Object>();
+
+                    list.add(nomeDisciplina.getText());
+                    list.add(cargaHoraria.getValue());
+                    list.add(creditos.getValue());
+                    list.add(periodo.getValue());
+                    ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                    list.add(auxP);
+                    Curso c = cursoCombo.getSelectedItem().getValue();
+                    list.add(c);
+                    ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                    list.add(auxAC);
+                    d = ctrl.incluirDisciplina(list);
+                    
+                    limparCampos();
+                    Messagebox.show("Cadastro feito!");
+                }
+                winFormularioDisciplina.onClose();
             }
-            else {
-                ArrayList<Object> list = new ArrayList<Object>();
-
-                list.add(nomeDisciplina.getText());
-                list.add(cargaHorario.getValue());
-                list.add(creditos.getValue());
-                list.add(periodo.getValue());
-                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
-                list.add(auxP);
-                Curso c = cursoCombo.getSelectedItem().getValue();
-                list.add(c);
-                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
-                list.add(auxAC);
-                d = ctrl.incluirDisciplina(list);
-
-                Messagebox.show("Cadastro feito!");
-            }
+            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }
-
-        limparCampos();
-        ctrl.redirectPag("/pageventosdisciplina.zul");
     }
 
     public void onClick$cancelarDisciplina(Event event) {
         winFormularioDisciplina.onClose();
     }
 
-    public void onClose$winFormularioDisciplina(Event event) {
-        ctrl.redirectPag("/pageventosdisciplina.zul");
-    }
-
     public void limparCampos() {
         nomeDisciplina.setText("");
-        cargaHorario.setText("");
+        cargaHoraria.setText("");
         creditos.setText("");
         periodo.setText("");
         listPreRequisitos.clearSelection();
         listAreaConhecimento.clearSelection();
+    }
+    
+    private String valido() {
+        String msg = "";
+        
+        if (nomeDisciplina.getText().trim().equals(""))
+            msg += "- Nome\n";
+        if (getSelecionadosList(listAreaConhecimento).isEmpty())
+            msg += "- Área de Conhecimento\n";
+        if (cargaHoraria.getValue() == null)
+            msg += "- Carga Horária\n";
+        if (creditos.getValue() == null)
+            msg += "- Carga Horária\n";
+        if (periodo.getValue() == null)
+            msg += "- Periodo Correspondente\n";
+        
+        if(!msg.trim().equals(""))
+            msg = "Informe:\n"+msg;
+        return msg;
     }
 }

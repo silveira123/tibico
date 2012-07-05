@@ -34,6 +34,7 @@ public class PagEventosChamada extends GenericForwardComposer {
 
         List<Turma> listaTurma = ctrlTurma.obterTurma();
         nome.setModel(new ListModelList(listaTurma, true));
+        nome.setReadonly(true);
     }
 
     public void onSelect$nome(Event event) { 

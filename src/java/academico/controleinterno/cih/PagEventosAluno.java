@@ -8,11 +8,7 @@ import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Window;
+import org.zkoss.zul.*;
 
 /**
  * <<descrição da Classe>> 
@@ -58,24 +54,22 @@ public class PagEventosAluno extends GenericForwardComposer {
                 ctrl.apagarAluno((Aluno) listitem.getValue());
                 listAluno.removeItemAt(listAluno.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir o aluno");
+                Messagebox.show("Não foi possivel excluir o aluno");
             }
         }
         else{
-            alert("Selecione um aluno");
+            Messagebox.show("Selecione um aluno");
         }
         
     }
 
     public void onClick$incluirAluno(Event event) {
-        this.winDadosAluno.onClose();
         ctrl.abrirIncluirAluno(a);      
     }
 
     public void onClick$alterarAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
-            this.winDadosAluno.onClose();
             ctrl.abrirEditarAluno((Aluno) listitem.getValue()); 
         }
     }
@@ -83,7 +77,6 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onClick$consultarAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
-            this.winDadosAluno.onClose();
             ctrl.abrirConsultarAluno((Aluno) listitem.getValue());  
         }
     }

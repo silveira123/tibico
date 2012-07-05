@@ -63,8 +63,6 @@ public class PagFormularioMatricula extends GenericForwardComposer {
                 Messagebox.show("Erro ao matricular! " + obj);
             }
         }
-        
         winFormularioMatricula.onClose();
-        ctrlMatricula.redirectPag("/PagEventosMatricula.zul");
     }
 }

@@ -39,4 +39,5 @@ public interface MatriculaTurmaDAO extends DAO<MatriculaTurma> {
     public List<MatriculaTurma> obter(Turma t);
     public List<Calendario> obterCalendarios(Aluno aluno);
     public List<MatriculaTurma> obterCursadas(Aluno aluno);
+
 }

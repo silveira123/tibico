@@ -74,4 +74,6 @@ public class MatriculaTurmaDAOJPA extends DAOJPA<MatriculaTurma> implements Matr
         query.setParameter(4, SituacaoAlunoTurma.REPROVADONOTA);
         return query.getResultList();
     }
+
+    
 }

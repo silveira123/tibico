@@ -59,9 +59,11 @@ public class AplControlarMatricula {
     /**
      * Faz a matricula de um aluno em uma turma.
      * <p/>
-     * @param args Lista de objetos representando os atributos do objeto MatriculaTurma.
+     * @param args Lista de objetos representando os atributos do objeto
+     * MatriculaTurma.
      * @return MatriculaTurma MatriculaTurma feita.
-     * @throws AcademicoException é retornado caso aconteça um erro na criação da matricula.
+     * @throws AcademicoException é retornado caso aconteça um erro na criação
+     * da matricula.
      */
     public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
         MatriculaTurma matriculaTurma = new MatriculaTurma();
@@ -86,7 +88,8 @@ public class AplControlarMatricula {
     }
 
     /**
-     * Obtem todas as matriculas feitas por um determinado aluno na situação de MATRICULADO.
+     * Obtem todas as matriculas feitas por um determinado aluno na situação de
+     * MATRICULADO.
      * <p/>
      * @param aluno Aluno que terá as matriculas buscadas.
      * @return List<MatriculaTurma> Lista de MatriculaTurma.
@@ -100,8 +103,10 @@ public class AplControlarMatricula {
      * Obtem o histórico do aluno.
      * <p/>
      * @param aluno Aluno que deverá
-     * @return List<MatriculaTurma> Lista de MatriculaTurma referente ao histórico do aluno.
-     * @throws AcademicoException caso não seja possivel possivel buscar as matriculas.
+     * @return List<MatriculaTurma> Lista de MatriculaTurma referente ao
+     * histórico do aluno.
+     * @throws AcademicoException caso não seja possivel possivel buscar as
+     * matriculas.
      */
     public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCursadas(aluno);
@@ -112,7 +117,8 @@ public class AplControlarMatricula {
      * <p/>
      * @param aluno Aluno que terá o boletim buscado.
      * @param calendario Calendário que definirá qual boletim buscar.
-     * @return List<MatriculaTurma> Lista de MatriculaTurma representado o boletim.
+     * @return List<MatriculaTurma> Lista de MatriculaTurma representado o
+     * boletim.
      * @throws AcademicoException Caso não consiga buscar o boletim.
      */
     public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
@@ -128,13 +134,12 @@ public class AplControlarMatricula {
         for (int i = 0; i < turmas.size();) {
             if (disciplinas.contains(turmas.get(i).getDisciplina())) {
                 turmas.remove(i);
-            }
-            else {
+            } else {
                 i++;
             }
         }
         //tira as turmas que ainda não foi cumprido o pré-requisito
-        for (int i = 0; i < turmas.size();i++) {
+        for (int i = 0; i < turmas.size(); i++) {
             List<Disciplina> listPreRequisitos = aplCadastroCurso.obterPreRequisitos(turmas.get(i).getDisciplina());
             for (int j = 0; j < listPreRequisitos.size(); j++) {
                 if (!disciplinas.contains(listPreRequisitos.get(j))) {
@@ -164,13 +169,38 @@ public class AplControlarMatricula {
     public List<MatriculaTurma> obter(Turma t) {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
     }
-    
-    public void editarFrequencia(List<Frequencia> f) throws AcademicoException{
+
+    public void editarFrequencia(List<Frequencia> f) throws AcademicoException {
         for (Frequencia frequencia : f) {
             Integer faltas = frequencia.getNumFaltasAula();
-            Double calculo = (double)(faltas*100)/frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
-            frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca()-calculo);
+            Double calculo = (double) (faltas * 100) / frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+            frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca() - calculo);
             apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
         }
+    }
+
+    public void editarFrequencia(List<Frequencia> f, List<Frequencia> g) throws AcademicoException {
+        for (int i = 0; i < f.size(); i++) {
+            int num = f.get(i).getNumFaltasAula() - g.get(i).getNumFaltasAula();
+            if (num > 0) {
+                Double calculo = (double) (num * 100) / g.get(i).getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+                g.get(i).getMatriculaTurma().setPercentualPresenca(g.get(i).getMatriculaTurma().getPercentualPresenca() + calculo);
+                apDaoMatriculaTurma.salvar(g.get(i).getMatriculaTurma());
+            } else if (num < 0) {
+                num *= (-1);
+                Double calculo = (double) (num * 100) / g.get(i).getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+                g.get(i).getMatriculaTurma().setPercentualPresenca(g.get(i).getMatriculaTurma().getPercentualPresenca() - calculo);
+                apDaoMatriculaTurma.salvar(g.get(i).getMatriculaTurma());
+            }
+
+        }
+    }
+
+    void excluirFrequencia(Frequencia frequencia) throws AcademicoException {
+            Integer faltas = frequencia.getNumFaltasAula();
+            Double calculo = (double) (faltas * 100) / frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+            frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca() + calculo);
+            apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
+        
     }
 }

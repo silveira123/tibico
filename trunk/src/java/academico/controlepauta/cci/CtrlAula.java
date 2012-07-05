@@ -99,8 +99,8 @@ public class CtrlAula {
         return apl.incluirAula(args);
     }
 
-    public Aula alterarAula(Aula aula) throws Exception {
-        return apl.alterarAula(aula);
+    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
+        return apl.alterarAula(aula, frequencia);
     }
 
     public void apagarAula(Aula aula) throws Exception {

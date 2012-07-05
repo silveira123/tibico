@@ -31,7 +31,7 @@ import javax.persistence.ManyToOne;
  * @see academico.controlepauta.cdp.Frequencia.java
  */
 @Entity
-public class Frequencia extends ObjetoPersistente {
+public class Frequencia extends ObjetoPersistente implements Cloneable{
 
     private Integer numFaltasAula;
     private MatriculaTurma matriculaTurma;
@@ -68,5 +68,10 @@ public class Frequencia extends ObjetoPersistente {
      */
     public void setMatriculaTurma(MatriculaTurma matriculaTurma) {
         this.matriculaTurma = matriculaTurma;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

@@ -17,7 +17,6 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton turma;
     private Toolbarbutton matricularAluno;
     private Toolbarbutton alocarProfessor;
-    private Toolbarbutton consultarMatriculas;
     private Toolbarbutton cadastrarAluno;
     private Toolbarbutton professor;
     private Toolbarbutton disciplina;
@@ -38,7 +37,7 @@ public class PagPrincipal extends GenericForwardComposer {
         winCurso.setHeight("100%");
         winCurso.setParent(border.getCenter());
     }
-    
+  
     public void onClick$disciplina(Event event)      
     {
         border.getCenter().getChildren().clear();
@@ -100,15 +99,6 @@ public class PagPrincipal extends GenericForwardComposer {
         winAlocarProfessor.setWidth("100%");
         winAlocarProfessor.setHeight("100%");
         winAlocarProfessor.setParent(border.getCenter());
-    }
-    
-    public void onClick$consultarMatriculas(Event event)      
-    {
-        border.getCenter().getChildren().clear();
-        Window winConsultaMatriculas = (Window) CtrlMatricula.getInstance().abrirConsultaMatriculas();
-        winConsultaMatriculas.setWidth("100%");
-        winConsultaMatriculas.setHeight("100%");
-        winConsultaMatriculas.setParent(border.getCenter());
     }
     
     public void onClick$historico(Event event)      

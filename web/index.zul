@@ -33,7 +33,6 @@
 								<toolbarbutton id="turma" label="Cadastrar Turma" />
 								<toolbarbutton id="matricularAluno" label="Matricular Aluno" />
 								<toolbarbutton id="alocarProfessor" label="Alocar Professor" />
-                                                                <toolbarbutton id="consultarMatriculas" label="Consultar Matriculas" />
                                                         </vbox>
 						</panelchildren>
 					</panel>

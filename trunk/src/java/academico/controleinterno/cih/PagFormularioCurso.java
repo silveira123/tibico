@@ -2,12 +2,14 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
+import academico.controlepauta.cih.PagPrincipal;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.academico.cdp.Regime;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;

@@ -42,7 +42,8 @@ public class Calendario extends ObjetoPersistente {
     private Calendar dataInicioPM;
     private Calendar dataFimPM;
     private Curso curso;
-     
+    private int sequencial;
+    
     public Calendario() {
         
     }
@@ -125,7 +126,17 @@ public class Calendario extends ObjetoPersistente {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
-    }  
+    }
+
+    public int getSequencial() {
+        return sequencial;
+    }
+
+    public void setSequencial(int sequencial) {
+        this.sequencial = sequencial;
+    }
+    
+    
     
     @Override
     public String toString() {

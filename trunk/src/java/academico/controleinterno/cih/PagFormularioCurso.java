@@ -24,6 +24,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
     private Curso obj;
     private Button salvarCurso;
     private int MODO;
+    private Textbox sigla;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -71,7 +72,8 @@ public class PagFormularioCurso extends GenericForwardComposer {
         nomeCurso.setText(obj.getNome());
         descricao.setText(obj.getDescricao());
         duracao.setValue(obj.getDuracao());
-
+        sigla.setText(obj.getSigla());
+        
         List<Comboitem> a = grauInstrucao.getItems(); // retornado a lista de instruções
         for (int i = 0; i < a.size(); i++) {
             // verificando qual o grau de instrução ta cadastrado
@@ -117,6 +119,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText()));
                 obj.setGrandeAreaConhecimento((GrandeAreaConhecimento) grandeArea.getSelectedItem().getValue());
                 obj.setRegime(Regime.valueOf(regime.getText()));
+                obj.setSigla(sigla.getText());
                 c = ctrl.alterarCurso(obj);
                 Messagebox.show("Cadastro editado!");
             }
@@ -128,7 +131,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
                 list.add(GrauInstrucao.valueOf(grauInstrucao.getText()));
                 list.add(grandeArea.getSelectedItem().getValue());
                 list.add(Regime.valueOf(regime.getText()));
-
+                list.add(sigla.getText());
                 c = ctrl.incluirCurso(list);
                 Messagebox.show("Cadastro feito!");
                 limparCampos();

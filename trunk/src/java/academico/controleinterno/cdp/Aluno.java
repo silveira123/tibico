@@ -35,13 +35,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Aluno extends Pessoa{
 
-    private Long matricula;
+    private String matricula;
     private Double coeficiente;
     private String nomePai;
     private String nomeMae;
     private Curso curso;
     
     public Aluno() {
+        
     }
 
     /**
@@ -82,7 +83,7 @@ public class Aluno extends Pessoa{
      * Obtém matricula de Aluno
      * @return 
      */
-    public Long getMatricula() {
+    public String getMatricula() {
         return matricula;
     }
 
@@ -91,7 +92,7 @@ public class Aluno extends Pessoa{
      * @param matricula 
      */
     //TODO criar regra para gerar matricula
-    public void setMatricula(Long matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
@@ -131,4 +132,5 @@ public class Aluno extends Pessoa{
     public String toString() {
         return nome;
     }
+    
 }

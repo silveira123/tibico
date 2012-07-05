@@ -15,10 +15,7 @@
  */
 package academico.controleinterno.cgt;
 
-import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Curso;
-import academico.controleinterno.cdp.Professor;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.AlunoDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -29,12 +26,12 @@ import academico.util.pessoa.cdp.*;
 import academico.util.pessoa.cgd.BairroDAOJPA;
 import academico.util.pessoa.cgd.EstadoDAOJPA;
 import academico.util.pessoa.cgd.MunicipioDAOJPA;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
+import org.zkoss.zul.Messagebox;
 
 /**
- * Classe de aplicação responsável por realizar os casos de uso relativos ao Aluno e ao Professor
+ * Classe de aplicação responsável por realizar os casos de uso relativos ao
+ * Aluno e ao Professor
  * <p/>
  * @author Gabriel Quézid; Rodrigo Maia
  * @version 0.1
@@ -50,9 +47,12 @@ public class AplCadastrarPessoa {
     private DAO apDaoMunicipio = DAOFactory.obterDAO("JPA", Municipio.class);
     private DAO apDaoBairro = DAOFactory.obterDAO("JPA", Bairro.class);
     private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
-
-    
+    private AplCadastrarCalendario aplCadastrarCalendario = AplCadastrarCalendario.getInstance();
     private static AplCadastrarPessoa instance = null;
+
+    private AplCadastrarPessoa() {
+        //TODO criar uma tabela para armazenar o sequencial e quando iniciar arrumar o hashmap
+    }
 
     public static AplCadastrarPessoa getInstance() {
         if (instance == null) {
@@ -70,23 +70,26 @@ public class AplCadastrarPessoa {
      */
     public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
         Aluno aluno = new Aluno();
-
-        aluno.setNome((String) args.get(0));
-        aluno.setSexo((Sexo) args.get(1));
-        aluno.setDataNascimento((Calendar) args.get(2));
-        aluno.setTelefone((ArrayList<Telefone>) args.get(3));
-        aluno.setEmail((String) args.get(4));
-        aluno.setCpf((Long) args.get(5));
-        aluno.setIdentidade((String) args.get(6));
-        aluno.setNomeMae((String) args.get(7));
-        aluno.setNomePai((String) args.get(8));
-        aluno.setEndereco((Endereco) args.get(9));
-        aluno.setMatricula((Long) args.get(10));
-        aluno.setCurso((Curso) args.get(11));
+        String matricula = this.gerarMatricula((Curso) args.get(10));
+        if (matricula != null) {
+            aluno.setNome((String) args.get(0));
+            aluno.setSexo((Sexo) args.get(1));
+            aluno.setDataNascimento((Calendar) args.get(2));
+            aluno.setTelefone((ArrayList<Telefone>) args.get(3));
+            aluno.setEmail((String) args.get(4));
+            aluno.setCpf((Long) args.get(5));
+            aluno.setIdentidade((String) args.get(6));
+            aluno.setNomeMae((String) args.get(7));
+            aluno.setNomePai((String) args.get(8));
+            aluno.setEndereco((Endereco) args.get(9));
+            aluno.setCurso((Curso) args.get(10));
+            aluno.setMatricula(matricula);
+            return (Aluno) apDaoAluno.salvar(aluno);
+        }
 
         //alert("BD Ok!");
-
-        return (Aluno) apDaoAluno.salvar(aluno);
+        return null;
+        
     }
 
     /**
@@ -121,13 +124,13 @@ public class AplCadastrarPessoa {
 
     /**
      * Obtém uma lista de todos os Alunos cadastrados
-     * @return 
+     *
+     * @return
      */
-    public List<Aluno> obterAlunosporTurma(Turma t)
-    {
+    public List<Aluno> obterAlunosporTurma(Turma t) {
         return ((AlunoDAOJPA) apDaoAluno).obterAlunosporTurma(t);
     }
-    
+
     /**
      * Inclui os dados de um Professor no sistema
      * <p/>
@@ -226,10 +229,10 @@ public class AplCadastrarPessoa {
      * <p/>
      * @return
      */
-    public List<Bairro> obterBairro(Municipio municipio) throws AcademicoException{
+    public List<Bairro> obterBairro(Municipio municipio) throws AcademicoException {
         return (List<Bairro>) ((BairroDAOJPA) apDaoBairro).obter(municipio);
     }
-    
+
     /**
      * Obtém uma lista com todas os cursos
      * <p/>
@@ -239,4 +242,34 @@ public class AplCadastrarPessoa {
         return (List<Curso>) apDaoCurso.obter(Curso.class);
     }
 
+    private String gerarMatricula(Curso curso) throws AcademicoException {
+        List<Calendario> calendarios = aplCadastrarCalendario.obterCalendarios(curso);
+        Calendario c = null;
+        String matricula = null;
+        Integer sequencial;
+        for (Calendario calendario : calendarios) {
+            if (calendario.getDataInicioCA().before(Calendar.getInstance()) && calendario.getDataFimCA().after(Calendar.getInstance())) {
+                c = calendario;
+                break;
+            }
+        }
+        if (c == null) {
+            Messagebox.show("Cadastre um Calendário Primeiro");
+        } else {
+            matricula = c.getIdentificador() + curso.getSigla();
+            sequencial = c.getSequencial();
+            if (sequencial < 10) {
+                matricula += "000" + sequencial;
+            } else if (sequencial < 100) {
+                matricula += "00" + sequencial;
+            } else if (sequencial < 1000) {
+                matricula += "0" + sequencial;
+            }
+
+            c.setSequencial(c.getSequencial() + 1);
+
+        }
+
+        return matricula;
+    }
 }

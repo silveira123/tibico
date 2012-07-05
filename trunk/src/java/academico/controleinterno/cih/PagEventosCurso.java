@@ -27,7 +27,7 @@ public class PagEventosCurso extends GenericForwardComposer {
                 Curso c = cursos.get(i);
                 Listitem linha = new Listitem(cursos.get(i).toString(), c);
 
-                linha.appendChild(new Listcell(cursos.get(i).getGrandeAreaConhecimento().toString()));
+                linha.appendChild(new Listcell(cursos.get(i).getGrauInstrucao().toString()));
                 linha.appendChild(new Listcell(cursos.get(i).getDuracao() + ""));
 
                 linha.setParent(listCurso);

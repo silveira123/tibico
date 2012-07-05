@@ -137,7 +137,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
         a = professor.getItems();
         for (int i = 0; i < a.size(); i++) {
            if (a.get(i).getValue() == obj.getProfessor()) {
-                calendario.setSelectedItem(a.get(i));
+                professor.setSelectedItem(a.get(i));
             }
         }
         

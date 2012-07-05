@@ -90,7 +90,7 @@ public class PagRelatorioResultados extends GenericForwardComposer{
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
                 
-                linha.appendChild(new Label(c.getAluno().getMatricula().toString()));
+                linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));

@@ -38,7 +38,7 @@ public class AplCadastrarCalendario {
         calendario.setDataFimPL((Calendar) args.get(6));
         calendario.setDataInicioPM((Calendar) args.get(7));
         calendario.setDataFimPM((Calendar) args.get(8));
-        
+        calendario.setSequencial(1);
         return (Calendario) apDaoCalendario.salvar(calendario);
     }
 

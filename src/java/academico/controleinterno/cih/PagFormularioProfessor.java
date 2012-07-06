@@ -147,12 +147,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         List<Listitem> listItems = listAreaConhecimento.getItems();
 
-        for (int i = 0; i < listItems.size(); i++) {
-            if (listItems.get(i).getValue().equals(obj)) {
-                listItems.remove(i);
-            }
-        }
-
         //seleciona os que devem ser marcados em prerequisito
         if (obj.getAreaConhecimento().size() > 0) {
             setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());

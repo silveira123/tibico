@@ -80,9 +80,7 @@ public class AplControlarAula {
                 {
                     lista.get(j).setPontuacao((Double) notas.get(i));
                     lista.get(j).setObservacao((String) observacoes.get(i));
-                    
-                    aplControlarMatricula.atualizaNotaFinal(obj, notas.get(i), resultado.getMatriculaTurma());
-                    
+
                     possui = true;
                     break;
                 }

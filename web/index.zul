@@ -1,36 +1,91 @@
-<vlayout xmlns:c="client">
-    <window id="loginWin" title="Login" width="300px" border='normal'  apply ="academico.controlepauta.cih.PagLogin">
+<?page title="Tibico-SRA"?>  
+<window id="loginWin" apply ="academico.controlepauta.cih.PagLogin">
         <style>
-	        div.minimize {
-	            border: 1px solid #79858E;
-	            background: #D3E1EC;
-	            position: absolute;
-	            opacity: 0.8;       
-	        }
-	        div.loginGrid { 
-	            border: none;
-	        }
-	        td.loginCtl {
-	            text-align: center;
-	        }
-	        td.loginCtl .z-label {
-	            color: red;         
-	            font-style: italic;
-	        }
+                .login-box {
+                        width:333px;
+                        height: 352px;
+                        padding: 58px 76px 0 76px;
+                        color: #ebebeb;
+                        font: 12px Arial, Helvetica, sans-serif;
+                        background: url(images/login-box-backg.png) no-repeat left top;
+                }
+
+                .login-box img {
+                        border:none;
+                }
+
+                .login-box h2 {
+                        padding:0;
+                        margin:0;
+                        color: #ebebeb;
+                        font: bold 44px "Calibri", Arial;
+                }
+
+
+                .login-box-name {
+                        float: left;
+                        display:inline;
+                        width:80px;
+                        text-align: right;
+                        padding: 14px 10px 0 0;
+                        margin:0 0 7px 0;
+                }
+
+                .login-box-field {
+                        float: left;
+                        display:inline;
+                        width:230px;
+                        margin:0;
+                        margin:0 0 7px 0;
+                }
+
+
+                .form-login  {
+                        width: 205px;
+                        padding: 10px 4px 6px 3px;
+                        border: 1px solid #0d2c52;
+                        background-color:#1e4f8a;
+                        font-size: 16px;
+                        color: #ebebeb;
+                }
+
+
+                .login-box-options  {
+                        clear:both;
+                        padding-left:87px;
+                        font-size: 11px;
+                }
+
+                .login-box-options a {
+                        color: #ebebeb;
+                        font-size: 11px;
+                }
         </style>
-        <grid sclass="loginGrid">
-            <columns>
-                <column width="100px" />
-            </columns>
-            <rows>
-                <row>Usuario : <textbox id="nome" value="" c:onFocus="this.select()" /></row>
-                <row>Senha : <textbox id="senha" type="password" c:onFocus="this.select()"/></row>
-                <row><cell sclass="loginCtl" colspan="2"><vlayout>
-                    <button id ="Entrar" label="Entrar" width="100px"/>
-                    <label id="msg" />
-                </vlayout></cell></row>
-            </rows>
-        </grid>
-       </window>
-    <script type="text/javascript" src="/customized_effect.js" />    
-  </vlayout>  
+
+        <hbox align="center" pack="center" height="100%" width="100%">
+            <vbox><div height="50%"/></vbox>
+            <div sclass="login-box" > 
+                <label value="Tibico" style="font-size:40px; font-weight: bold;"/><separator/>
+                <label value="Sistema de Registro Acadêmico." style="font-size:15px;"/>
+
+                <separator/>
+                <separator/>
+
+                <div sclass="login-box-name" style="margin-top:20px;">Login:</div>
+                <div sclass="login-box-field" style="margin-top:20px;"><textbox id="nome" sclass="form-login" value="" width="30" maxlength="2048"/></div>
+
+                <div sclass="login-box-name">Senha:</div> 
+                <div sclass="login-box-field"><textbox id="senha" type="password" value="" sclass="form-login" width="30" maxlength="2048"/></div>
+
+                <separator/>
+
+                <span sclass="login-box-options"><checkbox id="checkbox" label="Remember Me" /> <a href="#" style="margin-left:30px;">Forgot password?</a></span>
+                <separator/>
+                <separator/>
+
+                <a href="#"><image id="entrar" src="images/login-btn.png" width="103px" height="42px" style="margin-left:90px;" /></a>
+                <separator/>
+                <div align="center"><label id="msg" style="color:black; font-weight: bold;"/></div>
+            </div> 
+        </hbox>
+</window>    

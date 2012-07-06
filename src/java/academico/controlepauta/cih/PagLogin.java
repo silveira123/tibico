@@ -22,12 +22,7 @@ public class PagLogin extends GenericForwardComposer
 	private Label msg;
 	private CtrlCadastrarUsuario ctrl = CtrlCadastrarUsuario.getInstance();
 	
-	public void onCreate$loginWin(Event event)
-	{
-            loginWin.doHighlighted();
-	}
-	
-	public void onClick$Entrar(Event event)
+	public void onClick$entrar(Event event)
 	{
             try {
                 if (ctrl.validarUsuario(nome.getValue(), senha.getValue())) 
@@ -48,7 +43,6 @@ public class PagLogin extends GenericForwardComposer
                 else 
                 {
                     msg.setValue("Usuário ou Senha inválida!");
-                    Clients.evalJavaScript("loginFaild()");
                 }
             } catch (AcademicoException ex) {
                 Logger.getLogger(PagLogin.class.getName()).log(Level.SEVERE, null, ex);

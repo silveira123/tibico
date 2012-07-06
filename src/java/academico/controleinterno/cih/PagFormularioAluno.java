@@ -422,7 +422,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         return e;
     }
 
-    public void onSelect$pais() {
+    public void onSelect$pais(Event event) {
         estado.setText(null);
         cidade.setText(null);
         bairro.setText(null);
@@ -431,7 +431,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         estado.setReadonly(true);
     }
 
-    public void onSelect$estado() {
+    public void onSelect$estado(Event event) {
         cidade.setText(null);
         bairro.setText(null);
         List<Municipio> listMunicipio = ctrlPessoa.obterMunicipio((Estado) estado.getSelectedItem().getValue());
@@ -439,7 +439,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         cidade.setReadonly(true);
     }
 
-    public void onSelect$cidade() {
+    public void onSelect$cidade(Event event) {
         bairro.setText(null);
         List<Bairro> listBairro = ctrlPessoa.obterBairro((Municipio) cidade.getSelectedItem().getValue());
         bairro.setModel(new ListModelList(listBairro, true));

@@ -22,6 +22,7 @@ import academico.controleinterno.cdp.Calendario;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
+import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -51,9 +52,13 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        obj = (Aluno) arg.get("aluno");
         if (obj != null) {
+            List<Aluno>alunos = new ArrayList<Aluno>();
+            alunos.add(obj);
+            nome.setModel(new ListModelList(alunos, true));
             matricula.setValue(obj.getMatricula().toString());
-            ((Selectable) nome.getModel()).addToSelection(obj);
+            ((ListModelList) nome.getModel()).addToSelection(obj);
             nome.setDisabled(true);
             matricula.setDisabled(true);
             adicionaDisciplinas(obj);

@@ -2,11 +2,13 @@ package academico.controlepauta.cih;
 
 
 import academico.controleinterno.cci.CtrlLetivo;
+import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.util.Exceptions.AcademicoException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +29,19 @@ public class PagEventosChamada extends GenericForwardComposer {
     private Menuitem alterar;
     private Menuitem inserirPontuacao;
     private Listbox listbox;
+    private Professor obj;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
-        List<Turma> listaTurma = ctrlTurma.obterTurma();
+        List<Turma> listaTurma = new ArrayList<Turma>();
+        obj = (Professor) arg.get("professor");
+        if(obj!=null){
+            listaTurma = ctrlTurma.obterTurma(obj);
+        }
+        else{
+            listaTurma = ctrlTurma.obterTurma();
+        }
         nome.setModel(new ListModelList(listaTurma, true));
         nome.setReadonly(true);
     }

@@ -5,10 +5,12 @@
 package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.Frequencia;
+import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplControlarAula;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
@@ -153,15 +155,37 @@ public class CtrlAula {
         return Executions.createComponents("/pagEventosAvaliacao.zul", null, null);
     }
     
+    public Component abrirEventosAvaliacao(Professor prof)
+    {
+        Map map = new HashMap();
+        map.put("professor", prof);
+        return Executions.createComponents("/pagEventosAvaliacao.zul", null, map);
+    }
+    
     public Component abrirEventosChamada()
     {
         return Executions.createComponents("/pagEventosChamada.zul", null, null);
     }
     
-    public Component abrirPaginaPrincipal(int privilegio)
+    public Component abrirEventosChamada(Professor prof)
     {
         Map map = new HashMap();
-        map.put("tipo", privilegio);
+        map.put("professor", prof);
+        return Executions.createComponents("/pagEventosChamada.zul", null, map);
+    }
+    
+    public Component abrirPaginaPrincipal(Usuario usuario)
+    {
+        Map map = new HashMap();
+        map.put("usuario", usuario);
         return Executions.createComponents("/PagPrincipal.zul", null, map);
+    }
+
+    public Aluno getAluno(String matricula) {
+        return AplControlarAula.getInstance().obterAluno(matricula);
+    }
+
+    public Professor getProfessor(String CPF) {
+        return AplControlarAula.getInstance().obterProfessor(CPF);
     }
 }

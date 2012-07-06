@@ -30,5 +30,7 @@ import academico.util.persistencia.DAO;
  * @see
  */
 public interface ProfessorDAO extends DAO<Professor> {
+
+    public Professor obterProfessor(String CPF);
     
 }

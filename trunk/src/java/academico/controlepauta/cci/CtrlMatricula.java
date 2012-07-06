@@ -181,6 +181,13 @@ public class CtrlMatricula {
         return Executions.createComponents("/pagEventosMatricula.zul", null, null);
     }
     
+    public Component abrirEventosMatricula(Aluno aluno)
+    {
+        Map map = new HashMap();
+        map.put("aluno", aluno);
+        return Executions.createComponents("/pagEventosMatricula.zul", null, map);
+    }
+    
     public Component abrirConsultaMatriculas()
     {
         return Executions.createComponents("/pagConsultaMatriculas.zul", null, null);
@@ -191,9 +198,23 @@ public class CtrlMatricula {
         return Executions.createComponents("/pagRelatorioBoletim.zul", null, null);
     }
     
+    public Component abrirRelatorioBoletim(Aluno aluno)
+    {
+        Map map = new HashMap();
+        map.put("aluno", aluno);
+        return Executions.createComponents("/pagRelatorioBoletim.zul", null, map);
+    }
+    
     public Component abrirRelatorioHistorico()
     {
         return Executions.createComponents("/pagRelatorioHistorico.zul", null, null);
+    }
+    
+    public Component abrirRelatorioHistorico(Aluno aluno)
+    {
+        Map map = new HashMap();
+        map.put("aluno", aluno);
+        return Executions.createComponents("/pagRelatorioHistorico.zul", null, map);
     }
     
     public Component abrirRelatorioResultados()

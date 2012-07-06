@@ -38,7 +38,7 @@ public class PagLogin extends GenericForwardComposer
                     for (int i = 0; i < lista.size(); i++) {
                         if(lista.get(i).getNome().equals(nome.getValue()))
                         {
-                            CtrlAula.getInstance().abrirPaginaPrincipal(lista.get(i).getPrivilegio());
+                            CtrlAula.getInstance().abrirPaginaPrincipal(lista.get(i));
                             break;
                         }
                     }

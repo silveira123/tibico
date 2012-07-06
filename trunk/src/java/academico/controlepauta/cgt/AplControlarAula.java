@@ -5,7 +5,9 @@
 package academico.controlepauta.cgt;
 
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.FrequenciaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
@@ -146,6 +148,14 @@ public class AplControlarAula {
         aplControlarMatricula.excluirFrequencia(frequencia);
         apDaoFrequencia.excluir(frequencia);
         
+    }
+
+    public Aluno obterAluno(String matricula) {
+        return AplCadastrarPessoa.getInstance().obterAluno(matricula);
+    }
+
+    public Professor obterProfessor(String CPF) {
+        return AplCadastrarPessoa.getInstance().obterProfessor(CPF);
     }
     
 }

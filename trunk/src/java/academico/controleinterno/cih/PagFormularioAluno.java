@@ -75,8 +75,12 @@ public class PagFormularioAluno extends GenericForwardComposer {
         List<Curso> cursos = ctrlPessoa.obterCurso();
 
         pais.setModel(new ListModelList(new ListModelList(paises, true)));
-        pais.setReadonly(true);
 
+        pais.setReadonly(true);
+        estado.setReadonly(true);
+        cidade.setReadonly(true);
+        bairro.setReadonly(true);
+        
         curso.setModel(new ListModelList(new ListModelList(cursos, true)));
         curso.setReadonly(true);
     }
@@ -180,50 +184,24 @@ public class PagFormularioAluno extends GenericForwardComposer {
             List<Municipio> municipios = ctrlPessoa.obterMunicipio(e);
             List<Bairro> bairros = ctrlPessoa.obterBairro(m);
 
-            pais.setModel(new ListModelList(paises, true));
-            pais.setReadonly(true);
-
-            List<Comboitem> a = pais.getItems(); // retornado a lista de paises
-            for (int i = 0; i < a.size(); i++) {
-                // verificando qual pais esta cadastrado
-                if (a.get(i).getValue() == p) {
-                    pais.setSelectedItem(a.get(i));
-                }
+            if (p != null) {
+                ((ListModelList) pais.getModel()).addToSelection(p);
+                onSelect$pais(null);
             }
-
-            estado.setModel(new ListModelList(estados, true));
-            estado.setReadonly(true);
-
-            a = estado.getItems(); // retornado a lista de estados
-            for (int i = 0; i < a.size(); i++) {
-                // verificando qual estado esta cadastrado
-                if (a.get(i).getValue() == e) {
-                    estado.setSelectedItem(a.get(i));
-                }
+            
+            if (e != null) {
+                ((ListModelList) estado.getModel()).addToSelection(e);
+                onSelect$estado(null);
             }
-
-            cidade.setModel(new ListModelList(municipios, true));
-            cidade.setReadonly(true);
-
-            a = cidade.getItems(); // retornado a lista de municipio
-            for (int i = 0; i < a.size(); i++) {
-                // verificando qual municipio esta cadastrado
-                if (a.get(i).getValue() == m) {
-                    cidade.setSelectedItem(a.get(i));
-                }
+            
+            if (m != null) {
+                ((ListModelList) cidade.getModel()).addToSelection(m);
+                onSelect$cidade(null);
             }
-
-            bairro.setModel(new ListModelList(bairros, true));
-            bairro.setReadonly(true);
-
-            a = bairro.getItems(); // retornado a lista de bairro
-            for (int i = 0; i < a.size(); i++) {
-                // verificando qual bairro esta cadastrado
-                if (a.get(i).getValue() == b) {
-                    bairro.setSelectedItem(a.get(i));
-                }
+            
+            if (b != null) {
+                ((ListModelList) bairro.getModel()).addToSelection(b);
             }
-
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
@@ -423,27 +401,42 @@ public class PagFormularioAluno extends GenericForwardComposer {
     }
 
     public void onSelect$pais(Event event) {
-        estado.setText(null);
-        cidade.setText(null);
-        bairro.setText(null);
-        List<Estado> listEstados = ctrlPessoa.obterEstados((Pais) pais.getSelectedItem().getValue());
-        estado.setModel(new ListModelList(listEstados, true));
-        estado.setReadonly(true);
+        estado.setSelectedItem(null);
+        cidade.setSelectedItem(null);
+        bairro.setSelectedItem(null);
+        
+        Object[] array = ((ListModelList) pais.getModel()).getSelection().toArray();
+        Pais p;
+        if (array.length > 0) {
+            p = (Pais) array[0];
+            List<Estado> listEstados = ctrlPessoa.obterEstados(p);
+            estado.setModel(new ListModelList(listEstados, true));
+        }
     }
 
     public void onSelect$estado(Event event) {
-        cidade.setText(null);
-        bairro.setText(null);
-        List<Municipio> listMunicipio = ctrlPessoa.obterMunicipio((Estado) estado.getSelectedItem().getValue());
-        cidade.setModel(new ListModelList(listMunicipio, true));
-        cidade.setReadonly(true);
+        cidade.setSelectedItem(null);
+        bairro.setSelectedItem(null);
+        
+        Object[] array = ((ListModelList) estado.getModel()).getSelection().toArray();
+        Estado e;
+        if (array.length > 0) {
+            e = (Estado) array[0];
+            List<Municipio> listCidade = ctrlPessoa.obterMunicipio(e);
+            cidade.setModel(new ListModelList(listCidade, true));
+        }
     }
 
     public void onSelect$cidade(Event event) {
-        bairro.setText(null);
-        List<Bairro> listBairro = ctrlPessoa.obterBairro((Municipio) cidade.getSelectedItem().getValue());
-        bairro.setModel(new ListModelList(listBairro, true));
-        bairro.setReadonly(true);
+        bairro.setSelectedItem(null);
+        
+        Object[] array = ((ListModelList) cidade.getModel()).getSelection().toArray();
+        Municipio m;
+        if (array.length > 0) {
+            m = (Municipio) array[0];
+            List<Bairro> listBairro = ctrlPessoa.obterBairro(m);
+            bairro.setModel(new ListModelList(listBairro, true));
+        }
     }
 
     public Long obterCEP(String scep) {

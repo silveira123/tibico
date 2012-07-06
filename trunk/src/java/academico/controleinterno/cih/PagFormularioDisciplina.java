@@ -3,6 +3,7 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
+import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,6 @@ import org.zkoss.zul.ext.Selectable;
 public class PagFormularioDisciplina extends GenericForwardComposer {
 
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
-    
     private Window winFormularioDisciplina;
     private Textbox nomeDisciplina;
     private Intbox cargaHoraria, creditos, periodo;
@@ -34,15 +34,11 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
-        
+
 
         cursoCombo.setDisabled(true);
 
-        List<Disciplina> disciplinas = ctrl.obterDisciplinas();
-        if (disciplinas != null) {
-            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
-        }
-        ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
+
 
         // Populando o list de AreaConhecimento
         List<AreaConhecimento> areaConhecimentos = ctrl.obterAreaConhecimento();
@@ -52,7 +48,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         ((ListModelList) listAreaConhecimento.getModel()).setMultiple(true);
     }
 
-    public void onCreate$winFormularioDisciplina() {
+    public void onCreate$winFormularioDisciplina() throws AcademicoException {
         MODO = (Integer) arg.get("tipo");
 
         if (MODO != CtrlCadastroCurso.SALVAR) {
@@ -62,15 +58,18 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 this.salvarDisciplina.setVisible(false);
                 bloquearTela();
             }
-        }
-        else
-        {
-            obj2 = (Curso) arg.get("obj"); 
+        } else {
+            obj2 = (Curso) arg.get("obj");
             List<Comboitem> curso = cursoCombo.getItems();
             for (int i = 0; i < curso.size(); i++) {
                 // verificando qual a area de conhecimento cadastrado
                 if (obj2.equals(curso.get(i).getValue())) {
                     cursoCombo.setSelectedItem(curso.get(i));
+                    List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso)curso.get(i).getValue());
+                    if (disciplinas != null) {
+                        listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+                    }
+                    ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
                 }
             }
         }
@@ -124,13 +123,13 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         List<Listitem> listItemsPreRequisito = listPreRequisitos.getItems();
         listPreRequisitos.setCheckmark(false);
         for (int i = 0; i < listItemsPreRequisito.size(); i++) {
-           listItemsPreRequisito.get(i).setDisabled(true);
+            listItemsPreRequisito.get(i).setDisabled(true);
         }
 
         List<Listitem> listAreaConhecimentos = listAreaConhecimento.getItems();
         listAreaConhecimento.setCheckmark(false);
         for (int i = 0; i < listAreaConhecimentos.size(); i++) {
-           listAreaConhecimentos.get(i).setDisabled(true);
+            listAreaConhecimentos.get(i).setDisabled(true);
         }
         cursoCombo.setDisabled(true);
     }
@@ -140,7 +139,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         Disciplina d = null;
         try {
             String msg = valido();
-            if(msg.trim().equals("")){
+            if (msg.trim().equals("")) {
                 if (MODO == CtrlCadastroCurso.EDITAR) {
 
                     obj.setNome(nomeDisciplina.getText());
@@ -157,8 +156,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
                     Messagebox.show("Cadastro editado!");
 
-                }
-                else {
+                } else {
                     ArrayList<Object> list = new ArrayList<Object>();
 
                     list.add(nomeDisciplina.getText());
@@ -172,15 +170,15 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                     ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
                     list.add(auxAC);
                     d = ctrl.incluirDisciplina(list);
-                    
+
                     limparCampos();
                     Messagebox.show("Cadastro feito!");
                 }
                 winFormularioDisciplina.onClose();
+            } else {
+                Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
             }
-            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }
@@ -202,23 +200,29 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         listPreRequisitos.clearSelection();
         listAreaConhecimento.clearSelection();
     }
-    
+
     private String valido() {
         String msg = "";
-        
-        if (nomeDisciplina.getText().trim().equals(""))
+
+        if (nomeDisciplina.getText().trim().equals("")) {
             msg += "- Nome\n";
-        if (getSelecionadosList(listAreaConhecimento).isEmpty())
+        }
+        if (getSelecionadosList(listAreaConhecimento).isEmpty()) {
             msg += "- Área de Conhecimento\n";
-        if (cargaHoraria.getValue() == null)
+        }
+        if (cargaHoraria.getValue() == null) {
             msg += "- Carga Horária\n";
-        if (creditos.getValue() == null)
+        }
+        if (creditos.getValue() == null) {
             msg += "- Carga Horária\n";
-        if (periodo.getValue() == null)
+        }
+        if (periodo.getValue() == null) {
             msg += "- Periodo Correspondente\n";
-        
-        if(!msg.trim().equals(""))
-            msg = "Informe:\n"+msg;
+        }
+
+        if (!msg.trim().equals("")) {
+            msg = "Informe:\n" + msg;
+        }
         return msg;
     }
 }

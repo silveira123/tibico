@@ -95,7 +95,7 @@ public class CtrlCadastroCurso {
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return apl.obterDisciplinas();
     }
-
+    
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return apl.obterDisciplinas(curso);
     }

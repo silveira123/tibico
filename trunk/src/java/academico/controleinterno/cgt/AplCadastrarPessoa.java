@@ -92,7 +92,7 @@ public class AplCadastrarPessoa {
 
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
-        AplCadastrarUsuario.getInstance().incluirUsuario(args.get(10) + "", "1234", new Integer(4));
+        AplCadastrarUsuario.getInstance().incluirUsuario(matricula, "1234", new Integer(4));
         //alert("BD Ok!");
         return (Aluno) apDaoAluno.salvar(aluno);
     }

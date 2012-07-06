@@ -23,10 +23,9 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.controleinterno.cgt.AplCadastroCurso;
-import academico.controlepauta.cdp.Frequencia;
-import academico.controlepauta.cdp.MatriculaTurma;
-import academico.controlepauta.cdp.SituacaoAlunoTurma;
+import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
+import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
@@ -42,6 +41,7 @@ import java.util.List;
  */
 public class AplControlarMatricula {
 
+    private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
     private AplCadastroCurso aplCadastroCurso = AplCadastroCurso.getInstance();
 
@@ -202,5 +202,20 @@ public class AplControlarMatricula {
             frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca() + calculo);
             apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
         
+    }
+
+    void atualizaNotaFinal(Avaliacao obj, Object nota, MatriculaTurma matriculaTurma) {
+        Double notaAtual = matriculaTurma.getResultadoFinal();
+        
+        // Obteve todos os resultados do aluno matriculado
+        List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(matriculaTurma);
+        
+        
+        if (notaAtual == 0) {
+            matriculaTurma.setResultadoFinal((Double) nota);
+        }
+        else{
+            
+        }
     }
 }

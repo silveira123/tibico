@@ -157,5 +157,7 @@ public class AplControlarAula {
     public Professor obterProfessor(String CPF) {
         return AplCadastrarPessoa.getInstance().obterProfessor(CPF);
     }
-    
+    public List<Resultado> obterResultados(Avaliacao obj) {
+        return (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(obj);
+    }
 }

@@ -7,10 +7,7 @@ package academico.controlepauta.cci;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
-import academico.controlepauta.cdp.Aula;
-import academico.controlepauta.cdp.Avaliacao;
-import academico.controlepauta.cdp.Frequencia;
-import academico.controlepauta.cdp.Usuario;
+import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgt.AplControlarAula;
 import academico.controlepauta.cih.PagEventosAvaliacao;
 import academico.controlepauta.cih.PagEventosChamada;
@@ -205,5 +202,9 @@ public class CtrlAula {
 
     public Professor getProfessor(String CPF) {
         return AplControlarAula.getInstance().obterProfessor(CPF);
+    }
+
+    public List<Resultado> obterResultados(Avaliacao obj) {
+        return AplControlarAula.getInstance().obterResultados(obj);
     }
 }

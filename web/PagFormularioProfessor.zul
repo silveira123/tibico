@@ -2,7 +2,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="57%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="58%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>
@@ -145,7 +145,7 @@
                 </rows>
             </grid>
 			
-            <button width="10%" label="Ok" id="salvarProfessor"></button>
+            <button width="10%" label="Salvar" id="salvarProfessor"></button>
             <button width="10%" label="Cancelar" id="cancelarProfessor"></button>
 			
         </window>

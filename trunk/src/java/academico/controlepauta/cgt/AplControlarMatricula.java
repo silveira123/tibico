@@ -202,19 +202,60 @@ public class AplControlarMatricula {
         
     }
 
-    void atualizaNotaFinal(Avaliacao obj, Object nota, MatriculaTurma matriculaTurma) {
-        Double notaAtual = matriculaTurma.getResultadoFinal();
+    public void calcularNotaFinal(MatriculaTurma mt) {
+        List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(mt);
+        Double notaFinal = new Double(0.0);        
+        Integer peso = new Integer(0);
         
-        // Obteve todos os resultados do aluno matriculado
-        List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(matriculaTurma);
+        //TODO tirar prints
         
+        for (Resultado r : listResultados) {
+            notaFinal +=  r.getAvaliacao().getPeso() * r.getPontuacao();
+            peso += r.getAvaliacao().getPeso();
+            
+            System.out.println("Nota: " + notaFinal);
+            System.out.println("Peso: " + peso);
+        }
         
-        if (notaAtual == 0) {
-            matriculaTurma.setResultadoFinal((Double) nota);
+        notaFinal = notaFinal/peso;
+        
+        System.out.println("Nota / Peso: " + notaFinal);
+        
+        mt.setResultadoFinal(notaFinal);
+        
+        alteraSituacao(mt);
+    }
+
+    private void alteraSituacao(MatriculaTurma mt) {
+        Double notaFinal = mt.getResultadoFinal();
+        Double percentualPresenca = mt.getPercentualPresenca();
+        
+        if (notaFinal >= 60.0 && percentualPresenca >= 75.0) {
+            mt.setSituacaoAluno(SituacaoAlunoTurma.APROVADO);
         }
         else{
-            
+            if (notaFinal >= 60.0) {
+                mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADOFALTA);
+            }
+            else{
+                mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADONOTA);
+            }
         }
+    }
+
+    public void calcularCoeficiente(Aluno obj) {
+        List<MatriculaTurma> matriculas = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(obj);
+        Double coeficiente = new Double(0.0);
+        Integer peso = new Integer(0);
+        
+        for (MatriculaTurma m : matriculas) {
+            coeficiente += m.getResultadoFinal() * m.getTurma().getDisciplina().getNumCreditos();
+            peso += m.getTurma().getDisciplina().getNumCreditos();
+        }
+        
+        coeficiente = coeficiente/peso;
+        
+        obj.setCoeficiente(coeficiente);
     }
 
     public boolean verificaPeriodoMatricula(Curso curso) {

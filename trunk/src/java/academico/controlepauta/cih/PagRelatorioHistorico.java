@@ -91,9 +91,12 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
-
+                
+                ctrlMatricula.calculaNotaFinal(c);
+                
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                //TODO if do fim do periodo
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

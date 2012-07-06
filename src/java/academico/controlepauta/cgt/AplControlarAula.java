@@ -8,6 +8,7 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.FrequenciaDAO;
+import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
@@ -77,6 +78,9 @@ public class AplControlarAula {
                 {
                     lista.get(j).setPontuacao((Double) notas.get(i));
                     lista.get(j).setObservacao((String) observacoes.get(i));
+                    
+                    aplControlarMatricula.atualizaNotaFinal(obj, notas.get(i), resultado.getMatriculaTurma());
+                    
                     possui = true;
                     break;
                 }
@@ -120,6 +124,14 @@ public class AplControlarAula {
     
     public List<Frequencia> obterFrequencias(Aluno a) throws AcademicoException {
         return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(a);
+    }
+    
+    public List<Resultado> obterResultados() throws AcademicoException {
+        return (List<Resultado>) apDaoResultado.obter(Resultado.class);
+    }
+    
+    public List<Resultado> obterResultados(Aluno a) throws AcademicoException {
+        return (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(a);
     }
     
     public List<Aula> obterAulas() throws AcademicoException {

@@ -68,17 +68,13 @@ public class CtrlMatricula {
      * @throws AcademicoException é retornado caso aconteça um erro na criação da matricula.
      */
     public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
-        return apl.efetuarMatricula(args);
+        MatriculaTurma m = apl.efetuarMatricula(args);
+        pagEventosMatricula.addMatricula(m);
+        return m;
     }
     
     public void setPagEventosMatricula(PagEventosMatricula pagEventosMatricula) {
         this.pagEventosMatricula = pagEventosMatricula;
-    }
-    
-    public MatriculaTurma incluirMatricula(ArrayList<Object> args) throws AcademicoException {      
-        MatriculaTurma m = apl.efetuarMatricula(args);
-        pagEventosMatricula.addMatricula(m);
-        return m;
     }
 
     /**

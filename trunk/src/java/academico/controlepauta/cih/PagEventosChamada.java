@@ -34,6 +34,8 @@ public class PagEventosChamada extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+
+        ctrl.setPagEventosChamada(this);
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
         if(obj!=null){
@@ -42,6 +44,7 @@ public class PagEventosChamada extends GenericForwardComposer {
         else{
             listaTurma = ctrlTurma.obterTurma();
         }
+
         nome.setModel(new ListModelList(listaTurma, true));
         nome.setReadonly(true);
     }
@@ -69,6 +72,30 @@ public class PagEventosChamada extends GenericForwardComposer {
         } 
         catch (AcademicoException ex) {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addChamada(Aula a)
+    {
+         Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth()+1)
+                            + "/" + (a.getDia().getTime().getYear()+1900), a);
+        linha.appendChild(new Listcell(a.getConteudo()));
+        linha.appendChild(new Listcell(a.getQuantidade() + ""));
+        linha.setParent(listbox);
+    }
+    
+    public void refreshChamada(Aula a)
+    {
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if(listbox.getItemAtIndex(i).getValue() == a)
+            {
+                listbox.getItemAtIndex(i).getChildren().clear();      
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth()+1)
+                            + "/" + (a.getDia().getTime().getYear()+1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getConteudo()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getQuantidade() + ""));
+                break;
+            }
         }
     }
     

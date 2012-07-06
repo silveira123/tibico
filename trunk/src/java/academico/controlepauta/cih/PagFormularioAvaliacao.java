@@ -82,6 +82,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
                     ctrl.alterarAvaliacao(obj);
                 }
+                winFormularioAvaliacao.onClose();
             }
             else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
         }

@@ -61,7 +61,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private Textbox complemento;
     private Combobox grauInstrucao;
     private Listbox listAreaConhecimento;
-    private CtrlPessoa ctrlPessoa = new CtrlPessoa();
+    private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private Window winFormularioProfessor;
     private Professor obj;
     private int MODO;
@@ -337,6 +337,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
+            System.err.println(e);
         }
     }
     

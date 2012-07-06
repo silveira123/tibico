@@ -25,11 +25,9 @@ public class TurmaDAOJPA extends DAOJPA<Turma> implements TurmaDAO {
                 + "AND t.disciplina.id = d.id "
                 + "AND d.curso.id = c.id "
                 + "AND t.calendario.id = cal.id "
-                + "AND (?2 - cal.dataInicioPM >= 0 "
-                + "AND ?2 - cal.dataFimPM <= 0)");
+                );
         query.setParameter(1, aluno.getId());
-        query.setParameter(2, Calendar.getInstance());
-
+        
         List<Turma> list = query.getResultList();
         return list;
     }

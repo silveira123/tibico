@@ -217,4 +217,8 @@ public class CtrlMatricula {
     {
         return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
     }
+
+    public boolean verificaPeriodoMatricula(Curso curso) {
+        return apl.verificaPeriodoMatricula(curso);
+    }
 }

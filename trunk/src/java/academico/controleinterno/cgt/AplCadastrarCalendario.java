@@ -2,6 +2,7 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cgd.CalendarioDAO;
 import academico.controleinterno.cgd.CalendarioDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
@@ -55,6 +56,10 @@ public class AplCadastrarCalendario {
     }
     
     public List<Calendario> obterCalendarios(Curso curso) throws AcademicoException {
-        return (List<Calendario>) ((CalendarioDAOJPA) apDaoCalendario).obter(curso);
+        return (List<Calendario>) ((CalendarioDAO) apDaoCalendario).obter(curso);
+    }
+
+    public boolean verificarPeriodoMatricula(Curso curso) {
+        return (boolean) ((CalendarioDAO) apDaoCalendario).verificarPeriodoMatricula(curso);
     }
 }

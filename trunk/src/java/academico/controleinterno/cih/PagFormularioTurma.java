@@ -182,10 +182,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     obj.setNumVagas(numVagas.getValue());
                     ArrayList<Horario> selecionados = getHorariosSelecionados();
                     obj.setHorario(selecionados);
+
                     if (professor.getSelectedItem() != null) {
                         Professor p = professor.getSelectedItem().getValue();
                         obj.setProfessor(p);
                     }
+
 
 
                     ctrl.alterarTurma(obj);

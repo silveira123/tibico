@@ -152,7 +152,7 @@
 			
         </window>
     </div>
-    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
+    <!--<script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
     <script type="text/javascript" src="/watermarkinput.js" />
     <script type="text/javascript">
         zk.afterMount(function() {
@@ -165,7 +165,7 @@
 
 
         });
-    </script>
+    </script>-->
 
 </zk>
 

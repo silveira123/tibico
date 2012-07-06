@@ -110,37 +110,16 @@ public class PagFormularioTurma extends GenericForwardComposer {
     }
 
     private void preencherTela() throws AcademicoException {
+        ((ListModelList) curso.getModel()).addToSelection(obj.getDisciplina().getCurso());
+        onSelect$curso();
+                
+        ((ListModelList) disciplina.getModel()).addToSelection(obj.getDisciplina());
+        onSelect$disciplina();
+        
+        ((ListModelList) calendario.getModel()).addToSelection(obj.getCalendario());
+        
+        ((ListModelList) professor.getModel()).addToSelection(obj.getProfessor());
 
-        List<Comboitem> a = curso.getItems();
-        for (int i = 0; i < a.size(); i++) {
-            if (a.get(i).getValue() == obj.getDisciplina().getCurso()) {
-                curso.setSelectedItem(a.get(i));
-                onSelect$curso();
-            }
-        }
-        
-        a = disciplina.getItems();
-        for (int i = 0; i < a.size(); i++) {
-            if (a.get(i).getValue() == obj.getDisciplina()) {
-                disciplina.setSelectedItem(a.get(i));
-                onSelect$disciplina();
-            }
-        }
-        
-        a = calendario.getItems();
-        for (int i = 0; i < a.size(); i++) {
-           if (a.get(i).getValue() == obj.getCalendario()) {
-                calendario.setSelectedItem(a.get(i));
-            }
-        }
-        
-        a = professor.getItems();
-        for (int i = 0; i < a.size(); i++) {
-           if (a.get(i).getValue() == obj.getProfessor()) {
-                professor.setSelectedItem(a.get(i));
-            }
-        }
-        
         numVagas.setValue(obj.getNumVagas());
         
         List<Horario> listaHorario = ctrl.obterHorario();
@@ -149,9 +128,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
             if(obj.getHorario().contains(listaHorario.get(i)))
                 horariosCheckbox.get(i).setChecked(true);
         }
-        
-        
-        //TODO fazer professor, pois ainda falta a apl
     }
 
     private void bloquearTela() {

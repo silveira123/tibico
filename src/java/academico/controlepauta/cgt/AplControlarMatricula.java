@@ -16,12 +16,10 @@
 package academico.controlepauta.cgt;
 
 // imports devem ficar aqui!
-import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
+import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplCadastroCurso;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
@@ -217,5 +215,9 @@ public class AplControlarMatricula {
         else{
             
         }
+    }
+
+    public boolean verificaPeriodoMatricula(Curso curso) {
+        return AplCadastrarCalendario.getInstance().verificarPeriodoMatricula(curso);
     }
 }

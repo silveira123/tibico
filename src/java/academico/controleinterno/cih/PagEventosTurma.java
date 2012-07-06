@@ -40,8 +40,9 @@ public class PagEventosTurma extends GenericForwardComposer {
         Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
         linha.appendChild(new Listcell(t.getDisciplina().toString()));
         linha.appendChild(new Listcell(t.getCalendario().toString()));
-        if(t.getProfessor()!=null)
+        if(t.getProfessor() != null)
             linha.appendChild(new Listcell(t.getProfessor().toString()));
+
         linha.setParent(listbox);
     }
     

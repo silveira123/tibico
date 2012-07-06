@@ -146,11 +146,20 @@ public class CtrlLetivo {
     }
 
     
-    public Component abrirEventosTurma()
+    public Component abrirEventosTurma(int tipo)
     {
-        return Executions.createComponents("/pagEventosTurma.zul", null, null);
+        Map map = new HashMap();
+        map.put("class", tipo);
+        return Executions.createComponents("/pagEventosTurma.zul", null, map);
     }
      
+    public Component abrirEventosAlocarProfessor(int tipo)
+    {
+        Map map = new HashMap();
+        map.put("class", tipo);
+        return Executions.createComponents("/pagEventosAlocarProfessor.zul", null, map);
+    }
+    
     public Component abrirEventosCalendario()
     {
         return Executions.createComponents("/pagEventosCalendario.zul", null, null);
@@ -160,10 +169,6 @@ public class CtrlLetivo {
     public List<Disciplina> obterDisciplinas(Curso curso){
        
             return aplC.obterDisciplinas(curso);
-        
-        
-        
-        
     }
     
     public List<Calendario> obterCalendarios(Curso curso){

@@ -2,7 +2,7 @@
 
 <zk>
   
-    <window id="winDadosAluno" title="Eventos Aluno" border="normal" closable="true"
+    <window id="winDadosAluno" title="Aluno(s) Cadastrado(s)" border="normal" closable="true"
                         width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
              <div align="center">                    
  

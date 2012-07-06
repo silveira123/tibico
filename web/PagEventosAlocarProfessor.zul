@@ -2,7 +2,7 @@
 
 <zk>
 	
-            <window id="winEventosTurma" title="Turmas Cadastradas" border="normal" closable="true"
+            <window id="winEventosTurma" title="Alocação de Professor" border="normal" closable="true"
 			width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
                 <div align="center">
 			<separator height="35px"/>

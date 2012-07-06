@@ -104,10 +104,5 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         catch (AcademicoException ex) {
             Messagebox.show("Erro ao obter matriculas");
         }
-    }
-
-    public void onClick$fechar(Event event) {
-        winHistorico.onClose();
-    }
-    
+    }  
 }

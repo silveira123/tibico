@@ -76,7 +76,7 @@ public class PagPrincipal extends GenericForwardComposer {
 
     public void onClick$turma(Event event) {
         border.getCenter().getChildren().clear();
-        Window winTurma = (Window) CtrlLetivo.getInstance().abrirEventosTurma();
+        Window winTurma = (Window) CtrlLetivo.getInstance().abrirEventosTurma(1);
         winTurma.setWidth("100%");
         winTurma.setHeight("100%");
         winTurma.setParent(border.getCenter());
@@ -122,7 +122,7 @@ public class PagPrincipal extends GenericForwardComposer {
 
     public void onClick$alocarProfessor(Event event) {
         border.getCenter().getChildren().clear();
-        Window winAlocarProfessor = (Window) CtrlLetivo.getInstance().abrirEventosTurma();
+        Window winAlocarProfessor = (Window) CtrlLetivo.getInstance().abrirEventosAlocarProfessor(2);
         winAlocarProfessor.setWidth("100%");
         winAlocarProfessor.setHeight("100%");
         winAlocarProfessor.setParent(border.getCenter());

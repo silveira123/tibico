@@ -57,7 +57,8 @@ public class PagRelatorioResultados extends GenericForwardComposer{
             curso.setModel(new ListModelList(ctrlMatricula.obter()));
         
         curso.setReadonly(true);
-        curso.setReadonly(true);
+        calendarioAcademico.setReadonly(true);
+        turma.setReadonly(true);
     }
     
     public void onSelect$curso(Event event) throws AcademicoException {

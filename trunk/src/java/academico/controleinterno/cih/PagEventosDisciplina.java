@@ -29,8 +29,16 @@ public class PagEventosDisciplina extends GenericForwardComposer {
 
     public void onSelect$cursoCombo(Event event) throws AcademicoException
     {
-        List<Disciplina> disciplinas = ctrl.obterDisciplinas();
+        Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
+        
+        //limpando o listbox antes de add as novas linhas
+        for (int i = 0; i < listDisciplina.getItemCount(); i++) {
+            listDisciplina.removeItemAt(0);
+        }
+        
+        List<Disciplina> disciplinas = ctrl.obterDisciplinas(select);
         if (disciplinas != null) {
+            
             for (int i = 0; i < disciplinas.size(); i++) {
                 Disciplina c = disciplinas.get(i);
                 Listitem linha = new Listitem(disciplinas.get(i).toString(), c);

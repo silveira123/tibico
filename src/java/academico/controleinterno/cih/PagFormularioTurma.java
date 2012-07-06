@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
+import org.zkoss.zul.ext.Selectable;
 
 public class PagFormularioTurma extends GenericForwardComposer {
 
@@ -36,11 +37,10 @@ public class PagFormularioTurma extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        
+
         List<Curso> listaCurso = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(listaCurso, true));
-        curso.setReadonly(true);   
-        
+
         List<Horario> listaHorario = ctrl.obterHorario();
         DiaSemana dia = null;
         if (listaHorario.size() > 0) {
@@ -67,7 +67,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
             int j;
             Listitem linha = new Listitem();
-            
+
             for (j = i; j < listhead.getChildren().size() - 1 + i; j++) {
                 Listcell cell = new Listcell();
                 Checkbox c = new Checkbox();
@@ -89,8 +89,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
             listHorario.appendChild(linha);
             i = j;
         }
+
+        curso.setReadonly(true);
+        disciplina.setReadonly(true);
+        professor.setReadonly(true);
         // listHorario.setModel(new ListModelList(listaHorario, true));
-        
+
         //TODO tem que ver como vai fazer para botar os horários na tela
         //TODO fazer toda parte do professor
     }
@@ -106,27 +110,36 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 bloquearTela();
             }
         }
-        
+
     }
 
     private void preencherTela() throws AcademicoException {
-        ((ListModelList) curso.getModel()).addToSelection(obj.getDisciplina().getCurso());
-        onSelect$curso();
-                
-        ((ListModelList) disciplina.getModel()).addToSelection(obj.getDisciplina());
-        onSelect$disciplina();
-        
-        ((ListModelList) calendario.getModel()).addToSelection(obj.getCalendario());
-        
-        ((ListModelList) professor.getModel()).addToSelection(obj.getProfessor());
+
+        if (obj.getDisciplina().getCurso() != null) {
+            ((ListModelList) curso.getModel()).addToSelection(obj.getDisciplina().getCurso());
+            onSelect$curso(null);
+        }
+
+        if (obj.getDisciplina() != null) {
+            ((ListModelList) disciplina.getModel()).addToSelection(obj.getDisciplina());
+            onSelect$disciplina(null);
+        }
+        if (obj.getCalendario() != null) {
+            ((ListModelList) calendario.getModel()).addToSelection(obj.getCalendario());
+        }
+
+        if (obj.getProfessor() != null) {
+            ((ListModelList) professor.getModel()).addToSelection(obj.getProfessor());
+        }
 
         numVagas.setValue(obj.getNumVagas());
-        
+
         List<Horario> listaHorario = ctrl.obterHorario();
-        
+
         for (int i = 0; i < listaHorario.size(); i++) {
-            if(obj.getHorario().contains(listaHorario.get(i)))
+            if (obj.getHorario().contains(listaHorario.get(i))) {
                 horariosCheckbox.get(i).setChecked(true);
+            }
         }
     }
 
@@ -145,7 +158,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
     public void onClick$salvar(Event event) {
         try {
             String msg = valido();
-            if(msg.trim().equals("")){
+            if (msg.trim().equals("")) {
                 if (MODO == ctrl.SALVAR) {
                     ArrayList<Object> args = new ArrayList<Object>();
                     args.add(disciplina.getSelectedItem().getValue());
@@ -156,9 +169,9 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     if (professor.getSelectedItem() != null) {
                         args.add(professor.getSelectedItem().getValue());
                     }
-                    else{
-                      args.add(null);  
-                    }            
+                    else {
+                        args.add(null);
+                    }
                     limparCampos();
 
                     ctrl.incluirTurma(args);
@@ -177,7 +190,9 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     Messagebox.show("Cadastro editado!");
                 }
             }
-            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+            }
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,7 +213,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
         calendario.setSelectedItem(null);
         numVagas.setValue(null);
         professor.setSelectedItem(null);
-        
+
         for (int i = 0; i < horariosCheckbox.size(); i++) {
             horariosCheckbox.get(i).setChecked(false);
         }
@@ -209,45 +224,55 @@ public class PagFormularioTurma extends GenericForwardComposer {
         ArrayList<Horario> horariosMarcados = new ArrayList<Horario>();
 
         for (int i = 0; i < listaHorario.size(); i++) {
-            if(horariosCheckbox.get(i).isChecked())
+            if (horariosCheckbox.get(i).isChecked()) {
                 horariosMarcados.add(listaHorario.get(i));
+            }
         }
         return horariosMarcados;
     }
-    
-    public void onSelect$curso() {
-        disciplina.setText(null);
-        professor.setText(null);
-        List<Disciplina> listDisciplinas = ctrl.obterDisciplinas((Curso) curso.getSelectedItem().getValue());
-        disciplina.setModel(new ListModelList(listDisciplinas, true));        
-        disciplina.setReadonly(true);
-        
-        calendario.setText(null);
-        List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
-        calendario.setModel(new ListModelList(listCalendarios, true));        
-        calendario.setReadonly(true);
+
+    public void onSelect$curso(Event event) {
+        disciplina.setSelectedItem(null);
+        calendario.setSelectedItem(null);
+
+        if (curso.getSelectedItem() != null) {
+            List<Disciplina> listDisciplinas = ctrl.obterDisciplinas((Curso) curso.getSelectedItem().getValue());
+            disciplina.setModel(new ListModelList(listDisciplinas, true));
+
+            List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
+            calendario.setModel(new ListModelList(listCalendarios, true));
+        }
     }
-    
-     public void onSelect$disciplina() {
-        professor.setText(null);
-        List<Professor> listProfessor = ctrl.obterProfessores((Disciplina) disciplina.getSelectedItem().getValue());
-        professor.setModel(new ListModelList(listProfessor, true));        
-        professor.setReadonly(true);
-     }
+
+    public void onSelect$disciplina(Event event) {
+        professor.setSelectedItem(null);
+        
+        //pega a o array de selecionados, foi feito dessa forma prq o getSelectedItems estava voltando null
+        Object[] array = ((ListModelList) disciplina.getModel()).getSelection().toArray();
+        Disciplina d;
+        if (array.length > 0) {
+            d = (Disciplina) array[0];
+            List<Professor> listProfessor = ctrl.obterProfessores(d);
+            professor.setModel(new ListModelList(listProfessor, true));
+        }
+    }
 
     private String valido() {
         String msg = "";
-        
-        if (curso.getSelectedItem() == null)
+
+        if (curso.getSelectedItem() == null) {
             msg += "- Curso\n";
-        if (disciplina.getSelectedItem() == null)
+        }
+        if (disciplina.getSelectedItem() == null) {
             msg += "- Disciplina\n";
-        if (calendario.getSelectedItem() == null)
+        }
+        if (calendario.getSelectedItem() == null) {
             msg += "- Calendário\n";
-        
-        if(!msg.trim().equals(""))
-            msg = "Informe:\n"+msg;
+        }
+
+        if (!msg.trim().equals("")) {
+            msg = "Informe:\n" + msg;
+        }
         return msg;
     }
-     
 }

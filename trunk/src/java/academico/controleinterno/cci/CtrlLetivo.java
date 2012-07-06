@@ -7,6 +7,8 @@ package academico.controleinterno.cci;
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplControlarTurma;
+import academico.controleinterno.cih.PagEventosCalendario;
+import academico.controleinterno.cih.PagEventosTurma;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class CtrlLetivo {
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
     private AplCadastrarCalendario apl = AplCadastrarCalendario.getInstance();
+    private PagEventosCalendario pagEventosCalendario;
+    private PagEventosTurma pagEventosTurma;
     private static CtrlLetivo instance = null;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
 
@@ -38,16 +42,27 @@ public class CtrlLetivo {
         return instance;
     }
 
+    public void setPagEventosCalendario(PagEventosCalendario pagEventosCalendario) {
+        this.pagEventosCalendario = pagEventosCalendario;
+    }
+    
+    public void setPagEventosTurma(PagEventosTurma pagEventosTurma) {
+        this.pagEventosTurma = pagEventosTurma;
+    }
+
     private CtrlLetivo() {
     }
 
     public Calendario incluirCalendario(ArrayList<Object> args) throws AcademicoException {
-
-        return apl.incluirCalendario(args);
+        Calendario c = apl.incluirCalendario(args);
+        pagEventosCalendario.addCalendario(c);
+        return c;
     }
 
     public Calendario alterarCalendario(Calendario calendario) throws Exception {
-        return apl.alterarCalendario(calendario);
+        Calendario c = apl.alterarCalendario(calendario);
+        pagEventosCalendario.refreshCalendario(c);
+        return c;
     }
 
     public void apagarCalendario(Calendario calendario) throws Exception {
@@ -78,13 +93,16 @@ public class CtrlLetivo {
         Executions.createComponents("/PagFormularioCalendario.zul", null, map);
     }
 
-    public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {
-
-        return aplC.incluirTurma(args);
+    public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {      
+        Turma t = aplC.incluirTurma(args);
+        pagEventosTurma.addTurma(t);
+        return t;
     }
 
     public Turma alterarTurma(Turma turma) throws Exception {
-        return aplC.alterarTurma(turma);
+        Turma t = aplC.alterarTurma(turma);
+        pagEventosTurma.refreshTurma(t);
+        return t;
     }
 
     public void apagarTurma(Turma turma) throws Exception {

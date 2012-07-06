@@ -18,6 +18,7 @@ package academico.controlepauta.cih;
 // imports devem ficar aqui!
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Curso;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
@@ -60,9 +61,18 @@ public class PagEventosMatricula extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+         ctrlMatricula.setPagEventosMatricula(this);
         List<Aluno> alunos = ctrlPessoa.obterAlunos();
         nomeAluno.setModel(new ListModelList(alunos, true));
         nomeAluno.setReadonly(true);
+    }
+    
+    public void addMatricula(MatriculaTurma matTurma)
+    {
+        Listitem linha = new Listitem(matTurma.toString(), matTurma);
+        linha.appendChild(new Listcell(matTurma.getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
+        linha.appendChild(new Listcell(matTurma.getTurma().getProfessor() + ""));
+        linha.setParent(listbox);
     }
 
     public void onSelect$nomeAluno(Event event) {

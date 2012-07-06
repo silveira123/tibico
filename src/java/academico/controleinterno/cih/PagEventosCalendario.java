@@ -22,7 +22,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
+        ctrl.setPagEventosCalendario(this);
         List<Calendario> listaCalendario = ctrl.obterCalendario(); 
         for (int i = 0; i < listaCalendario.size(); i++) {
             Calendario c = listaCalendario.get(i);
@@ -39,6 +39,35 @@ public class PagEventosCalendario extends GenericForwardComposer {
         }
     }
 
+    public void addCalendario(Calendario c)
+    {
+        Listitem linha = new Listitem(c.toString(), c);
+        linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
+                    (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
+                    (c.getDataFimCA().getTime().getYear() + 1900)));
+        linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
+                    (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
+                    (c.getDataFimCA().getTime().getYear() + 1900)));
+        linha.setParent(listbox);
+    }
+    
+    public void refreshCalendario(Calendario c)
+    {
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if(listbox.getItemAtIndex(i).getValue() == c)
+            {
+                listbox.getItemAtIndex(i).getChildren().clear();      
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.toString()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
+                            (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
+                            (c.getDataFimCA().getTime().getYear() + 1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
+                            (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
+                            (c.getDataFimCA().getTime().getYear() + 1900)));
+                break;
+            }
+        }
+    }
     public void onClick$excluir(Event event) { 
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

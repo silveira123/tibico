@@ -2,6 +2,7 @@ package academico.controleinterno.cih;
 
 
 import academico.controleinterno.cci.CtrlLetivo;
+import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -22,6 +23,7 @@ public class PagEventosTurma extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        ctrl.setPagEventosTurma(this);
 
         List<Turma> listaTurma = ctrl.obterTurma(); 
         for (int i = 0; i < listaTurma.size(); i++) {
@@ -34,6 +36,30 @@ public class PagEventosTurma extends GenericForwardComposer {
         }
     }
 
+    public void addTurma(Turma t)
+    {
+        Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
+        linha.appendChild(new Listcell(t.getDisciplina().toString()));
+        linha.appendChild(new Listcell(t.getCalendario().toString()));
+        linha.appendChild(new Listcell(t.getProfessor().toString()));
+        linha.setParent(listbox);
+    }
+    
+    public void refreshTurma(Turma t)
+    {
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if(listbox.getItemAtIndex(i).getValue() == t)
+            {
+                listbox.getItemAtIndex(i).getChildren().clear();      
+                listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().getCurso().toString()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().toString()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(t.getCalendario().toString()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
+                break;
+            }
+        }
+    }
+    
     public void onClick$excluir(Event event) { 
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

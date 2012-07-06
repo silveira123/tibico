@@ -19,9 +19,12 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cih.PagEventosCalendario;
+import academico.controleinterno.cih.PagEventosTurma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.controlepauta.cgt.AplEmitirRelatorios;
+import academico.controlepauta.cih.PagEventosMatricula;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +46,7 @@ public class CtrlMatricula {
     private AplControlarMatricula apl = AplControlarMatricula.getInstance();
     private AplEmitirRelatorios aplEmitirRelatorios = AplEmitirRelatorios.getInstance();
     //Variáveis de Classe:
-
+    private PagEventosMatricula pagEventosMatricula;
     //Variáveis de Instância:
     //Contrutores:
     private CtrlMatricula() {
@@ -66,6 +69,16 @@ public class CtrlMatricula {
      */
     public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
         return apl.efetuarMatricula(args);
+    }
+    
+    public void setPagEventosMatricula(PagEventosMatricula pagEventosMatricula) {
+        this.pagEventosMatricula = pagEventosMatricula;
+    }
+    
+    public MatriculaTurma incluirMatricula(ArrayList<Object> args) throws AcademicoException {      
+        MatriculaTurma m = apl.efetuarMatricula(args);
+        pagEventosMatricula.addMatricula(m);
+        return m;
     }
 
     /**

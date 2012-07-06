@@ -32,7 +32,7 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
         
         //limpando o listbox antes de add as novas linhas
-        for (int i = 0; i < listDisciplina.getItemCount(); i++) {
+        while (listDisciplina.getItemCount() > 0) {
             listDisciplina.removeItemAt(0);
         }
         

@@ -196,7 +196,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                 winFormularioTurma.onClose();
             }
             else {
-                Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+                Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
             }
         }
         catch (AcademicoException ex) {
@@ -274,9 +274,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
             msg += "- Calendário\n";
         }
 
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

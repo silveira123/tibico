@@ -84,7 +84,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                 }
                 winFormularioAvaliacao.onClose();
             }
-            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+            else Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,9 +114,6 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
             msg += "- Peso da Avaliação\n";
         }
 
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

@@ -39,7 +39,7 @@ public class PagEventosCurso extends GenericForwardComposer {
     public void addCurso(Curso c)
     {
         Listitem linha = new Listitem(c.getNome(), c);
-        linha.appendChild(new Listcell(c.getGrandeAreaConhecimento().toString()));
+        linha.appendChild(new Listcell(c.getGrauInstrucao().toString()));
         linha.appendChild(new Listcell(c.getDuracao() + ""));
         linha.setParent(listCurso);
     }
@@ -51,7 +51,7 @@ public class PagEventosCurso extends GenericForwardComposer {
             {
                 listCurso.getItemAtIndex(i).getChildren().clear();      
                 listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getNome()));
-                listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getGrandeAreaConhecimento().toString()));
+                listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getGrauInstrucao().toString()));
                 listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getDuracao() + ""));
                 break;
             }

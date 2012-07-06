@@ -111,10 +111,10 @@ public class PagEventosChamada extends GenericForwardComposer {
                 
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir a Aula");
+                Messagebox.show("Não foi possivel excluir a Aula");
             }
         } else {
-            alert("Selecione uma Aula");
+            Messagebox.show("Selecione uma Aula");
         }
     }
 

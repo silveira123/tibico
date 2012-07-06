@@ -88,10 +88,10 @@ public class PagEventosTurma extends GenericForwardComposer {
                 ctrl.apagarTurma(t);
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir a turma");
+                Messagebox.show("Não foi possivel excluir a turma");
             }
         } else {
-            alert("Selecione uma turma");
+            Messagebox.show("Selecione uma turma");
         }
     }
 

@@ -76,10 +76,10 @@ public class PagEventosCalendario extends GenericForwardComposer {
                 ctrl.apagarCalendario(c);
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
-                alert("Não foi possivel excluir o calendario");
+                Messagebox.show("Não foi possivel excluir o calendario");
             }
         } else {
-            alert("Selecione um calendario");
+            Messagebox.show("Selecione um calendario");
         }
     }
 

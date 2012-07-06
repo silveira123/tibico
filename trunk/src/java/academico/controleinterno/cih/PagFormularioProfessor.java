@@ -312,7 +312,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 }
                 winFormularioProfessor.onClose();
             }
-            else Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+            else Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
@@ -522,9 +522,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             msg += "- Numero\n";
         }
         
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

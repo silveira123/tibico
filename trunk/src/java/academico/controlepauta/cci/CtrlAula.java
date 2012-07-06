@@ -10,7 +10,6 @@ import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.Frequencia;
 import academico.controlepauta.cgt.AplControlarAula;
-import academico.controlepauta.cih.PagEventosChamada;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,5 +156,12 @@ public class CtrlAula {
     public Component abrirEventosChamada()
     {
         return Executions.createComponents("/pagEventosChamada.zul", null, null);
+    }
+    
+    public Component abrirPaginaPrincipal(int privilegio)
+    {
+        Map map = new HashMap();
+        map.put("tipo", privilegio);
+        return Executions.createComponents("/PagPrincipal.zul", null, map);
     }
 }

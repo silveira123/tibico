@@ -184,6 +184,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }
+
+        winFormularioDisciplina.onClose();
+        limparCampos();
+
     }
 
     public void onClick$cancelarDisciplina(Event event) {

@@ -21,6 +21,7 @@ public class PagEventosCurso extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        ctrl.setPagEventosCurso(this);
         List<Curso> cursos = ctrl.obterCursos();
         if (cursos != null) {
             for (int i = 0; i < cursos.size(); i++) {
@@ -35,6 +36,28 @@ public class PagEventosCurso extends GenericForwardComposer {
         }
     }
 
+    public void addCurso(Curso c)
+    {
+        Listitem linha = new Listitem(c.getNome(), c);
+        linha.appendChild(new Listcell(c.getGrandeAreaConhecimento().toString()));
+        linha.appendChild(new Listcell(c.getDuracao() + ""));
+        linha.setParent(listCurso);
+    }
+    
+    public void refreshCurso(Curso c)
+    {
+        for (int i = 0; i < listCurso.getItemCount(); i++) {
+            if(listCurso.getItemAtIndex(i).getValue() == c)
+            {
+                listCurso.getItemAtIndex(i).getChildren().clear();      
+                listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getNome()));
+                listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getGrandeAreaConhecimento().toString()));
+                listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getDuracao() + ""));
+                break;
+            }
+        }
+    }
+    
     public void onClick$excluirCurso(Event event) {
         Listitem listitem = listCurso.getSelectedItem();
         if (listitem != null) {

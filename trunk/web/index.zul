@@ -1,103 +1,36 @@
-<zk>
-	<style>
-		.breeze .complex-layout, .breeze .complex-layout .z-south,
-		.breeze .complex-layout .z-west { background: #F7F7F7; }
-		.z-borderlayout { background: #FFFFFF } .complex-layout .z-north
-		{ background: #008BB6; } img.complex-layout-header-img {
-		padding: 0 10px; } .inner-border, .inner-border
-		.z-north, .inner-border .z-west, .inner-border .z-south,
-		.inner-border .z-east { background: #FFFFFF; } .dl-link {
-		text-decoration: none; cursor: pointer; }
-	</style>
-	<div apply="academico.controlepauta.cih.PagPrincipal">
-		<borderlayout sclass="complex-layout" height="810px">
-			<north size="90px" border="0">
-				<div align="center">
-					<separator height="25px"/>
-					
-						<label value="Tibico - SRA"
-							style="font-weight:bold; font-size:34px; color:white">
-						</label>
-				</div>
-				
-				
-			</north>
-			<!-- Sidebar -->
-			<west title=" " width="200px" border="0" flex="true" splittable="true" collapsible="true"
-				margins="0,5,0,0">
-				<vlayout spacing="0">
-					<panel width="100%" border="normal"
-						title="Controlar Turma">
-						<panelchildren style="padding:5px;">
-							<vbox>
-								<toolbarbutton id="turma" label="Cadastrar Turma" />
-								<toolbarbutton id="matricularAluno" label="Matricular Aluno" />
-								<toolbarbutton id="alocarProfessor" label="Alocar Professor" />
-                                                        </vbox>
-						</panelchildren>
-					</panel>
-					<panel width="100%" border="normal"
-						title="Cadastro Pessoa">
-						<panelchildren style="padding:5px;">
-							<vbox>
-								<toolbarbutton id="cadastrarAluno" label="Aluno" />
-								<toolbarbutton id="professor" label="Professor" />
-							</vbox>
-						</panelchildren>
-					</panel>
-					<panel width="100%" border="normal"
-						title="Cadastro Acadêmico">
-						<panelchildren style="padding:5px;">
-							<vbox>
-								<toolbarbutton id="calendario" label="Calendário" />
-                                                                <toolbarbutton id="disciplina" label="Disciplina" />
-								<toolbarbutton id="curso" label="Curso" />
-							</vbox>
-						</panelchildren>
-					</panel>
-                                        <panel width="100%" border="normal"
-						title="Pauta">
-						<panelchildren style="padding:5px;">
-							<vbox>
-								<toolbarbutton id="chamada" label="Chamada" />
-								<toolbarbutton id="avaliacao" label="Avaliação" />
-							</vbox>
-						</panelchildren>
-					</panel>
-                                        
-                                        <panel width="100%" border="normal"
-						title="Relatórios">
-						<panelchildren style="padding:5px;">
-							<vbox>
-								<toolbarbutton id="resultado" label="Resultados" />
-								<toolbarbutton id="boletim" label="Boletim" />
-                                                                <toolbarbutton id="historico" label="Histórico" />
-							</vbox>
-						</panelchildren>
-					</panel>
-				</vlayout>
-			</west>
-			<!-- Content -->
-			<center>
-				<borderlayout id="border" sclass="inner-border">
-					<center border="0" margins="0,3,3,3">
-						<!-- Setar a janela selecionada aqui -->
-					</center>
-				</borderlayout>
-			</center>
-			<south size="40px" border="0"
-				style="background: none repeat scroll 0 0 ;">
-				<toolbar mold="panel" align="center">
-					<toolbarbutton label="Sign in" />
-					<toolbarbutton label="Home" />
-					<toolbarbutton label="Sitemap" />
-					<toolbarbutton label="Terms" />
-					<toolbarbutton label="Report Abuse" />
-					<toolbarbutton label="Print" />
-					<separator orient="vertical" bar="true" />
-					Powered by Fabrica de Software - IFES
-				</toolbar>
-			</south>
-		</borderlayout>
-	</div>
-</zk>
+<vlayout xmlns:c="client">
+    <window id="loginWin" title="Login" width="300px" border='normal'  apply ="academico.controlepauta.cih.PagLogin">
+        <style>
+	        div.minimize {
+	            border: 1px solid #79858E;
+	            background: #D3E1EC;
+	            position: absolute;
+	            opacity: 0.8;       
+	        }
+	        div.loginGrid { 
+	            border: none;
+	        }
+	        td.loginCtl {
+	            text-align: center;
+	        }
+	        td.loginCtl .z-label {
+	            color: red;         
+	            font-style: italic;
+	        }
+        </style>
+        <grid sclass="loginGrid">
+            <columns>
+                <column width="100px" />
+            </columns>
+            <rows>
+                <row>Usuario : <textbox id="nome" value="" c:onFocus="this.select()" /></row>
+                <row>Senha : <textbox id="senha" type="password" c:onFocus="this.select()"/></row>
+                <row><cell sclass="loginCtl" colspan="2"><vlayout>
+                    <button id ="Entrar" label="Entrar" width="100px"/>
+                    <label id="msg" />
+                </vlayout></cell></row>
+            </rows>
+        </grid>
+       </window>
+    <script type="text/javascript" src="/customized_effect.js" />    
+  </vlayout>  

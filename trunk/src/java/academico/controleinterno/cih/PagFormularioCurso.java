@@ -144,6 +144,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
         }
         catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
+            System.err.println(e);
         }
     }
 

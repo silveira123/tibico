@@ -21,6 +21,7 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
+import academico.controlepauta.cgt.AplCadastrarUsuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.pessoa.cdp.Bairro;
@@ -70,7 +71,7 @@ public static final int SALVAR = 0;
      * @throws Exception 
      */
     public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
-        return apl.incluirAluno(args);
+        return apl.incluirAluno(args); 
     }
 
     /**

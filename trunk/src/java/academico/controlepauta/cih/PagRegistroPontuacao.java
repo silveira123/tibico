@@ -52,7 +52,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             Listcell listcell = new Listcell();
             Doublebox t1 = new Doublebox();
             t1.setWidth("70%");
-            t1.setValue(resultados.get(i).getPontuacao());
+            //t1.setValue(resultados.get(i).getPontuacao());
             t1.setParent(listcell);
             notas.add(t1);
             
@@ -61,7 +61,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             Listcell listcell2 = new Listcell();
             Textbox t = new Textbox();
             t.setWidth("99%");
-            t.setValue(resultados.get(i).getObservacao());
+            //t.setValue(resultados.get(i).getObservacao());
             t.setParent(listcell2);
             observacoes.add(t);
             

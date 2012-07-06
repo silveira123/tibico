@@ -44,7 +44,7 @@
                     </row>
                 </rows>
             </grid>			
-            <button id="salvar" width="10%" label="Ok" onClick=""></button>
+            <button id="salvar" width="10%" label="Salvar" onClick=""></button>
             <button id="cancelar" width="10%" label="Cancelar" onClick=""></button>
         </window>
     </div>

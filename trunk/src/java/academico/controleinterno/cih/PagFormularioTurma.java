@@ -205,7 +205,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
         catch (Exception ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //winFormularioTurma.onClose();
     }
 
     public void onClick$cancelar(Event event) {

@@ -147,7 +147,7 @@
                 </rows>
             </grid>
 			
-            <button width="10%" label="Ok" id="salvarAluno"></button>
+            <button width="10%" label="Salvar" id="salvarAluno"></button>
             <button width="10%" label="Cancelar" id="cancelarAluno"></button>
 			
         </window>

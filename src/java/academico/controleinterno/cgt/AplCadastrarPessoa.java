@@ -16,7 +16,9 @@
 package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
+import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
+import academico.controleinterno.cgd.ProfessorDAO;
 import academico.controlepauta.cgt.AplCadastrarUsuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -277,5 +279,13 @@ public class AplCadastrarPessoa {
         }
 
         return matricula;
+    }
+
+    public Aluno obterAluno(String matricula) {
+        return ((AlunoDAO) apDaoAluno).obterAluno(matricula);
+    }
+    
+    public Professor obterProfessor(String CPF) {
+        return ((ProfessorDAO) apDaoProfessor).obterProfessor(CPF);
     }
 }

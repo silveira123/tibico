@@ -18,6 +18,7 @@ package academico.controleinterno.cgd;
 
 import academico.controleinterno.cdp.Professor;
 import academico.util.persistencia.DAOJPA;
+import java.util.List;
 
 
 /**
@@ -28,5 +29,11 @@ import academico.util.persistencia.DAOJPA;
  * @see
  */
 public class ProfessorDAOJPA extends DAOJPA<Professor> implements ProfessorDAO {
+
+    public Professor obterProfessor(String CPF) {
+        Long i = Long.parseLong(CPF);
+        List<Professor> professor = entityManager.createQuery("select mt a from Professor mt, Pessoa p where mt.id=p.id and p.cpf = ?1").setParameter(1, i).getResultList();
+        return professor.get(0);
+    }
     
 }

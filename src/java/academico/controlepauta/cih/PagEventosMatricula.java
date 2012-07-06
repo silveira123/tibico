@@ -18,10 +18,15 @@ package academico.controlepauta.cih;
 // imports devem ficar aqui!
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
+
+import academico.controleinterno.cdp.Turma;
+
 import academico.controleinterno.cdp.Curso;
+
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
+import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -47,6 +52,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
     private Menuitem desmatricular;
     private Listbox listbox;
     private Combobox nomeAluno;
+    private Aluno obj;
     //Métodos Estáticos:
 
     //Métodos de Instância:
@@ -61,9 +67,21 @@ public class PagEventosMatricula extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-         ctrlMatricula.setPagEventosMatricula(this);
-        List<Aluno> alunos = ctrlPessoa.obterAlunos();
-        nomeAluno.setModel(new ListModelList(alunos, true));
+
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        obj = (Aluno) arg.get("aluno");
+        if (obj != null) {
+            alunos.add(obj);
+            nomeAluno.setModel(new ListModelList(alunos, true));
+            ((ListModelList) nomeAluno.getModel()).addToSelection(obj);
+            nomeAluno.setDisabled(true);
+            onSelect$nomeAluno(null);
+        } else {
+            alunos = ctrlPessoa.obterAlunos();
+            nomeAluno.setModel(new ListModelList(alunos, true));
+        }
+
+
         nomeAluno.setReadonly(true);
     }
     
@@ -79,7 +97,15 @@ public class PagEventosMatricula extends GenericForwardComposer {
         for (int i = 0; i < listbox.getItemCount(); i++) {
             listbox.removeItemAt(0);
         }
-        Aluno select = (Aluno) nomeAluno.getSelectedItem().getValue();
+        Aluno select = null;
+        if (nomeAluno.getSelectedItem() == null) {
+            select = obj;
+            ((ListModelList) nomeAluno.getModel()).addToSelection(obj);
+            
+        } else {
+            select = (Aluno) nomeAluno.getSelectedItem().getValue();
+        }
+
         listbox.renderAll();
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.obterMatriculadas(select);
@@ -89,12 +115,14 @@ public class PagEventosMatricula extends GenericForwardComposer {
                 Listitem linha = new Listitem(matTurma.get(i).toString(), c);
 
                 linha.appendChild(new Listcell(matTurma.get(i).getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
-                linha.appendChild(new Listcell(matTurma.get(i).getTurma().getProfessor() + ""));
-
+                if (matTurma.get(i).getTurma().getProfessor() == null) {
+                    linha.appendChild(new Listcell(""));
+                } else {
+                    linha.appendChild(new Listcell(matTurma.get(i).getTurma().getProfessor().toString()));
+                }
                 linha.setParent(listbox);
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Messagebox.show("Erro ao obter matriculas");
         }
     }
@@ -114,12 +142,10 @@ public class PagEventosMatricula extends GenericForwardComposer {
                 MatriculaTurma mt = listitem.getValue();
                 ctrlMatricula.cancelarMatricula(mt);
                 listbox.removeItemAt(listbox.getSelectedIndex());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Messagebox.show("Não foi possivel desmatricular");
             }
-        }
-        else {
+        } else {
             Messagebox.show("Selecione uma matricula");
         }
     }

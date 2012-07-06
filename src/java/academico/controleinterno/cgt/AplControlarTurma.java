@@ -66,6 +66,9 @@ public class AplControlarTurma {
     public List<Turma> obterTurmas() throws AcademicoException {
         return (List<Turma>) apDaoTurma.obter(Turma.class);
     }
+    public List<Turma> obterTurmas(Professor p) throws AcademicoException {
+        return (List<Turma>)((TurmaDAO) apDaoTurma).obter(p);
+    }
     public List<Horario> obterHorarios() throws AcademicoException {
         return (List<Horario>) apDaoHorario.obter(Horario.class);
     }

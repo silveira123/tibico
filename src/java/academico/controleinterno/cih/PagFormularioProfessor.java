@@ -121,9 +121,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         c = obj.getDataNascimento();
         dataNasc.setValue(c.getTime());
 
-        telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
-
-        celular.setText(preencherCelular(obj.getTelefone().get(1)));
+        if (obj.getTelefone().get(0) != null) {
+            telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
+        }
+        
+        if (obj.getTelefone().get(1) != null) {
+            celular.setText(preencherCelular(obj.getTelefone().get(1)));
+        }
 
         email.setText(obj.getEmail());
 

@@ -218,6 +218,14 @@ public class CtrlMatricula {
         return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
     }
 
+    public void calculaNotaFinal(MatriculaTurma c) {
+         apl.calcularNotaFinal(c);
+    }
+
+    public void calcularCoeficiente(Aluno obj) {
+        apl.calcularCoeficiente(obj);
+    }
+
     public boolean verificaPeriodoMatricula(Curso curso) {
         return apl.verificaPeriodoMatricula(curso);
     }

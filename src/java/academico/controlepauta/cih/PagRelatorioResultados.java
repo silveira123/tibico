@@ -87,13 +87,18 @@ public class PagRelatorioResultados extends GenericForwardComposer{
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.obter(t);
             Rows linhas = new Rows();
-            for (int i = 0; i < matTurma.size(); i++) {
+            for (int i = 0; i < matTurma.size(); i++) {              
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
                 
+                ctrlMatricula.calculaNotaFinal(c);
+                
+                
+                                
                 linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                //TODO if fimdoperiodo() else "-"
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
                 

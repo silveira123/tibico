@@ -21,7 +21,7 @@ public class PagEventosDisciplina extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        
+        ctrl.setPagEventosDisciplina(this);
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
@@ -51,6 +51,27 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         }
     }
     
+    public void addDisciplina(Disciplina c)
+    {
+        Listitem linha = new Listitem(c.toString(), c);
+        linha.appendChild(new Listcell(c.getCurso().toString()));
+        linha.appendChild(new Listcell(c.getCargaHoraria() + ""));
+        linha.setParent(listDisciplina);
+    }
+    
+    public void refreshDisciplina(Disciplina c)
+    {
+        for (int i = 0; i < listDisciplina.getItemCount(); i++) {
+            if(listDisciplina.getItemAtIndex(i).getValue() == c)
+            {
+                listDisciplina.getItemAtIndex(i).getChildren().clear();      
+                listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.toString()));
+                listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.getCurso().toString()));
+                listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.getCargaHoraria() + ""));
+                break;
+            }
+        }
+    }
     public void onClick$excluirDisciplina(Event event) {
         Listitem listitem = listDisciplina.getSelectedItem();
         if (listitem != null) {

@@ -8,9 +8,7 @@ import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Toolbarbutton;
-import org.zkoss.zul.Window;
+import org.zkoss.zul.*;
 
 
 public class PagPrincipal extends GenericForwardComposer {
@@ -28,6 +26,33 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton boletim;
     private Toolbarbutton historico;
     private Borderlayout border;
+    private Panel controlarTurma;
+    private Panel cadastroPessoa;
+    private Panel cadastroAcademico;
+    private Panel pauta;
+    private Panel relatorios;
+    private Div div;
+    
+    public void onCreate$div(Event event)
+    {
+        int privilegio = (Integer) arg.get("tipo");
+        
+        if(privilegio == 3)
+        {
+            controlarTurma.setVisible(false);
+            cadastroPessoa.setVisible(false);
+            cadastroAcademico.setVisible(false);
+        }
+        else if(privilegio == 4)
+        {
+            pauta.setVisible(false);
+            cadastroPessoa.setVisible(false);
+            cadastroAcademico.setVisible(false);
+            turma.setVisible(false);
+            alocarProfessor.setVisible(false);
+            resultado.setVisible(false);
+        }
+    }
     
     public void onClick$curso(Event event)      
     {

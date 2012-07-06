@@ -7,6 +7,8 @@ package academico.controleinterno.cci;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cgt.AplCadastroCurso;
+import academico.controleinterno.cih.PagEventosCurso;
+import academico.controleinterno.cih.PagEventosDisciplina;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
@@ -16,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
 /**
@@ -27,6 +32,9 @@ public class CtrlCadastroCurso {
     public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
+    private Window window;
+    private PagEventosCurso pagEventosCurso;
+    private PagEventosDisciplina pagEventosDisciplina;
     private AplCadastroCurso apl = AplCadastroCurso.getInstance();
     private static CtrlCadastroCurso instance = null;
 
@@ -37,14 +45,26 @@ public class CtrlCadastroCurso {
         return instance;
     }
 
-    private CtrlCadastroCurso() {
+    public void setPagEventosCurso(PagEventosCurso pagEventosCurso) {
+        this.pagEventosCurso = pagEventosCurso;
     }
 
+    public void setPagEventosDisciplina(PagEventosDisciplina pagEventosDisciplina) {
+        this.pagEventosDisciplina = pagEventosDisciplina;
+    }
+
+    private CtrlCadastroCurso() {
+    }
+    //TODO testando resolver exceção
     public Curso incluirCurso(ArrayList<Object> args) throws Exception {
-        return apl.incluirCurso(args);
+        Curso c = apl.incluirCurso(args);
+        pagEventosCurso.addCurso(c);
+        return c;
     }
 
     public Curso alterarCurso(Curso args) throws Exception {
+        Curso c = apl.alterarCurso(args);
+        pagEventosCurso.refreshCurso(c);
         return apl.alterarCurso(args);
     }
 
@@ -57,11 +77,15 @@ public class CtrlCadastroCurso {
     }
 
     public Disciplina incluirDisciplina(ArrayList<Object> args) throws Exception {
-        return apl.incluirDisciplina(args);
+        Disciplina d = apl.incluirDisciplina(args);
+        pagEventosDisciplina.addDisciplina(d);
+        return d;
     }
 
     public Disciplina alterarDisciplina(Disciplina args) throws Exception {
-        return apl.alterarDisciplina(args);
+        Disciplina d = apl.alterarDisciplina(args);
+        pagEventosDisciplina.refreshDisciplina(d);
+        return d;
     }
 
     public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
@@ -131,7 +155,8 @@ public class CtrlCadastroCurso {
     
     public Component abrirEventosCurso()
     {
-        return Executions.createComponents("/pagEventosCurso.zul", null, null);
+        window = (Window) Executions.createComponents("/pagEventosCurso.zul", null, null);
+        return window;
     }
     
     public Component abrirEventosDisciplina()

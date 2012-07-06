@@ -17,6 +17,7 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.AlunoDAOJPA;
+import academico.controlepauta.cgt.AplCadastrarUsuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -87,9 +88,11 @@ public class AplCadastrarPessoa {
             return (Aluno) apDaoAluno.salvar(aluno);
         }
 
+        // Privilegios...
+        //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
+        AplCadastrarUsuario.getInstance().incluirUsuario(args.get(10) + "", "1234", new Integer(4));
         //alert("BD Ok!");
-        return null;
-        
+        return (Aluno) apDaoAluno.salvar(aluno);
     }
 
     /**
@@ -155,6 +158,9 @@ public class AplCadastrarPessoa {
 
         professor.setAreaConhecimento((ArrayList<AreaConhecimento>) args.get(9));
 
+        // Privilegios...
+        //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
+        AplCadastrarUsuario.getInstance().incluirUsuario(args.get(5) + "", "1234", new Integer(3));
         return (Professor) apDaoProfessor.salvar(professor);
     }
 

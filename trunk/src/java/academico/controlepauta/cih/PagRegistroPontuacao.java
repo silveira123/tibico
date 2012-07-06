@@ -6,6 +6,7 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.MatriculaTurma;
+import academico.controlepauta.cdp.Resultado;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,13 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
     private List<Doublebox> notas = new ArrayList<Doublebox>();
     private List<Textbox> observacoes = new ArrayList<Textbox>();;
     private List<Aluno> aluno;
-    private List<MatriculaTurma> matriculaturmas;
-
+    private List<Resultado> resultados;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
         obj = (Avaliacao) arg.get("obj");
+        resultados = ctrl.obterResultados(obj);
         nome.setValue(obj.getTurma().toString());
         nomeAvaliacao.setValue(obj.getNome());
         peso.setValue(obj.getPeso());
@@ -52,6 +52,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             Listcell listcell = new Listcell();
             Doublebox t1 = new Doublebox();
             t1.setWidth("70%");
+            t1.setValue(resultados.get(i).getPontuacao());
             t1.setParent(listcell);
             notas.add(t1);
             
@@ -60,6 +61,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             Listcell listcell2 = new Listcell();
             Textbox t = new Textbox();
             t.setWidth("99%");
+            t.setValue(resultados.get(i).getObservacao());
             t.setParent(listcell2);
             observacoes.add(t);
             

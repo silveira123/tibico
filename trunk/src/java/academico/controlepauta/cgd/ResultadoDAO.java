@@ -18,6 +18,7 @@ package academico.controlepauta.cgd;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
+import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Resultado;
 import academico.util.persistencia.DAO;
@@ -35,4 +36,5 @@ public interface ResultadoDAO extends DAO<Resultado> {
     public List<Resultado> obterResultados(Turma t);
     public List<Resultado> obterResultados(Aluno a);
     public List<Resultado> obterResultados(MatriculaTurma mt);
+    public List<Resultado> obterResultados(Avaliacao a);
 }

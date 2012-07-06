@@ -18,6 +18,7 @@ package academico.controlepauta.cgd;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
+import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Resultado;
 import academico.util.persistencia.DAOJPA;
@@ -45,6 +46,10 @@ public class ResultadoDAOJPA extends DAOJPA<Resultado> implements ResultadoDAO {
     
     public List<Resultado> obterResultados(MatriculaTurma mturma) { 
          List<Resultado> resultado = entityManager.createQuery("select fr from Resultado fr, MatriculaTurma mt where mt.id = ?1").setParameter(1, mturma.getId()).getResultList();
+         return resultado;
+    }
+    public List<Resultado> obterResultados(Avaliacao a) { 
+         List<Resultado> resultado = entityManager.createQuery("select fr from Resultado fr where fr.avaliacao.id = ?1").setParameter(1, a.getId()).getResultList();
          return resultado;
     }
 }

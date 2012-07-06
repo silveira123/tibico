@@ -21,7 +21,8 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
-import academico.controlepauta.cgt.AplCadastrarUsuario;
+import academico.controleinterno.cih.PagEventosAluno;
+import academico.controleinterno.cih.PagEventosProfessor;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.pessoa.cdp.Bairro;
@@ -51,6 +52,8 @@ public class CtrlPessoa {
 public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
+    private PagEventosAluno pagEventosAluno;
+    private PagEventosProfessor pagEventosProfessor;
     private AplCadastrarPessoa apl = AplCadastrarPessoa.getInstance();
     private static CtrlPessoa instance = null;
 
@@ -63,6 +66,15 @@ public static final int SALVAR = 0;
     
     public CtrlPessoa() {
     }
+
+
+    public void setPagEventosAluno(PagEventosAluno pagEventosAluno) {
+        this.pagEventosAluno = pagEventosAluno;
+    }
+
+    public void setPagEventosProfessor(PagEventosProfessor pagEventosProfessor) {
+        this.pagEventosProfessor = pagEventosProfessor;
+    }
     
     /**
      * Inclui os dados de um Aluno no sistema
@@ -71,7 +83,9 @@ public static final int SALVAR = 0;
      * @throws Exception 
      */
     public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
-        return apl.incluirAluno(args); 
+        Aluno a = apl.incluirAluno(args);
+        pagEventosAluno.addAluno(a);
+        return a; 
     }
 
     /**
@@ -81,7 +95,9 @@ public static final int SALVAR = 0;
      * @throws Exception 
      */
     public Aluno alterarAluno(Aluno args) throws Exception {
-        return apl.alterarAluno(args);
+        Aluno a = apl.alterarAluno(args);
+        pagEventosAluno.refreshAluno(a);
+        return a;
     }
 
     /**
@@ -120,7 +136,9 @@ public static final int SALVAR = 0;
      * @throws Exception 
      */
     public Professor incluirProfessor(ArrayList<Object> args) throws Exception {
-        return apl.incluirProfessor(args);
+        Professor p = apl.incluirProfessor(args);
+        pagEventosProfessor.addProfessor(p);
+        return p;
     }
 
     /**
@@ -130,7 +148,9 @@ public static final int SALVAR = 0;
      * @throws Exception 
      */
     public Professor alterarProfessor(Professor args) throws Exception {
-        return apl.alterarProfessor(args);
+        Professor p = apl.alterarProfessor(args);
+        pagEventosProfessor.refreshProfessor(p);
+        return p;
     }
 
     /**

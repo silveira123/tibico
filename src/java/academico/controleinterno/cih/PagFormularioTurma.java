@@ -14,7 +14,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
-import org.zkoss.zul.ext.Selectable;
 
 public class PagFormularioTurma extends GenericForwardComposer {
 
@@ -183,12 +182,16 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     obj.setNumVagas(numVagas.getValue());
                     ArrayList<Horario> selecionados = getHorariosSelecionados();
                     obj.setHorario(selecionados);
-                    Professor p = professor.getSelectedItem().getValue();
-                    obj.setProfessor(p);
+                    if (professor.getSelectedItem() != null) {
+                        Professor p = professor.getSelectedItem().getValue();
+                        obj.setProfessor(p);
+                    }
+
 
                     ctrl.alterarTurma(obj);
                     Messagebox.show("Cadastro editado!");
                 }
+                winFormularioTurma.onClose();
             }
             else {
                 Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
@@ -246,7 +249,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
     public void onSelect$disciplina(Event event) {
         professor.setSelectedItem(null);
-        
+
         //pega a o array de selecionados, foi feito dessa forma prq o getSelectedItems estava voltando null
         Object[] array = ((ListModelList) disciplina.getModel()).getSelection().toArray();
         Disciplina d;

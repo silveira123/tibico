@@ -67,7 +67,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
+        ctrlMatricula.setPagEventosMatricula(this);
         List<Aluno> alunos = new ArrayList<Aluno>();
         obj = (Aluno) arg.get("aluno");
         if (obj != null) {
@@ -91,6 +91,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
         linha.appendChild(new Listcell(matTurma.getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
         linha.appendChild(new Listcell(matTurma.getTurma().getProfessor() + ""));
         linha.setParent(listbox);
+        
     }
 
     public void onSelect$nomeAluno(Event event) {

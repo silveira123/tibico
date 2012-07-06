@@ -49,6 +49,7 @@ public class PagEventosProfessor extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        ctrl.setPagEventosProfessor(this);
         p = (Professor) arg.get("obj");
         
         List<Professor> listaProfessores = ctrl.obterProfessor();
@@ -67,6 +68,26 @@ public class PagEventosProfessor extends GenericForwardComposer {
         
     }
 
+    public void addProfessor(Professor p)
+    {
+        Listitem linha = new Listitem(p.toString(), p);
+        linha.appendChild(new Listcell(p.getGrauInstrucao().toString()));
+        linha.setParent(listProfessor);
+    }
+    
+    public void refreshProfessor(Professor p)
+    {
+        for (int i = 0; i < listProfessor.getItemCount(); i++) {
+            if(listProfessor.getItemAtIndex(i).getValue() == p)
+            {
+                listProfessor.getItemAtIndex(i).getChildren().clear();      
+                listProfessor.getItemAtIndex(i).appendChild(new Listcell(p.toString()));
+                listProfessor.getItemAtIndex(i).appendChild(new Listcell(p.getGrauInstrucao().toString()));
+                break;
+            }
+        }
+    }
+    
     public void onClick$excluirProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {

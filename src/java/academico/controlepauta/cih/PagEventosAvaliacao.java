@@ -1,6 +1,7 @@
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
+import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
@@ -32,6 +33,8 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        ctrl.setPagEventosAvaliacao(this);
+		
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
         if (obj != null) {
@@ -65,8 +68,30 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
             Logger.getLogger(PagEventosAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+     public void addAvaliacao(Avaliacao a)
+    {
+        Listitem linha = new Listitem(a.toString(), a);
+        linha.appendChild(new Listcell(a.getPeso() + ""));
+        linha.setParent(listbox);
+    }
+    
+    public void refreshAvaliacao(Avaliacao a)
+    {
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if(listbox.getItemAtIndex(i).getValue() == a)
+            {
+                listbox.getItemAtIndex(i).getChildren().clear();      
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.toString()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getPeso() + ""));
+                break;
+            }
+        }
+    }
+    
+   
     public void onClick$excluir(Event event) {
+
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             try {

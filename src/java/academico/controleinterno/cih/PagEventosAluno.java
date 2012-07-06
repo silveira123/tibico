@@ -2,7 +2,6 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Curso;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -29,6 +28,8 @@ public class PagEventosAluno extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        ctrl.setPagEventosAluno(this);
+        
         a = (Aluno) arg.get("obj");
         
         List<Aluno> listaAlunos = ctrl.obterAlunos();
@@ -47,6 +48,26 @@ public class PagEventosAluno extends GenericForwardComposer {
         
     }
 
+    public void addAluno(Aluno a)
+    {
+        Listitem linha = new Listitem(a.toString(), a);
+        linha.appendChild(new Listcell(a.getCurso().toString()));
+        linha.setParent(listAluno);
+    }
+    
+    public void refreshAluno(Aluno a)
+    {
+        for (int i = 0; i < listAluno.getItemCount(); i++) {
+            if(listAluno.getItemAtIndex(i).getValue() == a)
+            {
+                listAluno.getItemAtIndex(i).getChildren().clear();      
+                listAluno.getItemAtIndex(i).appendChild(new Listcell(a.toString()));
+                listAluno.getItemAtIndex(i).appendChild(new Listcell(a.getCurso().toString()));
+                break;
+            }
+        }
+    }
+    
     public void onClick$excluirAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {

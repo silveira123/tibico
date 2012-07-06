@@ -2,7 +2,6 @@ package academico.controleinterno.cih;
 
 
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -41,7 +40,8 @@ public class PagEventosTurma extends GenericForwardComposer {
         Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
         linha.appendChild(new Listcell(t.getDisciplina().toString()));
         linha.appendChild(new Listcell(t.getCalendario().toString()));
-        linha.appendChild(new Listcell(t.getProfessor().toString()));
+        if(t.getProfessor()!=null)
+            linha.appendChild(new Listcell(t.getProfessor().toString()));
         linha.setParent(listbox);
     }
     
@@ -54,7 +54,8 @@ public class PagEventosTurma extends GenericForwardComposer {
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().getCurso().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getCalendario().toString()));
-                listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
+                if(t.getProfessor()!=null)
+                    listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
                 break;
             }
         }

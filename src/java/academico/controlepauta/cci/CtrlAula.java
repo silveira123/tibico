@@ -12,6 +12,8 @@ import academico.controlepauta.cdp.Avaliacao;
 import academico.controlepauta.cdp.Frequencia;
 import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplControlarAula;
+import academico.controlepauta.cih.PagEventosAvaliacao;
+import academico.controlepauta.cih.PagEventosChamada;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,8 @@ public class CtrlAula {
     public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
+    private PagEventosChamada pagEventosChamada;
+    private PagEventosAvaliacao pagEventosAvaliacao;
     private AplControlarAula apl = AplControlarAula.getInstance();
     private static CtrlAula instance = null;
 
@@ -42,13 +46,24 @@ public class CtrlAula {
     private CtrlAula() {
     }
 
-   public Avaliacao incluirAvaliacao(ArrayList<Object> args) throws AcademicoException {
+    public void setPagEventosChamada(PagEventosChamada pagEventosChamada) {
+        this.pagEventosChamada = pagEventosChamada;
+    }
 
-        return apl.incluirAvaliacao(args);
+    public void setPagEventosAvaliacao(PagEventosAvaliacao pagEventosAvaliacao) {
+        this.pagEventosAvaliacao = pagEventosAvaliacao;
+    }
+
+    public Avaliacao incluirAvaliacao(ArrayList<Object> args) throws AcademicoException {
+        Avaliacao a = apl.incluirAvaliacao(args);
+        pagEventosAvaliacao.addAvaliacao(a);
+        return a;
     }
 
     public Avaliacao alterarAvaliacao(Avaliacao avaliacao) throws Exception {
-        return apl.alterarAvaliacao(avaliacao);
+        Avaliacao a = apl.alterarAvaliacao(avaliacao);
+        pagEventosAvaliacao.refreshAvaliacao(a);
+        return a;
     }
 
     public void apagarAvaliacao(Avaliacao avaliacao) throws Exception {
@@ -96,12 +111,15 @@ public class CtrlAula {
     }
     
     public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
-
-        return apl.incluirAula(args);
+        Aula a = apl.incluirAula(args);
+        pagEventosChamada.addChamada(a);
+        return a;
     }
 
     public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
-        return apl.alterarAula(aula, frequencia);
+        Aula a = apl.alterarAula(aula, frequencia);
+        pagEventosChamada.refreshChamada(a);
+        return a;
     }
 
     public void apagarAula(Aula aula) throws Exception {

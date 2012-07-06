@@ -272,8 +272,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
                     obj.setEndereco(obterEndereco());
 
-                    Curso curso = this.curso.getSelectedItem().getValue();
-                    obj.setCurso(curso);
+                    Curso curso1 = this.curso.getSelectedItem().getValue();
+                    obj.setCurso(curso1);
 
                     a = ctrlPessoa.alterarAluno(obj);
 
@@ -317,16 +317,14 @@ public class PagFormularioAluno extends GenericForwardComposer {
                     list.add(curso);
                     a = ctrlPessoa.incluirAluno(list);
                     if (a != null) {
-                        alert("Cadastro feito!");
+                        Messagebox.show("Cadastro feito!");
                         limparCampos();
                     }
                 }
                 winCadastro.onClose();
-
-
             }
             else {
-                Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
+                Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
             }
         }
         catch (Exception e) {
@@ -468,7 +466,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
         cidade.setSelectedItem(null);
         estado.setSelectedItem(null);
         pais.setSelectedItem(null);
-        //curso.setSelectedItem(null);     
     }
 
     public void onClick$cancelarAluno(Event event) {
@@ -530,9 +527,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
             msg += "- Numero\n";
         }
 
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

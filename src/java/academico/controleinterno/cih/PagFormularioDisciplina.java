@@ -175,10 +175,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                     Messagebox.show("Cadastro feito!");
                 }
                 winFormularioDisciplina.onClose();
-            } else {
-                Messagebox.show(msg, "", 0, Messagebox.EXCLAMATION);
-            }
-        } catch (Exception e) {
+            } 
+            else Messagebox.show(msg, "Informe", 0, Messagebox.EXCLAMATION);
+        }
+        catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }
@@ -220,9 +220,6 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             msg += "- Periodo Correspondente\n";
         }
 
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

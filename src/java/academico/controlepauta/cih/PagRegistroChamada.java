@@ -145,8 +145,7 @@ public class PagRegistroChamada extends GenericForwardComposer {
                 }
                 winRegistroChamada.onClose();
             } else {
-                Messagebox.show(msg,
-                        "", 0, Messagebox.EXCLAMATION);
+                Messagebox.show(msg, "Infome:", 0, Messagebox.EXCLAMATION);
             }
         } catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,10 +200,6 @@ public class PagRegistroChamada extends GenericForwardComposer {
             }
         }
 
-
-        if (!msg.trim().equals("")) {
-            msg = "Informe:\n" + msg;
-        }
         return msg;
     }
 }

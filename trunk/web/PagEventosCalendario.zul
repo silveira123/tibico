@@ -2,7 +2,7 @@
 
 <zk>
 	
-        <window id="winEventosCalendario" title="Eventos Calendário" border="normal" closable="true"
+        <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
 			width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
                 <div align="center">
 			<separator height="35px"/>

@@ -54,7 +54,7 @@
                 <columns>
                     <column align="center" label="Matrícula" width="20%"/>
                     <column align="center" label="Nome" width="40%"/>
-                    <column align="center" label="Freqência (%)" width="15%"/>
+                    <column align="center" label="Frequência (%)" width="15%"/>
                     <column align="center" label="Nota Final" width="8%" />
                     <column align="center" label="Situação" width="19%" />
 					
@@ -66,17 +66,9 @@
 
 			
             <separator height="8px"/>
-			
-            <button id="fechar" width="10%" label="Fechar" onClick=""></button>
-			
 
         </div>					
     </window>
-    
-
-	
-	
-
 </zk>
 
 

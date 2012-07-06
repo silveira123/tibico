@@ -2,7 +2,7 @@
 
 <zk>
 
-            <window id="winEventosAvaliacao" title="Eventos Avaliação" border="normal" closable="true"
+            <window id="winEventosAvaliacao" title="Avaliações Cadastradas" border="normal" closable="true"
 			width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
                 <div align="center">
 			<grid>

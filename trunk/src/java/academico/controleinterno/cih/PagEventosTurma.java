@@ -23,15 +23,33 @@ public class PagEventosTurma extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosTurma(this);
-
+        int tipo = (Integer) arg.get("class");
+        
         List<Turma> listaTurma = ctrl.obterTurma(); 
-        for (int i = 0; i < listaTurma.size(); i++) {
-            Turma t = listaTurma.get(i);
-            Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
-            linha.appendChild(new Listcell(t.getDisciplina().toString()));
-            linha.appendChild(new Listcell(t.getCalendario().toString()));
-            if(t.getProfessor() != null) linha.appendChild(new Listcell(t.getProfessor().toString()));
-            linha.setParent(listbox);
+        if(tipo == 1)
+        {
+            for (int i = 0; i < listaTurma.size(); i++) {
+                Turma t = listaTurma.get(i);
+                Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
+                linha.appendChild(new Listcell(t.getDisciplina().toString()));
+                linha.appendChild(new Listcell(t.getCalendario().toString()));
+                if(t.getProfessor() != null) linha.appendChild(new Listcell(t.getProfessor().toString()));
+                linha.setParent(listbox);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < listaTurma.size(); i++) {
+                Turma t = listaTurma.get(i);
+                
+                if(t.getProfessor() == null)
+                {
+                    Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
+                    linha.appendChild(new Listcell(t.getDisciplina().toString()));
+                    linha.appendChild(new Listcell(t.getCalendario().toString()));
+                    linha.setParent(listbox);
+                }
+            }
         }
     }
 

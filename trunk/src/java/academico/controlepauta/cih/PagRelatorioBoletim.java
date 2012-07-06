@@ -109,10 +109,6 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
         }
     }
 
-    public void onClick$fechar(Event event) {
-        winBoletim.onClose();
-    }
-
     /**
      * <<descrição do método>>
      *

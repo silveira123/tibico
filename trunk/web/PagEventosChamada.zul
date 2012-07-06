@@ -1,7 +1,7 @@
 <?page title="Eventos Chamada"?>
 
 <zk>
-            <window id="winEventosChamada" title="Eventos Chamada" border="normal" closable="true" 
+            <window id="winEventosChamada" title="Chamadas Cadastradas" border="normal" closable="true" 
                 width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
                 <div align="center">
 			<grid>

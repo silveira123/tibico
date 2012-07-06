@@ -108,10 +108,7 @@ public class PagRelatorioResultados extends GenericForwardComposer{
             Messagebox.show("Erro ao obter matriculas");
         }
     }
-    
-    public void onClick$fechar(Event event) {
-        winResultados.onClose();
-    }
+
    /**
     * <<descrição do método>>
     *

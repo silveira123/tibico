@@ -56,8 +56,6 @@
                     </row> 
                 </rows>
             </grid>
-
-            <button id="fechar" width="10%" label="Fechar" onClick=""></button>
 		</div>    
         </window>
     

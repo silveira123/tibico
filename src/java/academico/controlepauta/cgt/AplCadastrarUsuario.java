@@ -25,6 +25,7 @@ public class AplCadastrarUsuario
 		usuario.setSenha(senha);
 		usuario.setPrivilegio(privilegio);
 		apDaoUsuario.salvar(usuario);
+        System.out.println("eaeee");
 		return usuario;
 	}
 	

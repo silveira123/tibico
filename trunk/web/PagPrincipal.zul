@@ -8,6 +8,7 @@
 		.z-north, .inner-border .z-west, .inner-border .z-south,
 		.inner-border .z-east { background: #FFFFFF; } .dl-link {
 		text-decoration: none; cursor: pointer; }
+
 	</style>
 	<div id="div" apply="academico.controlepauta.cih.PagPrincipal">
 		<borderlayout sclass="complex-layout" height="810px">
@@ -75,6 +76,10 @@
 							</vbox>
 						</panelchildren>
 					</panel>
+                                        <div align="center">
+                                        <image src="images/fsw.png" width="160px" height="165px" />
+                                        </div>
+                                        
 				</vlayout>
 			</west>
 			<!-- Content -->

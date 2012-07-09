@@ -25,6 +25,8 @@ import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -93,8 +95,6 @@ public class PagRelatorioResultados extends GenericForwardComposer{
                 
                 ctrlMatricula.calculaNotaFinal(c);
                 
-                
-                                
                 linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
@@ -108,21 +108,10 @@ public class PagRelatorioResultados extends GenericForwardComposer{
             }
             linhas.setParent(matriculas);
             media.setValue((soma/contador)+"");
-        }
-        catch (AcademicoException ex) {
-            Messagebox.show("Erro ao obter matriculas");
+            
+        } catch (Exception ex) {
+            Logger.getLogger(PagRelatorioResultados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-   /**
-    * <<descrição do método>>
-    *
-    * @param <<nome do parâmetro>> <<descrição do parâmetro>>
-    * @param ...
-    * @return <<descrição do retorno>>
-    * @throws <<Exception gerada e o motivo>>
-    */
-
-    
     
 }

@@ -66,7 +66,7 @@ public class AplControlarAula {
     public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException{
         List<Resultado> lista =  apDaoResultado.obter(Resultado.class);
         boolean possui = false;
-        int j;
+        int j = 0;
         
         for (int i = 0; i < notas.size(); i++) {
             Resultado resultado = new Resultado();
@@ -75,26 +75,28 @@ public class AplControlarAula {
             resultado.setPontuacao((Double) notas.get(i));
             resultado.setMatriculaTurma(matriculaturma.get(i));
             
-            for (j = 0; j < lista.size(); j++) {
-                if(lista.get(j).getMatriculaTurma() == resultado.getMatriculaTurma())
-                {
-                    lista.get(j).setPontuacao((Double) notas.get(i));
-                    lista.get(j).setObservacao((String) observacoes.get(i));
-
-                    possui = true;
-                    break;
-                }
-            }
-            if(possui)
-            {
-                apDaoResultado.salvar(lista.get(j));
-                possui = false;
-            }
-            else
-            {
-                apDaoResultado.salvar(resultado);
-                possui = false;
-            }   
+            apDaoResultado.salvar(resultado);
+            
+//            for (j = 0; j < lista.size(); j++) {
+//                if(lista.get(j).getMatriculaTurma() == resultado.getMatriculaTurma())
+//                {
+//                    lista.get(j).setPontuacao((Double) notas.get(i));
+//                    lista.get(j).setObservacao((String) observacoes.get(i));
+//
+//                    possui = true;
+//                    break;
+//                }
+//            }
+//            if(possui)
+//            {
+//                apDaoResultado.salvar(lista.get(j));
+//                possui = false;
+//            }
+//            else
+//            {
+//                apDaoResultado.salvar(resultado);
+//                possui = false;
+//            }   
         }
     }
     

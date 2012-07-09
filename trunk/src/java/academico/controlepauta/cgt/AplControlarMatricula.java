@@ -258,8 +258,10 @@ public class AplControlarMatricula {
         Integer peso = new Integer(0);
 
         for (MatriculaTurma m : matriculas) {
-            coeficiente += m.getResultadoFinal() * m.getTurma().getDisciplina().getNumCreditos();
-            peso += m.getTurma().getDisciplina().getNumCreditos();
+            if ((m.getSituacaoAluno() != SituacaoAlunoTurma.CURSANDO) || (m.getSituacaoAluno() != SituacaoAlunoTurma.MATRICULADO)) {
+                coeficiente += m.getResultadoFinal() * m.getTurma().getDisciplina().getNumCreditos();
+                peso += m.getTurma().getDisciplina().getNumCreditos();
+            }  
         }
 
         coeficiente = coeficiente / peso;

@@ -52,4 +52,19 @@ public class DisciplinaDAOJPA extends DAOJPA<Disciplina> implements DisciplinaDA
         }
         return disciplinas;
     }
+    
+    public List<Disciplina> obterAprovadas(Aluno aluno){
+        Query query = entityManager.createQuery("SELECT d FROM Turma t, Disciplina d WHERE d.id = t.disciplina.id AND d.id IN "+
+                                                      "("+
+                                                                "SELECT d1.id FROM MatriculaTurma mt, Turma t1, Disciplina d1 "+
+                                                                "WHERE mt.aluno.id = ?1 AND mt.turma.id = t1.id AND t1.disciplina.id = d1.id AND "+
+                                                                "mt.situacaoAluno = ?2"+
+                                                      ")");
+        query.setParameter(1, aluno.getId());
+        query.setParameter(2, SituacaoAlunoTurma.APROVADO);
+        
+        
+        List<Disciplina> list = query.getResultList();
+        return list;
+    }
 }

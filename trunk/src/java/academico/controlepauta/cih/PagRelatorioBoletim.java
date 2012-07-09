@@ -81,7 +81,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
         }
     }
 
-    public void onSelect$calendario(Event event) {
+    public void onSelect$calendario(Event event) throws Exception {
         if (disciplinas.getRows() != null) {
             disciplinas.removeChild(disciplinas.getRows());
         }
@@ -91,9 +91,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirBoletim(obj, cal);
             curso.setValue(obj.getCurso().toString());
             
-            ctrlMatricula.calcularCoeficiente(obj);
-            
             coeficiente.setValue(obj.getCoeficiente().toString());
+            
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
@@ -103,7 +102,6 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
                 
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
-                //TODO if da situacao
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

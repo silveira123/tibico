@@ -380,7 +380,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
         return cpf;
     }
-
+    //TODO criação do endereço deve ser feito na aplicação
     public Endereco obterEndereco() {
         Endereco e = new Endereco();
 

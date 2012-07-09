@@ -54,7 +54,7 @@ public class AplCadastrarPessoa {
     private static AplCadastrarPessoa instance = null;
 
     private AplCadastrarPessoa() {
-        //TODO criar uma tabela para armazenar o sequencial e quando iniciar arrumar o hashmap
+        
     }
 
     public static AplCadastrarPessoa getInstance() {
@@ -74,7 +74,7 @@ public class AplCadastrarPessoa {
     public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
         Aluno aluno = new Aluno();
         String matricula = this.gerarMatricula((Curso) args.get(10));
-        if (matricula != null) {
+         if (matricula != null) {
             aluno.setNome((String) args.get(0));
             aluno.setSexo((Sexo) args.get(1));
             aluno.setDataNascimento((Calendar) args.get(2));
@@ -87,7 +87,9 @@ public class AplCadastrarPessoa {
             aluno.setEndereco((Endereco) args.get(9));
             aluno.setCurso((Curso) args.get(10));
             aluno.setMatricula(matricula);
-            return (Aluno) apDaoAluno.salvar(aluno);
+            aluno.setCoeficiente(0.0);
+            //TODO o coeficiente vai iniciar com 0.0 mesmo??
+            //return (Aluno) apDaoAluno.salvar(aluno);
         }
 
         // Privilegios...

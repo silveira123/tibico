@@ -56,6 +56,7 @@ public class PagPrincipal extends GenericForwardComposer {
             resultado.setVisible(false);
             aluno = ctrlAula.getAluno(user.getNome());
         }
+        
     }
 
     public void onClick$curso(Event event) {

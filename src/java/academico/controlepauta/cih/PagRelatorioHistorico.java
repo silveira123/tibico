@@ -70,7 +70,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         matricula.setReadonly(true);
     }
 
-    public void onSelect$nome(Event event) {
+    public void onSelect$nome(Event event) throws Exception {
         obj = nome.getSelectedItem().getValue();
         matricula.setValue(obj.getMatricula().toString());
         adicionaDisciplinas(obj);
@@ -81,7 +81,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
      * @param aluno aluno correspondente
      * @return void
      */
-    public void adicionaDisciplinas(Aluno aluno) {
+    public void adicionaDisciplinas(Aluno aluno) throws Exception {
         if(disciplinas.getRows()!=null)disciplinas.removeChild(disciplinas.getRows());
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirHistorico(obj);

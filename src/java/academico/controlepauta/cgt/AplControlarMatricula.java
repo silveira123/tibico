@@ -20,6 +20,7 @@ import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
+import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cgt.AplCadastroCurso;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
@@ -28,6 +29,7 @@ import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -42,6 +44,7 @@ public class AplControlarMatricula {
     private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
     private AplCadastroCurso aplCadastroCurso = AplCadastroCurso.getInstance();
+    private AplCadastrarPessoa aplCadastrarPessoa = AplCadastrarPessoa.getInstance();
 
     private AplControlarMatricula() {
     }
@@ -106,7 +109,8 @@ public class AplControlarMatricula {
      * @throws AcademicoException caso não seja possivel possivel buscar as
      * matriculas.
      */
-    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
+    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException, Exception {
+        calcularCoeficiente(aluno);
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCursadas(aluno);
     }
 
@@ -119,7 +123,8 @@ public class AplControlarMatricula {
      * boletim.
      * @throws AcademicoException Caso não consiga buscar o boletim.
      */
-    public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
+    public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException, Exception {
+        calcularCoeficiente(aluno);
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
 
@@ -137,6 +142,7 @@ public class AplControlarMatricula {
             }
         }
         //tira as turmas que ainda não foi cumprido o pré-requisito
+        disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class)).obterAprovadas(aluno);
         for (int i = 0; i < turmas.size(); i++) {
             List<Disciplina> listPreRequisitos = aplCadastroCurso.obterPreRequisitos(turmas.get(i).getDisciplina());
             for (int j = 0; j < listPreRequisitos.size(); j++) {
@@ -195,67 +201,74 @@ public class AplControlarMatricula {
     }
 
     void excluirFrequencia(Frequencia frequencia) throws AcademicoException {
-            Integer faltas = frequencia.getNumFaltasAula();
-            Double calculo = (double) (faltas * 100) / frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
-            frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca() + calculo);
-            apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
-        
+        Integer faltas = frequencia.getNumFaltasAula();
+        Double calculo = (double) (faltas * 100) / frequencia.getMatriculaTurma().getTurma().getDisciplina().getCargaHoraria();
+        frequencia.getMatriculaTurma().setPercentualPresenca(frequencia.getMatriculaTurma().getPercentualPresenca() + calculo);
+        apDaoMatriculaTurma.salvar(frequencia.getMatriculaTurma());
+
     }
 
-    public void calcularNotaFinal(MatriculaTurma mt) {
-        List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(mt);
-        Double notaFinal = new Double(0.0);        
+    public void calcularNotaFinal(MatriculaTurma mt) throws AcademicoException {
+        List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(mt);
+        Double notaFinal = new Double(0.0);
         Integer peso = new Integer(0);
-        
+        //TODO ta errado
         //TODO tirar prints
-        
+
         for (Resultado r : listResultados) {
-            notaFinal +=  r.getAvaliacao().getPeso() * r.getPontuacao();
+            notaFinal += r.getAvaliacao().getPeso() * r.getPontuacao();
             peso += r.getAvaliacao().getPeso();
-            
+
             System.out.println("Nota: " + notaFinal);
             System.out.println("Peso: " + peso);
         }
-        
-        notaFinal = notaFinal/peso;
-        
+
+        notaFinal = notaFinal / peso;
+
         System.out.println("Nota / Peso: " + notaFinal);
-        
+
         mt.setResultadoFinal(notaFinal);
-        
+
         alteraSituacao(mt);
     }
 
-    private void alteraSituacao(MatriculaTurma mt) {
-        Double notaFinal = mt.getResultadoFinal();
-        Double percentualPresenca = mt.getPercentualPresenca();
-        
-        if (notaFinal >= 60.0 && percentualPresenca >= 75.0) {
-            mt.setSituacaoAluno(SituacaoAlunoTurma.APROVADO);
-        }
-        else{
-            if (notaFinal >= 60.0) {
-                mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADOFALTA);
+    private void alteraSituacao(MatriculaTurma mt) throws AcademicoException {
+        if (Calendar.getInstance().after(mt.getTurma().getCalendario().getDataFimPL())) {
+            Double notaFinal = mt.getResultadoFinal();
+            Double percentualPresenca = mt.getPercentualPresenca();
+
+            if (notaFinal >= 60.0 && percentualPresenca >= 75.0) {
+                mt.setSituacaoAluno(SituacaoAlunoTurma.APROVADO);
+            } else {
+                if (notaFinal >= 60.0) {
+                    mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADOFALTA);
+                } else {
+                    mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADONOTA);
+                }
             }
-            else{
-                mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADONOTA);
-            }
+
         }
+        apDaoMatriculaTurma.salvar(mt);
+
     }
 
-    public void calcularCoeficiente(Aluno obj) {
-        List<MatriculaTurma> matriculas = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(obj);
+    public void calcularCoeficiente(Aluno obj) throws Exception {
+        List<MatriculaTurma> matriculas = (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(obj);
         Double coeficiente = new Double(0.0);
         Integer peso = new Integer(0);
-        
+
         for (MatriculaTurma m : matriculas) {
             coeficiente += m.getResultadoFinal() * m.getTurma().getDisciplina().getNumCreditos();
             peso += m.getTurma().getDisciplina().getNumCreditos();
         }
+
+        coeficiente = coeficiente / peso;
+        if(coeficiente>=0){
+            obj.setCoeficiente(coeficiente);
+            aplCadastrarPessoa.alterarAluno(obj);
+        }
         
-        coeficiente = coeficiente/peso;
         
-        obj.setCoeficiente(coeficiente);
     }
 
     public boolean verificaPeriodoMatricula(Curso curso) {

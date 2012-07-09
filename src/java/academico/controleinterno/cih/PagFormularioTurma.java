@@ -94,8 +94,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
         professor.setReadonly(true);
         // listHorario.setModel(new ListModelList(listaHorario, true));
 
-        //TODO tem que ver como vai fazer para botar os horários na tela
-        //TODO fazer toda parte do professor
     }
 
     public void onCreate$winFormularioTurma() throws AcademicoException {

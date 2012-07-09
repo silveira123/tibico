@@ -1,6 +1,5 @@
 package academico.controlepauta.cih;
 
-
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
@@ -17,8 +16,8 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
-
 public class PagEventosChamada extends GenericForwardComposer {
+
     private CtrlAula ctrl = CtrlAula.getInstance();
     private CtrlLetivo ctrlTurma = CtrlLetivo.getInstance();
     private Window winEventosAvaliacao;
@@ -30,7 +29,7 @@ public class PagEventosChamada extends GenericForwardComposer {
     private Menuitem inserirPontuacao;
     private Listbox listbox;
     private Professor obj;
-    
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -38,10 +37,9 @@ public class PagEventosChamada extends GenericForwardComposer {
         ctrl.setPagEventosChamada(this);
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
-        if(obj!=null){
+        if (obj != null) {
             listaTurma = ctrlTurma.obterTurma(obj);
-        }
-        else{
+        } else {
             listaTurma = ctrlTurma.obterTurma();
         }
 
@@ -49,66 +47,85 @@ public class PagEventosChamada extends GenericForwardComposer {
         nome.setReadonly(true);
     }
 
-    public void onSelect$nome(Event event) { 
+    public void onSelect$nome(Event event) {
         try {
             Turma t = nome.getSelectedItem().getValue();
             List<Aula> listaAula = ctrl.obterAulas();
-            
-            while(listbox.getItemCount() > 0)
+
+            while (listbox.getItemCount() > 0) {
                 listbox.removeItemAt(0);
-            
+            }
+
             for (int i = 0; i < listaAula.size(); i++) {
                 Aula a = listaAula.get(i);
-                if(a.getTurma() == t)
-                {
-                    Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth()+1)
-                            + "/" + (a.getDia().getTime().getYear()+1900), a);
+                if (a.getTurma() == t) {
+                    Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                            + "/" + (a.getDia().getTime().getYear() + 1900), a);
                     linha.appendChild(new Listcell(a.getConteudo()));
                     linha.appendChild(new Listcell(a.getQuantidade() + ""));
 
                     linha.setParent(listbox);
                 }
             }
-        } 
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addChamada(Aula a)
-    {
-         Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth()+1)
-                            + "/" + (a.getDia().getTime().getYear()+1900), a);
-        linha.appendChild(new Listcell(a.getConteudo()));
-        linha.appendChild(new Listcell(a.getQuantidade() + ""));
-        linha.setParent(listbox);
+
+    public void addChamada(Aula a) {
+        int maior = 0;
+        for (int i = 0; i < a.getFrequencia().size(); i++) {
+            if (maior < a.getFrequencia().get(i).getNumFaltasAula()) {
+                maior = a.getFrequencia().get(i).getNumFaltasAula();
+            }
+
+        }
+        if (a.getQuantidade() < maior) {
+            Messagebox.show("Quantidade de faltas maior que o número máximo informado");
+        } else {
+            Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                    + "/" + (a.getDia().getTime().getYear() + 1900), a);
+            linha.appendChild(new Listcell(a.getConteudo()));
+            linha.appendChild(new Listcell(a.getQuantidade() + ""));
+            linha.setParent(listbox);
+        }
     }
-    
-    public void refreshChamada(Aula a)
-    {
-        for (int i = 0; i < listbox.getItemCount(); i++) {
-            if(listbox.getItemAtIndex(i).getValue() == a)
-            {
-                listbox.getItemAtIndex(i).getChildren().clear();      
-                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth()+1)
-                            + "/" + (a.getDia().getTime().getYear()+1900)));
-                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getConteudo()));
-                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getQuantidade() + ""));
-                break;
+
+    public void refreshChamada(Aula a) {
+        int maior = 0;
+        for (int i = 0; i < a.getFrequencia().size(); i++) {
+            if (maior < a.getFrequencia().get(i).getNumFaltasAula()) {
+                maior = a.getFrequencia().get(i).getNumFaltasAula();
+            }
+
+        }
+        if (a.getQuantidade() < maior) {
+            Messagebox.show("Quantidade de faltas maior que o número máximo informado");
+        } else {
+            for (int i = 0; i < listbox.getItemCount(); i++) {
+                if (listbox.getItemAtIndex(i).getValue() == a) {
+                    listbox.getItemAtIndex(i).getChildren().clear();
+                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                            + "/" + (a.getDia().getTime().getYear() + 1900)));
+                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getConteudo()));
+                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getQuantidade() + ""));
+                    break;
+                }
             }
         }
     }
-    
-    public void onClick$excluir(Event event) { 
+
+    public void onClick$excluir(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             try {
                 Aula c = listitem.getValue();
                 ctrl.apagarAula(c);
-                
-                for (int i = 0; i < c.getFrequencia().size(); i++) 
+
+                for (int i = 0; i < c.getFrequencia().size(); i++) {
                     ctrl.apagarFrequencia(c.getFrequencia().get(i));
-                
+                }
+
                 listbox.removeItemAt(listbox.getSelectedIndex());
             } catch (Exception e) {
                 Messagebox.show("Não foi possivel excluir a Aula");
@@ -120,8 +137,7 @@ public class PagEventosChamada extends GenericForwardComposer {
 
     public void onClick$incluir(Event event) {
         Comboitem comboitem = nome.getSelectedItem();
-        if(comboitem != null)
-        {
+        if (comboitem != null) {
             Turma t = comboitem.getValue();
             ctrl.abrirIncluirAula(t);
         }
@@ -130,25 +146,25 @@ public class PagEventosChamada extends GenericForwardComposer {
     public void onClick$alterar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         Comboitem comboitem = nome.getSelectedItem();
-        
+
         if (listitem != null && comboitem != null) {
             Aula c = listitem.getValue();
             Turma t = comboitem.getValue();
-            ctrl.abrirEditarAula(c,t);
+            ctrl.abrirEditarAula(c, t);
         }
     }
-    
+
     public void onClick$consultar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         Comboitem comboitem = nome.getSelectedItem();
-        
+
         if (listitem != null && comboitem != null) {
             Aula c = listitem.getValue();
             Turma t = comboitem.getValue();
-            ctrl.abrirConsultarAula(c,t);
+            ctrl.abrirConsultarAula(c, t);
         }
     }
-    
+
     public void onClick$inserirPontuacao(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

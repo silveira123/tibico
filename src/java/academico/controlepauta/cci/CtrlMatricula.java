@@ -106,7 +106,7 @@ public class CtrlMatricula {
      * @return List<MatriculaTurma> Lista de MatriculaTurma referente ao histórico do aluno.
      * @throws AcademicoException caso não seja possivel possivel buscar as matriculas.
      */
-    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
+    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException, Exception {
         return apl.emitirHistorico(aluno);
     }
 
@@ -118,7 +118,7 @@ public class CtrlMatricula {
      * @return List<MatriculaTurma> Lista de MatriculaTurma representado o boletim.
      * @throws AcademicoException Caso não consiga buscar o boletim.
      */
-    public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException {
+    public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException, Exception {
         return apl.emitirBoletim(aluno, calendario);
     }
     
@@ -218,11 +218,11 @@ public class CtrlMatricula {
         return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
     }
 
-    public void calculaNotaFinal(MatriculaTurma c) {
+    public void calculaNotaFinal(MatriculaTurma c) throws AcademicoException {
          apl.calcularNotaFinal(c);
     }
 
-    public void calcularCoeficiente(Aluno obj) {
+    public void calcularCoeficiente(Aluno obj) throws Exception {
         apl.calcularCoeficiente(obj);
     }
 

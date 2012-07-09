@@ -65,7 +65,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 // verificando qual a area de conhecimento cadastrado
                 if (obj2.equals(curso.get(i).getValue())) {
                     cursoCombo.setSelectedItem(curso.get(i));
-                    List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso)curso.get(i).getValue());
+                    List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso) curso.get(i).getValue());
                     if (disciplinas != null) {
                         listPreRequisitos.setModel(new ListModelList(disciplinas, true));
                     }
@@ -91,17 +91,22 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         creditos.setValue(obj.getNumCreditos());
         periodo.setValue(obj.getPeriodoCorrespondente());
 
-        List<Listitem> listItemsPreRequisito = listPreRequisitos.getItems();
 
-        //retira o obj da lista das disciplinas prerequisito
-        for (int i = 0; i < listItemsPreRequisito.size(); i++) {
-            if (listItemsPreRequisito.get(i).getValue().equals(obj)) {
-                listItemsPreRequisito.remove(i);
-            }
+        List<Disciplina> disciplinas = ctrl.obterDisciplinas(obj.getCurso());
+        if (disciplinas != null) {
+            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
         }
+        ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
 
-        setSelecionadosList(listPreRequisitos, obj.getPrerequisito());
-        setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
+        if(((ListModelList) listPreRequisitos.getModel()).contains(obj)) 
+            ((ListModelList) listPreRequisitos.getModel()).remove(obj);
+
+        if (listAreaConhecimento.getModel() != null) {
+            setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
+        }
+        if (listPreRequisitos.getModel() != null) {
+            setSelecionadosList(listPreRequisitos, obj.getPrerequisito());
+        }
     }
 
     public void setSelecionadosList(Listbox listbox, List selects) {
@@ -175,10 +180,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                     Messagebox.show("Cadastro feito!");
                 }
                 winFormularioDisciplina.onClose();
-            } 
-            else Messagebox.show(msg, "Informe", 0, Messagebox.EXCLAMATION);
-        }
-        catch (Exception e) {
+            } else {
+                Messagebox.show(msg, "Informe", 0, Messagebox.EXCLAMATION);
+            }
+        } catch (Exception e) {
             Messagebox.show("Falha no cadastro feito!");
             System.err.println(e);
         }

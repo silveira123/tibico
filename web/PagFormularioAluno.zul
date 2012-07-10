@@ -11,7 +11,7 @@
                     <column />
                 </columns>
                 <rows>
-                    <row>
+                    <row style="background:#FFFFFF;">
                         <grid>
                             <columns>
                                 <column width="30%" />
@@ -144,7 +144,7 @@
             </grid>
 			
             <button width="10%" label="Salvar" id="salvarAluno"></button>
-            <button width="10%" label="Cancelar" id="cancelarAluno"></button>
+            <button width="10%" label="Voltar" id="voltar"></button>
 			
         </window>
     </div>

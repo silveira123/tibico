@@ -3,6 +3,8 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Calendario;
+import academico.controleinterno.cdp.Curso;
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -18,12 +20,21 @@ public class PagEventosCalendario extends GenericForwardComposer {
     private Menuitem consultar;
     private Menuitem alterar;
     private Listbox listbox;
+    private Combobox cursoCombo;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosCalendario(this);
-        List<Calendario> listaCalendario = ctrl.obterCalendario(); 
+        List<Curso> vetCurso = ctrl.obterCursos();
+        cursoCombo.setModel(new ListModelList(vetCurso, true));
+        cursoCombo.setReadonly(true);
+    }
+    
+    public void onSelect$cursoCombo(Event event) throws AcademicoException
+    {
+        Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
+        List<Calendario> listaCalendario = ctrl.obterCalendarios(select); 
         for (int i = 0; i < listaCalendario.size(); i++) {
             Calendario c = listaCalendario.get(i);
             Listitem linha = new Listitem(c.toString(), c);
@@ -37,8 +48,8 @@ public class PagEventosCalendario extends GenericForwardComposer {
 
             linha.setParent(listbox);
         }
+    
     }
-
     public void addCalendario(Calendario c)
     {
         Listitem linha = new Listitem(c.toString(), c);
@@ -84,7 +95,12 @@ public class PagEventosCalendario extends GenericForwardComposer {
     }
 
     public void onClick$incluir(Event event) {
-        ctrl.abrirIncluirCalendario();
+        Comboitem item = cursoCombo.getSelectedItem();
+        if(item!=null){
+            Curso c = item.getValue();
+            ctrl.abrirIncluirCalendario(c);
+        }
+        
     }
 
     public void onClick$alterar(Event event) {

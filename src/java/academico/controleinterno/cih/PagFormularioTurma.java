@@ -32,11 +32,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private Turma obj;
     private Listhead listhead;
     private ArrayList<Checkbox> horariosCheckbox = new ArrayList<Checkbox>();
+    private int tipo;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
+        tipo = (Integer) arg.get("p");
         List<Curso> listaCurso = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(listaCurso, true));
 
@@ -51,13 +52,11 @@ public class PagFormularioTurma extends GenericForwardComposer {
             if (i == 0) {
                 lh.setLabel("Dia");
                 listhead.appendChild(lh);
-            }
-            else if (listaHorario.get(i - 1).getDia().equals(dia)) {
+            } else if (listaHorario.get(i - 1).getDia().equals(dia)) {
                 lh.setLabel(listaHorario.get(i - 1).toString());
                 listhead.appendChild(lh);
 
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -77,8 +76,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     cell.setValue(listaHorario.get(j));
                     cell.appendChild(c);
                     linha.appendChild(cell);
-                }
-                else {
+                } else {
                     cell.setValue(listaHorario.get(j));
                     cell.appendChild(c);
                     linha.appendChild(cell);
@@ -137,10 +135,20 @@ public class PagFormularioTurma extends GenericForwardComposer {
             if (obj.getHorario().contains(listaHorario.get(i))) {
                 horariosCheckbox.get(i).setChecked(true);
             }
+            if(tipo != 1){
+                horariosCheckbox.get(i).setDisabled(true);
+            }
+        }
+        if (tipo != 1) {
+            curso.setDisabled(true);
+            disciplina.setDisabled(true);
+            calendario.setDisabled(true);
+            numVagas.setDisabled(true);
         }
     }
 
     private void bloquearTela() {
+        curso.setDisabled(true);
         disciplina.setDisabled(true);
         calendario.setDisabled(true);
         numVagas.setDisabled(true);
@@ -165,42 +173,48 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     args.add(selecionados);
                     if (professor.getSelectedItem() != null) {
                         args.add(professor.getSelectedItem().getValue());
-                    }
-                    else {
+                    } else {
                         args.add(null);
                     }
                     limparCampos();
 
                     ctrl.incluirTurma(args);
                     Messagebox.show("Cadastro feito!");
-                }
-                else {
-                    obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
-                    obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
-                    obj.setNumVagas(numVagas.getValue());
-                    ArrayList<Horario> selecionados = getHorariosSelecionados();
-                    obj.setHorario(selecionados);
+                } else {
+                    if (tipo == 1) {
+                        obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
+                        obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
+                        obj.setNumVagas(numVagas.getValue());
+                        ArrayList<Horario> selecionados = getHorariosSelecionados();
+                        obj.setHorario(selecionados);
 
-                    if (professor.getSelectedItem() != null) {
-                        Professor p = professor.getSelectedItem().getValue();
-                        obj.setProfessor(p);
+                        if (professor.getSelectedItem() != null) {
+                            Professor p = professor.getSelectedItem().getValue();
+                            obj.setProfessor(p);
+                        }
+
+
+
+                        ctrl.alterarTurma(obj);
+                        Messagebox.show("Cadastro editado!");
                     }
-
-
-
-                    ctrl.alterarTurma(obj);
-                    Messagebox.show("Cadastro editado!");
+                    else{
+                        if (professor.getSelectedItem() != null) {
+                            Professor p = professor.getSelectedItem().getValue();
+                            obj.setProfessor(p);
+                        }
+                        ctrl.alterarTurma(obj);
+                        Messagebox.show("Professor Alocado!");
+                        
+                    }
                 }
                 winFormularioTurma.onClose();
-            }
-            else {
+            } else {
                 Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

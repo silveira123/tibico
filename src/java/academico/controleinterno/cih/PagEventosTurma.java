@@ -18,12 +18,13 @@ public class PagEventosTurma extends GenericForwardComposer {
     private Menuitem consultar;
     private Menuitem alterar;
     private Listbox listbox;
+    private int tipo;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosTurma(this);
-        int tipo = (Integer) arg.get("class");
+        tipo = (Integer) arg.get("class");
         
         List<Turma> listaTurma = ctrl.obterTurma(); 
         if(tipo == 1)
@@ -103,7 +104,7 @@ public class PagEventosTurma extends GenericForwardComposer {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             Turma t = listitem.getValue();
-            ctrl.abrirEditarTurma(t);
+            ctrl.abrirEditarTurma(t, tipo);
         }
     }
     

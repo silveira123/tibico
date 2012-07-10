@@ -1,14 +1,17 @@
 package academico.controlepauta.cgt;
 
+import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
+import academico.util.pessoa.cdp.Pessoa;
 import java.util.List;
 
 public class AplCadastrarUsuario 
 {
         private DAO apDaoUsuario = DAOFactory.obterDAO("JPA", Usuario.class);
+        private AplCadastrarPessoa aplCadastrarPessoa = AplCadastrarPessoa.getInstance();
         private static AplCadastrarUsuario instance = null;
 
         public static AplCadastrarUsuario getInstance() {
@@ -18,12 +21,13 @@ public class AplCadastrarUsuario
             return instance;
         }
         
-	public Usuario incluirUsuario(String nome, String senha, Integer privilegio) throws AcademicoException
+	public Usuario incluirUsuario(String nome, String senha, Integer privilegio, Pessoa p) throws AcademicoException
 	{
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setPrivilegio(privilegio);
+                usuario.setPessoa(p);
                 apDaoUsuario.salvar(usuario);
 		return usuario;
 	}

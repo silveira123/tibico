@@ -46,7 +46,7 @@ public class PagPrincipal extends GenericForwardComposer {
             controlarTurma.setVisible(false);
             cadastroPessoa.setVisible(false);
             cadastroAcademico.setVisible(false);
-            prof = ctrlAula.getProfessor(user.getNome());
+            prof = (Professor)user.getPessoa();
         } else if (user.getPrivilegio() == 4) {
             pauta.setVisible(false);
             cadastroPessoa.setVisible(false);
@@ -54,7 +54,7 @@ public class PagPrincipal extends GenericForwardComposer {
             turma.setVisible(false);
             alocarProfessor.setVisible(false);
             resultado.setVisible(false);
-            aluno = ctrlAula.getAluno(user.getNome());
+            aluno = (Aluno)user.getPessoa();
         }
         
     }

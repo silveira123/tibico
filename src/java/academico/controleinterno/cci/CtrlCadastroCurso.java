@@ -56,16 +56,21 @@ public class CtrlCadastroCurso {
     private CtrlCadastroCurso() {
     }
     //TODO testando resolver exceção
+
     public Curso incluirCurso(ArrayList<Object> args) throws Exception {
         Curso c = apl.incluirCurso(args);
-        pagEventosCurso.addCurso(c);
+        if (c != null) {
+            pagEventosCurso.addCurso(c);
+        }
         return c;
     }
 
     public Curso alterarCurso(Curso args) throws Exception {
         Curso c = apl.alterarCurso(args);
-        pagEventosCurso.refreshCurso(c);
-        return apl.alterarCurso(args);
+        if (c != null) {
+            pagEventosCurso.refreshCurso(c);
+        }
+        return c;
     }
 
     public void apagarCurso(Curso curso) throws Exception {
@@ -95,7 +100,7 @@ public class CtrlCadastroCurso {
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return apl.obterDisciplinas();
     }
-    
+
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return apl.obterDisciplinas(curso);
     }
@@ -152,15 +157,13 @@ public class CtrlCadastroCurso {
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
-    
-    public Component abrirEventosCurso()
-    {
+
+    public Component abrirEventosCurso() {
         window = (Window) Executions.createComponents("/pagEventosCurso.zul", null, null);
         return window;
     }
-    
-    public Component abrirEventosDisciplina()
-    {
+
+    public Component abrirEventosDisciplina() {
         return Executions.createComponents("/pagEventosDisciplina.zul", null, null);
     }
 }

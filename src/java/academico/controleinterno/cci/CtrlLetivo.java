@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.zkoss.zk.ui.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 /**
@@ -45,7 +45,7 @@ public class CtrlLetivo {
     public void setPagEventosCalendario(PagEventosCalendario pagEventosCalendario) {
         this.pagEventosCalendario = pagEventosCalendario;
     }
-    
+
     public void setPagEventosTurma(PagEventosTurma pagEventosTurma) {
         this.pagEventosTurma = pagEventosTurma;
     }
@@ -73,9 +73,10 @@ public class CtrlLetivo {
         return apl.obterCalendarios();
     }
 
-    public void abrirIncluirCalendario() {
+    public void abrirIncluirCalendario(Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlLetivo.SALVAR);
+        map.put("obj", curso);
         Executions.createComponents("/PagFormularioCalendario.zul", null, map);
     }
 
@@ -93,7 +94,7 @@ public class CtrlLetivo {
         Executions.createComponents("/PagFormularioCalendario.zul", null, map);
     }
 
-    public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {      
+    public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {
         Turma t = aplC.incluirTurma(args);
         pagEventosTurma.addTurma(t);
         return t;
@@ -112,7 +113,7 @@ public class CtrlLetivo {
     public List<Turma> obterTurma() throws AcademicoException {
         return aplC.obterTurmas();
     }
-    
+
     public List<Turma> obterTurma(Professor p) throws AcademicoException {
         return aplC.obterTurmas(p);
     }
@@ -120,13 +121,15 @@ public class CtrlLetivo {
     public void abrirIncluirTurma() {
         Map map = new HashMap();
         map.put("tipo", CtrlLetivo.SALVAR);
+        map.put("p", 1);
         Executions.createComponents("/PagFormularioTurma.zul", null, map);
     }
 
-    public void abrirEditarTurma(Turma turma) {
+    public void abrirEditarTurma(Turma turma, int p) {
         Map map = new HashMap();
         map.put("tipo", CtrlLetivo.EDITAR);
         map.put("obj", turma);
+        map.put("p", p);
         Executions.createComponents("/PagFormularioTurma.zul", null, map);
     }
 
@@ -134,6 +137,7 @@ public class CtrlLetivo {
         Map map = new HashMap();
         Object put = map.put("tipo", CtrlLetivo.CONSULTAR);
         map.put("obj", turma);
+        map.put("p", 1);
         Executions.createComponents("/PagFormularioTurma.zul", null, map);
     }
 
@@ -145,51 +149,48 @@ public class CtrlLetivo {
         return aplC.obterHorarios();
     }
 
-    
-    public Component abrirEventosTurma(int tipo)
-    {
+    public Component abrirEventosTurma(int tipo) {
         Map map = new HashMap();
         map.put("class", tipo);
         return Executions.createComponents("/pagEventosTurma.zul", null, map);
     }
-     
-    public Component abrirEventosAlocarProfessor(int tipo)
-    {
+
+    public Component abrirEventosAlocarProfessor(int tipo) {
         Map map = new HashMap();
         map.put("class", tipo);
         return Executions.createComponents("/pagEventosAlocarProfessor.zul", null, map);
     }
-    
-    public Component abrirEventosCalendario()
-    {
+
+    public Component abrirEventosCalendario() {
         return Executions.createComponents("/pagEventosCalendario.zul", null, null);
     }
 
-    
-    public List<Disciplina> obterDisciplinas(Curso curso){
-       
-            return aplC.obterDisciplinas(curso);
+    public List<Disciplina> obterDisciplinas(Curso curso) {
+
+        return aplC.obterDisciplinas(curso);
     }
-    
-    public List<Calendario> obterCalendarios(Curso curso){
+
+    public List<Calendario> obterCalendarios(Curso curso) {
         try {
             return apl.obterCalendarios(curso);
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    public List<Professor> obterProfessores(Disciplina disciplina){
+
+    public List<Professor> obterProfessores(Disciplina disciplina) {
         try {
             return aplC.obterProfessores(disciplina);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
+    }
+
+    public List<Curso> obterCursos() throws AcademicoException {
+        return apl.obterCursos();
     }
 }

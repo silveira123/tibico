@@ -8,27 +8,18 @@
 			<separator height="35px"/>
 
 			<fisheyebar>
-				<fisheye tooltiptext="Incluir uma turma"
+				<fisheye tooltiptext="Alocar Professor"
 					image="/img/incluir.jpg" />
-				<fisheye tooltiptext="alterar uma turma"
-					image="/img/alterar.jpg" />
-				<fisheye tooltiptext="consultar uma turma"
-					image="/img/consultar.jpg" />
-				<fisheye tooltiptext="excluir uma turma"
-					image="/img/excluir.jpg" />
+				
 			</fisheyebar>
 
 			<separator height="35px"/>
 
 			<menubar>
-				<menuitem id="incluir" tooltiptext="Incluir uma turma" label="Incluir"
-					width="20%" />
-				<menuitem id="alterar" tooltiptext="alterar uma turma" label="Alterar"
-					width="20%" />
-				<menuitem id="consultar" tooltiptext="consultar uma turma"
-					label="Consultar" width="20%" />
-				<menuitem id="excluir" tooltiptext="excluir uma turma" label="Excluir"
-					width="20%" />
+				
+				<menuitem id="alterar" tooltiptext="Alocar Professor" label="Alocar"
+					/>
+				
 			</menubar>
 
 			<separator />

@@ -3,7 +3,6 @@ package academico.controleinterno.cgt;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cgd.CalendarioDAO;
-import academico.controleinterno.cgd.CalendarioDAOJPA;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
@@ -14,6 +13,7 @@ import java.util.List;
 public class AplCadastrarCalendario {
 
     private DAO apDaoCalendario = DAOFactory.obterDAO("JPA", Calendario.class);
+    private AplCadastroCurso aplCadastrarCurso = AplCadastroCurso.getInstance();
     
     private AplCadastrarCalendario() {
     }
@@ -61,5 +61,9 @@ public class AplCadastrarCalendario {
 
     public boolean verificarPeriodoMatricula(Curso curso) {
         return (boolean) ((CalendarioDAO) apDaoCalendario).verificarPeriodoMatricula(curso);
+    }
+
+    public List<Curso> obterCursos() throws AcademicoException {
+        return aplCadastrarCurso.obterCursos();
     }
 }

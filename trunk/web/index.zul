@@ -62,7 +62,9 @@
                         font-size: 11px;
                 }
         </style>
-
+        
+        
+        
         <hbox align="center" pack="center" height="100%" width="100%">
             <vbox><div height="50%"/></vbox>
             <div sclass="login-box" > 
@@ -91,4 +93,7 @@
         </hbox>
         <space width="75%"/>
         <image src="images/fsw.png" width="300px" height="400px" />
-</window>    
+        
+        
+</window>  
+

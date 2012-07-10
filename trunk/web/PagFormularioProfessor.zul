@@ -3,7 +3,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="58%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="63%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>
@@ -74,7 +74,7 @@
                                 <row>
                                     Área de Conhecimeto:
                                     <cell colspan="2">
-                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="60px">
+                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="100px">
                                             <listhead>
                                                 
                                             </listhead>
@@ -92,32 +92,20 @@
                                 <column width="70%" />
                             </columns>
                             <rows>
+                                
+                                
+                                
                                 <row>
-                                    País:
-                                    <combobox id="pais"></combobox>
-                                </row>
-								
-                                <row>
-                                    Estado:
-                                    <combobox id="estado"></combobox>
-                                </row>
-			
-			
-                                <row>
-                                    Cidade:
-                                    <combobox id="cidade"></combobox>
-                                </row>
-								
-                                <row>
-                                    Bairro:
-                                    <combobox id="bairro"></combobox>
+                                    <cell colspan="2">
+                                    <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
+                                    </cell>
                                 </row>
                                 
                                 <row>
                                     CEP:
                                     <textbox id="cep" width="20%" />
                                 </row>
-								
+                                
                                 <row>
                                     Logradouro:
                                     <textbox id="logradouro" width="80%" />
@@ -133,7 +121,28 @@
                                     Complemento:
                                     <textbox id="complemento" width="80%" />
                                 </row>
-			
+                                				
+                                <row>
+                                    Bairro:
+                                    <combobox id="bairro"></combobox>
+                                </row>
+                                
+                                <row>
+                                    Cidade:
+                                    <combobox id="cidade"></combobox>
+                                </row>
+                                
+                                 <row>
+                                    Estado:
+                                    <combobox id="estado"></combobox>
+                                </row>
+                                 
+                                 <row>
+                                    País:
+                                    <combobox id="pais"></combobox>
+                                </row>
+                                
+				
                                 <row>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
@@ -145,7 +154,10 @@
                     </row>
                 </rows>
             </grid>
-			
+		
+            <separator/>
+           
+            
             <button width="10%" label="Salvar" id="salvarProfessor"></button>
             <button width="10%" label="Voltar" id="voltar"></button>
 			

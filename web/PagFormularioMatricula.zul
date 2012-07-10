@@ -73,7 +73,7 @@
             <separator/>
 		    
             <button width="10%" label="Salvar" id="salvarMatricula"></button>
-            <button width="10%" label="Cancelar" id="cancelarMatricula"></button>
+            <button width="10%" label="Voltar" id="voltar"></button>
 		    
         </window>
     </div>

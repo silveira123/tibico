@@ -42,7 +42,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     // Atributos da interface
     private Button salvarProfessor;
-    private Button cancelarProfessor;
+    private Button voltar;
     private Textbox nome;
     private Radiogroup sexo;
     private Datebox dataNasc;
@@ -470,7 +470,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelarProfessor(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioProfessor.onClose();
     }
 

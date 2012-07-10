@@ -146,7 +146,7 @@
             </grid>
 			
             <button width="10%" label="Salvar" id="salvarProfessor"></button>
-            <button width="10%" label="Cancelar" id="cancelarProfessor"></button>
+            <button width="10%" label="Voltar" id="voltar"></button>
 			
         </window>
     </div><!--

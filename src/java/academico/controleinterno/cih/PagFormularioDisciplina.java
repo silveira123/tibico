@@ -193,7 +193,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
     }
 
-    public void onClick$cancelarDisciplina(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioDisciplina.onClose();
     }
 

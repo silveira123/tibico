@@ -100,7 +100,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
     }
 
     private void bloquearTela() {
-        nomeCurso.setReadonly(true);
+        nomeCurso.setDisabled(true);
         descricao.setReadonly(true);
         duracao.setReadonly(true);
         grauInstrucao.setDisabled(true);
@@ -148,7 +148,7 @@ public class PagFormularioCurso extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelarCurso(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioCurso.onClose();
     }
 

@@ -62,7 +62,7 @@
 
             <separator/>
             <button  label="Salvar" id="salvarDisciplina" />
-            <button  label="Cancelar" id="cancelarDisciplina" />
+            <button  label="Voltar" id="voltar" />
         </window>
     </div>
 	

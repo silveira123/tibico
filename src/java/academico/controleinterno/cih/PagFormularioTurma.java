@@ -27,7 +27,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private Listbox listHorario;
     private Combobox professor;
     private Button salvar;
-    private Button cancelar;
+    private Button voltar;
     private int MODO;
     private Turma obj;
     private Listhead listhead;
@@ -205,7 +205,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelar(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioTurma.onClose();
     }
 

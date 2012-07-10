@@ -24,7 +24,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
     private Intbox peso;
     private Avaliacao obj;
     private Turma obj2;
-    private Button salvar, cancelar;
+    private Button salvar, voltar;
     private int MODO;
 
     @Override
@@ -94,7 +94,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelar(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioAvaliacao.onClose();
     }
 

@@ -2,55 +2,69 @@
 
 <zk>
 	
-        <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
-			width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
-                <div align="center">
-			<separator height="35px"/>
+    <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
+                width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
+        <div align="center">
+            <separator height="35px"/>
 
-			<fisheyebar>
-				<fisheye id="" tooltiptext="Incluir um calendário"
-					image="/img/incluir.jpg" />
-				<fisheye id="" tooltiptext="alterar um calendário"
-					image="/img/alterar.jpg" />
-				<fisheye id="" tooltiptext="consultar um calendário"
-					image="/img/consultar.jpg" />
-				<fisheye id="" tooltiptext="excluir um calendário"
-					image="/img/excluir.jpg" />
-			</fisheyebar>
+            <fisheyebar>
+                <fisheye id="" tooltiptext="Incluir um calendário"
+                                         image="/img/incluir.jpg" />
+                <fisheye id="" tooltiptext="alterar um calendário"
+                                         image="/img/alterar.jpg" />
+                <fisheye id="" tooltiptext="consultar um calendário"
+                                         image="/img/consultar.jpg" />
+                <fisheye id="" tooltiptext="excluir um calendário"
+                                         image="/img/excluir.jpg" />
+            </fisheyebar>
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<menubar>
-				<menuitem id="incluir" tooltiptext="Incluir um calendário"
-					label="Incluir" width="20%" />
-				<menuitem id="alterar" tooltiptext="alterar um calendário"
-					label="Alterar" width="20%" />
-				<menuitem id="consultar" tooltiptext="consultar um calendário"
-					label="Consultar" width="20%" />
-				<menuitem id="excluir" tooltiptext="excluir um calendário"
-					label="Excluir" width="20%" />
-			</menubar>
+            <menubar>
+                <menuitem id="incluir" tooltiptext="Incluir um calendário"
+                                          label="Incluir" width="20%" />
+                <menuitem id="alterar" tooltiptext="alterar um calendário"
+                                          label="Alterar" width="20%" />
+                <menuitem id="consultar" tooltiptext="consultar um calendário"
+                                          label="Consultar" width="20%" />
+                <menuitem id="excluir" tooltiptext="excluir um calendário"
+                                          label="Excluir" width="20%" />
+            </menubar>
+            <grid>
+                <columns>
+                    <column   width="10%"/>
+                    <column  width="90%"/>
+					
+                </columns>
+                <rows>
+                    <row>
+                        Curso:
+								
+                        <combobox id="cursoCombo" width="50%"/>
+								
+                    </row>
+                </rows>
+            </grid>
+            <separator />
+            <separator />
 
-			<separator />
-			<separator />
+            <auxhead>
+                <auxheader align="center"
+                                           label="Calendários Cadastrados" />
+            </auxhead>
 
-			<auxhead>
-				<auxheader align="center"
-					label="Calendários Cadastrados" />
-			</auxhead>
+            <separator />
 
-			<separator />
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader label="Identificador" sort="auto" />
+                    <listheader label="Data de Inicio Calendário Acadêmico" sort="auto" />
+                    <listheader label="Data de Fim Calendário Acadêmico" sort="auto" />
+                </listhead>
+            </listbox>
 
-                        <listbox id = "listbox" mold="paging" pageSize="10">
-                            <listhead>
-                                <listheader label="Identificador" sort="auto" />
-                                <listheader label="Data de Inicio Calendário Acadêmico" sort="auto" />
-                                <listheader label="Data de Fim Calendário Acadêmico" sort="auto" />
-                            </listhead>
-                        </listbox>
-
-                 	</div>
-       		</window>
+        </div>
+    </window>
 </zk>
 
 

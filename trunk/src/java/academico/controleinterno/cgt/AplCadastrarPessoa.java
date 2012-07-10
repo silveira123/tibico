@@ -91,12 +91,12 @@ public class AplCadastrarPessoa {
             //TODO o coeficiente vai iniciar com 0.0 mesmo??
             //return (Aluno) apDaoAluno.salvar(aluno);
         }
-
+         aluno = (Aluno) apDaoAluno.salvar(aluno);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
-        AplCadastrarUsuario.getInstance().incluirUsuario(matricula, "1234", new Integer(4));
+        AplCadastrarUsuario.getInstance().incluirUsuario(matricula, "1234", new Integer(4), ((AlunoDAO)apDaoAluno).obterAluno(aluno.getId()));
         //alert("BD Ok!");
-        return (Aluno) apDaoAluno.salvar(aluno);
+        return aluno;
     }
 
     /**
@@ -161,11 +161,11 @@ public class AplCadastrarPessoa {
         professor.setGrauInstrucao((GrauInstrucao) args.get(8));
 
         professor.setAreaConhecimento((ArrayList<AreaConhecimento>) args.get(9));
-
+        professor = (Professor) apDaoProfessor.salvar(professor);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
-        AplCadastrarUsuario.getInstance().incluirUsuario(args.get(5) + "", "1234", new Integer(3));
-        return (Professor) apDaoProfessor.salvar(professor);
+        AplCadastrarUsuario.getInstance().incluirUsuario(professor.getCpf() + "", "1234", new Integer(3), ((ProfessorDAO)apDaoProfessor).obterProfessor(professor.getId()));
+        return professor;
     }
 
     /**

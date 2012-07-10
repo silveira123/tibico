@@ -16,11 +16,6 @@ public class CtrlCadastrarUsuario
             }
             return instance;
         }
-
-	public Usuario incluirUsuario(String nome, String senha, Integer privilegio) throws AcademicoException
-	{
-		return apl.incluirUsuario(nome,senha,privilegio);
-	}
 	
 	public Usuario alterarUsuario(Usuario usuario, String nome, String senha, int privilegio) throws AcademicoException
 	{

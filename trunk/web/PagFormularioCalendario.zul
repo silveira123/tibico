@@ -44,6 +44,14 @@
                     </row>
 					
                     <row>
+                        Início do Período Matrícula:
+                        <datebox id="dataInicioPM" readonly="true"/>
+						
+                        Fim do Período Matrícula:
+                        <datebox id="dataFimPM" readonly="true"/>				
+                    </row>
+                    
+                    <row>
                         Início do Período Letivo:
                         <datebox id="dataInicioPL" readonly="true"/>
 						
@@ -51,13 +59,7 @@
                         <datebox id="dataFimPL" readonly="true"/>				
                     </row>
 					
-                    <row>
-                        Início do Período Matrícula:
-                        <datebox id="dataInicioPM" readonly="true"/>
-						
-                        Fim do Período Matrícula:
-                        <datebox id="dataFimPM" readonly="true"/>				
-                    </row>
+                    
 					
                     <row>
                         <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>

@@ -33,7 +33,8 @@ public class PagFormularioCalendario extends GenericForwardComposer {
 
         List<Curso> listaCurso = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(listaCurso, true));
-
+        curso.setReadonly(true);
+        curso.setDisabled(true);
 
     }
 
@@ -46,6 +47,15 @@ public class PagFormularioCalendario extends GenericForwardComposer {
             if (MODO == ctrl.CONSULTAR) {
                 this.salvar.setVisible(false);
                 bloquearTela();
+            }
+        } else {
+            Curso obj2 = (Curso) arg.get("obj");
+            List<Comboitem> cursos = curso.getItems();
+            for (int i = 0; i < cursos.size(); i++) {
+                // verificando qual a area de conhecimento cadastrado
+                if (obj2.equals(cursos.get(i).getValue())) {
+                    curso.setSelectedItem(cursos.get(i));
+                }
             }
         }
     }
@@ -89,7 +99,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
             Calendar fimPL = Calendar.getInstance();
             Calendar inicioPM = Calendar.getInstance();
             Calendar fimPM = Calendar.getInstance();
-            
+
             inicioCA.setTime(dataInicioCA.getValue());
             fimCA.setTime(dataFimCA.getValue());
             inicioPL.setTime(dataInicioPL.getValue());
@@ -98,11 +108,11 @@ public class PagFormularioCalendario extends GenericForwardComposer {
             fimPM.setTime(dataFimPM.getValue());
 
             String msg = valido();
-            
+
             int result = validar(inicioCA, fimCA, inicioPL, fimPL, inicioPM, fimPM);
             msg += imprimeValidacao(result);
-            
-            if (msg.trim().equals("") && result>=8) {
+
+            if (msg.trim().equals("") && result >= 8) {
                 if (MODO == ctrl.SALVAR) {
                     ArrayList<Object> args = new ArrayList<Object>();
                     args.add(curso.getSelectedItem().getValue());
@@ -117,8 +127,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
 
                     ctrl.incluirCalendario(args);
                     limparCampos();
-                }
-                else {
+                } else {
                     obj.setCurso((Curso) curso.getSelectedItem().getValue());
                     obj.setIdentificador(identificador.getValue());
                     obj.setDuracao(duracao.getValue());
@@ -135,16 +144,13 @@ public class PagFormularioCalendario extends GenericForwardComposer {
                     ctrl.alterarCalendario(obj);
                 }
                 winFormularioCalendario.onClose();
-            }
-            else {
+            } else {
                 Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
             }
 
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -168,26 +174,19 @@ public class PagFormularioCalendario extends GenericForwardComposer {
     public int validar(Calendar inicioCA, Calendar fimCA, Calendar inicioPL, Calendar fimPL, Calendar inicioPM, Calendar fimPM) {
         if (inicioCA.after(fimCA)) {
             return 1; //Caso o InicioCA seja depois do fim CA ele retorna
-        }
-        else if (inicioPL.after(fimPL)) {
+        } else if (inicioPL.after(fimPL)) {
             return 2;//Caso o inicioPL seja depois do fimPL ele retorna
-        }
-        else if (inicioPL.before(inicioCA)) {
+        } else if (inicioPL.before(inicioCA)) {
             return 3;//Caso o inicioPL seja antes do inicioCA ele retorna
-        }
-        else if (fimPL.after(fimCA)) {
+        } else if (fimPL.after(fimCA)) {
             return 4;//Caso o fimPL seja depois do fimCA ele retorna
-        }
-        else if (inicioPM.after(fimPM)) {
+        } else if (inicioPM.after(fimPM)) {
             return 5;//Caso o inicioPM seja depois do fimPM ele retorna
-        }
-        else if (inicioPM.before(inicioCA)) {
+        } else if (inicioPM.before(inicioCA)) {
             return 6;//Caso o inicioPM seja antes do inicioCA ele retorna
-        }
-        else if (fimPM.after(fimCA)) {
+        } else if (fimPM.after(fimCA)) {
             return 7;//Caso o fimPM seja depois do fimCA ele retorna
-        }
-        else {
+        } else {
             return 8;
         }
     }
@@ -195,26 +194,20 @@ public class PagFormularioCalendario extends GenericForwardComposer {
     public String imprimeValidacao(int result) {
         if (result == 1) {
             return "- Inicio do Calendário Acadêmico não pode ser depois do FIM\n";
-        }
-        else if (result == 2) {
+        } else if (result == 2) {
             return "- Inicio do Período Letivo não pode ser depois do FIM\n";
-        }
-        else if (result == 3) {
+        } else if (result == 3) {
             return "- Inicio do Período Letivo não pode ser antes do Inicio do Calendário Acadêmico\n";
-        }
-        else if (result == 4) {
+        } else if (result == 4) {
             return "- Fim do Período Letivo não pode ser depois do Fim do Calendário Acadêmico\n";
-        }
-        else if (result == 5) {
+        } else if (result == 5) {
             return "- Inicio do Período Matrícula não pode ser depois do FIM\n";
-        }
-        else if (result == 6) {
+        } else if (result == 6) {
             return "- Inicio do Período Matrícula não pode ser antes do Inicio do Calendário Acadêmico\n";
-        }
-        else if (result == 7) {
+        } else if (result == 7) {
             return "- Fim do Período Matrícula não pode ser antes do Fim do Calendário Acadêmico\n";
         }
-        
+
         return "";
     }
 

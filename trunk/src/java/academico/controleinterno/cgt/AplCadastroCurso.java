@@ -22,7 +22,7 @@ public class AplCadastroCurso {
     private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
     private DAO apDaoGrandeAreaConhecimento = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
     private DAO apDaoAreaConhecimento = DAOFactory.obterDAO("JPA", AreaConhecimento.class);
-    
+
     private AplCadastroCurso() {
     }
     private static AplCadastroCurso instance = null;
@@ -35,20 +35,28 @@ public class AplCadastroCurso {
     }
 
     public Curso incluirCurso(ArrayList<Object> args) throws AcademicoException {
-        Curso curso = new Curso();
-        curso.setNome((String) args.get(0));
-        curso.setDuracao((Integer) args.get(1));
-        curso.setDescricao((String) args.get(2));
-        curso.setGrauInstrucao((GrauInstrucao) args.get(3));
-        curso.setGrandeAreaConhecimento((GrandeAreaConhecimento) args.get(4));
-        curso.setRegime((Regime) args.get(5));
-        curso.setSigla((String) args.get(6));
+        if ((Integer) args.get(1) > 0) {
+            Curso curso = new Curso();
+            curso.setNome((String) args.get(0));
+            curso.setDuracao((Integer) args.get(1));
+            curso.setDescricao((String) args.get(2));
+            curso.setGrauInstrucao((GrauInstrucao) args.get(3));
+            curso.setGrandeAreaConhecimento((GrandeAreaConhecimento) args.get(4));
+            curso.setRegime((Regime) args.get(5));
+            curso.setSigla((String) args.get(6));
 
-        return (Curso) apDaoCurso.salvar(curso);
+            return (Curso) apDaoCurso.salvar(curso);
+        } else {
+            return null;
+        }
     }
 
     public Curso alterarCurso(Curso curso) throws Exception {
-        return (Curso) apDaoCurso.salvar(curso);
+        if (curso.getDuracao() > 0) {
+            return (Curso) apDaoCurso.salvar(curso);
+        } else {
+            return null;
+        }
     }
 
     public void apagarCurso(Curso curso) throws Exception {
@@ -65,7 +73,7 @@ public class AplCadastroCurso {
         disciplina.setCargaHoraria((Integer) args.get(1));
         disciplina.setNumCreditos((Integer) args.get(2));
         disciplina.setPeriodoCorrespondente((Integer) args.get(3));
-        disciplina.setPrerequisito((List<Disciplina>)args.get(4));
+        disciplina.setPrerequisito((List<Disciplina>) args.get(4));
         disciplina.setCurso((Curso) args.get(5));
         disciplina.setAreaConhecimento((List<AreaConhecimento>) args.get(6));
 
@@ -79,22 +87,20 @@ public class AplCadastroCurso {
     public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
         List<Turma> listas = CtrlLetivo.getInstance().obterTurma();
         boolean flag = false;
-        
+
         for (int i = 0; i < listas.size(); i++) {
-            if(listas.get(i).getDisciplina().getId() == disciplina.getId())
-            {
+            if (listas.get(i).getDisciplina().getId() == disciplina.getId()) {
                 flag = true;
                 break;
             }
         }
-        
-        if(disciplina.getPrerequisito().isEmpty() && !flag)
-        {
+
+        if (disciplina.getPrerequisito().isEmpty() && !flag) {
             apDaoDisciplina.excluir(disciplina);
             return true;
-        }
-        else
+        } else {
             return false;
+        }
     }
 
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
@@ -104,7 +110,7 @@ public class AplCadastroCurso {
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
-    
+
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {
         return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);
     }
@@ -112,8 +118,8 @@ public class AplCadastroCurso {
     public List<AreaConhecimento> obterAreaConhecimentos() throws AcademicoException {
         return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
     }
-    
-    public List<Disciplina> obterPreRequisitos (Disciplina disciplina){
+
+    public List<Disciplina> obterPreRequisitos(Disciplina disciplina) {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(disciplina);
     }
 }

@@ -32,7 +32,7 @@
       
                         <row>
                             Curso:
-                                <combobox id="curso" width="20%"/>
+                                <combobox id="curso" width="20%" readonly="true"/>
                         </row>
                       
                     </rows>

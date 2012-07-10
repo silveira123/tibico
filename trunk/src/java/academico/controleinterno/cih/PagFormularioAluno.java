@@ -64,15 +64,14 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox logradouro;
     private Intbox numero;
     private Textbox complemento;
-    private Combobox curso;
     private Button salvarAluno;
+    private Curso curso;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
 
         List<Pais> paises = ctrlPessoa.obterPaises();
-        List<Curso> cursos = ctrlPessoa.obterCurso();
 
         pais.setModel(new ListModelList(new ListModelList(paises, true)));
 
@@ -80,9 +79,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         estado.setReadonly(true);
         cidade.setReadonly(true);
         bairro.setReadonly(true);
-        
-        curso.setModel(new ListModelList(new ListModelList(cursos, true)));
-        curso.setReadonly(true);
+
     }
 
     public void onCreate$winCadastro() {
@@ -96,6 +93,11 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 this.salvarAluno.setVisible(false);
                 bloquearTela();
             }
+        }
+        else
+        {
+            curso = (Curso) arg.get("curso");
+            obj = (Aluno) arg.get("aluno");
         }
     }
 
@@ -133,14 +135,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
         complemento.setText(obj.getEndereco().getComplemento());
 
         numero.setValue(obj.getEndereco().getNumero());
-
-        List<Comboitem> curso = this.curso.getItems();
-        for (int i = 0; i < curso.size(); i++) {
-            // verificando qual a area de conhecimento cadastrado
-            if (obj.getCurso().equals(curso.get(i).getValue())) {
-                this.curso.setSelectedItem(curso.get(i));
-            }
-        }
     }
 
     public int marcarSexo(Sexo sexo) {
@@ -228,7 +222,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
         logradouro.setDisabled(true);
         numero.setDisabled(true);
         complemento.setDisabled(true);
-        curso.setDisabled(true);
     }
 
     public void onClick$salvarAluno(Event event) {
@@ -272,8 +265,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
                     obj.setEndereco(obterEndereco());
 
-                    Curso curso1 = this.curso.getSelectedItem().getValue();
-                    obj.setCurso(curso1);
+                    obj.setCurso(curso);
 
                     a = ctrlPessoa.alterarAluno(obj);
 
@@ -313,8 +305,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
                     list.add(obterEndereco());
 
-                    Curso curso = this.curso.getSelectedItem().getValue();
                     list.add(curso);
+                    
                     a = ctrlPessoa.incluirAluno(list);
                     if (a != null) {
                         Messagebox.show("Cadastro feito!");
@@ -501,9 +493,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
         if (nomePai.getText().trim().equals("")) {
             msg += "- Nome do Pai\n";
-        }
-        if (curso.getSelectedItem() == null) {
-            msg += "- Curso\n";
         }
         if (pais.getSelectedItem() == null) {
             msg += "- País\n";

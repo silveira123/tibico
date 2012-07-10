@@ -1,7 +1,10 @@
 package academico.controleinterno.cih;
 
+import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Curso;
+import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -19,11 +22,14 @@ import org.zkoss.zul.*;
  */
 public class PagEventosAluno extends GenericForwardComposer {
     
-    private CtrlPessoa ctrl = CtrlPessoa.getInstance();    
+    private CtrlPessoa ctrl = CtrlPessoa.getInstance();  
+    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
     private Window winDadosAluno;
     private Listbox listAluno;
     private ListModelList list; // the model of the listProfessor
+    private Combobox curso;
     private Aluno a;
+    private Curso select;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -32,22 +38,32 @@ public class PagEventosAluno extends GenericForwardComposer {
         
         a = (Aluno) arg.get("obj");
         
+        List<Curso> cursos = ctrlCurso.obterCursos();
+        curso.setModel(new ListModelList(cursos, true));
+        
+    }
+
+    public void onSelect$curso(Event event) throws AcademicoException
+    {
+        select = (Curso) curso.getSelectedItem().getValue();
+        
         List<Aluno> listaAlunos = ctrl.obterAlunos();
-        List<Aluno> data = new ArrayList<Aluno>();
 
         if (listaAlunos != null) {
             for (int i = 0; i < listaAlunos.size(); i++) {
                 Aluno a = listaAlunos.get(i);
-                Listitem linha = new Listitem(listaAlunos.get(i).toString(), a);
+                if(a.getCurso() == select)
+                {
+                    Listitem linha = new Listitem(listaAlunos.get(i).toString(), a);
 
-                linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
+                    linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
 
-                linha.setParent(listAluno);
+                    linha.setParent(listAluno);
+                }
             }
         }
-        
     }
-
+    
     public void addAluno(Aluno a)
     {
         Listitem linha = new Listitem(a.toString(), a);
@@ -85,7 +101,7 @@ public class PagEventosAluno extends GenericForwardComposer {
     }
 
     public void onClick$incluirAluno(Event event) {
-        ctrl.abrirIncluirAluno(a);      
+        ctrl.abrirIncluirAluno(a,select);      
     }
 
     public void onClick$alterarAluno(Event event) {

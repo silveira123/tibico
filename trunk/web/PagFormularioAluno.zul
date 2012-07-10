@@ -73,15 +73,7 @@
                                 <row>
                                     Nome do Pai:
                                     <textbox id="nomePai" width="80%" />
-                                </row>
-								
-                                <row>
-                                    Curso:
-                                   
-                                    <combobox id="curso"></combobox>
-                                  
-                                </row>				
-								
+                                </row>			
                             </rows>
                         </grid>
 						
@@ -95,7 +87,7 @@
                                 
                                 <row>
                                     <cell colspan="2">
-                                        <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
+                                    <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
                                     </cell>
                                 </row>
                                 
@@ -153,7 +145,7 @@
             </grid>
 			
             <button width="10%" label="Salvar" id="salvarAluno"></button>
-            <button width="10%" label="Voltar" id="voltar"></button>
+            <button width="10%" label="Cancelar" id="cancelarAluno"></button>
 			
         </window>
     </div>

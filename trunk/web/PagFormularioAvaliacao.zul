@@ -1,46 +1,46 @@
 <?page title="Formulário Avaliação"?>
 
 <zk>
-	<div align="center">
-		<window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%"
-                            apply = "academico.controlepauta.cih.PagFormularioAvaliacao">
+    <div align="center">
+        <window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%"
+                apply = "academico.controlepauta.cih.PagFormularioAvaliacao">
 
-			<separator height="15px" />
-				<grid>
-					<columns>
-						<column width="30%"/>
-						<column width="70%"/>
-					</columns>
-					<rows>
+            <separator height="15px" />
+            <grid>
+                <columns>
+                    <column width="30%"/>
+                    <column width="70%"/>
+                </columns>
+                <rows>
 						
-						<row>
-							Turma:
-								<textbox id="turma" width="90%"/>
-						</row>
+                    <row>
+                        Turma:
+                        <textbox id="turma" width="90%"/>
+                    </row>
 						
-						<row>
-							Nome da Avaliação:
-								<textbox id="nomeAvaliacao" width="20%"/>
-						</row>
+                    <row>
+                        Nome da Avaliação:
+                        <textbox id="nomeAvaliacao" width="20%"/>
+                    </row>
 						
-						<row>
-							Peso:
-								<intbox id="peso" width="8%"/>
-						</row>
+                    <row>
+                        Peso:
+                        <intbox id="peso" width="8%"/>
+                    </row>
 						
-					</rows>
-				</grid>
+                </rows>
+            </grid>
 
-			<separator/>
-			<button  id="salvar" label="Salvar" onClick="" />
-			<button  id="cancelar" label="Cancelar" onClick="" />
+            <separator/>
+            <button  id="salvar" label="Salvar" onClick="" />
+            <button  id="voltar" label="Voltar" onClick="" />
 			
 			
 			
 
 
-		</window>
-	</div>
+        </window>
+    </div>
 </zk>
 
 

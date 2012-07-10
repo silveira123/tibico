@@ -27,7 +27,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
     private Intbox peso;
     private Listbox listbox;
     private Button salvar;
-    private Button fechar;
+    private Button voltar;
     private Avaliacao obj;
     private List<Doublebox> notas = new ArrayList<Doublebox>();
     private List<Textbox> observacoes = new ArrayList<Textbox>();;
@@ -89,7 +89,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
         Messagebox.show("Resultado salvos com sucesso!");
     }
 
-    public void onClick$fechar(Event event) {
+    public void onClick$voltar(Event event) {
        winRegistroPontuacao.onClose();
     }
     

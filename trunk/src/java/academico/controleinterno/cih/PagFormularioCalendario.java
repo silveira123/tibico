@@ -24,7 +24,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
     private Datebox dataInicioCA, dataFimCA, dataInicioPL, dataFimPL, dataInicioPM, dataFimPM;
     private Combobox curso;
     private Calendario obj;
-    private Button salvar, cancelar;
+    private Button salvar, voltar;
     private int MODO;
 
     @Override
@@ -149,7 +149,7 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelar(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioCalendario.onClose();
     }
 

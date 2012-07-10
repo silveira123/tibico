@@ -44,7 +44,7 @@ public class PagFormularioMatricula extends GenericForwardComposer {
         }
     }
 
-    public void onClick$cancelarMatricula(Event event) {
+    public void onClick$voltar(Event event) {
         winFormularioMatricula.onClose();
     }
 

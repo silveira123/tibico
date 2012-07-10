@@ -154,7 +154,7 @@ public class PagRegistroChamada extends GenericForwardComposer {
         }
     }
 
-    public void onClick$fechar(Event event) {
+    public void onClick$voltar(Event event) {
         winRegistroChamada.onClose();
     }
 

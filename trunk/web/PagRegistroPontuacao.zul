@@ -3,72 +3,72 @@
 <zk>
 
 	
-	<div align="center">
-		<window id="winRegistroPontuacao"  mode="modal" title="Página Registro Pontuação" border="normal"
-			width="50%" apply="academico.controlepauta.cih.PagRegistroPontuacao">
+    <div align="center">
+        <window id="winRegistroPontuacao"  mode="modal" title="Página Registro Pontuação" border="normal"
+                width="50%" apply="academico.controlepauta.cih.PagRegistroPontuacao">
 	
 			
 	
-			<grid>
-				<columns>
-					<column width="20%" label=""/>
-					<column width="80%" label=""/>
-				</columns>
-				<rows>
+            <grid>
+                <columns>
+                    <column width="20%" label=""/>
+                    <column width="80%" label=""/>
+                </columns>
+                <rows>
 					
-					<row>			
-				 		Turma: 		 
-				  			<textbox id="nome" width="50%"/>
-					</row>
+                    <row>			
+                        Turma: 		 
+                        <textbox id="nome" width="50%"/>
+                    </row>
 					
 					
-					<row>
-						Nome da Avaliação:
-							<textbox id="nomeAvaliacao" width="30%"/>	
-					</row>
+                    <row>
+                        Nome da Avaliação:
+                        <textbox id="nomeAvaliacao" width="30%"/>	
+                    </row>
 					
-					<row>
-						Peso:
-							<intbox id="peso" width="8%"/>	
-					</row>
+                    <row>
+                        Peso:
+                        <intbox id="peso" width="8%"/>	
+                    </row>
 				
 										
-				</rows>
-			</grid>
+                </rows>
+            </grid>
 			
-			<separator height="10px"/>
+            <separator height="10px"/>
 		
 			
-			<separator />
-			<separator />
-                        <div align="center"> 
-                            <auxhead>
+            <separator />
+            <separator />
+            <div align="center"> 
+                <auxhead>
 
-                                    <auxheader label="Alunos Matriculados" />
+                    <auxheader label="Alunos Matriculados" />
 
-                            </auxhead>
-                        </div>
-			<separator />
+                </auxhead>
+            </div>
+            <separator />
                         
-                        <listbox id = "listbox" mold="paging" pageSize="10">
-                            <listhead>
-                                <listheader label="Matrícula" sort="auto" width="15%"/>
-                                <listheader label="Nome" sort="auto" width="45%"/>
-                                <listheader label="Nota" width="10%"/>
-                                <listheader label="Observação" width="30%" />
-                            </listhead>
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader label="Matrícula" sort="auto" width="15%"/>
+                    <listheader label="Nome" sort="auto" width="45%"/>
+                    <listheader label="Nota" width="10%"/>
+                    <listheader label="Observação" width="30%" />
+                </listhead>
 
-                        </listbox>
+            </listbox>
 			
-			<separator height="8px"/>
+            <separator height="8px"/>
 			
-                    <div align="center">
-			<button id="salvar" width="10%" label="Salvar" onClick=""></button>
-			<button id="fechar" width="10%" label="Fechar" onClick=""></button>
-                    </div>
+            <div align="center">
+                <button id="salvar" width="10%" label="Salvar" onClick=""></button>
+                <button id="voltar" width="10%" label="Voltar" onClick=""></button>
+            </div>
                     
-		</window>
-	</div>
+        </window>
+    </div>
 	
 
 </zk>

@@ -468,7 +468,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         pais.setSelectedItem(null);
     }
 
-    public void onClick$cancelarAluno(Event event) {
+    public void onClick$voltar(Event event) {
         winCadastro.onClose();
     }
 

@@ -45,7 +45,7 @@
                 </rows>
             </grid>			
             <button id="salvar" width="10%" label="Salvar" onClick=""></button>
-            <button id="cancelar" width="10%" label="Cancelar" onClick=""></button>
+            <button id="voltar" width="10%" label="Voltar" onClick=""></button>
         </window>
     </div>
 </zk>

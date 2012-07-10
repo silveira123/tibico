@@ -3,7 +3,7 @@
 <zk>
 
     <div align="center">
-        <window id="winCadastro" title="Página Formulário Aluno" mode="modal" position="center" border="normal" width="80%" height="57%" apply = "academico.controleinterno.cih.PagFormularioAluno">
+        <window id="winCadastro" title="Página Formulário Aluno" mode="modal" position="center" border="normal" width="80%" height="60%" apply="academico.controleinterno.cih.PagFormularioAluno">
 	
             <grid>
                 <columns>
@@ -148,8 +148,13 @@
 			
         </window>
     </div>
-    <!--<script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
-    <script type="text/javascript" src="/watermarkinput.js" />
+ 
+    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
+
+    <script type="text/javascript" src="/jquery.watermark.js" />
+    
+    
+    
     <script type="text/javascript">
         zk.afterMount(function() {
 
@@ -157,11 +162,12 @@
 
         jq("$telefone").mask("(99) 9999-9999");
         jq("$celular").mask("(99) 9999-9999");
-        jq("$cep").mask("99999-999"); jq("$cpf").mask("999.999.999-99");
+        jq("$cep").mask("99999-999"); 
+        jq("$cpf").mask("999.999.999-99");  
 
 
         });
-    </script>-->
+    </script>
 
 </zk>
 

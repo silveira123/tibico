@@ -6,21 +6,10 @@
                         width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
              <div align="center">                    
  
-            <separator height="35px"/>
-
-            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-                <fisheye tooltiptext="Incluir um Aluno"
-                         image="/img/incluir.jpg" />
-                <fisheye tooltiptext="alterar um Aluno"
-                         image="/img/alterar.jpg" />
-                <fisheye tooltiptext="consultar um Aluno"
-                         image="/img/consultar.jpg" />
-                <fisheye tooltiptext="excluir um Aluno"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
-
+             <separator height="120px" />
+            
+             
+            
             <menubar>
                 <menuitem tooltiptext="Incluir um Aluno"
                           label="Incluir" width="20%" id="incluirAluno"/>
@@ -32,6 +21,23 @@
                           label="Excluir" width="20%" id="excluirAluno"/>
             </menubar>
 
+           
+            
+            <grid>
+                    <columns>
+                            <column label="" width="10%"/>
+                            <column label="" width="90%"/>
+                    </columns>
+                    <rows>
+      
+                        <row>
+                            Curso:
+                                <combobox id="curso" width="20%"/>
+                        </row>
+                      
+                    </rows>
+            </grid>
+            
             <separator />
             <separator />
 

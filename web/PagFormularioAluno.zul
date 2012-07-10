@@ -76,10 +76,10 @@
                                 </row>
 								
 				<row>
-                                    <cell>Curso:</cell>
-                                    <cell colspan="3">
+                                    Curso:
+                                   
                                         <combobox id="curso"></combobox>
-                                    </cell>
+                                  
                                 </row>				
 								
                             </rows>
@@ -92,37 +92,22 @@
                                 <column width="70%" />
                             </columns>
                             <rows>
+                                
                                 <row>
-                                    País:
-                                    <combobox id="pais"></combobox>
+                                    <cell colspan="2">
+                                    <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
+                                    </cell>
                                 </row>
-								
+                                
                                 <row>
-                                    Estado:
-                                    <combobox id="estado"></combobox>
-                                </row>
-			
-			
-                                <row>
-                                    Cidade:
-                                    <combobox id="cidade"></combobox>
-                                </row>
-								
-                                <row>
-                                    Bairro:
-                                    <combobox id="bairro"></combobox>
-                                </row>
-			
-				<row>
                                     CEP:
                                     <textbox id="cep" width="20%" />
-                                </row>	
-                                        
+                                </row>
+                                
                                 <row>
                                     Logradouro:
                                     <textbox id="logradouro" width="80%" />
                                 </row>
-			
 			
                                 <row>
                                     Número:
@@ -133,7 +118,27 @@
                                     Complemento:
                                     <textbox id="complemento" width="80%" />
                                 </row>
-			
+						
+                                <row>
+                                    Bairro:
+                                    <combobox id="bairro"></combobox>
+                                </row>
+                                
+                                <row>
+                                    Cidade:
+                                    <combobox id="cidade"></combobox>
+                                </row>
+                                
+                                <row>
+                                    Estado:
+                                    <combobox id="estado"></combobox>
+                                </row>
+                                
+                                <row>
+                                    País:
+                                    <combobox id="pais"></combobox>
+                                </row>
+			      
                                 <row>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                     <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>

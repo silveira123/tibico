@@ -221,10 +221,11 @@ public static final int SALVAR = 0;
          return null;
     }
     
-    public void abrirIncluirAluno(Aluno aluno) {
+    public void abrirIncluirAluno(Aluno aluno, Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.SALVAR);
         map.put("aluno", aluno);
+        map.put("curso", curso);
         Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
 

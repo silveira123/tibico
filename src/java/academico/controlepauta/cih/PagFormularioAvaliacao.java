@@ -72,6 +72,9 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                     args.add(obj2);
                     args.add(nomeAvaliacao.getValue());
                     args.add(peso.getValue());
+                    
+                    // Instancia um resultado, com nota ZERO, para cada Aluno
+                    ctrl.atribuirResultado(obj, obj2);
 
                     ctrl.incluirAvaliacao(args);
                     limparCampos();

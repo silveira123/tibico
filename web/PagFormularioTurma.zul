@@ -30,7 +30,7 @@
 					
                     </row>
                    
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Horario  
                         <listbox id="listHorario">
                             <listhead id="listhead"/>

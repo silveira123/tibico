@@ -31,7 +31,7 @@
                         <intbox id="qtdAulas" width="8%"/>	
                     </row>
 					
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Conteúdo:
                         <textbox id="conteudo" multiline="true" rows="5" width="50%"/>	
                     </row>

@@ -42,10 +42,10 @@
                         
                         <listbox id = "listbox" mold="paging" pageSize="10">
                             <listhead>
-                                <listheader align="center" label="Curso" sort="auto" />
-                                <listheader align="center" label="Disciplina" sort="auto" />
-                                <listheader align="center" label="Calendário" sort="auto" />
-                                <listheader align="center" label="Professor" sort="auto" />
+                                <listheader align="center" label="Curso"/>
+                                <listheader align="center" label="Disciplina"/>
+                                <listheader align="center" label="Calendário"/>
+                                <listheader align="center" label="Professor"/>
                             </listhead>
 
                         </listbox>

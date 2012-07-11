@@ -229,8 +229,12 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     }
 
     private void bloquearTela() {
+        List<Listitem> listAreaConhecimentos = listAreaConhecimento.getItems();
+        listAreaConhecimento.setCheckmark(false);
+        for (int i = 0; i < listAreaConhecimentos.size(); i++) {
+            listAreaConhecimentos.get(i).setDisabled(true);
+        }
         grauInstrucao.setDisabled(true);
-        listAreaConhecimento.setDisabled(true);
         nome.setDisabled(true);
         sexo.getItemAtIndex(0).setDisabled(true);
         sexo.getItemAtIndex(1).setDisabled(true);

@@ -71,7 +71,7 @@
                                     </cell>
                                 </row>
                                 
-                                <row>
+                                <row style="background:#FFFFFF;">
                                     Área de Conhecimeto:
                                     <cell colspan="2">
                                         <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="100px">

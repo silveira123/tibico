@@ -25,7 +25,7 @@
                             <textbox id="nomeDisciplina" width="60%"/>
                         </cell>
                     </row>
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Área de Conhecimeto:
                         <cell colspan="2">
                             <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="200px"/>
@@ -50,7 +50,7 @@
                             <intbox id="periodo" width="4%"/>
                         </cell>
                     </row>
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Pré-Requisitos:
                         <cell colspan="2">
                             <listbox checkmark="true" multiple="true" height="200px" id="listPreRequisitos"/>

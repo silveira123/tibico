@@ -14,7 +14,7 @@
                     <column width="20%" label=""/>
                     <column width="80%" label=""/>
                 </columns>
-                <rows>
+                <rows style="background:#FFFFFF;">
 					
                     <row>			
                         Curso: 		 

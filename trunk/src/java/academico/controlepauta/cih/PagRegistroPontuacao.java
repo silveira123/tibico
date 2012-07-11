@@ -5,7 +5,6 @@ import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Avaliacao;
-import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Resultado;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;

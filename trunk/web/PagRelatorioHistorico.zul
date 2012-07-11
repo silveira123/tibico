@@ -33,7 +33,7 @@
                     <column width="20%"/>
                     <column width="30%"/>
                 </columns>
-                <rows>
+                <rows style="background:#FFFFFF;">
                     <row>
                         Curso:
                         <label id="curso" width="98%"/>  
@@ -41,7 +41,7 @@
                         <label id="coeficiente" width="98%"/> 
                     </row>
 					
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Disciplinas Cursadas:
                         <cell colspan="3">
                             <grid id="disciplinas" height="500px">

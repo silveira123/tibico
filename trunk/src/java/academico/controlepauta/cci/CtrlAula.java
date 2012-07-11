@@ -207,4 +207,8 @@ public class CtrlAula {
     public List<Resultado> obterResultados(Avaliacao obj) {
         return AplControlarAula.getInstance().obterResultados(obj);
     }
+    
+    public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException{
+        AplControlarAula.getInstance().atribuirResultado(a, t);
+    }
 }

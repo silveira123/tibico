@@ -10,6 +10,7 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.FrequenciaDAO;
+import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
@@ -25,10 +26,12 @@ import org.zkoss.zk.ui.Executions;
  * @author pietrochrist
  */
 public class AplControlarAula {
+
     private DAO apDaoAvaliacao = DAOFactory.obterDAO("JPA", Avaliacao.class);
     private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
     private DAO apDaoAula = DAOFactory.obterDAO("JPA", Aula.class);
     private DAO apDaoFrequencia = DAOFactory.obterDAO("JPA", Frequencia.class);
+    private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
     private AplControlarMatricula aplControlarMatricula = AplControlarMatricula.getInstance();
     
     private AplControlarAula() {
@@ -159,5 +162,19 @@ public class AplControlarAula {
     }
     public List<Resultado> obterResultados(Avaliacao obj) {
         return (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(obj);
+    }
+    
+    public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException {
+        List<MatriculaTurma> mTurma = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(t);
+        Resultado resultado = null;
+        
+        System.out.println("Nome da Avaliação: "+a.getNome());
+        System.out.println("Nome da turma: "+t.toString());
+        
+        for(int i=0; i<mTurma.size(); i++){
+            resultado = new Resultado(a, mTurma.get(i));
+            apDaoResultado.salvar(resultado);           
+        }
+              
     }
 }

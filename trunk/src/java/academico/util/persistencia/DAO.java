@@ -4,8 +4,6 @@
  */
 package academico.util.persistencia;
 
-import academico.controleinterno.cdp.Aluno;
-import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 

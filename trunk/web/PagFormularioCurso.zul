@@ -50,7 +50,7 @@
                         Número de Períodos
                     </row>
                     
-                    <row>
+                    <row style="background:#FFFFFF;">
                         Descrição:
                         <cell colspan="2">
                             <textbox id="descricao" width="60%" multiline="true" rows="8"  />

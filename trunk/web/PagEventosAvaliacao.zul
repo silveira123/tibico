@@ -53,8 +53,8 @@
                         
                         <listbox id = "listbox" mold="paging" pageSize="10">
                             <listhead>
-                                <listheader label="Nome" sort="auto" />
-                                <listheader label="Peso" sort="auto" />
+                                <listheader label="Nome"/>
+                                <listheader label="Peso"/>
                             </listhead>
 
                         </listbox>

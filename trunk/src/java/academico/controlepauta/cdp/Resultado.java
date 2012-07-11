@@ -37,6 +37,24 @@ public class Resultado extends ObjetoPersistente{
     private Avaliacao avaliacao;
     private MatriculaTurma matriculaTurma;
 
+    /**
+     * Construtor padrão para Resultado
+     */
+    public Resultado() {
+    }
+
+    /**
+     * Construtor para Resultado
+     * @param avaliacao
+     * @param matriculaTurma 
+     */
+    public Resultado(Avaliacao avaliacao, MatriculaTurma matriculaTurma){
+        this.pontuacao = 0.0;
+        this.observacao = "";
+        this.avaliacao = avaliacao;
+        this.matriculaTurma = matriculaTurma;
+    }
+    
    /**
     * Obtém a Avaliação relativa ao Resultado em questão
     * @return 

@@ -64,7 +64,6 @@ public class PagPrincipal extends GenericForwardComposer {
     
     public void onCreate$div(Event event) {
         user = (Usuario) execution.getSession().getAttribute("usuario");
-        System.out.println(user.getNome());
 
         if (user.getPrivilegio() == 3) {
             controlarTurma.setVisible(false);

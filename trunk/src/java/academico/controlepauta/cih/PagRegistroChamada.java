@@ -13,10 +13,10 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
+import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
@@ -26,6 +26,7 @@ import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
@@ -34,9 +35,11 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados do registro, abrangendo a leitura e interpretação para a tela PagRegistroChamada.zul
- * @author Pietro Crhist 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados; A classe contém os dados do registro,
+ * abrangendo a leitura e interpretação para a tela PagRegistroChamada.zul
+ *
+ * @author Pietro Crhist
  * @author Geann Valfré
  */
 public class PagRegistroChamada extends GenericForwardComposer {
@@ -66,6 +69,9 @@ public class PagRegistroChamada extends GenericForwardComposer {
         nomeTurma.setValue(obj2.toString());
         nomeTurma.setDisabled(true);
 
+        String before = pegarDatas(obj2.getCalendario().getDataInicioPL().getTime());
+        String after = pegarDatas(obj2.getCalendario().getDataFimPL().getTime());
+        data.setConstraint("between " + before + " and " + after);
         matriculaturmas = ctrlMatricula.obter(obj2);//recebe as matriculas da turma
 
         for (int i = 0; i < matriculaturmas.size(); i++) {//percorre a lista das matriculas para adicionar na tela
@@ -227,6 +233,28 @@ public class PagRegistroChamada extends GenericForwardComposer {
 
 
         }
+    }
+
+    public String pegarDatas(Date data) {
+        List<String> lista = new ArrayList<String>();
+        Date datas = data;
+        Integer ano, mes, dia;
+        ano = datas.getYear() + 1900;
+        mes = datas.getMonth() + 1;
+        dia = datas.getDate();
+        lista.add(ano.toString());
+        if (mes < 10) {
+            lista.add("0" + mes.toString());
+        } else {
+            lista.add(mes.toString());
+        }
+        if (dia < 10) {
+            lista.add("0" + dia.toString());
+        } else {
+            lista.add(dia.toString());
+        }
+        String resultado = lista.get(0) + lista.get(1) + lista.get(2);
+        return resultado;
     }
 
     private String valido() {

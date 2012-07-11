@@ -71,7 +71,7 @@ public class PagEventosChamada extends GenericForwardComposer {
     public void onSelect$nome(Event event) {
         try {
             Turma t = nome.getSelectedItem().getValue();
-            List<Aula> listaAula = ctrl.obterAulas();
+            List<Aula> listaAula = ctrl.obterAulas(t);
 
             while (listbox.getItemCount() > 0) {
                 listbox.removeItemAt(0);
@@ -94,35 +94,17 @@ public class PagEventosChamada extends GenericForwardComposer {
     }
 
     public void addChamada(Aula a) {
-        int maior = 0;
-        for (int i = 0; i < a.getFrequencia().size(); i++) {
-            if (maior < a.getFrequencia().get(i).getNumFaltasAula()) {
-                maior = a.getFrequencia().get(i).getNumFaltasAula();
-            }
-
-        }
-        if (a.getQuantidade() < maior) {
-            Messagebox.show("Quantidade de faltas maior que o número máximo informado");
-        } else {
+        
             Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
                     + "/" + (a.getDia().getTime().getYear() + 1900), a);
             linha.appendChild(new Listcell(a.getConteudo()));
             linha.appendChild(new Listcell(a.getQuantidade() + ""));
             linha.setParent(listbox);
-        }
+        
     }
 
     public void refreshChamada(Aula a) {
-        int maior = 0;
-        for (int i = 0; i < a.getFrequencia().size(); i++) {
-            if (maior < a.getFrequencia().get(i).getNumFaltasAula()) {
-                maior = a.getFrequencia().get(i).getNumFaltasAula();
-            }
-
-        }
-        if (a.getQuantidade() < maior) {
-            Messagebox.show("Quantidade de faltas maior que o número máximo informado");
-        } else {
+        
             for (int i = 0; i < listbox.getItemCount(); i++) {
                 if (listbox.getItemAtIndex(i).getValue() == a) {
                     listbox.getItemAtIndex(i).getChildren().clear();
@@ -133,7 +115,7 @@ public class PagEventosChamada extends GenericForwardComposer {
                     break;
                 }
             }
-        }
+        
     }
 
     public void onClick$excluir(Event event) {

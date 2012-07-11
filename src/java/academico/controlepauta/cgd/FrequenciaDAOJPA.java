@@ -38,8 +38,8 @@ public class FrequenciaDAOJPA extends DAOJPA<Frequencia> implements FrequenciaDA
          return frequencia;
     }
     
-    public List<Frequencia> obterFrequencias(Aluno a) { 
-         List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.aluno.id = ?1 and fr.matriculaTurma.id = mt.id").setParameter(1, a.getId()).getResultList();
+    public List<Frequencia> obterFrequencias(Aluno a, Turma t) { 
+         List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.aluno.id = ?1 and fr.matriculaTurma.id = mt.id and mt.turma.id = ?2").setParameter(1, a.getId()).setParameter(2, t.getId()).getResultList();
           return frequencia;
     }
 }

@@ -16,8 +16,10 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Aula;
 import academico.util.persistencia.DAOJPA;
+import java.util.List;
 
 
 /**
@@ -28,5 +30,10 @@ import academico.util.persistencia.DAOJPA;
  * @see
  */
 public class AulaDAOJPA extends DAOJPA<Aula> implements AulaDAO{
+
+    public List<Aula> obter(Turma turma) {
+        List<Aula> aula = entityManager.createQuery("select a from Aula a where a.turma.id = ?1").setParameter(1, turma.getId()).getResultList();
+         return aula;
+    }
 
 }

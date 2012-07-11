@@ -109,13 +109,16 @@ public class CtrlAula {
     
     public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
         Aula a = apl.incluirAula(args);
+       
         pagEventosChamada.addChamada(a);
+     
         return a;
     }
 
     public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
         Aula a = apl.alterarAula(aula, frequencia);
         pagEventosChamada.refreshChamada(a);
+        
         return a;
     }
 
@@ -134,12 +137,12 @@ public class CtrlAula {
         return apl.obterFrequencias(t);
     }
     
-    public List<Frequencia> obterFrequencias(Aluno a) throws AcademicoException {
-        return apl.obterFrequencias(a);
+    public List<Frequencia> obterFrequencias(Aluno a, Turma t) throws AcademicoException {
+        return apl.obterFrequencias(a,t);
     }
     
-     public List<Aula> obterAulas() throws AcademicoException {
-        return apl.obterAulas();
+     public List<Aula> obterAulas(Turma turma) throws AcademicoException {
+        return apl.obterAulas(turma);
     }
 
     public void abrirIncluirAula(Turma turma) {
@@ -207,8 +210,23 @@ public class CtrlAula {
     public List<Resultado> obterResultados(Avaliacao obj) {
         return AplControlarAula.getInstance().obterResultados(obj);
     }
+	public boolean validarFaltas(Integer qtd, List<Frequencia> frequencia){
+        int maior = 0;
+        for (int i = 0; i < frequencia.size(); i++) {
+            if(maior< frequencia.get(i).getNumFaltasAula()){
+                maior = frequencia.get(i).getNumFaltasAula();
+            }
+            
+        }
+        if(qtd<maior){
+            return false;
+        }
+        else return true;
+    }
+
     
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException{
         AplControlarAula.getInstance().atribuirResultado(a, t);
     }
+
 }

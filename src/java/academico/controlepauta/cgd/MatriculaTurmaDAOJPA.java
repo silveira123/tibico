@@ -56,7 +56,7 @@ public class MatriculaTurmaDAOJPA extends DAOJPA<MatriculaTurma> implements Matr
     }
     
     public List<MatriculaTurma> obter(Turma t) {
-         List<MatriculaTurma> matriculaturma = entityManager.createQuery("select mt from MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
+         List<MatriculaTurma> matriculaturma = entityManager.createQuery("select mt from MatriculaTurma mt where mt.turma.id = ?1 order by mt.aluno.nome").setParameter(1, t.getId()).getResultList();
          return matriculaturma;
     }
 

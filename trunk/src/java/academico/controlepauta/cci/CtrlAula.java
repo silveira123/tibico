@@ -198,6 +198,10 @@ public class CtrlAula {
         map.put("usuario", usuario);
         return Executions.createComponents("/PagPrincipal.zul", null, map);
     }
+    
+    public Component abrirPaginaPrincipal() {
+        return Executions.createComponents("/PagPrincipal.zul", null, null);
+    }
 
     public Aluno getAluno(String matricula) {
         return AplControlarAula.getInstance().obterAluno(matricula);

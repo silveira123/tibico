@@ -13,9 +13,9 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
+
 package academico.controlepauta.cih;
 
-// imports devem ficar aqui!
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controlepauta.cci.CtrlMatricula;
@@ -29,11 +29,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Está classe contem os eventos da tela PagEventosMatricula.zul
- * <p/>
- * @author erigamonte
- * @version 0.1
- * @see
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os eventos da tela PagEventosMatricula.zul
+ * @author Eduardo Rigamonte
  */
 public class PagEventosMatricula extends GenericForwardComposer {
 

@@ -1,19 +1,39 @@
+/*
+ * PagFormularioCurso.java 
+ * Versão: 0.1 
+ * Data de Criação : 22/06/2012, 10:33:15
+ * Copyright (c) 2012 Fabrica de Software IFES.
+ * Incubadora de Empresas IFES, sala 11
+ * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary 
+ * information of Fabrica de Software IFES. ("Confidential Information"). You 
+ * shall not disclose such Confidential Information and 
+ * shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Fabrica de Software IFES.
+ */
+
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
-import academico.controlepauta.cih.PagPrincipal;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.academico.cdp.Regime;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
+/**
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioCurso.zul
+ * @author Geann Valfré
+ * @author Eduardo Rigamonte
+ */
 public class PagFormularioCurso extends GenericForwardComposer {
 
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();

@@ -1,3 +1,19 @@
+/*
+ * PagEventosAluno.java 
+ * Versão: 0.1 
+ * Data de Criação : 20/06/2012, 13:04:06
+ * Copyright (c) 2012 Fabrica de Software IFES.
+ * Incubadora de Empresas IFES, sala 11
+ * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary 
+ * information of Fabrica de Software IFES. ("Confidential Information"). You 
+ * shall not disclose such Confidential Information and 
+ * shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Fabrica de Software IFES.
+ */
+
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -5,7 +21,6 @@ import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.util.Exceptions.AcademicoException;
-import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -13,12 +28,10 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * <<descrição da Classe>> 
- * 
- * @author Gabriel Quézid 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
+ * A classe contém os eventos da tela PagEventosAluno.zul
+ * @author Gabriel Quézid
  * @author Rodrigo Maia
- * @version 0.1
- * @see
  */
 public class PagEventosAluno extends GenericForwardComposer {
     

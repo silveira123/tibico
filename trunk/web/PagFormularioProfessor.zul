@@ -123,23 +123,23 @@
                                 </row>
                                 				
                                 <row>
-                                    Bairro:
-                                    <combobox id="bairro"></combobox>
+                                    País:
+                                    <combobox id="pais"></combobox>
                                 </row>
                                 
                                 <row>
-                                    Cidade:
-                                    <combobox id="cidade"></combobox>
-                                </row>
-                                
-                                 <row>
                                     Estado:
                                     <combobox id="estado"></combobox>
                                 </row>
+                                
+                                 <row>
+                                    Cidade:
+                                    <combobox id="cidade"></combobox>
+                                </row>
                                  
                                  <row>
-                                    País:
-                                    <combobox id="pais"></combobox>
+                                    Bairro:
+                                    <combobox id="bairro"></combobox>
                                 </row>
                                 
 				

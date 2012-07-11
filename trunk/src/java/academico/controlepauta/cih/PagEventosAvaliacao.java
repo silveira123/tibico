@@ -1,7 +1,22 @@
+/*
+ * PagEventosAvaliacao.java 
+ * Versão: 0.1 
+ * Data de Criação : 15/06/2012
+ * Copyright (c) 2012 Fabrica de Software IFES.
+ * Incubadora de Empresas IFES, sala 11
+ * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary 
+ * information of Fabrica de Software IFES. ("Confidential Information"). You 
+ * shall not disclose such Confidential Information and 
+ * shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Fabrica de Software IFES.
+ */
+
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
@@ -16,6 +31,13 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
+/**
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
+ * A classe contém os eventos da tela PagEventosAvaliacao.zul
+ * @author Pietro Crhist 
+ * @author Geann Valfré
+ * @author Gabriel Quézid
+ */
 public class PagEventosAvaliacao extends GenericForwardComposer {
 
     private CtrlAula ctrl = CtrlAula.getInstance();

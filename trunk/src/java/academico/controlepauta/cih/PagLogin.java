@@ -1,3 +1,19 @@
+/*
+ * PagLogin.java 
+ * Versão: 0.1 
+ * Data de Criação : 15/06/2012
+ * Copyright (c) 2012 Fabrica de Software IFES.
+ * Incubadora de Empresas IFES, sala 11
+ * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary 
+ * information of Fabrica de Software IFES. ("Confidential Information"). You 
+ * shall not disclose such Confidential Information and 
+ * shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Fabrica de Software IFES.
+ */
+
 package academico.controlepauta.cih;
 
 import academico.controlepauta.cci.CtrlAula;
@@ -8,12 +24,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+/**
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
+ * A classe contém os dados do login, abrangendo a leitura e interpretação para a tela PagLogin.zul;
+ * @author Pietro Crhist 
+ * @author Geann Valfré
+ */
 public class PagLogin extends GenericForwardComposer
 {
 	private Window loginWin;

@@ -1,6 +1,6 @@
 /*
  * PagFormularioAluno.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 20/06/2012, 13:04:06
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -32,12 +32,10 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * <<descrição da Classe>>
- * <p/>
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioAluno.zul
  * @author Gabriel Quézid
  * @author Rodrigo Maia
- * @version
- * @see
  */
 public class PagFormularioAluno extends GenericForwardComposer {
 

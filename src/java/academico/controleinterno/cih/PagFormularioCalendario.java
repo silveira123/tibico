@@ -23,6 +23,7 @@ import academico.controleinterno.cdp.Curso;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +60,26 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         curso.setDisabled(true);
 
     }
-
+    
+    public void onChange$dataInicioCA(Event event) {
+        Date obj2 = dataInicioCA.getValue();
+        String before = pegarDatas(obj2);
+        dataFimCA.setConstraint("after " + before);
+    }
+    
+    public void onChange$dataFimCA(Event event) {
+        Date obj2 = dataInicioCA.getValue();
+        Date obj3 = dataFimCA.getValue();
+        String before = pegarDatas(obj2);
+        String after = pegarDatas(obj3);
+        dataInicioPM.setConstraint("between " + before + " and " + after);
+        dataFimPM.setConstraint("between " + before + " and " + after);
+        dataInicioPL.setConstraint("between " + before + " and " + after);
+        dataFimPL.setConstraint("between " + before + " and " + after);
+    }
+    
+   
+    
     public void onCreate$winFormularioCalendario() {
         MODO = (Integer) arg.get("tipo");
 
@@ -211,6 +231,27 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         } else {
             return 8;
         }
+    }
+    public String pegarDatas(Date data) {
+        List<String> lista = new ArrayList<String>();
+        Date datas = data;
+        Integer ano, mes, dia;
+        ano = datas.getYear() + 1900;
+        mes = datas.getMonth() + 1;
+        dia = datas.getDate();
+        lista.add(ano.toString());
+        if (mes < 10) {
+            lista.add("0" + mes.toString());
+        } else {
+            lista.add(mes.toString());
+        }
+        if (dia < 10) {
+            lista.add("0" + dia.toString());
+        } else {
+            lista.add(dia.toString());
+        }
+        String resultado = lista.get(0) + lista.get(1) + lista.get(2);
+        return resultado;
     }
 
     public String imprimeValidacao(int result) {

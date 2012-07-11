@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -24,15 +23,16 @@ import academico.controleinterno.cdp.Professor;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.Usuario;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os eventos do Ptojeto Tibico; 
- * Os eventos são apresentados de acordo com o privilégio de acesso.
- * @author Pietro Crhist 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos do Ptojeto Tibico; Os eventos são apresentados de acordo com o
+ * privilégio de acesso.
+ * <p/>
+ * @author Pietro Crhist
  * @author Geann Valfré
  */
 public class PagPrincipal extends GenericForwardComposer {
@@ -61,25 +61,32 @@ public class PagPrincipal extends GenericForwardComposer {
     private Aluno aluno;
     private Usuario user;
     private Professor prof;
-    
+    private Label nomeUsuario;
+
     public void onCreate$div(Event event) {
         user = (Usuario) execution.getSession().getAttribute("usuario");
+
+        if (user.getPessoa() != null) {
+            nomeUsuario.setValue("Seja Bem Vindo(a) " + user.getPessoa());
+        }
+        else nomeUsuario.setValue("Seja Bem Vindo(a) ADMINISTRADOR");
 
         if (user.getPrivilegio() == 3) {
             controlarTurma.setVisible(false);
             cadastroPessoa.setVisible(false);
             cadastroAcademico.setVisible(false);
-            prof = (Professor)user.getPessoa();
-        } else if (user.getPrivilegio() == 4) {
+            prof = (Professor) user.getPessoa();
+        }
+        else if (user.getPrivilegio() == 4) {
             pauta.setVisible(false);
             cadastroPessoa.setVisible(false);
             cadastroAcademico.setVisible(false);
             turma.setVisible(false);
             alocarProfessor.setVisible(false);
             resultado.setVisible(false);
-            aluno = (Aluno)user.getPessoa();
+            aluno = (Aluno) user.getPessoa();
         }
-        
+
     }
 
     public void onClick$curso(Event event) {
@@ -88,6 +95,11 @@ public class PagPrincipal extends GenericForwardComposer {
         winCurso.setWidth("100%");
         winCurso.setHeight("100%");
         winCurso.setParent(border.getCenter());
+    }
+
+    public void onClick$logout(Event event) {
+        Executions.getCurrent().getSession().removeAttribute("usuario");
+        Executions.sendRedirect("/");
     }
 
     public void onClick$disciplina(Event event) {
@@ -119,7 +131,8 @@ public class PagPrincipal extends GenericForwardComposer {
         border.getCenter().getChildren().clear();
         if (user.getPrivilegio() == 4) {
             winMatricularAluno = (Window) CtrlMatricula.getInstance().abrirEventosMatricula(aluno);
-        } else {
+        }
+        else {
             winMatricularAluno = (Window) CtrlMatricula.getInstance().abrirEventosMatricula();
         }
 
@@ -157,7 +170,8 @@ public class PagPrincipal extends GenericForwardComposer {
         Window winHistorico;
         if (user.getPrivilegio() == 4) {
             winHistorico = (Window) CtrlMatricula.getInstance().abrirRelatorioHistorico(aluno);
-        } else {
+        }
+        else {
             winHistorico = (Window) CtrlMatricula.getInstance().abrirRelatorioHistorico();
         }
         winHistorico.setWidth("100%");
@@ -170,7 +184,8 @@ public class PagPrincipal extends GenericForwardComposer {
         Window winBoletim;
         if (user.getPrivilegio() == 4) {
             winBoletim = (Window) CtrlMatricula.getInstance().abrirRelatorioBoletim(aluno);
-        } else {
+        }
+        else {
             winBoletim = (Window) CtrlMatricula.getInstance().abrirRelatorioBoletim();
         }
         winBoletim.setWidth("100%");
@@ -188,14 +203,14 @@ public class PagPrincipal extends GenericForwardComposer {
 
     public void onClick$chamada(Event event) {
         border.getCenter().getChildren().clear();
-        Window winChamada ;
+        Window winChamada;
         if (user.getPrivilegio() == 3) {
             winChamada = (Window) CtrlAula.getInstance().abrirEventosChamada(prof);
         }
-        else{
-             winChamada = (Window) CtrlAula.getInstance().abrirEventosChamada();
+        else {
+            winChamada = (Window) CtrlAula.getInstance().abrirEventosChamada();
         }
-        
+
         winChamada.setWidth("100%");
         winChamada.setHeight("100%");
         winChamada.setParent(border.getCenter());
@@ -207,10 +222,10 @@ public class PagPrincipal extends GenericForwardComposer {
         if (user.getPrivilegio() == 3) {
             winAvaliacao = (Window) CtrlAula.getInstance().abrirEventosAvaliacao(prof);
         }
-        else{
+        else {
             winAvaliacao = (Window) CtrlAula.getInstance().abrirEventosAvaliacao();
         }
-         
+
         winAvaliacao.setWidth("100%");
         winAvaliacao.setHeight("100%");
         winAvaliacao.setParent(border.getCenter());

@@ -32,7 +32,7 @@ import java.util.List;
 public class AlunoDAOJPA extends DAOJPA<Aluno> implements AlunoDAO{
     
      public List<Aluno> obterAlunosporTurma(Turma t) {
-         List<Aluno> aluno = entityManager.createQuery("select mt.aluno a from MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
+         List<Aluno> aluno = entityManager.createQuery("select mt.aluno a from MatriculaTurma mt where mt.turma.id = ?1 ").setParameter(1, t.getId()).getResultList();
          return aluno;
     }
 

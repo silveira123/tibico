@@ -32,5 +32,5 @@ import java.util.List;
  */
 public interface FrequenciaDAO extends DAO<Frequencia>{
     public List<Frequencia> obterFrequencias(Turma t);
-    public List<Frequencia> obterFrequencias(Aluno a);
+    public List<Frequencia> obterFrequencias(Aluno a, Turma t);
 }

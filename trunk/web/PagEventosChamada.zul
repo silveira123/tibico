@@ -1,66 +1,66 @@
 <?page title="Eventos Chamada"?>
 
 <zk>
-            <window id="winEventosChamada" title="Chamadas Cadastradas" border="normal" closable="true" 
-                width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
-                <div align="center">
-			<grid>
-				<columns>
-					<column width="20%" label=""/>
-					<column width="80%" label=""/>
-				</columns>
-				<rows>
+    <window id="winEventosChamada" title="Chamadas Cadastradas" border="normal" closable="true" 
+                    width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
+        <div align="center">
+            <grid>
+                <columns>
+                    <column width="20%" label=""/>
+                    <column width="80%" label=""/>
+                </columns>
+                <rows>
 				
-					<row>
-						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					</row>
+                    <row>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                    </row>
 					
 					
-					<row>			
-				 		Turma: 		 
-				  			<combobox id="nome" width="50%"/>
-					</row>
+                    <row>			
+                        Turma: 		 
+                        <combobox id="nome" width="50%"/>
+                    </row>
 					
-					<row>
-						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					</row>
+                    <row>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                    </row>
 					
-				</rows>
-			</grid>
+                </rows>
+            </grid>
 			
 			
 
-			<menubar>
-				<menuitem id="incluir" tooltiptext="Incluir Chamada" label="Incluir"/>
-				<menuitem id="alterar" tooltiptext="Alterar Chamada" label="Alterar"/>
-				<menuitem id="consultar" tooltiptext="Consultar Chamada" label="Consultar"/>
-				<menuitem id="excluir" tooltiptext="Excluir Chamda" label="Excluir"/>
-			</menubar>
+            <menubar>
+                <menuitem id="incluir" tooltiptext="Incluir Chamada" label="Incluir"/>
+                <menuitem id="alterar" tooltiptext="Alterar Chamada" label="Alterar"/>
+                <menuitem id="consultar" tooltiptext="Consultar Chamada" label="Consultar"/>
+                <menuitem id="excluir" tooltiptext="Excluir Chamda" label="Excluir"/>
+            </menubar>
 
-			<separator />
-			<separator />
+            <separator />
+            <separator />
 
-			<auxhead>
-				<auxheader align="center"
-					label="Chamadas Cadastradas" />
-			</auxhead>
+            <auxhead>
+                <auxheader align="center"
+                                           label="Chamadas Cadastradas" />
+            </auxhead>
 
-			<separator />
+            <separator />
 
 			                        
-                        <listbox id = "listbox" mold="paging" pageSize="10">
-                            <listhead>
-                                <listheader label="Data"/>
-                                <listheader label="Conteúdo"/>
-                                <listheader label="Quantidade de Aulas"/>
-                            </listhead>
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader label="Data"/>
+                    <listheader label="Conteúdo"/>
+                    <listheader label="Quantidade de Aulas"/>
+                </listhead>
 
-                        </listbox>
+            </listbox>
 
-                </div>
-            </window>
+        </div>
+    </window>
 	
 	
 

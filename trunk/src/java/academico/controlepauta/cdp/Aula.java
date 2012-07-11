@@ -130,5 +130,6 @@ public class Aula extends ObjetoPersistente {
     public void setFrequencia(List<Frequencia> frequencia) {
         this.frequencia = frequencia;
     }
+
     
 }

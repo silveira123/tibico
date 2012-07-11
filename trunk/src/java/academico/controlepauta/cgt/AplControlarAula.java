@@ -9,6 +9,7 @@ import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.*;
+import academico.controlepauta.cgd.AulaDAO;
 import academico.controlepauta.cgd.FrequenciaDAO;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
@@ -20,9 +21,11 @@ import java.util.Calendar;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Messagebox;
 
 /**
  * Turma
+ *
  * @author pietrochrist
  */
 public class AplControlarAula {
@@ -33,10 +36,9 @@ public class AplControlarAula {
     private DAO apDaoFrequencia = DAOFactory.obterDAO("JPA", Frequencia.class);
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
     private AplControlarMatricula aplControlarMatricula = AplControlarMatricula.getInstance();
-    
+
     private AplControlarAula() {
     }
-    
     private static AplControlarAula instance = null;
 
     public static AplControlarAula getInstance() {
@@ -66,57 +68,41 @@ public class AplControlarAula {
         return (List<Avaliacao>) apDaoAvaliacao.obter(Avaliacao.class);
     }
 
-    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException{
-        List<Resultado> lista =  apDaoResultado.obter(Resultado.class);
+    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException {
+        List<Resultado> lista = apDaoResultado.obter(Resultado.class);
         boolean possui = false;
         int j = 0;
-        
+
         for (int i = 0; i < notas.size(); i++) {
             Resultado resultado = new Resultado();
             resultado.setAvaliacao(obj);
             resultado.setObservacao((String) observacoes.get(i));
             resultado.setPontuacao((Double) notas.get(i));
             resultado.setMatriculaTurma(matriculaturma.get(i));
-            
+
             apDaoResultado.salvar(resultado);
-            
-//            for (j = 0; j < lista.size(); j++) {
-//                if(lista.get(j).getMatriculaTurma() == resultado.getMatriculaTurma())
-//                {
-//                    lista.get(j).setPontuacao((Double) notas.get(i));
-//                    lista.get(j).setObservacao((String) observacoes.get(i));
-//
-//                    possui = true;
-//                    break;
-//                }
-//            }
-//            if(possui)
-//            {
-//                apDaoResultado.salvar(lista.get(j));
-//                possui = false;
-//            }
-//            else
-//            {
-//                apDaoResultado.salvar(resultado);
-//                possui = false;
-//            }   
+
+
         }
     }
-    
+
     public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
         Aula aula = new Aula();
         aula.setDia((Calendar) args.get(0));
-        aula.setQuantidade( (Integer) args.get(1));
-        aula.setConteudo( (String) args.get(2));
+        aula.setQuantidade((Integer) args.get(1));
+        aula.setConteudo((String) args.get(2));
         aula.setTurma((Turma) args.get(3));
         aula.setFrequencia((List<Frequencia>) args.get(4));
         aplControlarMatricula.editarFrequencia(aula.getFrequencia());
         return (Aula) apDaoAula.salvar(aula);
+
     }
 
     public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
+
         aplControlarMatricula.editarFrequencia(frequencia, aula.getFrequencia());
         return (Aula) apDaoAula.salvar(aula);
+
     }
 
     public void apagarAula(Aula aula) throws Exception {
@@ -126,31 +112,31 @@ public class AplControlarAula {
     public List<Frequencia> obterFrequencias() throws AcademicoException {
         return (List<Frequencia>) apDaoFrequencia.obter(Frequencia.class);
     }
-    
-    public List<Frequencia> obterFrequencias(Aluno a) throws AcademicoException {
-        return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(a);
+
+    public List<Frequencia> obterFrequencias(Aluno a, Turma t) throws AcademicoException {
+        return (List<Frequencia>) ((FrequenciaDAO) apDaoFrequencia).obterFrequencias(a, t);
     }
-    
+
     public List<Resultado> obterResultados() throws AcademicoException {
         return (List<Resultado>) apDaoResultado.obter(Resultado.class);
     }
-    
+
     public List<Resultado> obterResultados(Aluno a) throws AcademicoException {
-        return (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(a);
+        return (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(a);
     }
-    
-    public List<Aula> obterAulas() throws AcademicoException {
-        return (List<Aula>) apDaoAula.obter(Aula.class);
+
+    public List<Aula> obterAulas(Turma turma) throws AcademicoException {
+        return (List<Aula>)((AulaDAO)apDaoAula).obter(turma); 
     }
 
     public List<Frequencia> obterFrequencias(Turma t) {
-        return (List<Frequencia>) ((FrequenciaDAO)apDaoFrequencia).obterFrequencias(t);
+        return (List<Frequencia>) ((FrequenciaDAO) apDaoFrequencia).obterFrequencias(t);
     }
 
-    public void apagarFrequencia(Frequencia frequencia) throws Exception{
+    public void apagarFrequencia(Frequencia frequencia) throws Exception {
         aplControlarMatricula.excluirFrequencia(frequencia);
         apDaoFrequencia.excluir(frequencia);
-        
+
     }
 
     public Aluno obterAluno(String matricula) {
@@ -160,8 +146,9 @@ public class AplControlarAula {
     public Professor obterProfessor(String CPF) {
         return AplCadastrarPessoa.getInstance().obterProfessor(CPF);
     }
+
     public List<Resultado> obterResultados(Avaliacao obj) {
-        return (List<Resultado>) ((ResultadoDAO)apDaoResultado).obterResultados(obj);
+        return (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(obj);
     }
     
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException {

@@ -135,7 +135,7 @@ public class AplCadastrarPessoa {
      * @return
      */
     public List<Aluno> obterAlunosporTurma(Turma t) {
-        return ((AlunoDAOJPA) apDaoAluno).obterAlunosporTurma(t);
+        return ((AlunoDAO) apDaoAluno).obterAlunosporTurma(t);
     }
 
     /**

@@ -49,7 +49,7 @@ public class Resultado extends ObjetoPersistente{
      * @param matriculaTurma 
      */
     public Resultado(Avaliacao avaliacao, MatriculaTurma matriculaTurma){
-        this.pontuacao = 0.0;
+        this.pontuacao = null;
         this.observacao = "";
         this.avaliacao = avaliacao;
         this.matriculaTurma = matriculaTurma;

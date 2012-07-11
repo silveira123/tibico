@@ -1,3 +1,19 @@
+/*
+ * PagPrincipal.java 
+ * Versão: 0.1 
+ * Data de Criação : 03/07/2012, 13:40:23
+ * Copyright (c) 2012 Fabrica de Software IFES.
+ * Incubadora de Empresas IFES, sala 11
+ * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary 
+ * information of Fabrica de Software IFES. ("Confidential Information"). You 
+ * shall not disclose such Confidential Information and 
+ * shall use it only in accordance with the terms of the 
+ * license agreement you entered into with Fabrica de Software IFES.
+ */
+
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -12,6 +28,13 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
+/**
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os eventos do Ptojeto Tibico; 
+ * Os eventos são apresentados de acordo com o privilégio de acesso.
+ * @author Pietro Crhist 
+ * @author Geann Valfré
+ */
 public class PagPrincipal extends GenericForwardComposer {
 
     private Toolbarbutton turma;

@@ -1,6 +1,6 @@
 /*
  * PagRelatorioBoletim.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 03/07/2012, 13:40:23
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -28,14 +28,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
-import org.zkoss.zul.ext.Selectable;
 
 /**
- * <<descrição da Classe>>
- *
- * @author erigamonte
- * @version
- * @see
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
+ * A classe contém os eventos da tela PagRelatorioBoletim.zul
+ * @author Eduardo Rigamonte
  */
 public class PagRelatorioBoletim extends GenericForwardComposer {
 

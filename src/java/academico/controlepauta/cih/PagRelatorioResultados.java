@@ -34,11 +34,9 @@ import org.zkoss.zul.*;
 
 
 /**
- * <<descrição da Classe>> 
- * 
- * @author erigamonte
- * @version
- * @see
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os eventos da tela PagRelatorioResultados.zul
+ * @author Eduardo Rigamonte
  */
 public class PagRelatorioResultados extends GenericForwardComposer{
     private CtrlMatricula ctrlMatricula = CtrlMatricula.getInstance();

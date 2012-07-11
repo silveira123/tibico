@@ -1,6 +1,6 @@
 /*
  * PagEventosProfessor.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 25/06/2012, 12:13:11
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -16,7 +16,6 @@
 
 package academico.controleinterno.cih;
 
-// imports devem ficar aqui!
 
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Professor;
@@ -27,15 +26,11 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
-
-
 /**
- * <<descrição da Classe>> 
- * 
- * @author Gabriel Quézid 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
+ * A classe contém os eventos da tela PagEventosProfessor.zul
+ * @author Gabriel Quézid
  * @author Rodrigo Maia
- * @version 0.1
- * @see
  */
 public class PagEventosProfessor extends GenericForwardComposer {
     private CtrlPessoa ctrl = CtrlPessoa.getInstance();

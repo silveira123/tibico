@@ -13,12 +13,11 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
+
 package academico.controlepauta.cih;
 
-// imports devem ficar aqui!
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Calendario;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
@@ -28,14 +27,11 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
-import org.zkoss.zul.ext.Selectable;
 
 /**
- * <<descrição da Classe>>
- * <p/>
- * @author erigamonte
- * @version
- * @see
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
+ * A classe contém os eventos da tela PagRelatorioHistorico.zul
+ * @author Eduardo Rigamonte
  */
 public class PagRelatorioHistorico extends GenericForwardComposer {
 

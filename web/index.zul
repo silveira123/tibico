@@ -75,10 +75,10 @@
                 <separator/>
 
                 <div sclass="login-box-name" style="margin-top:20px;">Login:</div>
-                <div sclass="login-box-field" style="margin-top:20px;"><textbox id="nome" sclass="form-login" value="" width="30" maxlength="2048"/></div>
+                <div sclass="login-box-field" style="margin-top:20px;"><textbox id="nome" sclass="form-login" width="30" maxlength="2048"/></div>
 
                 <div sclass="login-box-name">Senha:</div> 
-                <div sclass="login-box-field"><textbox id="senha" type="password" value="" sclass="form-login" width="30" maxlength="2048"/></div>
+                <div sclass="login-box-field"><textbox id="senha" type="password" sclass="form-login" width="30" maxlength="2048"/></div>
 
                 <separator/>
 
@@ -93,6 +93,5 @@
         </hbox>
         <space width="75%"/>
         <image src="images/fsw.png" width="300px" height="400px" />
-        
         
 </window>

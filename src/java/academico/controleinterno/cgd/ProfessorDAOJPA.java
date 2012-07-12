@@ -16,6 +16,7 @@
 
 package academico.controleinterno.cgd;
 
+import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Professor;
 import academico.util.persistencia.DAOJPA;
 import java.util.List;
@@ -39,5 +40,10 @@ public class ProfessorDAOJPA extends DAOJPA<Professor> implements ProfessorDAO {
     public Professor obterProfessor(Long id) {
         List<Professor> professor = entityManager.createQuery("select mt from Professor mt where mt.id = ?1").setParameter(1, id).getResultList();
         return professor.get(0);
+    }
+    
+    public List<Professor> obterProfessor(Calendario c) {
+        List<Professor> professor = entityManager.createQuery("select distinct t.professor from Turma t where t.calendario.id = ?1").setParameter(1, c.getId()).getResultList();
+        return professor;
     }
 }

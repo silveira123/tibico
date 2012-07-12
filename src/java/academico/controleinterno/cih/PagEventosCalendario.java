@@ -55,7 +55,14 @@ public class PagEventosCalendario extends GenericForwardComposer {
 
     public void onSelect$cursoCombo(Event event) throws AcademicoException {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
-        List<Calendario> listaCalendario = ctrl.obterCalendarios(select);
+
+        //limpando o listbox antes de add as novas linhas
+        while (listbox.getItemCount() > 0) {
+            listbox.removeItemAt(0);
+        }
+        
+        List<Calendario> listaCalendario = ctrl.obterCalendarios(select); 
+
         for (int i = 0; i < listaCalendario.size(); i++) {
             Calendario c = listaCalendario.get(i);
             Listitem linha = new Listitem(c.toString(), c);

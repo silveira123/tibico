@@ -16,10 +16,7 @@
 
 package academico.controleinterno.cci;
 
-import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Curso;
-import academico.controleinterno.cdp.Professor;
-import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cih.PagEventosAluno;
 import academico.controleinterno.cih.PagEventosProfessor;
@@ -293,5 +290,10 @@ public static final int SALVAR = 0;
     public Component abrirEventosProfessor()
     {
         return Executions.createComponents("/pagEventosProfessor.zul", null, null);
+    }
+    
+    public List<Professor> obterProfessor(Calendario c)
+    {
+        return apl.obterProfessor(c);
     }
 }

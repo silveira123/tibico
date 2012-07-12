@@ -1,0 +1,60 @@
+<zk>  
+   	<window title="Visualizar Turmas" id="winVisualizarTurmas" border="normal" width="70%"
+            apply = "academico.controleinterno.cih.PagVisualizarTurmas" closable="true">
+	    	<div align="center">
+	    	<separator height="25px" />
+	    	
+    		<grid>
+				<columns>
+					<column label="" width="10%"/>
+					<column label="" width="40%"/>
+					<column label="" width="18%"/>
+					<column label="" width="32%"/>
+				</columns>
+				<rows>
+					
+					<row>
+						Curso:
+						<combobox id="curso" width="70%" readonly="true"/>	
+					
+						Calendário Acadêmico:
+		    			<combobox id="calendarioAcademico" width="70%" readonly="true"/>
+					</row>
+					
+					<row>
+						Professor:
+		    			<cell colspan="3">
+		    				<combobox id="professor" width="25%" readonly="true"/>
+	    				</cell>
+					</row>
+					
+				</rows>
+			</grid>
+    		   			
+			<separator height="25px" />
+			
+			<auxhead>
+                <auxheader align="center"
+                     label="Turmas Cadastradas" />
+            </auxhead>
+            
+            <separator height="10px" />	
+            <listbox id = "listbox" mold="paging" multiple="true" pageSize="10" checkmark="true">
+                <listhead>
+                    <listheader label="" width="3%" align="center"/>
+                    <listheader label="Professor" width="29%"/>
+                    <listheader label="Turma" width="40%"/>
+                    <listheader label="Status" width="28%"/>
+                </listhead> 
+            </listbox>			
+            
+			
+		    <separator/>
+		    
+		    <button width="10%" label="Fechar Turmas" id="fecharTurmas"/>
+			
+		      </div>
+	    </window> 
+</zk>
+
+

@@ -38,6 +38,7 @@
                         <panelchildren style="padding:5px;">
                             <vbox>
                                 <toolbarbutton id="turma" label="Cadastrar Turma" />
+                                <toolbarbutton id="visualizarTurmas" label="Visualizar Turma" />
                                 <toolbarbutton id="matricularAluno" label="Matricular Aluno" />
                                 <toolbarbutton id="alocarProfessor" label="Alocar Professor" />
                             </vbox>

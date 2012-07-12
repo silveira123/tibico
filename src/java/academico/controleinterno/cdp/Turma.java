@@ -40,9 +40,20 @@ public class Turma extends ObjetoPersistente {
     private Disciplina disciplina;
     private List<Horario> horario;
     private Professor professor;
+    private EstadoTurma estadoTurma;
     
     public Turma() {
         
+    }
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    public EstadoTurma getEstadoTurma() {
+        return estadoTurma;
+    }
+
+    public void setEstadoTurma(EstadoTurma estadoTurma) {
+        this.estadoTurma = estadoTurma;
     }
     
     @ManyToOne(cascade = CascadeType.PERSIST)

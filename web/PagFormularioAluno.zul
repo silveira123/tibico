@@ -149,25 +149,24 @@
         </window>
     </div>
  
-    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
+  <!--  <script type="text/javascript" src="maskedinput-1.2.2.min.js" />
+    <script type="text/javascript" src="jquery.watermark.min.js" />
+     <script type="text/javascript" src="jquery.js" />
+    <script>
+        
+       
+       zk.afterMount(function() {
 
-    <script type="text/javascript" src="/jquery.watermark.js" />
-    
-    
-    
-    <script type="text/javascript">
-        zk.afterMount(function() {
+        $("complemento").Watermark("casa, bloco, nº apartamento,etc","gray");
 
-        jq("$complemento").Watermark("casa, bloco, nº apartamento,etc","gray");
-
-        jq("$telefone").mask("(99) 9999-9999");
-        jq("$celular").mask("(99) 9999-9999");
-        jq("$cep").mask("99999-999"); 
-        jq("$cpf").mask("999.999.999-99");  
-
+        $("telefone").mask("(99) 9999-9999");
+        $("celular").mask("(99) 9999-9999");
+        $("cep").mask("99999-999"); 
+        $("cpf").mask("999.999.999-99");  
 
         });
-    </script>
+    </script>  -->
+
 
 </zk>
 

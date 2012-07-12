@@ -9,6 +9,7 @@ import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.controleinterno.cih.PagEventosCalendario;
 import academico.controleinterno.cih.PagEventosTurma;
+import academico.controleinterno.cih.PagVisualizarTurmas;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class CtrlLetivo {
     private AplCadastrarCalendario apl = AplCadastrarCalendario.getInstance();
     private PagEventosCalendario pagEventosCalendario;
     private PagEventosTurma pagEventosTurma;
+    private PagVisualizarTurmas pagVisualizarTurmas;
     private static CtrlLetivo instance = null;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
 
@@ -49,6 +51,10 @@ public class CtrlLetivo {
     public void setPagEventosTurma(PagEventosTurma pagEventosTurma) {
         this.pagEventosTurma = pagEventosTurma;
     }
+    
+    public void setPagVisualizarTurmas(PagVisualizarTurmas pagVisualizarTurmas) {
+        this.pagVisualizarTurmas = pagVisualizarTurmas;
+    }
 
     private CtrlLetivo() {
     }
@@ -63,6 +69,13 @@ public class CtrlLetivo {
         Calendario c = apl.alterarCalendario(calendario);
         pagEventosCalendario.refreshCalendario(c);
         return c;
+    }
+    
+    public Turma fecharTurma(Turma turma) throws Exception {
+        Turma t = aplC.alterarTurma(turma);
+        System.out.println("turma" + t);
+        pagVisualizarTurmas.refreshTurma(t);
+        return t;
     }
 
     public void apagarCalendario(Calendario calendario) throws Exception {
@@ -154,6 +167,10 @@ public class CtrlLetivo {
         map.put("class", tipo);
         return Executions.createComponents("/pagEventosTurma.zul", null, map);
     }
+    
+    public Component abrirVisualizarTurmas() {
+        return Executions.createComponents("/pagVisualizarTurmas.zul", null, null);
+    }
 
     public Component abrirEventosAlocarProfessor(int tipo) {
         Map map = new HashMap();
@@ -192,5 +209,9 @@ public class CtrlLetivo {
 
     public List<Curso> obterCursos() throws AcademicoException {
         return apl.obterCursos();
+    }
+    
+    public boolean verificarPeriodoLetivo(Curso curso) {
+        return apl.verificarPeriodoLetivo(curso);
     }
 }

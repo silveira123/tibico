@@ -290,4 +290,9 @@ public class AplCadastrarPessoa {
     public Professor obterProfessor(String CPF) {
         return ((ProfessorDAO) apDaoProfessor).obterProfessor(CPF);
     }
+    
+    public List<Professor> obterProfessor(Calendario c)
+    {
+        return ((ProfessorDAO) apDaoProfessor).obterProfessor(c);
+    }
 }

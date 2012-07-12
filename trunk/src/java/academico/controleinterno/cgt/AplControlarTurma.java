@@ -52,6 +52,8 @@ public class AplControlarTurma {
             turma.setProfessor(p);
         }
 
+        turma.setEstadoTurma((EstadoTurma) args.get(5));
+        
         return (Turma) apDaoTurma.salvar(turma);
     }
 

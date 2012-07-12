@@ -18,8 +18,10 @@ package academico.controleinterno.cgd;
 
 // imports devem ficar aqui!
 
+import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Professor;
 import academico.util.persistencia.DAO;
+import java.util.List;
 
 
 /**
@@ -33,5 +35,6 @@ public interface ProfessorDAO extends DAO<Professor> {
 
     public Professor obterProfessor(String CPF);
     public Professor obterProfessor(Long id);
+    public List<Professor> obterProfessor(Calendario c);
     
 }

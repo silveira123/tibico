@@ -62,6 +62,10 @@ public class AplCadastrarCalendario {
     public boolean verificarPeriodoMatricula(Curso curso) {
         return (boolean) ((CalendarioDAO) apDaoCalendario).verificarPeriodoMatricula(curso);
     }
+    
+    public boolean verificarPeriodoLetivo(Curso curso) {
+        return (boolean) ((CalendarioDAO) apDaoCalendario).verificarPeriodoLetivo(curso);
+    }
 
     public List<Curso> obterCursos() throws AcademicoException {
         return aplCadastrarCurso.obterCursos();

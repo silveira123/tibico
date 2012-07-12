@@ -38,6 +38,7 @@ import org.zkoss.zul.*;
 public class PagPrincipal extends GenericForwardComposer {
 
     private Toolbarbutton turma;
+    private Toolbarbutton visualizarTurmas;
     private Toolbarbutton matricularAluno;
     private Toolbarbutton alocarProfessor;
     private Toolbarbutton cadastrarAluno;
@@ -116,6 +117,14 @@ public class PagPrincipal extends GenericForwardComposer {
         winTurma.setWidth("100%");
         winTurma.setHeight("100%");
         winTurma.setParent(border.getCenter());
+    }
+    
+    public void onClick$visualizarTurmas(Event event) {
+        border.getCenter().getChildren().clear();
+        Window winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas();
+        winVisualizarTurmas.setWidth("100%");
+        winVisualizarTurmas.setHeight("100%");
+        winVisualizarTurmas.setParent(border.getCenter());
     }
 
     public void onClick$calendario(Event event) {

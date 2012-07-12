@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
@@ -33,9 +32,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosChamada.zul
- * @author 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosChamada.zul
+ * <p/>
+ * @author
  */
 public class PagEventosChamada extends GenericForwardComposer {
 
@@ -50,6 +49,8 @@ public class PagEventosChamada extends GenericForwardComposer {
     private Menuitem inserirPontuacao;
     private Listbox listbox;
     private Professor obj;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -60,7 +61,8 @@ public class PagEventosChamada extends GenericForwardComposer {
         obj = (Professor) arg.get("professor");
         if (obj != null) {
             listaTurma = ctrlTurma.obterTurma(obj);
-        } else {
+        }
+        else {
             listaTurma = ctrlTurma.obterTurma();
         }
 
@@ -88,34 +90,35 @@ public class PagEventosChamada extends GenericForwardComposer {
                     linha.setParent(listbox);
                 }
             }
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void addChamada(Aula a) {
-        
-            Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
-                    + "/" + (a.getDia().getTime().getYear() + 1900), a);
-            linha.appendChild(new Listcell(a.getConteudo()));
-            linha.appendChild(new Listcell(a.getQuantidade() + ""));
-            linha.setParent(listbox);
-        
+
+        Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                + "/" + (a.getDia().getTime().getYear() + 1900), a);
+        linha.appendChild(new Listcell(a.getConteudo()));
+        linha.appendChild(new Listcell(a.getQuantidade() + ""));
+        linha.setParent(listbox);
+
     }
 
     public void refreshChamada(Aula a) {
-        
-            for (int i = 0; i < listbox.getItemCount(); i++) {
-                if (listbox.getItemAtIndex(i).getValue() == a) {
-                    listbox.getItemAtIndex(i).getChildren().clear();
-                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
-                            + "/" + (a.getDia().getTime().getYear() + 1900)));
-                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getConteudo()));
-                    listbox.getItemAtIndex(i).appendChild(new Listcell(a.getQuantidade() + ""));
-                    break;
-                }
+
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if (listbox.getItemAtIndex(i).getValue() == a) {
+                listbox.getItemAtIndex(i).getChildren().clear();
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                        + "/" + (a.getDia().getTime().getYear() + 1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getConteudo()));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(a.getQuantidade() + ""));
+                break;
             }
-        
+        }
+
     }
 
     public void onClick$excluir(Event event) {
@@ -130,11 +133,17 @@ public class PagEventosChamada extends GenericForwardComposer {
                 }
 
                 listbox.removeItemAt(listbox.getSelectedIndex());
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir a Aula");
             }
-        } else {
-            Messagebox.show("Selecione uma Aula");
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir a chamada");
+            }
+        }
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione uma chamada");
         }
     }
 

@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -23,14 +22,11 @@ import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Window;
+import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosCurso.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosCurso.zul
+ * <p/>
  * @author Eduardo Rigamonte
  * @author Geann Valfré
  */
@@ -39,7 +35,9 @@ public class PagEventosCurso extends GenericForwardComposer {
     private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
     private Window winEventosCurso;
     private Listbox listCurso;
-   
+    private Div boxInformacao;
+    private Label msg;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -56,22 +54,20 @@ public class PagEventosCurso extends GenericForwardComposer {
                 linha.setParent(listCurso);
             }
         }
+
     }
 
-    public void addCurso(Curso c)
-    {
+    public void addCurso(Curso c) {
         Listitem linha = new Listitem(c.getNome(), c);
         linha.appendChild(new Listcell(c.getGrauInstrucao().toString()));
         linha.appendChild(new Listcell(c.getDuracao() + ""));
         linha.setParent(listCurso);
     }
-    
-    public void refreshCurso(Curso c)
-    {
+
+    public void refreshCurso(Curso c) {
         for (int i = 0; i < listCurso.getItemCount(); i++) {
-            if(listCurso.getItemAtIndex(i).getValue() == c)
-            {
-                listCurso.getItemAtIndex(i).getChildren().clear();      
+            if (listCurso.getItemAtIndex(i).getValue() == c) {
+                listCurso.getItemAtIndex(i).getChildren().clear();
                 listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getNome()));
                 listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getGrauInstrucao().toString()));
                 listCurso.getItemAtIndex(i).appendChild(new Listcell(c.getDuracao() + ""));
@@ -79,7 +75,7 @@ public class PagEventosCurso extends GenericForwardComposer {
             }
         }
     }
-    
+
     public void onClick$excluirCurso(Event event) {
         Listitem listitem = listCurso.getSelectedItem();
         if (listitem != null) {
@@ -89,11 +85,15 @@ public class PagEventosCurso extends GenericForwardComposer {
                 listCurso.removeItemAt(listCurso.getSelectedIndex());
             }
             catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir o curso");
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir o curso");
             }
         }
         else {
-            Messagebox.show("Selecione um curso");
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione um curso");
         }
     }
 
@@ -116,6 +116,4 @@ public class PagEventosCurso extends GenericForwardComposer {
             ctrl.abrirConsultarCurso(c);
         }
     }
-    
-    
 }

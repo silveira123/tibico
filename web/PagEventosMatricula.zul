@@ -3,13 +3,13 @@
 <zk>
 
     
-        <window title="Disciplinas Matriculadas" border="normal" closable="true"
-                width="50%" id="winEventosMatricula" apply = "academico.controlepauta.cih.PagEventosMatricula">
-            <div align="center">
+    <window title="Disciplinas Matriculadas" border="normal" closable="true"
+            width="50%" id="winEventosMatricula" apply = "academico.controlepauta.cih.PagEventosMatricula">
+        <div align="center">
             <separator height="35px"/>
 
             <div align="left">
-		<space width="10px"/>	
+                <space width="10px"/>	
                 Aluno: 
 				 
                 <combobox id="nomeAluno" width="50%" autocomplete="true" autodrop="true" buttonVisible="true"/>
@@ -23,7 +23,11 @@
                 <menuitem tooltiptext="Cancela Matrícula"
                           label="Desmatricular" id="desmatricular" />
             </menubar>
-
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+            
             <separator />
             <separator />
 
@@ -42,7 +46,8 @@
                 </listhead>
             </listbox>
 
-            </div>
+        </div>
+        <style src="/information.css"/>
     </window>
 </zk>
 

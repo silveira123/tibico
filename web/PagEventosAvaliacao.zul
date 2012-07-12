@@ -2,64 +2,69 @@
 
 <zk>
 
-            <window id="winEventosAvaliacao" title="Avaliações Cadastradas" border="normal" closable="true"
-			width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
-                <div align="center">
-			<grid>
-				<columns>
-					<column width="20%" label=""/>
-					<column width="80%" label=""/>
-				</columns>
-				<rows>
+    <window id="winEventosAvaliacao" title="Avaliações Cadastradas" border="normal" closable="true"
+            width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
+        <div align="center">
+            <grid>
+                <columns>
+                    <column width="20%" label=""/>
+                    <column width="80%" label=""/>
+                </columns>
+                <rows>
 				
-					<row>
-						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					</row>
+                    <row>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                    </row>
 					
 					
-					<row>			
-				 		Turma: 		 
-				  			<combobox id="nome" width="50%"/>
-					</row>
+                    <row>			
+                        Turma: 		 
+                        <combobox id="nome" width="50%"/>
+                    </row>
 					
-					<row>
-						<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					  	<label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-					</row>
+                    <row>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                    </row>
 					
-				</rows>
-			</grid>
+                </rows>
+            </grid>
 			
 			
 
-			<menubar>
-				<menuitem id="incluir" tooltiptext="Incluir Avaliação" label="Incluir"/>
-				<menuitem id="alterar" tooltiptext="Alterar Avaliação" label="Alterar"/>
-				<menuitem id="consultar" tooltiptext="Consultar Avaliação" label="Consultar"/>
-				<menuitem id="excluir" tooltiptext="Excluir Avaliação" label="Excluir"/>
-				<menuitem id="inserirPontuacao" tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
-			</menubar>
-
-			<separator />
-			<separator />
-
-			<auxhead>
-				<auxheader align="center"
-					label="Avaliações Cadastradas" />
-			</auxhead>
-
-			<separator />
+            <menubar>
+                <menuitem id="incluir" tooltiptext="Incluir Avaliação" label="Incluir"/>
+                <menuitem id="alterar" tooltiptext="Alterar Avaliação" label="Alterar"/>
+                <menuitem id="consultar" tooltiptext="Consultar Avaliação" label="Consultar"/>
+                <menuitem id="excluir" tooltiptext="Excluir Avaliação" label="Excluir"/>
+                <menuitem id="inserirPontuacao" tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
+            </menubar>
                         
-                        <listbox id = "listbox" mold="paging" pageSize="10">
-                            <listhead>
-                                <listheader label="Nome"/>
-                                <listheader label="Peso"/>
-                            </listhead>
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+                        
+            <separator />
+            <separator />
 
-                        </listbox>
-		</div>
-           </window>
+            <auxhead>
+                <auxheader align="center"
+                           label="Avaliações Cadastradas" />
+            </auxhead>
+
+            <separator />
+                        
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader label="Nome"/>
+                    <listheader label="Peso"/>
+                </listhead>
+
+            </listbox>
+        </div>
+        <style src="/information.css"/>
+    </window>
 
 </zk>
 

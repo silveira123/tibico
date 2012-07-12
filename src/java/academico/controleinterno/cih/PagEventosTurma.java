@@ -13,9 +13,7 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
-
 
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Turma;
@@ -26,13 +24,14 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosTurma.zul
- * @author Pietro Crhist 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosTurma.zul
+ * <p/>
+ * @author Pietro Crhist
  * @author Geann Valfré
  * @author Gabriel Quézid
  */
 public class PagEventosTurma extends GenericForwardComposer {
+
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
     private Window winFormularioTurma;
     private Menuitem incluir;
@@ -41,32 +40,33 @@ public class PagEventosTurma extends GenericForwardComposer {
     private Menuitem alterar;
     private Listbox listbox;
     private int tipo;
-    
+    private Div boxInformacao;
+    private Label msg;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosTurma(this);
         tipo = (Integer) arg.get("class");
-        
-        List<Turma> listaTurma = ctrl.obterTurma(); 
-        if(tipo == 1)
-        {
+
+        List<Turma> listaTurma = ctrl.obterTurma();
+        if (tipo == 1) {
             for (int i = 0; i < listaTurma.size(); i++) {
                 Turma t = listaTurma.get(i);
                 Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
                 linha.appendChild(new Listcell(t.getDisciplina().toString()));
                 linha.appendChild(new Listcell(t.getCalendario().toString()));
-                if(t.getProfessor() != null) linha.appendChild(new Listcell(t.getProfessor().toString()));
+                if (t.getProfessor() != null) {
+                    linha.appendChild(new Listcell(t.getProfessor().toString()));
+                }
                 linha.setParent(listbox);
             }
         }
-        else
-        {
+        else {
             for (int i = 0; i < listaTurma.size(); i++) {
                 Turma t = listaTurma.get(i);
-                
-                if(t.getProfessor() == null)
-                {
+
+                if (t.getProfessor() == null) {
                     Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
                     linha.appendChild(new Listcell(t.getDisciplina().toString()));
                     linha.appendChild(new Listcell(t.getCalendario().toString()));
@@ -76,45 +76,50 @@ public class PagEventosTurma extends GenericForwardComposer {
         }
     }
 
-    public void addTurma(Turma t)
-    {
+    public void addTurma(Turma t) {
         Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
         linha.appendChild(new Listcell(t.getDisciplina().toString()));
         linha.appendChild(new Listcell(t.getCalendario().toString()));
-        if(t.getProfessor() != null)
+        if (t.getProfessor() != null) {
             linha.appendChild(new Listcell(t.getProfessor().toString()));
+        }
 
         linha.setParent(listbox);
     }
-    
-    public void refreshTurma(Turma t)
-    {
+
+    public void refreshTurma(Turma t) {
         for (int i = 0; i < listbox.getItemCount(); i++) {
-            if(listbox.getItemAtIndex(i).getValue() == t)
-            {
-                listbox.getItemAtIndex(i).getChildren().clear();      
+            if (listbox.getItemAtIndex(i).getValue() == t) {
+                listbox.getItemAtIndex(i).getChildren().clear();
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().getCurso().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getDisciplina().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getCalendario().toString()));
-                if(t.getProfessor()!=null)
+                if (t.getProfessor() != null) {
                     listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
+                }
                 break;
             }
         }
     }
-    
-    public void onClick$excluir(Event event) { 
+
+    public void onClick$excluir(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             try {
                 Turma t = listitem.getValue();
                 ctrl.apagarTurma(t);
                 listbox.removeItemAt(listbox.getSelectedIndex());
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir a turma");
             }
-        } else {
-            Messagebox.show("Selecione uma turma");
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir a turma");
+            }
+        }
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione uma turma");
         }
     }
 
@@ -129,7 +134,7 @@ public class PagEventosTurma extends GenericForwardComposer {
             ctrl.abrirEditarTurma(t, tipo);
         }
     }
-    
+
     public void onClick$consultar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

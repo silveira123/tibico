@@ -3,32 +3,32 @@
 <zk>
 	
     <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
-                width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
         <div align="center">
             <separator height="35px"/>
 
             <fisheyebar>
                 <fisheye id="" tooltiptext="Incluir um calendário"
-                                         image="/img/incluir.jpg" />
+                         image="/img/incluir.jpg" />
                 <fisheye id="" tooltiptext="alterar um calendário"
-                                         image="/img/alterar.jpg" />
+                         image="/img/alterar.jpg" />
                 <fisheye id="" tooltiptext="consultar um calendário"
-                                         image="/img/consultar.jpg" />
+                         image="/img/consultar.jpg" />
                 <fisheye id="" tooltiptext="excluir um calendário"
-                                         image="/img/excluir.jpg" />
+                         image="/img/excluir.jpg" />
             </fisheyebar>
 
             <separator height="35px"/>
 
             <menubar>
                 <menuitem id="incluir" tooltiptext="Incluir um calendário"
-                                          label="Incluir" width="20%" />
+                          label="Incluir" width="20%" />
                 <menuitem id="alterar" tooltiptext="alterar um calendário"
-                                          label="Alterar" width="20%" />
+                          label="Alterar" width="20%" />
                 <menuitem id="consultar" tooltiptext="consultar um calendário"
-                                          label="Consultar" width="20%" />
+                          label="Consultar" width="20%" />
                 <menuitem id="excluir" tooltiptext="excluir um calendário"
-                                          label="Excluir" width="20%" />
+                          label="Excluir" width="20%" />
             </menubar>
             <grid>
                 <columns>
@@ -45,12 +45,17 @@
                     </row>
                 </rows>
             </grid>
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+            
             <separator />
             <separator />
 
             <auxhead>
                 <auxheader align="center"
-                                           label="Calendários Cadastrados" />
+                           label="Calendários Cadastrados" />
             </auxhead>
 
             <separator />
@@ -64,6 +69,7 @@
             </listbox>
 
         </div>
+        <style src="/information.css"/>
     </window>
 </zk>
 

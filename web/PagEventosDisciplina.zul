@@ -4,7 +4,7 @@
 
        
     <window title="Discilplina Cadastradas" border="normal" closable="true"
-                width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
+            width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
         <div align="center">
             <separator height="35px"/>
 
@@ -46,6 +46,11 @@
                     </row>
                 </rows>
             </grid>
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+            
             <separator />
             <separator />
 
@@ -63,7 +68,8 @@
                     <listheader align="center" label="Carga Horária" />
                 </listhead>
             </listbox>
-         </div>
+        </div>
+        <style src="/information.css"/>
     </window>
    
 </zk>

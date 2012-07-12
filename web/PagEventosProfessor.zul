@@ -4,8 +4,8 @@
 
      
     <window id="winDadosProfessor" title="Professor(es) Cadastrado(s)" border="normal" closable="true"
-                        width="50%" apply = "academico.controleinterno.cih.PagEventosProfessor">
-            <div align="center">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosProfessor">
+        <div align="center">
             <separator height="35px"/>
 
             <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
@@ -31,7 +31,11 @@
                 <menuitem tooltiptext="Excluir um Professor"
                           label="Excluir" width="20%" id="excluirProfessor"/>
             </menubar>
-
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+            
             <separator />
             <separator />
 
@@ -49,6 +53,7 @@
                 </listhead>
             </listbox>
         </div>
+        <style src="/information.css"/>
     </window>
 
 

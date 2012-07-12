@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
@@ -27,12 +26,13 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosCalendario.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosCalendario.zul
+ * <p/>
  * @author Pietro Crhist
  * @author Geann Valfré
  */
 public class PagEventosCalendario extends GenericForwardComposer {
+
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
     private Window winEventosCalendario;
     private Menuitem incluir;
@@ -41,7 +41,9 @@ public class PagEventosCalendario extends GenericForwardComposer {
     private Menuitem alterar;
     private Listbox listbox;
     private Combobox cursoCombo;
-    
+    private Div boxInformacao;
+    private Label msg;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -50,77 +52,81 @@ public class PagEventosCalendario extends GenericForwardComposer {
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
     }
-    
-    public void onSelect$cursoCombo(Event event) throws AcademicoException
-    {
+
+    public void onSelect$cursoCombo(Event event) throws AcademicoException {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
-        List<Calendario> listaCalendario = ctrl.obterCalendarios(select); 
+        List<Calendario> listaCalendario = ctrl.obterCalendarios(select);
         for (int i = 0; i < listaCalendario.size(); i++) {
             Calendario c = listaCalendario.get(i);
             Listitem linha = new Listitem(c.toString(), c);
-                
-            linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
-                    (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
-            linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
-                    (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
+
+            linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/"
+                    + (c.getDataInicioCA().getTime().getMonth() + 1) + "/"
+                    + (c.getDataFimCA().getTime().getYear() + 1900)));
+            linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
+                    + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
+                    + (c.getDataFimCA().getTime().getYear() + 1900)));
 
             linha.setParent(listbox);
         }
-    
+
     }
-    public void addCalendario(Calendario c)
-    {
+
+    public void addCalendario(Calendario c) {
         Listitem linha = new Listitem(c.toString(), c);
-        linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
-                    (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
-        linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
-                    (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
-                    (c.getDataFimCA().getTime().getYear() + 1900)));
+        linha.appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/"
+                + (c.getDataInicioCA().getTime().getMonth() + 1) + "/"
+                + (c.getDataFimCA().getTime().getYear() + 1900)));
+        linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
+                + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
+                + (c.getDataFimCA().getTime().getYear() + 1900)));
         linha.setParent(listbox);
     }
-    
-    public void refreshCalendario(Calendario c)
-    {
+
+    public void refreshCalendario(Calendario c) {
         for (int i = 0; i < listbox.getItemCount(); i++) {
-            if(listbox.getItemAtIndex(i).getValue() == c)
-            {
-                listbox.getItemAtIndex(i).getChildren().clear();      
+            if (listbox.getItemAtIndex(i).getValue() == c) {
+                listbox.getItemAtIndex(i).getChildren().clear();
                 listbox.getItemAtIndex(i).appendChild(new Listcell(c.toString()));
-                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/" +
-                            (c.getDataInicioCA().getTime().getMonth() + 1) + "/" + 
-                            (c.getDataFimCA().getTime().getYear() + 1900)));
-                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/" +
-                            (c.getDataFimCA().getTime().getMonth() + 1) + "/" + 
-                            (c.getDataFimCA().getTime().getYear() + 1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataInicioCA().getTime().getDate() + "/"
+                        + (c.getDataInicioCA().getTime().getMonth() + 1) + "/"
+                        + (c.getDataFimCA().getTime().getYear() + 1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
+                        + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
+                        + (c.getDataFimCA().getTime().getYear() + 1900)));
                 break;
             }
         }
     }
-    public void onClick$excluir(Event event) { 
+
+    public void onClick$excluir(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             try {
                 Calendario c = listitem.getValue();
                 ctrl.apagarCalendario(c);
                 listbox.removeItemAt(listbox.getSelectedIndex());
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir o calendario");
             }
-        } else {
-            Messagebox.show("Selecione um calendario");
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir o calendario");
+            }
+        }
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione um calendario");
         }
     }
 
     public void onClick$incluir(Event event) {
         Comboitem item = cursoCombo.getSelectedItem();
-        if(item!=null){
+        if (item != null) {
             Curso c = item.getValue();
             ctrl.abrirIncluirCalendario(c);
         }
-        
+
     }
 
     public void onClick$alterar(Event event) {
@@ -130,7 +136,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
             ctrl.abrirEditarCalendario(c);
         }
     }
-    
+
     public void onClick$consultar(Event event) {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {

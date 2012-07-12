@@ -3,10 +3,10 @@
 <zk>
   
     <window id="winDadosAluno" title="Aluno(s) Cadastrado(s)" border="normal" closable="true"
-                        width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
-             <div align="center">                    
+            width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
+        <div align="center">                    
  
-             <separator height="120px" />
+            <separator height="120px" />
             
              
             
@@ -24,19 +24,23 @@
            
             
             <grid>
-                    <columns>
-                            <column label="" width="10%"/>
-                            <column label="" width="90%"/>
-                    </columns>
-                    <rows>
+                <columns>
+                    <column label="" width="10%"/>
+                    <column label="" width="90%"/>
+                </columns>
+                <rows>
       
-                        <row>
-                            Curso:
-                                <combobox id="curso" width="20%" readonly="true"/>
-                        </row>
+                    <row>
+                        Curso:
+                        <combobox id="curso" width="20%" readonly="true"/>
+                    </row>
                       
-                    </rows>
+                </rows>
             </grid>
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
             
             <separator />
             <separator />
@@ -55,6 +59,7 @@
                 </listhead>
             </listbox>
         </div>
+        <style src="/information.css"/>
     </window>
     
 

@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -27,8 +26,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosDisciplina.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosDisciplina.zul
+ * <p/>
  * @author Eduardo Rigamonte
  * @author Geann Valfré
  */
@@ -39,6 +38,8 @@ public class PagEventosDisciplina extends GenericForwardComposer {
     private Listbox listDisciplina;
     private Curso curso;
     private Combobox cursoCombo;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -49,18 +50,17 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         cursoCombo.setReadonly(true);
     }
 
-    public void onSelect$cursoCombo(Event event) throws AcademicoException
-    {
+    public void onSelect$cursoCombo(Event event) throws AcademicoException {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
-        
+
         //limpando o listbox antes de add as novas linhas
         while (listDisciplina.getItemCount() > 0) {
             listDisciplina.removeItemAt(0);
         }
-        
+
         List<Disciplina> disciplinas = ctrl.obterDisciplinas(select);
         if (disciplinas != null) {
-            
+
             for (int i = 0; i < disciplinas.size(); i++) {
                 Disciplina c = disciplinas.get(i);
                 Listitem linha = new Listitem(disciplinas.get(i).toString(), c);
@@ -72,21 +72,18 @@ public class PagEventosDisciplina extends GenericForwardComposer {
             }
         }
     }
-    
-    public void addDisciplina(Disciplina c)
-    {
+
+    public void addDisciplina(Disciplina c) {
         Listitem linha = new Listitem(c.toString(), c);
         linha.appendChild(new Listcell(c.getCurso().toString()));
         linha.appendChild(new Listcell(c.getCargaHoraria() + ""));
         linha.setParent(listDisciplina);
     }
-    
-    public void refreshDisciplina(Disciplina c)
-    {
+
+    public void refreshDisciplina(Disciplina c) {
         for (int i = 0; i < listDisciplina.getItemCount(); i++) {
-            if(listDisciplina.getItemAtIndex(i).getValue() == c)
-            {
-                listDisciplina.getItemAtIndex(i).getChildren().clear();      
+            if (listDisciplina.getItemAtIndex(i).getValue() == c) {
+                listDisciplina.getItemAtIndex(i).getChildren().clear();
                 listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.toString()));
                 listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.getCurso().toString()));
                 listDisciplina.getItemAtIndex(i).appendChild(new Listcell(c.getCargaHoraria() + ""));
@@ -94,30 +91,39 @@ public class PagEventosDisciplina extends GenericForwardComposer {
             }
         }
     }
+
     public void onClick$excluirDisciplina(Event event) {
         Listitem listitem = listDisciplina.getSelectedItem();
         if (listitem != null) {
             try {
                 Disciplina d = listitem.getValue();
-                if(ctrl.apagarDisciplina(d))
+                if (ctrl.apagarDisciplina(d)) {
                     listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
-                else
-                   Messagebox.show("Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma."); 
+                }
+                else {
+                    boxInformacao.setClass("error");
+                    boxInformacao.setVisible(true);
+                    msg.setValue("Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma.");
+                }
             }
             catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir a disciplina");
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir a disciplina");
             }
         }
         else {
-            Messagebox.show("Selecione uma disciplina");
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione uma disciplina");
         }
     }
 
-    public void onClick$incluirDisciplina(Event event) { 
+    public void onClick$incluirDisciplina(Event event) {
         Comboitem comboitem = cursoCombo.getSelectedItem();
         if (comboitem != null) {
             Curso c = comboitem.getValue();
-            ctrl.abrirIncluirDisciplina(c);    
+            ctrl.abrirIncluirDisciplina(c);
         }
     }
 
@@ -125,15 +131,15 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         Listitem listitem = listDisciplina.getSelectedItem();
         if (listitem != null) {
             Disciplina d = listitem.getValue();
-            ctrl.abrirEditarDisciplina(d); 
+            ctrl.abrirEditarDisciplina(d);
         }
     }
-    
+
     public void onClick$consultarDisciplina(Event event) {
         Listitem listitem = listDisciplina.getSelectedItem();
         if (listitem != null) {
             Disciplina d = listitem.getValue();
-            ctrl.abrirConsultarDisciplina(d);  
+            ctrl.abrirConsultarDisciplina(d);
         }
     }
 }

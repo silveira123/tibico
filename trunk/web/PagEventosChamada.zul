@@ -2,7 +2,7 @@
 
 <zk>
     <window id="winEventosChamada" title="Chamadas Cadastradas" border="normal" closable="true" 
-                    width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
+            width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
         <div align="center">
             <grid>
                 <columns>
@@ -38,13 +38,17 @@
                 <menuitem id="consultar" tooltiptext="Consultar Chamada" label="Consultar"/>
                 <menuitem id="excluir" tooltiptext="Excluir Chamda" label="Excluir"/>
             </menubar>
-
+            
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
+            
             <separator />
             <separator />
 
             <auxhead>
                 <auxheader align="center"
-                                           label="Chamadas Cadastradas" />
+                           label="Chamadas Cadastradas" />
             </auxhead>
 
             <separator />
@@ -60,6 +64,7 @@
             </listbox>
 
         </div>
+        <style src="/information.css"/>
     </window>
 	
 	

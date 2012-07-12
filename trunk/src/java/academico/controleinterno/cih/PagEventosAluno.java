@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -28,14 +27,14 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosAluno.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosAluno.zul
+ * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
  */
 public class PagEventosAluno extends GenericForwardComposer {
-    
-    private CtrlPessoa ctrl = CtrlPessoa.getInstance();  
+
+    private CtrlPessoa ctrl = CtrlPessoa.getInstance();
     private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
     private Window winDadosAluno;
     private Listbox listAluno;
@@ -43,30 +42,30 @@ public class PagEventosAluno extends GenericForwardComposer {
     private Combobox curso;
     private Aluno a;
     private Curso select;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosAluno(this);
-        
+
         a = (Aluno) arg.get("obj");
-        
+
         List<Curso> cursos = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(cursos, true));
-        
+
     }
 
-    public void onSelect$curso(Event event) throws AcademicoException
-    {
+    public void onSelect$curso(Event event) throws AcademicoException {
         select = (Curso) curso.getSelectedItem().getValue();
-        
+
         List<Aluno> listaAlunos = ctrl.obterAlunos();
 
         if (listaAlunos != null) {
             for (int i = 0; i < listaAlunos.size(); i++) {
                 Aluno a = listaAlunos.get(i);
-                if(a.getCurso() == select)
-                {
+                if (a.getCurso() == select) {
                     Listitem linha = new Listitem(listaAlunos.get(i).toString(), a);
 
                     linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
@@ -76,58 +75,60 @@ public class PagEventosAluno extends GenericForwardComposer {
             }
         }
     }
-    
-    public void addAluno(Aluno a)
-    {
+
+    public void addAluno(Aluno a) {
         Listitem linha = new Listitem(a.toString(), a);
         linha.appendChild(new Listcell(a.getCurso().toString()));
         linha.setParent(listAluno);
     }
-    
-    public void refreshAluno(Aluno a)
-    {
+
+    public void refreshAluno(Aluno a) {
         for (int i = 0; i < listAluno.getItemCount(); i++) {
-            if(listAluno.getItemAtIndex(i).getValue() == a)
-            {
-                listAluno.getItemAtIndex(i).getChildren().clear();      
+            if (listAluno.getItemAtIndex(i).getValue() == a) {
+                listAluno.getItemAtIndex(i).getChildren().clear();
                 listAluno.getItemAtIndex(i).appendChild(new Listcell(a.toString()));
                 listAluno.getItemAtIndex(i).appendChild(new Listcell(a.getCurso().toString()));
                 break;
             }
         }
     }
-    
+
     public void onClick$excluirAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
             try {
                 ctrl.apagarAluno((Aluno) listitem.getValue());
                 listAluno.removeItemAt(listAluno.getSelectedIndex());
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir o aluno");
+            }
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir o aluno");
             }
         }
-        else{
-            Messagebox.show("Selecione um aluno");
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione um aluno");
         }
-        
+
     }
 
     public void onClick$incluirAluno(Event event) {
-        ctrl.abrirIncluirAluno(a,select);      
+        ctrl.abrirIncluirAluno(a, select);
     }
 
     public void onClick$alterarAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirEditarAluno((Aluno) listitem.getValue()); 
+            ctrl.abrirEditarAluno((Aluno) listitem.getValue());
         }
     }
-    
+
     public void onClick$consultarAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirConsultarAluno((Aluno) listitem.getValue());  
+            ctrl.abrirConsultarAluno((Aluno) listitem.getValue());
         }
     }
 }

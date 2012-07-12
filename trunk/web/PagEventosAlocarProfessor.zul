@@ -2,47 +2,52 @@
 
 <zk>
 	
-            <window id="winEventosTurma" title="Alocação de Professor" border="normal" closable="true"
-			width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
-                <div align="center">
-			<separator height="35px"/>
+    <window id="winEventosTurma" title="Alocação de Professor" border="normal" closable="true"
+            width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
+        <div align="center">
+            <separator height="35px"/>
 
-			<fisheyebar>
-				<fisheye tooltiptext="Alocar Professor"
-					image="/img/incluir.jpg" />
+            <fisheyebar>
+                <fisheye tooltiptext="Alocar Professor"
+                         image="/img/incluir.jpg" />
 				
-			</fisheyebar>
+            </fisheyebar>
 
-			<separator height="35px"/>
+            <separator height="35px"/>
 
-			<menubar>
+            <menubar>
 				
-				<menuitem id="alterar" tooltiptext="Alocar Professor" label="Alocar"
+                <menuitem id="alterar" tooltiptext="Alocar Professor" label="Alocar"
 					/>
 				
-			</menubar>
-
-			<separator />
-			<separator />
-
-			<auxhead>
-				<auxheader align="center" label="Turmas Cadastradas" />
-			</auxhead>
-
-			<separator />
+            </menubar>
                         
-                        <listbox id = "listbox" mold="paging" pageSize="10">
-                            <listhead>
-                                <listheader align="center" label="Curso"/>
-                                <listheader align="center" label="Disciplina"/>
-                                <listheader align="center" label="Calendário"/>
-                                <listheader align="center" label="Professor"/>
-                            </listhead>
-
-                        </listbox>
+            <div id="boxInformacao" class="" visible="false">
+                <label id="msg" value=""/>
+            </div>
                         
-		</div>	
-            </window>
+            <separator />
+            <separator />
+
+            <auxhead>
+                <auxheader align="center" label="Turmas Cadastradas" />
+            </auxhead>
+
+            <separator />
+                        
+            <listbox id = "listbox" mold="paging" pageSize="10">
+                <listhead>
+                    <listheader align="center" label="Curso"/>
+                    <listheader align="center" label="Disciplina"/>
+                    <listheader align="center" label="Calendário"/>
+                    <listheader align="center" label="Professor"/>
+                </listhead>
+
+            </listbox>
+                        
+        </div>
+        <style src="/information.css"/>
+    </window>
 	
 
 </zk>

@@ -13,9 +13,7 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
-
 
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Professor;
@@ -27,26 +25,28 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosProfessor.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosProfessor.zul
+ * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
  */
 public class PagEventosProfessor extends GenericForwardComposer {
+
     private CtrlPessoa ctrl = CtrlPessoa.getInstance();
-    
     private Window winDadosProfessor;
     private Listbox listProfessor;
     //private Listitem itens;
     private ListModelList list; // the model of the listProfessor
     private Professor p;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosProfessor(this);
         p = (Professor) arg.get("obj");
-        
+
         List<Professor> listaProfessores = ctrl.obterProfessor();
         List<Professor> data = new ArrayList<Professor>();
 
@@ -60,60 +60,62 @@ public class PagEventosProfessor extends GenericForwardComposer {
                 linha.setParent(listProfessor);
             }
         }
-        
+
     }
 
-    public void addProfessor(Professor p)
-    {
+    public void addProfessor(Professor p) {
         Listitem linha = new Listitem(p.toString(), p);
         linha.appendChild(new Listcell(p.getGrauInstrucao().toString()));
         linha.setParent(listProfessor);
     }
-    
-    public void refreshProfessor(Professor p)
-    {
+
+    public void refreshProfessor(Professor p) {
         for (int i = 0; i < listProfessor.getItemCount(); i++) {
-            if(listProfessor.getItemAtIndex(i).getValue() == p)
-            {
-                listProfessor.getItemAtIndex(i).getChildren().clear();      
+            if (listProfessor.getItemAtIndex(i).getValue() == p) {
+                listProfessor.getItemAtIndex(i).getChildren().clear();
                 listProfessor.getItemAtIndex(i).appendChild(new Listcell(p.toString()));
                 listProfessor.getItemAtIndex(i).appendChild(new Listcell(p.getGrauInstrucao().toString()));
                 break;
             }
         }
     }
-    
+
     public void onClick$excluirProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {
             try {
                 ctrl.apagarProfessor((Professor) listitem.getValue());
                 listProfessor.removeItemAt(listProfessor.getSelectedIndex());
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel excluir o professor");
+            }
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir o professor");
             }
         }
-        else{
-            Messagebox.show("Selecione um professor");
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione um professor");
         }
-        
+
     }
 
     public void onClick$incluirProfessor(Event event) {
-        ctrl.abrirIncluirProfessor(p);      
+        ctrl.abrirIncluirProfessor(p);
     }
 
     public void onClick$alterarProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirEditarProfessor((Professor) listitem.getValue()); 
+            ctrl.abrirEditarProfessor((Professor) listitem.getValue());
         }
     }
-    
+
     public void onClick$consultarProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirConsultarProfessor((Professor) listitem.getValue());  
+            ctrl.abrirConsultarProfessor((Professor) listitem.getValue());
         }
     }
 }

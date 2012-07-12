@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
@@ -29,8 +28,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os eventos da tela PagEventosMatricula.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos da tela PagEventosMatricula.zul
+ * <p/>
  * @author Eduardo Rigamonte
  */
 public class PagEventosMatricula extends GenericForwardComposer {
@@ -47,6 +46,8 @@ public class PagEventosMatricula extends GenericForwardComposer {
     private Combobox nomeAluno;
     private Aluno obj;
     private int permissao;
+    private Div boxInformacao;
+    private Label msg;
     //Métodos Estáticos:
 
     //Métodos de Instância:
@@ -71,7 +72,8 @@ public class PagEventosMatricula extends GenericForwardComposer {
             nomeAluno.setDisabled(true);
             onSelect$nomeAluno(null);
             permissao = 1;
-        } else {
+        }
+        else {
             alunos = ctrlPessoa.obterAlunos();
             nomeAluno.setModel(new ListModelList(alunos, true));
             permissao = 0;
@@ -86,21 +88,22 @@ public class PagEventosMatricula extends GenericForwardComposer {
         linha.appendChild(new Listcell(matTurma.getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
         linha.appendChild(new Listcell(matTurma.getTurma().getProfessor() + ""));
         linha.setParent(listbox);
-        
+
     }
 
     public void onSelect$nomeAluno(Event event) {
-        
+
         while (listbox.getItemCount() > 0) {
             listbox.removeItemAt(0);
         }
-        
+
         Aluno select = null;
         if (nomeAluno.getSelectedItem() == null) {
             select = obj;
             ((ListModelList) nomeAluno.getModel()).addToSelection(obj);
 
-        } else {
+        }
+        else {
             select = (Aluno) nomeAluno.getSelectedItem().getValue();
         }
 
@@ -115,12 +118,14 @@ public class PagEventosMatricula extends GenericForwardComposer {
                 linha.appendChild(new Listcell(matTurma.get(i).getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
                 if (matTurma.get(i).getTurma().getProfessor() == null) {
                     linha.appendChild(new Listcell(""));
-                } else {
+                }
+                else {
                     linha.appendChild(new Listcell(matTurma.get(i).getTurma().getProfessor().toString()));
                 }
                 linha.setParent(listbox);
             }
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Messagebox.show("Erro ao obter matriculas");
         }
     }
@@ -133,10 +138,12 @@ public class PagEventosMatricula extends GenericForwardComposer {
                 boolean b = ctrlMatricula.verificaPeriodoMatricula(a.getCurso());
                 if (b) {
                     ctrlMatricula.abrirMatricular(a);
-                } else {
+                }
+                else {
                     Messagebox.show("Não está no período de matrícula");
                 }
-            } else {
+            }
+            else {
                 ctrlMatricula.abrirMatricular(a);
             }
         }
@@ -147,25 +154,33 @@ public class PagEventosMatricula extends GenericForwardComposer {
         if (listitem != null) {
             try {
                 if (permissao == 1) {
-                    boolean b = ctrlMatricula.verificaPeriodoMatricula(((Aluno)nomeAluno.getSelectedItem().getValue()).getCurso());
+                    boolean b = ctrlMatricula.verificaPeriodoMatricula(((Aluno) nomeAluno.getSelectedItem().getValue()).getCurso());
                     if (b) {
                         MatriculaTurma mt = listitem.getValue();
                         ctrlMatricula.cancelarMatricula(mt);
                         listbox.removeItemAt(listbox.getSelectedIndex());
-                    } else {
+                    }
+                    else {
                         Messagebox.show("Não está no período de matrícula");
                     }
-                } else {
+                }
+                else {
                     MatriculaTurma mt = listitem.getValue();
                     ctrlMatricula.cancelarMatricula(mt);
                     listbox.removeItemAt(listbox.getSelectedIndex());
                 }
 
-            } catch (Exception e) {
-                Messagebox.show("Não foi possivel desmatricular");
             }
-        } else {
-            Messagebox.show("Selecione uma matricula");
+            catch (Exception e) {
+                boxInformacao.setClass("error");
+                boxInformacao.setVisible(true);
+                msg.setValue("Não foi possivel excluir a matricula");
+            }
+        }
+        else {
+            boxInformacao.setClass("info");
+            boxInformacao.setVisible(true);
+            msg.setValue("Selecione uma matricula");
         }
     }
 }

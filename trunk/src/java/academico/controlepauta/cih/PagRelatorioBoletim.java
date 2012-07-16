@@ -30,8 +30,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagRelatorioBoletim.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagRelatorioBoletim.zul
+ * <p/>
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioBoletim extends GenericForwardComposer {
@@ -46,13 +46,15 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     private Grid disciplinas;
     private Aluno obj;
     private Window winBoletim;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         obj = (Aluno) arg.get("aluno");
         if (obj != null) {
-            List<Aluno>alunos = new ArrayList<Aluno>();
+            List<Aluno> alunos = new ArrayList<Aluno>();
             alunos.add(obj);
             nome.setModel(new ListModelList(alunos, true));
             matricula.setValue(obj.getMatricula().toString());
@@ -60,7 +62,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             calendario.setModel(new ListModelList(buscaCalendarios(obj)));
             nome.setDisabled(true);
             matricula.setDisabled(true);
-        } else {
+        }
+        else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
         nome.setReadonly(true);
@@ -87,16 +90,16 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirBoletim(obj, cal);
             curso.setValue(obj.getCurso().toString());
-            
+
             coeficiente.setValue(obj.getCoeficiente().toString());
-            
+
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
 
                 ctrlMatricula.calculaNotaFinal(c);
-                
+
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
@@ -105,14 +108,15 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
                 linha.setParent(linhas);
             }
             linhas.setParent(disciplinas);
-        } catch (AcademicoException ex) {
-            Messagebox.show("Erro ao obter matriculas");
+        }
+        catch (AcademicoException ex) {
+            setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }
 
     /**
      * <<descrição do método>>
-     *
+     * <p/>
      * @param <<nome do parâmetro>> <<descrição do parâmetro>>
      * @param ...
      * @return <<descrição do retorno>>
@@ -121,5 +125,15 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     //Busca os calendarios que o aluno tem algum vinculo de matricula
     public List<Calendario> buscaCalendarios(Aluno a) {
         return ctrlMatricula.buscaCalendarios(a);
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

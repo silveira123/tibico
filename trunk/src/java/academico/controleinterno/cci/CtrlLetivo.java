@@ -59,15 +59,31 @@ public class CtrlLetivo {
     private CtrlLetivo() {
     }
 
-    public Calendario incluirCalendario(ArrayList<Object> args) throws AcademicoException {
-        Calendario c = apl.incluirCalendario(args);
-        pagEventosCalendario.addCalendario(c);
+    public Calendario incluirCalendario(ArrayList<Object> args) {
+        Calendario c = null;
+        try {
+            c = apl.incluirCalendario(args);
+            pagEventosCalendario.addCalendario(c);
+            pagEventosCalendario.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosCalendario.setMensagemAviso("error", "Erro ao cadastrar o calendário");
+            System.err.println(ex.getMessage());
+        }
         return c;
     }
 
-    public Calendario alterarCalendario(Calendario calendario) throws Exception {
-        Calendario c = apl.alterarCalendario(calendario);
-        pagEventosCalendario.refreshCalendario(c);
+    public Calendario alterarCalendario(Calendario calendario) {
+        Calendario c = null;
+        try {
+            c = apl.alterarCalendario(calendario);
+            pagEventosCalendario.refreshCalendario(c);
+            pagEventosCalendario.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosCalendario.setMensagemAviso("error", "Erro ao editar o calendário");
+            System.err.println(ex.getMessage());
+        }
         return c;
     }
     
@@ -107,15 +123,31 @@ public class CtrlLetivo {
         Executions.createComponents("/PagFormularioCalendario.zul", null, map);
     }
 
-    public Turma incluirTurma(ArrayList<Object> args) throws AcademicoException {
-        Turma t = aplC.incluirTurma(args);
-        pagEventosTurma.addTurma(t);
+    public Turma incluirTurma(ArrayList<Object> args) {
+        Turma t = null;
+        try {
+            t = aplC.incluirTurma(args);
+            pagEventosTurma.addTurma(t);
+            pagEventosTurma.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosTurma.setMensagemAviso("error", "Erro ao cadastrar o calendário");
+            System.err.println(ex.getMessage());
+        }
         return t;
     }
 
-    public Turma alterarTurma(Turma turma) throws Exception {
-        Turma t = aplC.alterarTurma(turma);
-        pagEventosTurma.refreshTurma(t);
+    public Turma alterarTurma(Turma turma) {
+        Turma t = null;
+        try {
+            t = aplC.alterarTurma(turma);
+            pagEventosTurma.refreshTurma(t);
+            pagEventosTurma.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosTurma.setMensagemAviso("error", "Erro ao editar a turma");
+            System.err.println(ex.getMessage());
+        }
         return t;
     }
 
@@ -190,7 +222,8 @@ public class CtrlLetivo {
     public List<Calendario> obterCalendarios(Curso curso) {
         try {
             return apl.obterCalendarios(curso);
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -200,7 +233,8 @@ public class CtrlLetivo {
     public List<Professor> obterProfessores(Disciplina disciplina) {
         try {
             return aplC.obterProfessores(disciplina);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.getLogger(CtrlLetivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 

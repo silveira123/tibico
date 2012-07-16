@@ -39,7 +39,7 @@
                 <menuitem id="excluir" tooltiptext="Excluir Chamda" label="Excluir"/>
             </menubar>
             
-            <div id="boxInformacao" class="" visible="false">
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>
             </div>
             

@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.Map;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
 /**
@@ -57,18 +54,34 @@ public class CtrlCadastroCurso {
     }
     //TODO testando resolver exceção
 
-    public Curso incluirCurso(ArrayList<Object> args) throws Exception {
-        Curso c = apl.incluirCurso(args);
-        if (c != null) {
-            pagEventosCurso.addCurso(c);
+    public Curso incluirCurso(ArrayList<Object> args) {
+        Curso c = null;
+        try {
+            c = apl.incluirCurso(args);
+            if (c != null) {
+                pagEventosCurso.addCurso(c);
+                pagEventosCurso.setMensagemAviso("success", "Cadastro feito com sucesso");
+            }
+        }
+        catch (Exception ex) {
+            pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar o curso");
+            System.err.println(ex.getMessage());
         }
         return c;
     }
 
-    public Curso alterarCurso(Curso args) throws Exception {
-        Curso c = apl.alterarCurso(args);
-        if (c != null) {
-            pagEventosCurso.refreshCurso(c);
+    public Curso alterarCurso(Curso args) {
+        Curso c = null;
+        try {
+            c = apl.alterarCurso(args);
+            if (c != null) {
+                pagEventosCurso.refreshCurso(c);
+                pagEventosCurso.setMensagemAviso("success", "Cadastro editado com sucesso");
+            }
+        }
+        catch (Exception ex) {
+            pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar o curso");
+            System.err.println(ex.getMessage());
         }
         return c;
     }
@@ -81,15 +94,31 @@ public class CtrlCadastroCurso {
         return apl.obterCursos();
     }
 
-    public Disciplina incluirDisciplina(ArrayList<Object> args) throws Exception {
-        Disciplina d = apl.incluirDisciplina(args);
-        pagEventosDisciplina.addDisciplina(d);
+    public Disciplina incluirDisciplina(ArrayList<Object> args) {
+        Disciplina d = null;
+        try {
+            d = apl.incluirDisciplina(args);
+            pagEventosDisciplina.addDisciplina(d);
+            pagEventosDisciplina.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar a disciplina");
+            System.err.println(ex.getMessage());
+        }
         return d;
     }
 
-    public Disciplina alterarDisciplina(Disciplina args) throws Exception {
-        Disciplina d = apl.alterarDisciplina(args);
-        pagEventosDisciplina.refreshDisciplina(d);
+    public Disciplina alterarDisciplina(Disciplina args) {
+        Disciplina d = null;
+        try {
+            d = apl.alterarDisciplina(args);
+            pagEventosDisciplina.refreshDisciplina(d);
+            pagEventosDisciplina.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosDisciplina.setMensagemAviso("error", "Erro ao editar a disciplina");
+            System.err.println(ex.getMessage());
+        }
         return d;
     }
 

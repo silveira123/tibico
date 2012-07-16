@@ -133,17 +133,14 @@ public class PagEventosChamada extends GenericForwardComposer {
                 }
 
                 listbox.removeItemAt(listbox.getSelectedIndex());
+                setMensagemAviso("success", "Chamada excluida com sucesso");
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir a chamada");
+                setMensagemAviso("error", "Não foi possivel excluir a chamada");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione uma chamada");
+            setMensagemAviso("info", "Selecione uma chamada");
         }
     }
 
@@ -183,5 +180,15 @@ public class PagEventosChamada extends GenericForwardComposer {
             Avaliacao c = listitem.getValue();
             ctrl.abrirRegistroPontuacao(c);
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

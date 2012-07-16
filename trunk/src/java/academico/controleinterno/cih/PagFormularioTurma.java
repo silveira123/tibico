@@ -200,7 +200,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
                         args.add(null);
                     }
                     limparCampos();
-                    
                     args.add(EstadoTurma.ESPERA);
 
                     ctrl.incluirTurma(args);
@@ -217,8 +216,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
                             Professor p = professor.getSelectedItem().getValue();
                             obj.setProfessor(p);
                         }
-
-
 
                         ctrl.alterarTurma(obj);
                         Messagebox.show("Cadastro editado!");

@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
@@ -21,7 +20,6 @@ import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlMatricula;
-import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -30,9 +28,10 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioMatricula.zul
- * @author Pietro Crhist 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioMatricula.zul
+ * <p/>
+ * @author Pietro Crhist
  * @author Geann Valfré
  */
 public class PagFormularioMatricula extends GenericForwardComposer {
@@ -40,7 +39,6 @@ public class PagFormularioMatricula extends GenericForwardComposer {
     private CtrlLetivo ctrlLetivo = CtrlLetivo.getInstance();
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private CtrlMatricula ctrlMatricula = CtrlMatricula.getInstance();
-    
     private Window winFormularioMatricula;
     private Listbox left;
     private Listbox right;
@@ -69,18 +67,15 @@ public class PagFormularioMatricula extends GenericForwardComposer {
 
     public void onClick$salvarMatricula(Event event) {
         List<Listitem> listItems = right.getItems();
-        
+
         for (int i = 0; i < listItems.size(); i++) {
             ArrayList<Object> listMT = new ArrayList<Object>();
             listMT.add(obj);
             Turma t = (Turma) listItems.get(i).getValue();
             listMT.add(t);
-            try {
-                ctrlMatricula.efetuarMatricula(listMT);
-            }
-            catch (AcademicoException ex) {
-                Messagebox.show("Erro ao matricular! " + obj);
-            }
+
+            ctrlMatricula.efetuarMatricula(listMT);
+
         }
         winFormularioMatricula.onClose();
     }

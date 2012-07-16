@@ -1,67 +1,72 @@
 <?page title="Boletim" contentType="text/html;charset=UTF-8"?>
 <zk>
     <window title="Boletim" id="winBoletim" position="center"
-                closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioBoletim">
+            closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioBoletim">
         
         <div align="center">
         
-        <separator height="35px" />
-        <separator/>
-        <grid>
-            <columns>
-                <column width="20%"/>
-                <column width="20%"/>
-                <column width="70%"/>
-            </columns>
-            <rows style="background:#FFFFFF;">
+            <separator height="35px" />
+        
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
+                <label id="msg" value=""/>
+            </div>
+        
+            <separator/>
+            <grid>
+                <columns>
+                    <column width="20%"/>
+                    <column width="20%"/>
+                    <column width="70%"/>
+                </columns>
+                <rows style="background:#FFFFFF;">
 					
-                <row>
-                    Aluno:
-                    <textbox id="matricula" width="98%" />
+                    <row>
+                        Aluno:
+                        <textbox id="matricula" width="98%" />
 		
-                    <combobox id="nome" width="80%" autocomplete="true"
+                        <combobox id="nome" width="80%" autocomplete="true"
                                   autodrop="true" buttonVisible="true" />
-                </row>
-                <row>
-                    Calendário Acadêmico:
-                    <cell colspan="3">
-                        <combobox id="calendario" width="30%" autocomplete="true"
+                    </row>
+                    <row>
+                        Calendário Acadêmico:
+                        <cell colspan="3">
+                            <combobox id="calendario" width="30%" autocomplete="true"
                                       autodrop="true" buttonVisible="true" />
-                    </cell>
-                </row>
-            </rows>
-        </grid>
-        <separator/>
-        <grid>
-            <columns>
-                <column width="20%"/>
-                <column width="80%"/>
-                <column width="20%"/>
-                <column width="30%"/>
-            </columns>
-            <rows>
-                <row>
-                    Curso:
-                    <label id="curso" width="98%"/>  
-                    Coeficiente:
-                    <label id="coeficiente" width="98%"/> 
-                </row>
+                        </cell>
+                    </row>
+                </rows>
+            </grid>
+            <separator/>
+            <grid>
+                <columns>
+                    <column width="20%"/>
+                    <column width="80%"/>
+                    <column width="20%"/>
+                    <column width="30%"/>
+                </columns>
+                <rows>
+                    <row>
+                        Curso:
+                        <label id="curso" width="98%"/>  
+                        Coeficiente:
+                        <label id="coeficiente" width="98%"/> 
+                    </row>
 					
-                <row style="background:#FFFFFF;">
-                    Disciplinas Cursadas:
-                    <cell colspan="3">
-                        <grid id="disciplinas" height="500px">
-                            <columns>
-                                <column label="Disciplina" width="50%" align="center"/>
-                                <column label="Faltas" width="16%" align="center"/>
-                                <column label="Nota" width="15%" align="center"/>
-                                <column label="Situacão" width="19%" align="center"/>
-                            </columns>
-                        </grid>
-                    </cell>
-                </row> 
-            </rows>
-        </grid>
+                    <row style="background:#FFFFFF;">
+                        Disciplinas Cursadas:
+                        <cell colspan="3">
+                            <grid id="disciplinas" height="500px">
+                                <columns>
+                                    <column label="Disciplina" width="50%" align="center"/>
+                                    <column label="Faltas" width="16%" align="center"/>
+                                    <column label="Nota" width="15%" align="center"/>
+                                    <column label="Situacão" width="19%" align="center"/>
+                                </columns>
+                            </grid>
+                        </cell>
+                    </row> 
+                </rows>
+            </grid>
         </div>
     </window>
 </zk>

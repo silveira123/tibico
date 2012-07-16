@@ -126,7 +126,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
             }
         }
         catch (AcademicoException ex) {
-            Messagebox.show("Erro ao obter matriculas");
+            setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }
 
@@ -140,7 +140,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
                     ctrlMatricula.abrirMatricular(a);
                 }
                 else {
-                    Messagebox.show("Não está no período de matrícula");
+                    setMensagemAviso("error", "Não está no período de matrícula");
                 }
             }
             else {
@@ -161,7 +161,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
                         listbox.removeItemAt(listbox.getSelectedIndex());
                     }
                     else {
-                        Messagebox.show("Não está no período de matrícula");
+                        setMensagemAviso("error", "Não está no período de matrícula");
                     }
                 }
                 else {
@@ -172,15 +172,21 @@ public class PagEventosMatricula extends GenericForwardComposer {
 
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir a matricula");
+                setMensagemAviso("error", "Não foi possivel excluir a matricula");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione uma matricula");
+            setMensagemAviso("info", "Selecione uma matricula");
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

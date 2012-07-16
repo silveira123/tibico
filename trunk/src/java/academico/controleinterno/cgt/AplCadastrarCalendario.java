@@ -43,11 +43,11 @@ public class AplCadastrarCalendario {
         return (Calendario) apDaoCalendario.salvar(calendario);
     }
 
-    public Calendario alterarCalendario(Calendario calendario) throws Exception {
+    public Calendario alterarCalendario(Calendario calendario) throws AcademicoException {
         return (Calendario) apDaoCalendario.salvar(calendario);
     }
 
-    public void apagarCalendario(Calendario calendario) throws Exception {
+    public void apagarCalendario(Calendario calendario) throws AcademicoException {
         apDaoCalendario.excluir(calendario);
     }
 

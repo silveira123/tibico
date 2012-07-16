@@ -109,17 +109,14 @@ public class PagEventosTurma extends GenericForwardComposer {
                 Turma t = listitem.getValue();
                 ctrl.apagarTurma(t);
                 listbox.removeItemAt(listbox.getSelectedIndex());
+                setMensagemAviso("success", "Turma excluida com sucesso");
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir a turma");
+                setMensagemAviso("error", "Não foi possivel excluir a turma");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione uma turma");
+            setMensagemAviso("info", "Selecione uma turma");
         }
     }
 
@@ -141,5 +138,15 @@ public class PagEventosTurma extends GenericForwardComposer {
             Turma t = listitem.getValue();
             ctrl.abrirConsultarTurma(t);
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

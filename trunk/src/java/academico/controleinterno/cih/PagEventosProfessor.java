@@ -86,17 +86,14 @@ public class PagEventosProfessor extends GenericForwardComposer {
             try {
                 ctrl.apagarProfessor((Professor) listitem.getValue());
                 listProfessor.removeItemAt(listProfessor.getSelectedIndex());
+                setMensagemAviso("success", "Professor excluido com sucesso");
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir o professor");
+                setMensagemAviso("error", "Não foi possivel excluir o professor");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione um professor");
+            setMensagemAviso("info", "Selecione um professor");
         }
 
     }
@@ -117,5 +114,15 @@ public class PagEventosProfessor extends GenericForwardComposer {
         if (listitem != null) {
             ctrl.abrirConsultarProfessor((Professor) listitem.getValue());
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

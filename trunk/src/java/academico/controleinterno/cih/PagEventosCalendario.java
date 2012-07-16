@@ -113,17 +113,14 @@ public class PagEventosCalendario extends GenericForwardComposer {
                 Calendario c = listitem.getValue();
                 ctrl.apagarCalendario(c);
                 listbox.removeItemAt(listbox.getSelectedIndex());
+                setMensagemAviso("success", "Calendário excluido com sucesso");
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir o calendario");
+                setMensagemAviso("error", "Não foi possivel excluir o calendário");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione um calendario");
+            setMensagemAviso("info", "Selecione um calendário");
         }
     }
 
@@ -150,5 +147,15 @@ public class PagEventosCalendario extends GenericForwardComposer {
             Calendario c = listitem.getValue();
             ctrl.abrirConsultarCalendario(c);
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
@@ -29,8 +28,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os eventos da tela PagRelatorioHistorico.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos da tela PagRelatorioHistorico.zul
+ * <p/>
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioHistorico extends GenericForwardComposer {
@@ -44,13 +43,15 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     private Grid disciplinas;
     private Aluno obj;
     private Window winHistorico;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         obj = (Aluno) arg.get("aluno");
         if (obj != null) {
-            List<Aluno>alunos = new ArrayList<Aluno>();
+            List<Aluno> alunos = new ArrayList<Aluno>();
             alunos.add(obj);
             nome.setModel(new ListModelList(alunos, true));
             matricula.setValue(obj.getMatricula().toString());
@@ -71,6 +72,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         matricula.setValue(obj.getMatricula().toString());
         adicionaDisciplinas(obj);
     }
+
     /**
      * Função para adicionar no grid as turmas cursadas pelo aluno
      * <p/>
@@ -78,7 +80,9 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
      * @return void
      */
     public void adicionaDisciplinas(Aluno aluno) throws Exception {
-        if(disciplinas.getRows()!=null)disciplinas.removeChild(disciplinas.getRows());
+        if (disciplinas.getRows() != null) {
+            disciplinas.removeChild(disciplinas.getRows());
+        }
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirHistorico(obj);
             curso.setValue(obj.getCurso().toString());
@@ -87,9 +91,9 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
-                
+
                 ctrlMatricula.calculaNotaFinal(c);
-                
+
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
                 //TODO if do fim do periodo
@@ -101,7 +105,17 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             linhas.setParent(disciplinas);
         }
         catch (AcademicoException ex) {
-            Messagebox.show("Erro ao obter matriculas");
+            setMensagemAviso("error", "Erro ao obter matriculas");
         }
-    }  
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
+    }
 }

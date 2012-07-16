@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -29,8 +28,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioCurso.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioCurso.zul
+ * <p/>
  * @author Geann Valfré
  * @author Eduardo Rigamonte
  */
@@ -131,49 +131,45 @@ public class PagFormularioCurso extends GenericForwardComposer {
     public void onClick$salvarCurso(Event event) {
 
         Curso c = null;
-        try {
-            String msg = valido();
-            if (msg.trim().equals("")) {
-                if (MODO == ctrl.EDITAR) {
-                    obj.setNome(nomeCurso.getText());
-                    obj.setDuracao(duracao.getValue());
-                    obj.setDescricao(descricao.getText());
-                    obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText()));
-                    obj.setGrandeAreaConhecimento((GrandeAreaConhecimento) grandeArea.getSelectedItem().getValue());
-                    obj.setRegime(Regime.valueOf(regime.getText()));
-                    obj.setSigla(sigla.getText());
-                    c = ctrl.alterarCurso(obj);
-                    if (c != null) {
-                        Messagebox.show("Cadastro editado!");
-                        winFormularioCurso.onClose();
-                    } else {
-                        Messagebox.show("Duração deve ser maior que 0!");
-                    }
-                } else {
-                    ArrayList<Object> list = new ArrayList<Object>();
-                    list.add(nomeCurso.getText());
-                    list.add(duracao.getValue());
-                    list.add(descricao.getText());
-                    list.add(GrauInstrucao.valueOf(grauInstrucao.getText()));
-                    list.add(grandeArea.getSelectedItem().getValue());
-                    list.add(Regime.valueOf(regime.getText()));
-                    list.add(sigla.getText());
-                    c = ctrl.incluirCurso(list);
-                    if (c != null) {
-                        Messagebox.show("Cadastro feito!");
-                        limparCampos();
-                        winFormularioCurso.onClose();
-                    } else {
-                        Messagebox.show("Duração deve ser maior que 0!");
-                    }
+        String msg = valido();
+        if (msg.trim().equals("")) {
+            if (MODO == ctrl.EDITAR) {
+                obj.setNome(nomeCurso.getText());
+                obj.setDuracao(duracao.getValue());
+                obj.setDescricao(descricao.getText());
+                obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText()));
+                obj.setGrandeAreaConhecimento((GrandeAreaConhecimento) grandeArea.getSelectedItem().getValue());
+                obj.setRegime(Regime.valueOf(regime.getText()));
+                obj.setSigla(sigla.getText());
+                c = ctrl.alterarCurso(obj);
+                if (c != null) {
+                    winFormularioCurso.onClose();
                 }
-
-            } else {
-                Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
+                else {
+                    Messagebox.show("Duração deve ser maior que 0!");
+                }
             }
-        } catch (Exception e) {
-            Messagebox.show("Falha no cadastro feito!");
-            System.err.println(e);
+            else {
+                ArrayList<Object> list = new ArrayList<Object>();
+                list.add(nomeCurso.getText());
+                list.add(duracao.getValue());
+                list.add(descricao.getText());
+                list.add(GrauInstrucao.valueOf(grauInstrucao.getText()));
+                list.add(grandeArea.getSelectedItem().getValue());
+                list.add(Regime.valueOf(regime.getText()));
+                list.add(sigla.getText());
+                c = ctrl.incluirCurso(list);
+                if (c != null) {
+                    winFormularioCurso.onClose();
+                }
+                else {
+                    Messagebox.show("Duração deve ser maior que 0!");
+                }
+            }
+
+        }
+        else {
+            Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
         }
     }
 

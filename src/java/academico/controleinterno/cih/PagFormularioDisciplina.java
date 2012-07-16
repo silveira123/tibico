@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -30,8 +29,9 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioDisciplina.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioDisciplina.zul
+ * <p/>
  * @author Geann Valfré
  * @author Eduardo Rigamonte
  */
@@ -80,7 +80,8 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                 this.salvarDisciplina.setVisible(false);
                 bloquearTela();
             }
-        } else {
+        }
+        else {
             obj2 = (Curso) arg.get("obj");
             List<Comboitem> curso = cursoCombo.getItems();
             for (int i = 0; i < curso.size(); i++) {
@@ -120,8 +121,9 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         }
         ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
 
-        if(((ListModelList) listPreRequisitos.getModel()).contains(obj)) 
+        if (((ListModelList) listPreRequisitos.getModel()).contains(obj)) {
             ((ListModelList) listPreRequisitos.getModel()).remove(obj);
+        }
 
         if (listAreaConhecimento.getModel() != null) {
             setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
@@ -164,55 +166,45 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     public void onClick$salvarDisciplina(Event event) {
 
         Disciplina d = null;
-        try {
-            String msg = valido();
-            if (msg.trim().equals("")) {
-                if (MODO == CtrlCadastroCurso.EDITAR) {
+        String msg = valido();
+        if (msg.trim().equals("")) {
+            if (MODO == CtrlCadastroCurso.EDITAR) {
 
-                    obj.setNome(nomeDisciplina.getText());
-                    obj.setCargaHoraria(cargaHoraria.getValue());
-                    obj.setNumCreditos(creditos.getValue());
-                    obj.setPeriodoCorrespondente(periodo.getValue());
-                    Curso c = cursoCombo.getSelectedItem().getValue();
-                    obj.setCurso(c);
-                    ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
-                    obj.setPrerequisito(auxP);
-                    ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
-                    obj.setAreaConhecimento(auxAC);
-                    d = ctrl.alterarDisciplina(obj);
+                obj.setNome(nomeDisciplina.getText());
+                obj.setCargaHoraria(cargaHoraria.getValue());
+                obj.setNumCreditos(creditos.getValue());
+                obj.setPeriodoCorrespondente(periodo.getValue());
+                Curso c = cursoCombo.getSelectedItem().getValue();
+                obj.setCurso(c);
+                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                obj.setPrerequisito(auxP);
+                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                obj.setAreaConhecimento(auxAC);
+                d = ctrl.alterarDisciplina(obj);
 
-                    Messagebox.show("Cadastro editado!");
-
-                } else {
-                    ArrayList<Object> list = new ArrayList<Object>();
-
-                    list.add(nomeDisciplina.getText());
-                    list.add(cargaHoraria.getValue());
-                    list.add(creditos.getValue());
-                    list.add(periodo.getValue());
-                    ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
-                    list.add(auxP);
-                    Curso c = cursoCombo.getSelectedItem().getValue();
-                    list.add(c);
-                    ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
-                    list.add(auxAC);
-                    d = ctrl.incluirDisciplina(list);
-
-                    limparCampos();
-                    Messagebox.show("Cadastro feito!");
-                }
-                winFormularioDisciplina.onClose();
-            } else {
-                Messagebox.show(msg, "Informe", 0, Messagebox.EXCLAMATION);
             }
-        } catch (Exception e) {
-            Messagebox.show("Falha no cadastro feito!");
-            System.err.println(e);
+            else {
+                ArrayList<Object> list = new ArrayList<Object>();
+
+                list.add(nomeDisciplina.getText());
+                list.add(cargaHoraria.getValue());
+                list.add(creditos.getValue());
+                list.add(periodo.getValue());
+                ArrayList<Disciplina> auxP = getSelecionadosList(listPreRequisitos);
+                list.add(auxP);
+                Curso c = cursoCombo.getSelectedItem().getValue();
+                list.add(c);
+                ArrayList<AreaConhecimento> auxAC = getSelecionadosList(listAreaConhecimento);
+                list.add(auxAC);
+                d = ctrl.incluirDisciplina(list);
+
+                limparCampos();
+            }
+            winFormularioDisciplina.onClose();
         }
-
-        winFormularioDisciplina.onClose();
-        limparCampos();
-
+        else {
+            Messagebox.show(msg, "Informe", 0, Messagebox.EXCLAMATION);
+        }
     }
 
     public void onClick$voltar(Event event) {

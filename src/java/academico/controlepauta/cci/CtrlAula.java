@@ -51,15 +51,31 @@ public class CtrlAula {
         this.pagEventosAvaliacao = pagEventosAvaliacao;
     }
 
-    public Avaliacao incluirAvaliacao(ArrayList<Object> args) throws AcademicoException {
-        Avaliacao a = apl.incluirAvaliacao(args);
-        pagEventosAvaliacao.addAvaliacao(a);
+    public Avaliacao incluirAvaliacao(ArrayList<Object> args) {
+        Avaliacao a = null;
+        try {
+            a = apl.incluirAvaliacao(args);
+            pagEventosAvaliacao.addAvaliacao(a);
+            pagEventosAvaliacao.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosAvaliacao.setMensagemAviso("error", "Erro ao cadastrar a avaliação");
+            System.err.println(ex.getMessage());
+        }
         return a;
     }
 
-    public Avaliacao alterarAvaliacao(Avaliacao avaliacao) throws Exception {
-        Avaliacao a = apl.alterarAvaliacao(avaliacao);
-        pagEventosAvaliacao.refreshAvaliacao(a);
+    public Avaliacao alterarAvaliacao(Avaliacao avaliacao) {
+        Avaliacao a = null;
+        try {
+            a = apl.alterarAvaliacao(avaliacao);
+            pagEventosAvaliacao.refreshAvaliacao(a);
+            pagEventosAvaliacao.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosAvaliacao.setMensagemAviso("error", "Erro ao editar a avaliação");
+            System.err.println(ex.getMessage());
+        }
         return a;
     }
 
@@ -107,18 +123,31 @@ public class CtrlAula {
          apl.incluirResultado(obj, notas, observacoes, CtrlMatricula.getInstance().obter(obj.getTurma()));
     }
     
-    public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
-        Aula a = apl.incluirAula(args);
-       
-        pagEventosChamada.addChamada(a);
-     
+    public Aula incluirAula(ArrayList<Object> args) {
+        Aula a = null;
+        try {
+            a = apl.incluirAula(args);
+            pagEventosChamada.addChamada(a);
+            pagEventosChamada.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosChamada.setMensagemAviso("error", "Erro ao cadastrar a aula");
+            System.err.println(ex.getMessage());
+        }
         return a;
     }
 
-    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
-        Aula a = apl.alterarAula(aula, frequencia);
-        pagEventosChamada.refreshChamada(a);
-        
+    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) {
+        Aula a = null;
+        try {
+            a = apl.alterarAula(aula, frequencia);
+            pagEventosChamada.refreshChamada(a);
+            pagEventosChamada.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosChamada.setMensagemAviso("error", "Erro ao editar a aula");
+            System.err.println(ex.getMessage());
+        }
         return a;
     }
 

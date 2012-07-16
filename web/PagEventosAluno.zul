@@ -38,7 +38,7 @@
                 </rows>
             </grid>
             
-            <div id="boxInformacao" class="" visible="false">
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>
             </div>
             

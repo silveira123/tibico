@@ -56,11 +56,11 @@ public class AplControlarAula {
         return (Avaliacao) apDaoAvaliacao.salvar(avaliacao);
     }
 
-    public Avaliacao alterarAvaliacao(Avaliacao avaliacao) throws Exception {
+    public Avaliacao alterarAvaliacao(Avaliacao avaliacao) throws AcademicoException {
         return (Avaliacao) apDaoAvaliacao.salvar(avaliacao);
     }
 
-    public void apagarAvaliacao(Avaliacao avaliacao) throws Exception {
+    public void apagarAvaliacao(Avaliacao avaliacao) throws AcademicoException {
         apDaoAvaliacao.excluir(avaliacao);
     }
 
@@ -97,7 +97,7 @@ public class AplControlarAula {
 
     }
 
-    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws Exception {
+    public Aula alterarAula(Aula aula, List<Frequencia> frequencia) throws AcademicoException {
 
         aplControlarMatricula.editarFrequencia(frequencia, aula.getFrequencia());
         return (Aula) apDaoAula.salvar(aula);
@@ -132,7 +132,7 @@ public class AplControlarAula {
         return (List<Frequencia>) ((FrequenciaDAO) apDaoFrequencia).obterFrequencias(t);
     }
 
-    public void apagarFrequencia(Frequencia frequencia) throws Exception {
+    public void apagarFrequencia(Frequencia frequencia) throws AcademicoException {
         aplControlarMatricula.excluirFrequencia(frequencia);
         apDaoFrequencia.excluir(frequencia);
 

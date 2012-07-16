@@ -18,7 +18,6 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import java.util.List;
-import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -83,17 +82,14 @@ public class PagEventosCurso extends GenericForwardComposer {
                 Curso c = listitem.getValue();
                 ctrl.apagarCurso(c);
                 listCurso.removeItemAt(listCurso.getSelectedIndex());
+                setMensagemAviso("success", "Curso excluido com sucesso");
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir o curso");
+                setMensagemAviso("error", "Não foi possivel excluir o curso");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione um curso");
+            setMensagemAviso("info", "Selecione um curso");
         }
     }
 
@@ -115,5 +111,15 @@ public class PagEventosCurso extends GenericForwardComposer {
             Curso c = listitem.getValue();
             ctrl.abrirConsultarCurso(c);
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

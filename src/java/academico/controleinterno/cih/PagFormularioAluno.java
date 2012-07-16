@@ -32,8 +32,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioAluno.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioAluno.zul
+ * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
  */
@@ -92,8 +93,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 bloquearTela();
             }
         }
-        else
-        {
+        else {
             curso = (Curso) arg.get("curso");
             obj = (Aluno) arg.get("aluno");
         }
@@ -180,17 +180,17 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 ((ListModelList) pais.getModel()).addToSelection(p);
                 onSelect$pais(null);
             }
-            
+
             if (e != null) {
                 ((ListModelList) estado.getModel()).addToSelection(e);
                 onSelect$estado(null);
             }
-            
+
             if (m != null) {
                 ((ListModelList) cidade.getModel()).addToSelection(m);
                 onSelect$cidade(null);
             }
-            
+
             if (b != null) {
                 ((ListModelList) bairro.getModel()).addToSelection(b);
             }
@@ -228,99 +228,69 @@ public class PagFormularioAluno extends GenericForwardComposer {
         Calendar c = Calendar.getInstance();
         Telefone t;
         ArrayList<Telefone> listaTelefone = new ArrayList<Telefone>();
-        try {
-            String msg = valido();
-            if (msg.trim().equals("")) {
-                if (MODO == ctrlPessoa.EDITAR) {
 
-                    obj.setNome(nome.getText());
+        String msg = valido();
+        if (msg.trim().equals("")) {
+            if (MODO == ctrlPessoa.EDITAR) {
+                obj.setNome(nome.getText());
+                obj.setSexo(obterSexo(sexo.getSelectedIndex()));
+                c.setTime(dataNasc.getValue());
+                obj.setDataNascimento(c);
 
-                    obj.setSexo(obterSexo(sexo.getSelectedIndex()));
-
-                    c.setTime(dataNasc.getValue());
-                    obj.setDataNascimento(c);
-
-                    if (telefone.getText() != null) {
-                        t = obterTelefone(telefone.getText());
-                        listaTelefone.add(t);
-                    }
-                    if (celular.getText() != null) {
-                        t = obterTelefone(telefone.getText());
-                        listaTelefone.add(t);
-                    }
-
-                    obj.setTelefone(listaTelefone);
-
-                    obj.setEmail(email.getText());
-
-                    obj.setCpf((Long.parseLong(cpf.getText())));
-
-                    obj.setIdentidade(rg.getText());
-
-                    obj.setNomeMae(nomeMae.getText());
-
-                    obj.setNomePai(nomePai.getText());
-
-                    obj.setEndereco(obterEndereco());
-
-                    obj.setCurso(curso);
-
-                    a = ctrlPessoa.alterarAluno(obj);
-
-                    Messagebox.show("Cadastro editado!");
+                if (telefone.getText() != null) {
+                    t = obterTelefone(telefone.getText());
+                    listaTelefone.add(t);
                 }
-                else {
-
-                    ArrayList<Object> list = new ArrayList<Object>();
-
-                    list.add(nome.getText());
-
-                    list.add(obterSexo(sexo.getSelectedIndex()));
-
-                    c.setTime(dataNasc.getValue());
-                    list.add(c);
-
-                    if (!"".equals(telefone.getText())) {
-                        t = obterTelefone(telefone.getText());
-                        listaTelefone.add(t);
-                    }
-                    if (!"".equals(celular.getText())) {
-                        t = obterTelefone(celular.getText());
-                        listaTelefone.add(t);
-                    }
-
-                    list.add(listaTelefone);
-
-                    list.add(email.getText());
-
-                    list.add(obterCPF(cpf.getText()));
-
-                    list.add(rg.getText());
-
-                    list.add(nomeMae.getText());
-
-                    list.add(nomePai.getText());
-
-                    list.add(obterEndereco());
-
-                    list.add(curso);
-                    
-                    a = ctrlPessoa.incluirAluno(list);
-                    if (a != null) {
-                        Messagebox.show("Cadastro feito!");
-                        limparCampos();
-                    }
+                if (celular.getText() != null) {
+                    t = obterTelefone(telefone.getText());
+                    listaTelefone.add(t);
                 }
-                winCadastro.onClose();
+
+                obj.setTelefone(listaTelefone);
+                obj.setEmail(email.getText());
+                obj.setCpf((Long.parseLong(cpf.getText())));
+                obj.setIdentidade(rg.getText());
+                obj.setNomeMae(nomeMae.getText());
+                obj.setNomePai(nomePai.getText());
+                obj.setEndereco(obterEndereco());
+                obj.setCurso(curso);
+                a = ctrlPessoa.alterarAluno(obj);
+
             }
             else {
-                Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
+                ArrayList<Object> list = new ArrayList<Object>();
+                list.add(nome.getText());
+                list.add(obterSexo(sexo.getSelectedIndex()));
+                c.setTime(dataNasc.getValue());
+                list.add(c);
+
+                if (!"".equals(telefone.getText())) {
+                    t = obterTelefone(telefone.getText());
+                    listaTelefone.add(t);
+                }
+                if (!"".equals(celular.getText())) {
+                    t = obterTelefone(celular.getText());
+                    listaTelefone.add(t);
+                }
+                list.add(listaTelefone);
+                list.add(email.getText());
+                list.add(obterCPF(cpf.getText()));
+                list.add(rg.getText());
+                list.add(nomeMae.getText());
+                list.add(nomePai.getText());
+                list.add(obterEndereco());
+                list.add(curso);
+                a = ctrlPessoa.incluirAluno(list);
+                if (a != null) {
+                    limparCampos();
+                }
             }
+            winCadastro.onClose();
         }
-        catch (Exception e) {
-            Messagebox.show("Falha no cadastro feito!");
-            System.err.println(e);
+        else {
+            Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
         }
+
     }
 
     public Sexo obterSexo(int i) {
@@ -371,6 +341,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         return cpf;
     }
     //TODO criação do endereço deve ser feito na aplicação
+
     public Endereco obterEndereco() {
         Endereco e = new Endereco();
 
@@ -392,7 +363,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         estado.setSelectedItem(null);
         cidade.setSelectedItem(null);
         bairro.setSelectedItem(null);
-        
+
         Object[] array = ((ListModelList) pais.getModel()).getSelection().toArray();
         Pais p;
         if (array.length > 0) {
@@ -405,7 +376,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
     public void onSelect$estado(Event event) {
         cidade.setSelectedItem(null);
         bairro.setSelectedItem(null);
-        
+
         Object[] array = ((ListModelList) estado.getModel()).getSelection().toArray();
         Estado e;
         if (array.length > 0) {
@@ -417,7 +388,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     public void onSelect$cidade(Event event) {
         bairro.setSelectedItem(null);
-        
+
         Object[] array = ((ListModelList) cidade.getModel()).getSelection().toArray();
         Municipio m;
         if (array.length > 0) {

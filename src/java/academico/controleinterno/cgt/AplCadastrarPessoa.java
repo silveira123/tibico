@@ -71,7 +71,7 @@ public class AplCadastrarPessoa {
      * @return
      * @throws Exception
      */
-    public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
+    public Aluno incluirAluno(ArrayList<Object> args) throws AcademicoException {
         Aluno aluno = new Aluno();
         String matricula = this.gerarMatricula((Curso) args.get(10));
          if (matricula != null) {
@@ -106,7 +106,7 @@ public class AplCadastrarPessoa {
      * @return
      * @throws Exception
      */
-    public Aluno alterarAluno(Aluno aluno) throws Exception {
+    public Aluno alterarAluno(Aluno aluno) throws AcademicoException {
         return (Aluno) apDaoAluno.salvar(aluno);
     }
 
@@ -116,7 +116,7 @@ public class AplCadastrarPessoa {
      * @param aluno
      * @throws Exception
      */
-    public void apagarAluno(Aluno aluno) throws Exception {
+    public void apagarAluno(Aluno aluno) throws AcademicoException {
         apDaoAluno.excluir(aluno);
     }
 
@@ -145,7 +145,7 @@ public class AplCadastrarPessoa {
      * @return
      * @throws Exception
      */
-    public Professor incluirProfessor(ArrayList<Object> args) throws Exception {
+    public Professor incluirProfessor(ArrayList<Object> args) throws AcademicoException {
         Professor professor = new Professor();
 
         professor.setNome((String) args.get(0));
@@ -175,7 +175,7 @@ public class AplCadastrarPessoa {
      * @return
      * @throws Exception
      */
-    public Professor alterarProfessor(Professor professor) throws Exception {
+    public Professor alterarProfessor(Professor professor) throws AcademicoException {
         return (Professor) apDaoProfessor.salvar(professor);
     }
 
@@ -185,7 +185,7 @@ public class AplCadastrarPessoa {
      * @param professor
      * @throws Exception
      */
-    public void apagarProfessor(Professor professor) throws Exception {
+    public void apagarProfessor(Professor professor) throws AcademicoException {
         apDaoProfessor.excluir(professor);
     }
 

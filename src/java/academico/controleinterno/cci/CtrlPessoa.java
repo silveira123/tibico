@@ -79,10 +79,18 @@ public static final int SALVAR = 0;
      * @return
      * @throws Exception 
      */
-    public Aluno incluirAluno(ArrayList<Object> args) throws Exception {
-        Aluno a = apl.incluirAluno(args);
-        pagEventosAluno.addAluno(a);
-        return a; 
+    public Aluno incluirAluno(ArrayList<Object> args) {
+        Aluno a = null;
+        try {
+            a = apl.incluirAluno(args);
+            pagEventosAluno.addAluno(a);
+            pagEventosAluno.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosAluno.setMensagemAviso("error", "Erro ao cadastrar o aluno");
+            System.err.println(ex.getMessage());
+        }
+        return a;
     }
 
     /**
@@ -91,9 +99,17 @@ public static final int SALVAR = 0;
      * @return
      * @throws Exception 
      */
-    public Aluno alterarAluno(Aluno args) throws Exception {
-        Aluno a = apl.alterarAluno(args);
-        pagEventosAluno.refreshAluno(a);
+    public Aluno alterarAluno(Aluno aluno) {
+        Aluno a = null;
+        try {
+            a = apl.alterarAluno(aluno);
+            pagEventosAluno.refreshAluno(a);
+            pagEventosAluno.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosAluno.setMensagemAviso("error", "Erro ao editar o aluno");
+            System.err.println(ex.getMessage());
+        }
         return a;
     }
 
@@ -132,9 +148,17 @@ public static final int SALVAR = 0;
      * @return
      * @throws Exception 
      */
-    public Professor incluirProfessor(ArrayList<Object> args) throws Exception {
-        Professor p = apl.incluirProfessor(args);
-        pagEventosProfessor.addProfessor(p);
+    public Professor incluirProfessor(ArrayList<Object> args) {
+        Professor p = null;
+        try {
+            p = apl.incluirProfessor(args);
+            pagEventosProfessor.addProfessor(p);
+            pagEventosProfessor.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosProfessor.setMensagemAviso("error", "Erro ao cadastrar o professor");
+            System.err.println(ex.getMessage());
+        }
         return p;
     }
 
@@ -144,9 +168,17 @@ public static final int SALVAR = 0;
      * @return
      * @throws Exception 
      */
-    public Professor alterarProfessor(Professor args) throws Exception {
-        Professor p = apl.alterarProfessor(args);
-        pagEventosProfessor.refreshProfessor(p);
+    public Professor alterarProfessor(Professor professor) {
+        Professor p = null;
+        try {
+            p = apl.alterarProfessor(professor);
+            pagEventosProfessor.refreshProfessor(p);
+            pagEventosProfessor.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosProfessor.setMensagemAviso("error", "Erro ao editar o professor");
+            System.err.println(ex.getMessage());
+        }
         return p;
     }
 
@@ -155,7 +187,7 @@ public static final int SALVAR = 0;
      * @param professor
      * @throws Exception 
      */
-    public void apagarProfessor(Professor professor) throws Exception {
+    public void apagarProfessor(Professor professor) throws AcademicoException {
         apl.apagarProfessor(professor);
     }
 

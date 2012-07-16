@@ -16,17 +16,15 @@
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
-import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.Aula;
 import academico.controlepauta.cdp.Frequencia;
 import academico.controlepauta.cdp.MatriculaTurma;
-import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
@@ -35,10 +33,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para
- * leitura e interpretação de dados; A classe contém os dados do registro,
- * abrangendo a leitura e interpretação para a tela PagRegistroChamada.zul
- *
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados do registro, abrangendo a leitura e interpretação para a tela
+ * PagRegistroChamada.zul
+ * <p/>
  * @author Pietro Crhist
  * @author Geann Valfré
  */
@@ -106,11 +103,11 @@ public class PagRegistroChamada extends GenericForwardComposer {
     public void onCreate$winRegistroChamada() {
         MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrl.SALVAR) {
+        if (MODO != CtrlAula.SALVAR) {
             obj = (Aula) arg.get("obj");
 
             preencherTela();
-            if (MODO == ctrl.CONSULTAR) {
+            if (MODO == CtrlAula.CONSULTAR) {
                 this.salvar.setVisible(false);
                 bloquearTela();
             }
@@ -118,83 +115,91 @@ public class PagRegistroChamada extends GenericForwardComposer {
     }
 
     public void onClick$salvar(Event event) {
-        try {
-            String msg = valido();
-            if (msg.trim().equals("")) {
-                java.util.Calendar cal = java.util.Calendar.getInstance();
-                if (MODO == ctrl.SALVAR) {
-                    ArrayList<Object> args = new ArrayList<Object>();
-                    cal.setTime(data.getValue());
-                    args.add(cal);
-                    args.add(qtdAulas.getValue());
-                    args.add(conteudo.getValue());
-                    args.add(obj2);
 
-                    frequencias = new ArrayList<Frequencia>();
-                    for (int i = 0; i < faltas.size(); i++) {
-                        Frequencia f = new Frequencia();
-                        f.setNumFaltasAula(faltas.get(i).getValue());
-                        f.setMatriculaTurma(matriculaturmas.get(i));
-                        frequencias.add(f);
+        String msg = valido();
+        if (msg.trim().equals("")) {
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            if (MODO == CtrlAula.SALVAR) {
+                ArrayList<Object> args = new ArrayList<Object>();
+                cal.setTime(data.getValue());
+                args.add(cal);
+                args.add(qtdAulas.getValue());
+                args.add(conteudo.getValue());
+                args.add(obj2);
+
+                frequencias = new ArrayList<Frequencia>();
+                for (int i = 0; i < faltas.size(); i++) {
+                    Frequencia f = new Frequencia();
+                    f.setNumFaltasAula(faltas.get(i).getValue());
+                    f.setMatriculaTurma(matriculaturmas.get(i));
+                    frequencias.add(f);
+                }
+                boolean a = ctrl.validarFaltas((Integer) args.get(1), frequencias);
+                if (a == true) {
+                    args.add(frequencias);
+                    ctrl.incluirAula(args);
+                    winRegistroChamada.onClose();
+                }
+                else {
+                    Messagebox.show("Numero de faltas superior ao limite de aulas");
+                }
+
+
+            }
+            else {
+                List<Frequencia> frequencia = new ArrayList<Frequencia>();
+                List<Frequencia> frequenciaValidar = new ArrayList<Frequencia>();
+                for (int i = 0; i < obj.getFrequencia().size(); i++) {
+                    Frequencia t = null;
+                    try {
+                        t = (Frequencia) ((Frequencia) obj.getFrequencia().get(i)).clone();
                     }
-                    boolean a = ctrl.validarFaltas((Integer) args.get(1), frequencias);
-                    if (a == true) {
-                        args.add(frequencias);
-                        ctrl.incluirAula(args);
-                        winRegistroChamada.onClose();
-                    } else {
-                        Messagebox.show("Numero de faltas superior ao limite de aulas");
+                    catch (CloneNotSupportedException ex) {
+                        System.err.println(ex);
                     }
-
-
-                } else {
-                    List<Frequencia> frequencia = new ArrayList<Frequencia>();
-                    List<Frequencia> frequenciaValidar = new ArrayList<Frequencia>();
-                    for (int i = 0; i < obj.getFrequencia().size(); i++) {
-                        Frequencia t = null;
-                        try {
-                            t = (Frequencia) ((Frequencia) obj.getFrequencia().get(i)).clone();
-                        } catch (CloneNotSupportedException ex) {
-                            System.err.println(ex);
-                        }
-                        frequencia.add(t);
+                    frequencia.add(t);
+                    try {
                         frequenciaValidar.add((Frequencia) t.clone());
                     }
-                    inserirFrequencias(frequenciaValidar);
-
-                    boolean a = ctrl.validarFaltas(qtdAulas.getValue(), frequenciaValidar);
-                    if (a == true) {
-                        cal.setTime(data.getValue());
-                        obj.setDia(cal);
-                        obj.setTurma(obj2);
-                        obj.setQuantidade(qtdAulas.getValue());
-                        obj.setConteudo(conteudo.getValue());
-
-                        inserirFrequencias(obj.getFrequencia());
-                        ctrl.alterarAula(obj, frequencia);
-
-                        winRegistroChamada.onClose();
-                    } else {
-                        Messagebox.show("Numero de faltas superior ao limite de aulas");
+                    catch (CloneNotSupportedException ex) {
+                        Logger.getLogger(PagRegistroChamada.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            } else {
-                Messagebox.show(msg, "Infome:", 0, Messagebox.EXCLAMATION);
+                inserirFrequencias(frequenciaValidar);
+
+                boolean a = ctrl.validarFaltas(qtdAulas.getValue(), frequenciaValidar);
+                if (a == true) {
+                    cal.setTime(data.getValue());
+                    obj.setDia(cal);
+                    obj.setTurma(obj2);
+                    obj.setQuantidade(qtdAulas.getValue());
+                    obj.setConteudo(conteudo.getValue());
+
+                    inserirFrequencias(obj.getFrequencia());
+                    ctrl.alterarAula(obj, frequencia);
+
+                    winRegistroChamada.onClose();
+                }
+                else {
+                    Messagebox.show("Numero de faltas superior ao limite de aulas");
+                }
             }
-        } catch (AcademicoException ex) {
-            Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        else {
+            Messagebox.show(msg, "Infome:", 0, Messagebox.EXCLAMATION);
+        }
+
     }
 
     public void inserirFrequencias(List<Frequencia> frequencia) {
         for (int i = 0; i < faltas.size(); i++) {
             if (i < frequencia.size() && frequencia.get(i).getNumFaltasAula() == faltas.get(i).getValue()) {
                 continue;
-            } else if (i < frequencia.size()) {
+            }
+            else if (i < frequencia.size()) {
                 frequencia.get(i).setNumFaltasAula(faltas.get(i).getValue());
-            } else {
+            }
+            else {
                 Frequencia f = new Frequencia();
                 f.setNumFaltasAula(faltas.get(i).getValue());
                 f.setMatriculaTurma(matriculaturmas.get(i));
@@ -245,12 +250,14 @@ public class PagRegistroChamada extends GenericForwardComposer {
         lista.add(ano.toString());
         if (mes < 10) {
             lista.add("0" + mes.toString());
-        } else {
+        }
+        else {
             lista.add(mes.toString());
         }
         if (dia < 10) {
             lista.add("0" + dia.toString());
-        } else {
+        }
+        else {
             lista.add(dia.toString());
         }
         String resultado = lista.get(0) + lista.get(1) + lista.get(2);

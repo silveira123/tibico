@@ -19,8 +19,6 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
-import academico.controleinterno.cih.PagEventosCalendario;
-import academico.controleinterno.cih.PagEventosTurma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.controlepauta.cgt.AplEmitirRelatorios;
@@ -67,9 +65,17 @@ public class CtrlMatricula {
      * @return MatriculaTurma MatriculaTurma feita.
      * @throws AcademicoException é retornado caso aconteça um erro na criação da matricula.
      */
-    public MatriculaTurma efetuarMatricula(ArrayList<Object> args) throws AcademicoException {
-        MatriculaTurma m = apl.efetuarMatricula(args);
-        pagEventosMatricula.addMatricula(m);
+    public MatriculaTurma efetuarMatricula(ArrayList<Object> args) {
+        MatriculaTurma m = null;
+        try {
+            m = apl.efetuarMatricula(args);
+            pagEventosMatricula.addMatricula(m);
+            pagEventosMatricula.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosMatricula.setMensagemAviso("error", "Erro ao cadastrar a matricula");
+            System.err.println(ex.getMessage());
+        }
         return m;
     }
     

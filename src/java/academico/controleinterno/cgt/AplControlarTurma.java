@@ -57,11 +57,11 @@ public class AplControlarTurma {
         return (Turma) apDaoTurma.salvar(turma);
     }
 
-    public Turma alterarTurma(Turma turma) throws Exception {
+    public Turma alterarTurma(Turma turma) throws AcademicoException {
         return (Turma) apDaoTurma.salvar(turma);
     }
 
-    public void apagarTurma(Turma turma) throws Exception {
+    public void apagarTurma(Turma turma) throws AcademicoException {
         apDaoTurma.excluir(turma);
     }
 

@@ -30,7 +30,7 @@
                           label="Excluir" width="20%" id="excluirCurso"/>
             </menubar>
 
-            <div id="boxInformacao" class="" visible="true">
+            <div id="boxInformacao" class="" visible="true" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>
             </div>
 

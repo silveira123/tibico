@@ -41,7 +41,7 @@
                 <menuitem id="inserirPontuacao" tooltiptext="Inserir Pontuação" label="Inserir Pontuação"/>
             </menubar>
                         
-            <div id="boxInformacao" class="" visible="false">
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>
             </div>
                         

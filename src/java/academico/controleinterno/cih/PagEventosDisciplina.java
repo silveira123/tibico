@@ -99,23 +99,18 @@ public class PagEventosDisciplina extends GenericForwardComposer {
                 Disciplina d = listitem.getValue();
                 if (ctrl.apagarDisciplina(d)) {
                     listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
+                    setMensagemAviso("success", "Disciplina excluida com sucesso");
                 }
                 else {
-                    boxInformacao.setClass("error");
-                    boxInformacao.setVisible(true);
-                    msg.setValue("Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma.");
+                    setMensagemAviso("error", "Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma.");
                 }
             }
             catch (Exception e) {
-                boxInformacao.setClass("error");
-                boxInformacao.setVisible(true);
-                msg.setValue("Não foi possivel excluir a disciplina");
+                setMensagemAviso("error", "Não foi possivel excluir a disciplina");
             }
         }
         else {
-            boxInformacao.setClass("info");
-            boxInformacao.setVisible(true);
-            msg.setValue("Selecione uma disciplina");
+            setMensagemAviso("info", "Selecione uma disciplina");
         }
     }
 
@@ -141,5 +136,15 @@ public class PagEventosDisciplina extends GenericForwardComposer {
             Disciplina d = listitem.getValue();
             ctrl.abrirConsultarDisciplina(d);
         }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
     }
 }

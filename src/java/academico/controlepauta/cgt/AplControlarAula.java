@@ -82,7 +82,6 @@ public class AplControlarAula {
 
             apDaoResultado.salvar(resultado);
 
-
         }
     }
 
@@ -154,9 +153,6 @@ public class AplControlarAula {
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException {
         List<MatriculaTurma> mTurma = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(t);
         Resultado resultado = null;
-        
-        System.out.println("Nome da Avaliação: "+a.getNome());
-        System.out.println("Nome da turma: "+t.toString());
         
         for(int i=0; i<mTurma.size(); i++){
             resultado = new Resultado(a, mTurma.get(i));

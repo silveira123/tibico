@@ -16,8 +16,6 @@
 
 package academico.controleinterno.cdp;
 
-import academico.controlepauta.cdp.*;
-
 /**
  * Este tipo enumerado descreve as possiveis sitação de um turma
  *

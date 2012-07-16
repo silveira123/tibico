@@ -87,6 +87,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         if (MODO != ctrlPessoa.SALVAR) {
 
             obj = (Aluno) arg.get("obj");
+            curso = (Curso) arg.get("curso");
             preencherTela();
             if (MODO == ctrlPessoa.CONSULTAR) {
                 this.salvarAluno.setVisible(false);

@@ -34,12 +34,13 @@ public class CtrlLetivo {
     private PagEventosCalendario pagEventosCalendario;
     private PagEventosTurma pagEventosTurma;
     private PagVisualizarTurmas pagVisualizarTurmas;
-    private static CtrlLetivo instance = null;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
 
     public static CtrlLetivo getInstance() {
+        CtrlLetivo instance = (CtrlLetivo) Executions.getCurrent().getSession().getAttribute("ctrlLetivo");
         if (instance == null) {
             instance = new CtrlLetivo();
+            Executions.getCurrent().getSession().setAttribute("ctrlLetivo", instance);
         }
         return instance;
     }

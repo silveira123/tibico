@@ -33,11 +33,12 @@ public class CtrlCadastroCurso {
     private PagEventosCurso pagEventosCurso;
     private PagEventosDisciplina pagEventosDisciplina;
     private AplCadastroCurso apl = AplCadastroCurso.getInstance();
-    private static CtrlCadastroCurso instance = null;
 
     public static CtrlCadastroCurso getInstance() {
+        CtrlCadastroCurso instance = (CtrlCadastroCurso) Executions.getCurrent().getSession().getAttribute("ctrlCurso");
         if (instance == null) {
             instance = new CtrlCadastroCurso();
+            Executions.getCurrent().getSession().setAttribute("ctrlCurso", instance);
         }
         return instance;
     }

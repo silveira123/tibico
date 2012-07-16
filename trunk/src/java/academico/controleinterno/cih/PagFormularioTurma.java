@@ -200,7 +200,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
                         args.add(null);
                     }
                     limparCampos();
-                    args.add(EstadoTurma.ESPERA);
+                    args.add(EstadoTurma.EM_CURSO);
 
                     ctrl.incluirTurma(args);
                     Messagebox.show("Cadastro feito!");

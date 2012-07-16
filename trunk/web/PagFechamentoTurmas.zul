@@ -23,6 +23,7 @@
             <separator height="8px"/>
             <button height="30px" label="Fechar Turma" id="fecharTurma"/>
             <button height="30px" label="Voltar" id="voltar"/>
+            <button height="30px" label="Abrir Turma" id="abrirTurma"/>
         </div>	
     </window>
 </zk>

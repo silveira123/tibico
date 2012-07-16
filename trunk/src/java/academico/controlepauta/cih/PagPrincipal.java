@@ -73,7 +73,9 @@ public class PagPrincipal extends GenericForwardComposer {
         else nomeUsuario.setValue("Seja Bem Vindo(a) ADMINISTRADOR");
 
         if (user.getPrivilegio() == 3) {
-            controlarTurma.setVisible(false);
+            turma.setVisible(false);
+            matricularAluno.setVisible(false);
+            alocarProfessor.setVisible(false);
             cadastroPessoa.setVisible(false);
             cadastroAcademico.setVisible(false);
             prof = (Professor) user.getPessoa();
@@ -85,6 +87,7 @@ public class PagPrincipal extends GenericForwardComposer {
             turma.setVisible(false);
             alocarProfessor.setVisible(false);
             resultado.setVisible(false);
+            visualizarTurmas.setVisible(false);
             aluno = (Aluno) user.getPessoa();
         }
 
@@ -121,7 +124,14 @@ public class PagPrincipal extends GenericForwardComposer {
     
     public void onClick$visualizarTurmas(Event event) {
         border.getCenter().getChildren().clear();
-        Window winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas();
+        Window winVisualizarTurmas;
+        if (user.getPrivilegio() == 3) {
+            winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas(prof);
+        }
+        else{
+            winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas();
+        }
+        
         winVisualizarTurmas.setWidth("100%");
         winVisualizarTurmas.setHeight("100%");
         winVisualizarTurmas.setParent(border.getCenter());

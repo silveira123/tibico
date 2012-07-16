@@ -13,9 +13,7 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
-
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
@@ -34,12 +32,15 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os eventos da tela PagEventosTurma.zul
- * @author Pietro Christ 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagEventosTurma.zul
+ *
+ * @author Pietro Christ
  * @author Geann Valfré
  */
 public class PagVisualizarTurmas extends GenericForwardComposer {
+
     private CtrlLetivo ctrlLetivo = CtrlLetivo.getInstance();
     private CtrlCadastroCurso ctrlCadastroCurso = CtrlCadastroCurso.getInstance();
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
@@ -50,20 +51,37 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
     private Combobox professor;
     private Button fecharTurmas;
     private Curso c;
-    
+    private Professor obj;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        obj = (Professor) arg.get("professor");
+        if (obj != null) {
+            List<Turma> turmas = ctrlLetivo.obterTurma(obj);
+            List<Curso> cursos = new ArrayList<Curso>();
+            for (Turma turma : turmas) {
+                if (!cursos.contains(turma.getDisciplina().getCurso())) {
+                    cursos.add(turma.getDisciplina().getCurso());
+                }
+            }
+            curso.setModel(new ListModelList(cursos));
+            List<Professor> professores = new ArrayList<Professor>();
+            professores.add(obj);
+            professor.setModel(new ListModelList(professores, true));
+            ((ListModelList) professor.getModel()).addToSelection(obj);
+            professor.setDisabled(true);
+        } else {
+            curso.setModel(new ListModelList(ctrlCadastroCurso.obterCursos()));
+        }
         ctrlLetivo.setPagVisualizarTurmas(this);
-        curso.setModel(new ListModelList(ctrlCadastroCurso.obterCursos()));
- 
+
     }
-    
+
     public void refreshTurma(Turma t) throws AcademicoException {
         for (int i = 0; i < listbox.getItemCount(); i++) {
-            if(listbox.getItemAtIndex(i).getValue() == t)
-            {
-                listbox.getItemAtIndex(i).getChildren().clear();      
+            if (listbox.getItemAtIndex(i).getValue() == t) {
+                listbox.getItemAtIndex(i).getChildren().clear();
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.toString()));
                 List<MatriculaTurma> mat = CtrlMatricula.getInstance().obter(t);
@@ -73,97 +91,126 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             }
         }
     }
-    
-    public void onSelect$listbox(Event event){
-        ctrlLetivo.abrirFechamentoTurmas((Turma)listbox.getSelectedItem().getValue());
+
+    public void onSelect$listbox(Event event) {
+        ctrlLetivo.abrirFechamentoTurmas((Turma) listbox.getSelectedItem().getValue());
+        listbox.setSelectedItem(null);
+        
     }
-     
-    public void onSelect$curso(Event event){
+
+    public void onSelect$curso(Event event) throws AcademicoException {
         c = curso.getSelectedItem().getValue();
         calendarioAcademico.setSelectedItem(null);
-        while(calendarioAcademico.getItemCount() > 0)
+        while (calendarioAcademico.getItemCount() > 0) {
             calendarioAcademico.removeItemAt(0);
-        
-        professor.setSelectedItem(null);
-        while(professor.getItemCount() > 0)
-            professor.removeItemAt(0);
-        
-        while(listbox.getItemCount() > 0)
-            listbox.removeItemAt(0);
+        }
 
-        if(c != null)
-            calendarioAcademico.setModel(new ListModelList(ctrlLetivo.obterCalendarios(c)));
-    }
-    
-    public void onSelect$calendarioAcademico(Event event){
-        Calendario cal = calendarioAcademico.getSelectedItem().getValue();
-        
-        professor.setSelectedItem(null);
-        while(professor.getItemCount() > 0)
-            professor.removeItemAt(0);
-        
-        while(listbox.getItemCount() > 0)
+        if (obj == null) {
+            professor.setSelectedItem(null);
+            while (professor.getItemCount() > 0) {
+                professor.removeItemAt(0);
+            }
+        }
+        while (listbox.getItemCount() > 0) {
             listbox.removeItemAt(0);
-        
-        if(cal != null)
-        { 
-            professor.setModel(new ListModelList(ctrlPessoa.obterProfessor(cal)));
+        }
+
+        if (c != null && obj != null) {
+            calendarioAcademico.setModel(new ListModelList(ctrlLetivo.obterCalendarios(c)));
+        } else if (c != null) {
+            List<Calendario> calendarios = ctrlLetivo.obterCalendarios(c);
+            List<Turma> turmas = ctrlLetivo.obterTurma(obj);
+            List<Calendario> cal = new ArrayList<Calendario>();
+            for (int i = 0; i < turmas.size();) {
+                cal.add(turmas.get(i).getCalendario());
+            }
+            for (Calendario calendario : calendarios) {
+                if (!cal.contains(calendario)) {
+                    calendarios.remove(calendario);
+                }
+            }
+
+            calendarioAcademico.setModel(new ListModelList(calendarios));
+        }
+
+    }
+
+    public void onSelect$calendarioAcademico(Event event) throws AcademicoException {
+        if (obj == null) {
+            Calendario cal = calendarioAcademico.getSelectedItem().getValue();
+
+            if (obj == null) {
+                professor.setSelectedItem(null);
+                while (professor.getItemCount() > 0) {
+                    professor.removeItemAt(0);
+                }
+            }
+            while (listbox.getItemCount() > 0) {
+                listbox.removeItemAt(0);
+            }
+
+            if (cal != null) {
+                professor.setModel(new ListModelList(ctrlPessoa.obterProfessor(cal)));
+            }
+        } else {
+            onSelect$professor(null);
         }
     }
-    
-     public void onSelect$professor(Event event) throws AcademicoException{
-         Professor p = (Professor) professor.getSelectedItem().getValue();
-         if(p != null){
+
+    public void onSelect$professor(Event event) throws AcademicoException {
+        Professor p = (Professor) professor.getSelectedItem().getValue();
+        if (p != null) {
             List<Turma> turmas = null;
-             
-            while(listbox.getItemCount() > 0)
+
+            while (listbox.getItemCount() > 0) {
                 listbox.removeItemAt(0);
-            
+            }
+
             try {
                 turmas = ctrlLetivo.obterTurma(p);
             } catch (AcademicoException ex) {
                 Logger.getLogger(PagVisualizarTurmas.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (turmas != null){     
+            if (turmas != null) {
                 for (int i = 0; i < turmas.size(); i++) {
                     Turma t = turmas.get(i);
                     Listitem linha = new Listitem(turmas.get(i).getProfessor().toString(), t);
                     linha.appendChild(new Listcell(turmas.get(i).toString()));
-                    
+
                     List<MatriculaTurma> mat = CtrlMatricula.getInstance().obter(t);
-                    
+
                     linha.appendChild(new Listcell(mat.size() + ""));
-                    if(turmas.get(i).getEstadoTurma() != null)
+                    if (turmas.get(i).getEstadoTurma() != null) {
                         linha.appendChild(new Listcell(turmas.get(i).getEstadoTurma().toString()));
-                    else{
+                    } else {
                         linha.appendChild(new Listcell(""));
                     }
                     linha.setParent(listbox);
                 }
-            }         
-         } 
-     } 
+            }
+        }
+    }
 
-     public void onClick$fecharTurmas(Event event) throws Exception{
-         ArrayList<Turma> turmas = new ArrayList<Turma>();
-         
-         for (int i = 0; i < listbox.getItemCount(); i++) 
-             if(listbox.getItemAtIndex(i).isSelected())
-                 turmas.add((Turma)listbox.getItemAtIndex(i).getValue());
-         
-        if(turmas.size() > 0)
-        {
-            if(ctrlLetivo.verificarPeriodoLetivo(c))
-            {
+    public void onClick$fecharTurmas(Event event) throws Exception {
+        ArrayList<Turma> turmas = new ArrayList<Turma>();
+
+        for (int i = 0; i < listbox.getItemCount(); i++) {
+            if (listbox.getItemAtIndex(i).isSelected()) {
+                turmas.add((Turma) listbox.getItemAtIndex(i).getValue());
+            }
+        }
+
+        if (turmas.size() > 0) {
+            if (ctrlLetivo.verificarPeriodoLetivo(c)) {
                 for (int i = 0; i < turmas.size(); i++) {
                     turmas.get(i).setEstadoTurma(EstadoTurma.ENCERRADA);
                     ctrlLetivo.fecharTurma(turmas.get(i));
                 }
-            }
-            else
+            } else {
                 Messagebox.show("Está fora do periodo Letivo");
+            }
         }
-     
-     }     
+
+    }
 }

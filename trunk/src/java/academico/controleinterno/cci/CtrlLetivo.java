@@ -93,7 +93,13 @@ public class CtrlLetivo {
         pagVisualizarTurmas.refreshTurma(t);
         return t;
     }
-
+    
+    public Turma abrirTurma(Turma turma) throws Exception {
+        Turma t = aplC.alterarTurma(turma);
+        pagVisualizarTurmas.refreshTurma(t);
+        return t;
+    }
+    
     public void apagarCalendario(Calendario calendario) throws Exception {
         apl.apagarCalendario(calendario);
     }
@@ -209,6 +215,12 @@ public class CtrlLetivo {
     
     public Component abrirVisualizarTurmas() {
         return Executions.createComponents("/pagVisualizarTurmas.zul", null, null);
+    }
+    
+    public Component abrirVisualizarTurmas(Professor prof) {
+        Map map = new HashMap();
+        map.put("professor", prof);
+        return Executions.createComponents("/pagVisualizarTurmas.zul", null, map);
     }
 
     public Component abrirEventosAlocarProfessor(int tipo) {

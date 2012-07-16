@@ -49,15 +49,15 @@ public class CtrlMatricula {
     //Contrutores:
     private CtrlMatricula() {
     }
-    private static CtrlMatricula instance = null;
 
     public static CtrlMatricula getInstance() {
+        CtrlMatricula instance = (CtrlMatricula) Executions.getCurrent().getSession().getAttribute("ctrlMatricula");
         if (instance == null) {
             instance = new CtrlMatricula();
+            Executions.getCurrent().getSession().setAttribute("ctrlMatricula", instance);
         }
         return instance;
     }
-
     /**
      * Faz a matricula de um aluno em uma turma.
      * <p/>

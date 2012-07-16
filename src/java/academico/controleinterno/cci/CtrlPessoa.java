@@ -52,11 +52,12 @@ public static final int SALVAR = 0;
     private PagEventosAluno pagEventosAluno;
     private PagEventosProfessor pagEventosProfessor;
     private AplCadastrarPessoa apl = AplCadastrarPessoa.getInstance();
-    private static CtrlPessoa instance = null;
 
     public static CtrlPessoa getInstance() {
+        CtrlPessoa instance = (CtrlPessoa) Executions.getCurrent().getSession().getAttribute("ctrlPessoa");
         if (instance == null) {
             instance = new CtrlPessoa();
+            Executions.getCurrent().getSession().setAttribute("ctrlPessoa", instance);
         }
         return instance;
     }
@@ -258,10 +259,11 @@ public static final int SALVAR = 0;
         Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
 
-    public void abrirEditarAluno(Aluno aluno) {
+    public void abrirEditarAluno(Aluno aluno, Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.EDITAR);
         map.put("obj", aluno);
+        map.put("curso", curso);
         Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
 

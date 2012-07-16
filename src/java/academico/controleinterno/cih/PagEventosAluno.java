@@ -118,7 +118,7 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onClick$alterarAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
-            ctrl.abrirEditarAluno((Aluno) listitem.getValue());
+            ctrl.abrirEditarAluno((Aluno) listitem.getValue(), select);
         }
     }
 

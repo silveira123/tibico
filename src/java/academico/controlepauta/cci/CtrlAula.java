@@ -31,15 +31,16 @@ public class CtrlAula {
     private PagEventosChamada pagEventosChamada;
     private PagEventosAvaliacao pagEventosAvaliacao;
     private AplControlarAula apl = AplControlarAula.getInstance();
-    private static CtrlAula instance = null;
 
     public static CtrlAula getInstance() {
+        CtrlAula instance = (CtrlAula) Executions.getCurrent().getSession().getAttribute("ctrlAula");
         if (instance == null) {
             instance = new CtrlAula();
+            Executions.getCurrent().getSession().setAttribute("ctrlAula", instance);
         }
         return instance;
     }
-
+    
     private CtrlAula() {
     }
 

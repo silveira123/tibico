@@ -163,6 +163,13 @@ public class CtrlLetivo {
         return aplC.obterTurmas(p);
     }
 
+    
+    public void abrirFechamentoTurmas(Turma t) {
+        Map map = new HashMap();
+        map.put("turma", t);
+        Executions.createComponents("/PagFechamentoTurmas.zul", null, map);
+    }
+    
     public void abrirIncluirTurma() {
         Map map = new HashMap();
         map.put("tipo", CtrlLetivo.SALVAR);

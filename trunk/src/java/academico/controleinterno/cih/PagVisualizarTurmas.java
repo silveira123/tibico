@@ -21,17 +21,17 @@ import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.*;
+import academico.controlepauta.cci.CtrlMatricula;
+import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
-import org.zkoss.zul.ext.Selectable;
 
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
@@ -59,20 +59,25 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
  
     }
     
-    public void refreshTurma(Turma t) {
+    public void refreshTurma(Turma t) throws AcademicoException {
         for (int i = 0; i < listbox.getItemCount(); i++) {
             if(listbox.getItemAtIndex(i).getValue() == t)
             {
                 listbox.getItemAtIndex(i).getChildren().clear();      
-                listbox.getItemAtIndex(i).appendChild(new Listcell(""));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getProfessor().toString()));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.toString()));
+                List<MatriculaTurma> mat = CtrlMatricula.getInstance().obter(t);
+                listbox.getItemAtIndex(i).appendChild(new Listcell(mat.size() + ""));
                 listbox.getItemAtIndex(i).appendChild(new Listcell(t.getEstadoTurma().toString()));
                 break;
             }
         }
     }
     
+    public void onSelect$listbox(Event event){
+        ctrlLetivo.abrirFechamentoTurmas((Turma)listbox.getSelectedItem().getValue());
+    }
+     
     public void onSelect$curso(Event event){
         c = curso.getSelectedItem().getValue();
         calendarioAcademico.setSelectedItem(null);
@@ -106,7 +111,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
         }
     }
     
-     public void onSelect$professor(Event event){
+     public void onSelect$professor(Event event) throws AcademicoException{
          Professor p = (Professor) professor.getSelectedItem().getValue();
          if(p != null){
             List<Turma> turmas = null;
@@ -123,9 +128,12 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             if (turmas != null){     
                 for (int i = 0; i < turmas.size(); i++) {
                     Turma t = turmas.get(i);
-                    Listitem linha = new Listitem("", t);
-                    linha.appendChild(new Listcell(turmas.get(i).getProfessor().toString()));
+                    Listitem linha = new Listitem(turmas.get(i).getProfessor().toString(), t);
                     linha.appendChild(new Listcell(turmas.get(i).toString()));
+                    
+                    List<MatriculaTurma> mat = CtrlMatricula.getInstance().obter(t);
+                    
+                    linha.appendChild(new Listcell(mat.size() + ""));
                     if(turmas.get(i).getEstadoTurma() != null)
                         linha.appendChild(new Listcell(turmas.get(i).getEstadoTurma().toString()));
                     else{

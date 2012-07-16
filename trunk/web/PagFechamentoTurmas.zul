@@ -1,0 +1,30 @@
+<zk>
+    <window title="Página Resultados" id="winFechamentoTurmas"  position="center" mode="modal"
+                closable="true" border="normal" width="60%" apply="academico.controleinterno.cih.PagFechamentoTurmas">
+        <div align="center">
+            <separator height="10px"/>
+			
+            <auxhead>
+                <auxheader align="center"
+                           label="Relatório de Resultados" />
+            </auxhead>
+
+            <separator />
+
+            <grid id = "matriculas">
+                <columns>
+                    <column align="center" label="Matrícula" width="20%"/>
+                    <column align="center" label="Nome" width="40%"/>
+                    <column align="center" label="Frequência (%)" width="15%"/>
+                    <column align="center" label="Nota Final" width="8%" />
+                    <column align="center" label="Situação" width="19%" />		
+                </columns>	
+            </grid>	
+            <separator height="8px"/>
+            <button height="30px" label="Fechar Turma" id="fecharTurma"/>
+            <button height="30px" label="Voltar" id="voltar"/>
+        </div>	
+    </window>
+</zk>
+
+

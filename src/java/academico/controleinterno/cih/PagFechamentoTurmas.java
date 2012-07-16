@@ -20,6 +20,7 @@ import academico.controleinterno.cdp.EstadoTurma;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
+import academico.controlepauta.cdp.Usuario;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -39,10 +40,16 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     private Window winFechamentoTurmas;
     private Grid matriculas;
     private Turma obj;
+    private Button abrirTurma;
+    private Usuario user;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
+        user = (Usuario) execution.getSession().getAttribute("usuario");
+        if (user.getPrivilegio() != 1) {
+            abrirTurma.setVisible(false);
+        }
         obj = (Turma) arg.get("turma");
         List<MatriculaTurma> matTurma = ctrlMatricula.obter(obj);
         Rows linhas = new Rows();
@@ -70,6 +77,18 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
         {
             obj.setEstadoTurma(EstadoTurma.ENCERRADA);
             ctrl.fecharTurma(obj);
+            winFechamentoTurmas.onClose();
+        }
+        else
+            Messagebox.show("Está fora do periodo Letivo");
+    }
+    
+    public void onClick$abrirTurma(Event event) throws Exception
+    {
+        if(ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso()))
+        {
+            obj.setEstadoTurma(EstadoTurma.EM_CURSO);
+            ctrl.abrirTurma(obj);
             winFechamentoTurmas.onClose();
         }
         else

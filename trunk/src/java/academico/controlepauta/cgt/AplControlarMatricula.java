@@ -212,21 +212,14 @@ public class AplControlarMatricula {
         List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(mt);
         Double notaFinal = new Double(0.0);
         Integer peso = new Integer(0);
-        //TODO ta errado
-        //TODO tirar prints
 
-        for (Resultado r : listResultados) {
-            notaFinal += r.getAvaliacao().getPeso() * r.getPontuacao();
-            peso += r.getAvaliacao().getPeso();
-
-            System.out.println("Nota: " + notaFinal);
-            System.out.println("Peso: " + peso);
+        for (int i=0; i<listResultados.size(); i++) {
+            notaFinal += listResultados.get(i).getAvaliacao().getPeso() * listResultados.get(i).getPontuacao();
+            peso += listResultados.get(i).getAvaliacao().getPeso();
         }
-
+        
         notaFinal = notaFinal / peso;
-
-        System.out.println("Nota / Peso: " + notaFinal);
-
+        
         mt.setResultadoFinal(notaFinal);
 
         alteraSituacao(mt);
@@ -269,8 +262,6 @@ public class AplControlarMatricula {
             obj.setCoeficiente(coeficiente);
             aplCadastrarPessoa.alterarAluno(obj);
         }
-        
-        
     }
 
     public boolean verificaPeriodoMatricula(Curso curso) {

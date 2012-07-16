@@ -21,6 +21,8 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -41,7 +43,7 @@ public class PagEventosAluno extends GenericForwardComposer {
     private ListModelList list; // the model of the listProfessor
     private Combobox curso;
     private Aluno a;
-    private Curso select;
+    private Curso select = null;
     private Div boxInformacao;
     private Label msg;
 
@@ -112,7 +114,22 @@ public class PagEventosAluno extends GenericForwardComposer {
     }
 
     public void onClick$incluirAluno(Event event) {
-        ctrl.abrirIncluirAluno(a, select);
+        if (select != null) {
+            try {
+                //Se não houver calendarios no Curso, imprime uma mensagem avisando e não deixa cadastrar.
+                if (!ctrl.obterCalendarios(select).isEmpty()) {
+                    ctrl.abrirIncluirAluno(a,select);  
+                }
+                else{
+                    Messagebox.show("Não há calendários para esse curso!");
+                }
+            } catch (AcademicoException ex) {
+                Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            Messagebox.show("Selecione um curso!");
+        }
     }
 
     public void onClick$alterarAluno(Event event) {

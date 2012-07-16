@@ -39,7 +39,7 @@ public class Usuario extends ObjetoPersistente {
         this.privilegio = privilegio;
     }
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(nullable = true)
     public Pessoa getPessoa() {
         return pessoa;

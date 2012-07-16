@@ -8,6 +8,7 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
+import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.AulaDAO;
 import academico.controlepauta.cgd.FrequenciaDAO;
@@ -70,19 +71,29 @@ public class AplControlarAula {
 
     public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException {
         List<Resultado> lista = apDaoResultado.obter(Resultado.class);
-        boolean possui = false;
-        int j = 0;
 
         for (int i = 0; i < notas.size(); i++) {
-            Resultado resultado = new Resultado();
+            Resultado resultado = obtemResultado(obj, matriculaturma.get(i));
             resultado.setAvaliacao(obj);
             resultado.setObservacao((String) observacoes.get(i));
             resultado.setPontuacao((Double) notas.get(i));
             resultado.setMatriculaTurma(matriculaturma.get(i));
-
+            
             apDaoResultado.salvar(resultado);
-
+            
+            CtrlMatricula.getInstance().calculaNotaFinal(matriculaturma.get(i));
         }
+    }
+    
+    public Resultado obtemResultado(Avaliacao obj, MatriculaTurma matriculaturma) throws AcademicoException{
+        List<Resultado> lista = apDaoResultado.obter(Resultado.class);
+        
+        for(int i=0;i<lista.size();i++){
+            if(lista.get(i).getMatriculaTurma()==matriculaturma && lista.get(i).getAvaliacao()==obj)
+                return lista.get(i);
+        }
+        
+        return null;
     }
 
     public Aula incluirAula(ArrayList<Object> args) throws AcademicoException {
@@ -135,7 +146,6 @@ public class AplControlarAula {
     public void apagarFrequencia(Frequencia frequencia) throws AcademicoException {
         aplControlarMatricula.excluirFrequencia(frequencia);
         apDaoFrequencia.excluir(frequencia);
-
     }
 
     public Aluno obterAluno(String matricula) {

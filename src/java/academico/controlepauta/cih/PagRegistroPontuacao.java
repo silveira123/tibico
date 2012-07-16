@@ -107,6 +107,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             Logger.getLogger(PagRegistroPontuacao.class.getName()).log(Level.SEVERE, null, ex);
         }
         Messagebox.show("Resultado salvos com sucesso!");
+        winRegistroPontuacao.onClose();
     }
 
     public void onClick$voltar(Event event) {

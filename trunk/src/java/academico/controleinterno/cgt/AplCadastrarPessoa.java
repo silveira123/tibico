@@ -73,18 +73,27 @@ public class AplCadastrarPessoa {
      */
     public Aluno incluirAluno(ArrayList<Object> args) throws AcademicoException {
         Aluno aluno = new Aluno();
+        ArrayList<Telefone> listTelefones;
+        Endereco e;
+        
         String matricula = this.gerarMatricula((Curso) args.get(10));
          if (matricula != null) {
             aluno.setNome((String) args.get(0));
             aluno.setSexo((Sexo) args.get(1));
             aluno.setDataNascimento((Calendar) args.get(2));
-            aluno.setTelefone((ArrayList<Telefone>) args.get(3));
+            
+            listTelefones = setTelefones((ArrayList<Object>) args.get(3));
+            aluno.setTelefone(listTelefones);
+
             aluno.setEmail((String) args.get(4));
             aluno.setCpf((Long) args.get(5));
             aluno.setIdentidade((String) args.get(6));
             aluno.setNomeMae((String) args.get(7));
             aluno.setNomePai((String) args.get(8));
-            aluno.setEndereco((Endereco) args.get(9));
+            
+            e = setEndereco((ArrayList<Object>) args.get(9));
+            aluno.setEndereco(e);
+            
             aluno.setCurso((Curso) args.get(10));
             aluno.setMatricula(matricula);
             aluno.setCoeficiente(0.0);
@@ -147,16 +156,22 @@ public class AplCadastrarPessoa {
      */
     public Professor incluirProfessor(ArrayList<Object> args) throws AcademicoException {
         Professor professor = new Professor();
+        ArrayList<Telefone> listTelefones;
+        Endereco e;
 
         professor.setNome((String) args.get(0));
         professor.setSexo((Sexo) args.get(1));
         professor.setDataNascimento((Calendar) args.get(2));
-        professor.setTelefone((ArrayList<Telefone>) args.get(3));
+        
+        listTelefones = setTelefones((ArrayList<Object>) args.get(3));
+        professor.setTelefone(listTelefones);
+        
         professor.setEmail((String) args.get(4));
         professor.setCpf((Long) args.get(5));
         professor.setIdentidade((String) args.get(6));
-
-        professor.setEndereco((Endereco) args.get(7));
+        
+        e = setEndereco((ArrayList<Object>) args.get(7));
+        professor.setEndereco(e);
 
         professor.setGrauInstrucao((GrauInstrucao) args.get(8));
 
@@ -168,6 +183,41 @@ public class AplCadastrarPessoa {
         return professor;
     }
 
+    public ArrayList<Telefone> setTelefones(ArrayList<Object> listTelefones){
+        ArrayList<Telefone> lista = new ArrayList<Telefone>();
+        Telefone tel;
+        
+        for (int i = 0; i < listTelefones.size(); i = i+3) {
+            tel = new Telefone();
+            if (listTelefones.get(i) != null) {
+                tel.setDdd((Integer) listTelefones.get(i));
+                tel.setNumero((Integer) listTelefones.get(i+1));
+                tel.setTipo((TipoTel) listTelefones.get(i+2));
+            }
+            else
+            {
+                tel.setDdd(null);
+                tel.setNumero(null);
+                tel.setTipo((TipoTel) listTelefones.get(i+2));
+            }
+            lista.add(tel);
+        }
+         
+        return lista;
+    }
+    
+    public Endereco setEndereco(ArrayList<Object> listEndereco){
+        Endereco e = new Endereco();
+        
+        e.setLogradouro((String) listEndereco.get(0));
+        e.setCep((Long) listEndereco.get(1));
+        e.setNumero((Integer) (listEndereco.get(2)));
+        e.setComplemento((String) listEndereco.get(3));
+        e.setBairro((Bairro) listEndereco.get(4));      
+        
+        return e;
+    }
+    
     /**
      * Altera os dados do Professor no sitema
      * <p/>
@@ -186,6 +236,7 @@ public class AplCadastrarPessoa {
      * @throws Exception
      */
     public void apagarProfessor(Professor professor) throws AcademicoException {
+        
         apDaoProfessor.excluir(professor);
     }
 
@@ -263,23 +314,19 @@ public class AplCadastrarPessoa {
                 break;
             }
         }
-        if (c == null) {
-            Messagebox.show("Cadastre um Calendário Primeiro");
-        } else {
-            matricula = c.getIdentificador() + curso.getSigla();
-            sequencial = c.getSequencial();
-            if (sequencial < 10) {
-                matricula += "000" + sequencial;
-            } else if (sequencial < 100) {
-                matricula += "00" + sequencial;
-            } else if (sequencial < 1000) {
-                matricula += "0" + sequencial;
-            }
-
-            c.setSequencial(c.getSequencial() + 1);
-
+            
+        matricula = c.getIdentificador() + curso.getSigla();
+        sequencial = c.getSequencial();
+        if (sequencial < 10) {
+            matricula += "000" + sequencial;
+        } else if (sequencial < 100) {
+            matricula += "00" + sequencial;
+        } else if (sequencial < 1000) {
+            matricula += "0" + sequencial;
         }
 
+        c.setSequencial(c.getSequencial() + 1);
+            
         return matricula;
     }
 
@@ -290,7 +337,7 @@ public class AplCadastrarPessoa {
     public Professor obterProfessor(String CPF) {
         return ((ProfessorDAO) apDaoProfessor).obterProfessor(CPF);
     }
-    
+ 
     public List<Professor> obterProfessor(Calendario c)
     {
         return ((ProfessorDAO) apDaoProfessor).obterProfessor(c);

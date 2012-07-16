@@ -164,9 +164,9 @@ public class Pessoa extends ObjetoPersistente{
     @ManyToMany(cascade= CascadeType.PERSIST, fetch= FetchType.EAGER)
     @JoinTable(name = "PessoaTelefone",
     joinColumns = {
-        @JoinColumn(name = "id_pessoa")},
+        @JoinColumn(nullable=true, name = "id_pessoa")},
     inverseJoinColumns = {
-        @JoinColumn(name = "id_telefone")})
+        @JoinColumn(nullable=true, name = "id_telefone")})
     public List<Telefone> getTelefone() {
         return telefone;
     }

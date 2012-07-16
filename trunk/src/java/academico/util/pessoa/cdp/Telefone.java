@@ -18,6 +18,8 @@ package academico.util.pessoa.cdp;
 
 import academico.util.persistencia.ObjetoPersistente;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * Esta classe descreve o número de telefone de uma pessoa, assim como o DDD (Discagem direta a distância) 
@@ -32,6 +34,16 @@ public class Telefone extends ObjetoPersistente{
     private Integer numero;
     private Integer ddd;
     private Integer ddi;
+    private TipoTel tipo;
+
+    @Enumerated(EnumType.STRING)
+    public TipoTel getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoTel tipo) {
+        this.tipo = tipo;
+    }
 
     /**
      * Obtém o DDD de Telefone.

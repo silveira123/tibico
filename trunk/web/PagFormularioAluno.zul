@@ -3,7 +3,7 @@
 <zk>
 
     <div align="center">
-        <window id="winCadastro" title="Página Formulário Aluno" mode="modal" position="center" border="normal" width="80%" height="60%" apply="academico.controleinterno.cih.PagFormularioAluno">
+        <window id="winCadastro" title="Página Formulário Aluno" mode="modal" position="center" border="normal" width="80%" height="53%" apply="academico.controleinterno.cih.PagFormularioAluno">
 	
             <grid>
                 <columns>

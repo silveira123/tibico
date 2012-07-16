@@ -123,17 +123,20 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         c = obj.getDataNascimento();
         dataNasc.setValue(c.getTime());
 
-        if (obj.getTelefone().get(0) != null) {
-            telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
-        }
-
-        if (obj.getTelefone().get(1) != null) {
-            celular.setText(preencherCelular(obj.getTelefone().get(1)));
+        for (int i = 0; i < obj.getTelefone().size(); i++){
+            if (obj.getTelefone().get(i).getDdd() != null) {
+                if (obj.getTelefone().get(i).getTipo() == TipoTel.FIXO) {
+                    telefone.setText(preencherTelefone(obj.getTelefone().get(i)));
+                }
+                else{
+                    celular.setText(preencherTelefone(obj.getTelefone().get(i)));
+                } 
+            }
         }
 
         email.setText(obj.getEmail());
 
-        cpf.setText(obj.getCpf().toString());
+        cpf.setText(preencherCpf(obj.getCpf().toString()));
 
         rg.setText(obj.getIdentidade());
 
@@ -182,15 +185,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         return telefone;
     }
-
-    public String preencherCelular(Telefone t) {
-        String telefone = "(" + t.getDdd() + ")";
-        String parte1 = t.getNumero().toString().substring(0, 4);
-        String parte2 = t.getNumero().toString().substring(4, 8);
-
-        telefone += parte1 + "-" + parte2;
-
-        return telefone;
+    
+    public String preencherCpf(String scpf){
+        String cpf;
+        
+        cpf = scpf.substring(0, 3) + "." + scpf.substring(3, 6) + "." + scpf.substring(6, 9) + "-" + scpf.substring(9, 11);
+        
+        return cpf;
     }
 
     public void preencherEndereco(Endereco endereco) {
@@ -260,8 +261,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         Professor p = null;
         Calendar c = Calendar.getInstance();
-        Telefone t;
-        ArrayList<Telefone> listaTelefone = new ArrayList<Telefone>();
+        ArrayList<Object> listaTelefone = new ArrayList<Object>();
+        ArrayList<Object> listaEndereco;
         String msg = valido();
         if (msg.trim().equals("")) {
             if (MODO == ctrlPessoa.EDITAR) {
@@ -269,21 +270,43 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setSexo(obterSexo(sexo.getSelectedIndex()));
                 c.setTime(dataNasc.getValue());
                 obj.setDataNascimento(c);
+				
+                obterTelefone(telefone.getText(), TipoTel.FIXO, listaTelefone);
 
-                if (telefone.getText() != null) {
-                    t = obterTelefone(telefone.getText());
-                    listaTelefone.add(t);
+                obterTelefone(celular.getText(), TipoTel.CELULAR, listaTelefone);
+				
+                if (listaTelefone.get(0) != null) {
+                        obj.getTelefone().get(0).setDdd((Integer) listaTelefone.get(0));
+                        obj.getTelefone().get(0).setNumero((Integer) listaTelefone.get(1));
+                        obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
-                if (celular.getText() != null) {
-                    t = obterTelefone(telefone.getText());
-                    listaTelefone.add(t);
+                else{
+                        obj.getTelefone().get(0).setDdd(null);
+                        obj.getTelefone().get(0).setNumero(null);
+                        obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
 
-                obj.setTelefone(listaTelefone);
+                if (listaTelefone.get(3) != null) {
+                        obj.getTelefone().get(1).setDdd((Integer) listaTelefone.get(3));
+                        obj.getTelefone().get(1).setNumero((Integer) listaTelefone.get(4));
+                        obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
+                }
+                else{
+                        obj.getTelefone().get(1).setDdd(null);
+                        obj.getTelefone().get(1).setNumero(null);
+                        obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
+                }
+
                 obj.setEmail(email.getText());
                 obj.setCpf((Long.parseLong(cpf.getText())));
                 obj.setIdentidade(rg.getText());
-                obj.setEndereco(obterEndereco());
+                
+                obj.getEndereco().setLogradouro(logradouro.getText());
+                obj.getEndereco().setCep(obterCEP(cep.getText()));
+                obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
+                obj.getEndereco().setComplemento(complemento.getText());
+                obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
+				
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
                 p = ctrlPessoa.alterarProfessor(obj);
@@ -291,6 +314,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             else {
 
                 ArrayList<Object> list = new ArrayList<Object>();
+                listaEndereco = new ArrayList<Object>();
+				
                 list.add(nome.getText());
 
                 list.add(obterSexo(sexo.getSelectedIndex()));
@@ -298,20 +323,16 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 c.setTime(dataNasc.getValue());
                 list.add(c);
 
-                if (!"".equals(telefone.getText())) {
-                    t = obterTelefone(telefone.getText());
-                    listaTelefone.add(t);
-                }
-                if (!"".equals(celular.getText())) {
-                    t = obterTelefone(celular.getText());
-                    listaTelefone.add(t);
-                }
+                obterTelefone(telefone.getText(), TipoTel.FIXO, listaTelefone);
+
+                obterTelefone(celular.getText(), TipoTel.CELULAR, listaTelefone);
 
                 list.add(listaTelefone);
                 list.add(email.getText());
                 list.add(obterCPF(cpf.getText()));
                 list.add(rg.getText());
-                list.add(obterEndereco());
+                obterEndereco(listaEndereco);
+                list.add(listaEndereco);
                 list.add(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 list.add(getSelecionadosList(listAreaConhecimento));
                 p = ctrlPessoa.incluirProfessor(list);
@@ -343,14 +364,24 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
     }
 
-    public Telefone obterTelefone(String telefone) {
-        Telefone t = null;
+    public void obterTelefone(String telefone, TipoTel tipo, List<Object> listTelefone) {
         String ddd, tel;
-
+        
+        int indice;
+        
+        if (listTelefone.contains(tipo)) {
+            indice = listTelefone.indexOf(tipo) - 2;
+        }
+        else{
+            indice = listTelefone.size();
+        }
+        
+        System.out.print(tipo + " ");
+        System.out.println(indice);
+        
         //TODO : arrumar uma expressão regular     
-        if (telefone != null) {
-            t = new Telefone();
-
+        //Se a String vinda do formulário for diferente de null (se não estiver vazia) ela é tratada e inserida na lista
+        if (!telefone.equals("")) {
             ddd = telefone.replace("(", " ");
 
             ddd = ddd.replace(")", " ");
@@ -359,12 +390,17 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
             StringTokenizer parser = new StringTokenizer(tel);
 
-            t.setDdd(Integer.parseInt(parser.nextToken()));
+            listTelefone.add(indice, Integer.parseInt(parser.nextToken()));
 
-            t.setNumero(Integer.parseInt(parser.nextToken() + parser.nextToken()));
+            listTelefone.add(indice + 1, Integer.parseInt(parser.nextToken() + parser.nextToken()));
+            
+            listTelefone.add(indice + 2, tipo);
         }
-
-        return t;
+        else{
+            listTelefone.add(indice, null);
+            listTelefone.add(indice +1, null);
+            listTelefone.add(indice +2, tipo);
+        }
     }
 
     public Long obterCPF(String scpf) {
@@ -382,21 +418,12 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         return cpf;
     }
 
-    public Endereco obterEndereco() {
-        Endereco e = new Endereco();
-
-        e.setLogradouro(logradouro.getText());
-        e.setCep(obterCEP(cep.getText()));
-        e.setNumero(Integer.parseInt(numero.getText()));
-        e.setComplemento(complemento.getText());
-        if (bairro.getSelectedItem() != null) {
-            e.setBairro((Bairro) bairro.getSelectedItem().getValue());
-        }
-        else {
-            e.setBairro(null);
-        }
-
-        return e;
+    public void obterEndereco(ArrayList<Object> listaEndereco) {
+        listaEndereco.add(logradouro.getText());
+        listaEndereco.add(obterCEP(cep.getText()));
+        listaEndereco.add(Integer.parseInt(numero.getText()));
+        listaEndereco.add(complemento.getText());
+        listaEndereco.add((Bairro) bairro.getSelectedItem().getValue());
     }
 
     public Long obterCEP(String scep) {

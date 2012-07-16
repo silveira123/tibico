@@ -16,20 +16,15 @@
 
 package academico.controleinterno.cci;
 
+import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cih.PagEventosAluno;
 import academico.controleinterno.cih.PagEventosProfessor;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
-import academico.util.pessoa.cdp.Bairro;
-import academico.util.pessoa.cdp.Estado;
-import academico.util.pessoa.cdp.Municipio;
-import academico.util.pessoa.cdp.Pais;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import academico.util.pessoa.cdp.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
@@ -52,6 +47,7 @@ public static final int SALVAR = 0;
     private PagEventosAluno pagEventosAluno;
     private PagEventosProfessor pagEventosProfessor;
     private AplCadastrarPessoa apl = AplCadastrarPessoa.getInstance();
+    private AplCadastrarCalendario aplCalendario = AplCadastrarCalendario.getInstance();
 
     public static CtrlPessoa getInstance() {
         CtrlPessoa instance = (CtrlPessoa) Executions.getCurrent().getSession().getAttribute("ctrlPessoa");
@@ -251,6 +247,10 @@ public static final int SALVAR = 0;
          return null;
     }
     
+    public List<Telefone> setTelefones (ArrayList<Object> listTelefones){
+        return apl.setTelefones(listTelefones);
+    }
+    
     public void abrirIncluirAluno(Aluno aluno, Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.SALVAR);
@@ -324,6 +324,14 @@ public static final int SALVAR = 0;
     public Component abrirEventosProfessor()
     {
         return Executions.createComponents("/pagEventosProfessor.zul", null, null);
+    }
+
+    public Endereco setEndereco(ArrayList<Object> listaEndereco) {
+        return apl.setEndereco(listaEndereco);
+    }
+
+    public List<Calendario> obterCalendarios(Curso select) throws AcademicoException {
+        return aplCalendario.obterCalendarios(select);
     }
     
     public List<Professor> obterProfessor(Calendario c)

@@ -65,6 +65,10 @@ public class PagFormularioCalendario extends GenericForwardComposer {
         Date obj2 = dataInicioCA.getValue();
         String before = pegarDatas(obj2);
         dataFimCA.setConstraint("after " + before);
+        dataInicioPL.setConstraint("after " + before);
+        dataFimPL.setConstraint("after " + before);
+        dataInicioPM.setConstraint("after " + before);
+        dataFimPM.setConstraint("after " + before);
     }
 
     public void onChange$dataFimCA(Event event) {

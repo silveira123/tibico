@@ -16,8 +16,11 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Professor;
 import academico.controlepauta.cdp.Usuario;
 import academico.util.persistencia.DAOJPA;
+import java.util.List;
 
 
 /**
@@ -28,5 +31,15 @@ import academico.util.persistencia.DAOJPA;
  * @see
  */
 public class UsuarioDAOJPA extends DAOJPA<Usuario> implements UsuarioDAO {
+    
+    public Usuario obterUsuario(Aluno a) {
+        List<Usuario> usuario = entityManager.createQuery("select u from Usuario u where u.pessoa.id = ?1").setParameter(1, a.getId()).getResultList();
+        return usuario.get(0);
+    }
+    
+    public Usuario obterUsuario(Professor p) {
+        List<Usuario> usuario = entityManager.createQuery("select u from Usuario u where u.pessoa.id = ?1").setParameter(1, p.getId()).getResultList();
+        return usuario.get(0);
+    }
     
 }

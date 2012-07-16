@@ -336,7 +336,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 list.add(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 list.add(getSelecionadosList(listAreaConhecimento));
                 p = ctrlPessoa.incluirProfessor(list);
-                limparCampos();
             }
             winFormularioProfessor.onClose();
         }

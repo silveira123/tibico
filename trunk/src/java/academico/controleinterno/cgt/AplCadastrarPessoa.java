@@ -19,6 +19,7 @@ import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
 import academico.controleinterno.cgd.ProfessorDAO;
+import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplCadastrarUsuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
@@ -126,6 +127,8 @@ public class AplCadastrarPessoa {
      * @throws Exception
      */
     public void apagarAluno(Aluno aluno) throws AcademicoException {
+        Usuario usuario = AplCadastrarUsuario.getInstance().obter(aluno);
+        AplCadastrarUsuario.getInstance().apagarUsuario(usuario);
         apDaoAluno.excluir(aluno);
     }
 
@@ -236,7 +239,8 @@ public class AplCadastrarPessoa {
      * @throws Exception
      */
     public void apagarProfessor(Professor professor) throws AcademicoException {
-        
+        Usuario usuario = AplCadastrarUsuario.getInstance().obter(professor);
+        AplCadastrarUsuario.getInstance().apagarUsuario(usuario);
         apDaoProfessor.excluir(professor);
     }
 

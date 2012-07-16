@@ -38,13 +38,15 @@
                                 </row>
                                 <row>
                                     Telefone:
-                                    <textbox id="telefone" width="30%" />
+                                    <textbox id="telefone" width="30%"
+                                             constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]+/: Entre com um telefone válido: (27)3322-3322"/>
                                 </row>
 			
 			
                                 <row>
                                     Celular:
-                                    <textbox id="celular" width="30%" />
+                                    <textbox id="celular" width="30%"
+                                             constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]+/: Entre com um celular válido: (27)9522-3472"/>
                                 </row>
 									
                                 <row>
@@ -56,7 +58,8 @@
 			
                                 <row>
                                     CPF:
-                                    <textbox id="cpf" width="30%" />
+                                    <textbox id="cpf" width="30%"
+                                             constraint="/[0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9][0-9]-[0-9][0-9]+/: Entre com um CPF válido: 123.123.123-12"/>
                                 </row>
 								
                                 <row>
@@ -103,7 +106,8 @@
                                 
                                 <row>
                                     CEP:
-                                    <textbox id="cep" width="20%" />
+                                    <textbox id="cep" width="20%"
+                                             constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]+/: Entre com um CEP válido: 27458963"/>
                                 </row>
                                 
                                 <row>

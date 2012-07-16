@@ -39,20 +39,15 @@
             </auxhead>
             
             <separator height="10px" />	
-            <listbox id = "listbox" mold="paging" multiple="true" pageSize="10" checkmark="true">
+            <listbox id = "listbox" mold="paging" pageSize="10" >
                 <listhead>
-                    <listheader label="" width="3%" align="center"/>
-                    <listheader label="Professor" width="29%"/>
-                    <listheader label="Turma" width="40%"/>
-                    <listheader label="Status" width="28%"/>
+                    <listheader label="Professor" width="29%" align="center"/>
+                    <listheader label="Turma" width="38%" align="center"/>
+                    <listheader label="Alunos" width="10%" align="center"/>
+                    <listheader label="Status" width="23%" align="center"/>
                 </listhead> 
             </listbox>			
-            
-			
 		    <separator/>
-		    
-		    <button width="10%" label="Fechar Turmas" id="fecharTurmas"/>
-			
 		      </div>
 	    </window> 
 </zk>

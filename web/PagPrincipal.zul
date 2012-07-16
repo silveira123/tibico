@@ -33,17 +33,19 @@
             <west title=" " width="200px" border="0" flex="true" splittable="true" collapsible="true"
                   margins="0,5,0,0">
                 <vlayout spacing="0">
-                    <panel id="controlarTurma" width="100%" border="normal"
-                           title="Controlar Turma">
+                     <panel id="cadastroAcademico" width="100%" border="normal"
+                           title="Cadastro Acadêmico">
                         <panelchildren style="padding:5px;">
                             <vbox>
-                                <toolbarbutton id="turma" label="Cadastrar Turma" />
-                                <toolbarbutton id="visualizarTurmas" label="Visualizar Turma" />
-                                <toolbarbutton id="matricularAluno" label="Matricular Aluno" />
-                                <toolbarbutton id="alocarProfessor" label="Alocar Professor" />
+                                <toolbarbutton id="curso" label="Curso" />
+                                <toolbarbutton id="disciplina" label="Disciplina" />
+                                <toolbarbutton id="calendario" label="Calendário" />
+                                
+                                
                             </vbox>
                         </panelchildren>
                     </panel>
+                    
                     <panel id="cadastroPessoa" width="100%" border="normal"
                            title="Cadastro Pessoa">
                         <panelchildren style="padding:5px;">
@@ -53,16 +55,19 @@
                             </vbox>
                         </panelchildren>
                     </panel>
-                    <panel id="cadastroAcademico" width="100%" border="normal"
-                           title="Cadastro Acadêmico">
+                    
+                    <panel id="controlarTurma" width="100%" border="normal"
+                           title="Controlar Turma">
                         <panelchildren style="padding:5px;">
                             <vbox>
-                                <toolbarbutton id="calendario" label="Calendário" />
-                                <toolbarbutton id="disciplina" label="Disciplina" />
-                                <toolbarbutton id="curso" label="Curso" />
+                                <toolbarbutton id="turma" label="Cadastrar Turma" />
+                                <toolbarbutton id="visualizarTurmas" label="Visualizar Turmas" />
+                                <toolbarbutton id="matricularAluno" label="Matricular Aluno" />
+                                <toolbarbutton id="alocarProfessor" label="Alocar Professor" />
                             </vbox>
                         </panelchildren>
                     </panel>
+                    
                     <panel id="pauta" width="100%" border="normal"
                            title="Pauta">
                         <panelchildren style="padding:5px;">

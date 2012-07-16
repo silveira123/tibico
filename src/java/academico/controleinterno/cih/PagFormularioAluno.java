@@ -305,9 +305,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 list.add(listaEndereco);
                 list.add(curso);
                 a = ctrlPessoa.incluirAluno(list);
-                if (a != null) {
-                    limparCampos();
-                }
             }
             winCadastro.onClose();
         }

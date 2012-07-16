@@ -13,16 +13,16 @@
     </style>
     <div id="div" apply="academico.controlepauta.cih.PagPrincipal">
         <borderlayout sclass="complex-layout" height="810px">
-            <north size="90px" border="0">
+            <north size="70px" border="0">
                 <div id="divnorte">
                     <div align="right">
-                        <label id="nomeUsuario" value="" style="font-weight:bold; font-size:12px; color:white;"/>
+                        <label id="nomeUsuario" value="" style="font-weight:bold; font-size:12px; color:white; "/>
+                        <label value=" || " style="font-weight:bold; font-size:12px; color:white; "/>
                         <label id="logout" value="Logout" style="font-weight:bold; font-size:12px; color:white; cursor:pointer"/> 
                         <space width="1px"/>
                     </div>
                     <div align="center">
-                        <separator height="25px"/>
-					
+                        <separator height="5px"/>		
                         <label value="Tibico - SRA"
                                style="font-weight:bold; font-size:34px; color:white">
                         </label>
@@ -84,7 +84,7 @@
                         </panelchildren>
                     </panel>
                     <div align="center">
-                        <image src="images/fsw.png" width="160px" height="165px" />
+                        <image src="images/fsw.png" width="150px" height="155px" />
                     </div>
                                         
                 </vlayout>

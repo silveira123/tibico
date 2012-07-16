@@ -18,7 +18,6 @@ package academico.controleinterno.cdp;
 
 import academico.util.horario.cdp.Horario;
 import academico.util.persistencia.ObjetoPersistente;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 

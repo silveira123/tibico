@@ -95,11 +95,12 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                     args.add(obj2);
                     args.add(nomeAvaliacao.getValue());
                     args.add(peso.getValue());
+
+                    Avaliacao a = ctrl.incluirAvaliacao(args);
                     
                     // Instancia um resultado, com nota ZERO, para cada Aluno
-                    ctrl.atribuirResultado(obj, obj2);
-
-                    ctrl.incluirAvaliacao(args);
+                    ctrl.atribuirResultado(a, obj2);
+                    
                     limparCampos();
                 }
                 else {
@@ -110,7 +111,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                 }
                 winFormularioAvaliacao.onClose();
             }
-            else Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
+            else Messagebox.show(msg, "Informe: ", 0, Messagebox.EXCLAMATION);
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);

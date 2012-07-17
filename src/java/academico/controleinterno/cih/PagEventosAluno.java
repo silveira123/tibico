@@ -56,10 +56,10 @@ public class PagEventosAluno extends GenericForwardComposer {
         ctrl.setPagEventosAluno(this);
 
         a = (Aluno) arg.get("obj");
-        if (a != null) {
-            List<Curso> cursos = ctrlCurso.obterCursos();
-            curso.setModel(new ListModelList(cursos, true));
-        }
+        
+        List<Curso> cursos = ctrlCurso.obterCursos();
+        curso.setModel(new ListModelList(cursos, true));
+        
     }
 
     public void onCreate$winDadosAluno(Event event) {
@@ -73,6 +73,10 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onSelect$curso(Event event) throws AcademicoException {
         select = (Curso) curso.getSelectedItem().getValue();
 
+        while (listAluno.getItemCount() > 0) {
+            listAluno.removeItemAt(0);
+        }
+        
         List<Aluno> listaAlunos = ctrl.obterAlunos();
 
         if (listaAlunos != null) {

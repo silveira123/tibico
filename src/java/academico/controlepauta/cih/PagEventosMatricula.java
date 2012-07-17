@@ -23,6 +23,7 @@ import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -82,7 +83,15 @@ public class PagEventosMatricula extends GenericForwardComposer {
 
         nomeAluno.setReadonly(true);
     }
-
+    
+    public void onCreate$winEventosMatricula(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winEventosMatricula.detach();
+        }
+    }
+    
     public void addMatricula(MatriculaTurma matTurma) {
         Listitem linha = new Listitem(matTurma.toString(), matTurma);
         linha.appendChild(new Listcell(matTurma.getTurma().getDisciplina().getPeriodoCorrespondente().toString()));

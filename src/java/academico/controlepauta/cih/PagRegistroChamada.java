@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -62,54 +63,63 @@ public class PagRegistroChamada extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         obj2 = (Turma) arg.get("obj2");
+        if (obj2 != null) {
+            nomeTurma.setValue(obj2.toString());
+            nomeTurma.setDisabled(true);
 
-        nomeTurma.setValue(obj2.toString());
-        nomeTurma.setDisabled(true);
+            String before = pegarDatas(obj2.getCalendario().getDataInicioPL().getTime());
+            String after = pegarDatas(obj2.getCalendario().getDataFimPL().getTime());
+            data.setConstraint("between " + before + " and " + after);
+            matriculaturmas = ctrlMatricula.obter(obj2);//recebe as matriculas da turma
 
-        String before = pegarDatas(obj2.getCalendario().getDataInicioPL().getTime());
-        String after = pegarDatas(obj2.getCalendario().getDataFimPL().getTime());
-        data.setConstraint("between " + before + " and " + after);
-        matriculaturmas = ctrlMatricula.obter(obj2);//recebe as matriculas da turma
+            for (int i = 0; i < matriculaturmas.size(); i++) {//percorre a lista das matriculas para adicionar na tela
+                //cria uma linha de matricula, onde o primeiro elemento dessa linha será uma matricula
+                Listitem linha = new Listitem(matriculaturmas.get(i).getAluno().getMatricula(), matriculaturmas);
+                //proximo campo é nome do aluno
+                linha.appendChild(new Listcell(matriculaturmas.get(i).getAluno().toString()));
+                //lista frequencias recebe as frequencias de um determinado aluno em uma turma
+                frequencias = ctrl.obterFrequencias(matriculaturmas.get(i).getAluno(), obj2);
 
-        for (int i = 0; i < matriculaturmas.size(); i++) {//percorre a lista das matriculas para adicionar na tela
-            //cria uma linha de matricula, onde o primeiro elemento dessa linha será uma matricula
-            Listitem linha = new Listitem(matriculaturmas.get(i).getAluno().getMatricula(), matriculaturmas);
-            //proximo campo é nome do aluno
-            linha.appendChild(new Listcell(matriculaturmas.get(i).getAluno().toString()));
-            //lista frequencias recebe as frequencias de um determinado aluno em uma turma
-            frequencias = ctrl.obterFrequencias(matriculaturmas.get(i).getAluno(), obj2);
+                Integer totalFaltas = 0;
+                //vai pegar todas as falas do aluno e ir somando
+                for (int j = 0; j < frequencias.size(); j++) {
+                    totalFaltas += frequencias.get(j).getNumFaltasAula();
+                }
+                //adiciona o numero de faltas do aluno
+                linha.appendChild(new Listcell(totalFaltas.toString()));
+                //cria um campo intbox para ser preenchido com o numero de faltas naquela aula
+                Listcell listcell = new Listcell();
+                Intbox t1 = new Intbox();
+                t1.setValue(0);
+                t1.setWidth("40%");
+                faltas.add(t1);
+                t1.setParent(listcell);
+                linha.appendChild(listcell);
 
-            Integer totalFaltas = 0;
-            //vai pegar todas as falas do aluno e ir somando
-            for (int j = 0; j < frequencias.size(); j++) {
-                totalFaltas += frequencias.get(j).getNumFaltasAula();
+                linha.setParent(listbox);
+
             }
-            //adiciona o numero de faltas do aluno
-            linha.appendChild(new Listcell(totalFaltas.toString()));
-            //cria um campo intbox para ser preenchido com o numero de faltas naquela aula
-            Listcell listcell = new Listcell();
-            Intbox t1 = new Intbox();
-            t1.setValue(0);
-            t1.setWidth("40%");
-            faltas.add(t1);
-            t1.setParent(listcell);
-            linha.appendChild(listcell);
-
-            linha.setParent(listbox);
-
         }
     }
 
     public void onCreate$winRegistroChamada() {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != CtrlAula.SALVAR) {
-            obj = (Aula) arg.get("obj");
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winRegistroChamada.detach();
+        }
+        else {
+            MODO = (Integer) arg.get("tipo");
 
-            preencherTela();
-            if (MODO == CtrlAula.CONSULTAR) {
-                this.salvar.setVisible(false);
-                bloquearTela();
+            if (MODO != CtrlAula.SALVAR) {
+                obj = (Aula) arg.get("obj");
+
+                preencherTela();
+                if (MODO == CtrlAula.CONSULTAR) {
+                    this.salvar.setVisible(false);
+                    bloquearTela();
+                }
             }
         }
     }
@@ -286,4 +296,5 @@ public class PagRegistroChamada extends GenericForwardComposer {
 
         return msg;
     }
+
 }

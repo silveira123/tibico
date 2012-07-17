@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlCadastroCurso;
@@ -27,14 +26,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela PagFormularioTurma.zul
- * @author Pietro Crhist 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioTurma.zul
+ *
+ * @author Pietro Crhist
  * @author Geann Valfré
  * @author Gabriel Quézid
  */
@@ -55,77 +56,89 @@ public class PagFormularioTurma extends GenericForwardComposer {
     private Turma obj;
     private Listhead listhead;
     private ArrayList<Checkbox> horariosCheckbox = new ArrayList<Checkbox>();
-    private int tipo;
+    private Integer tipo;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         tipo = (Integer) arg.get("p");
-        List<Curso> listaCurso = ctrlCurso.obterCursos();
-        curso.setModel(new ListModelList(listaCurso, true));
+        if (tipo != null) {
+            List<Curso> listaCurso = ctrlCurso.obterCursos();
+            curso.setModel(new ListModelList(listaCurso, true));
 
-        List<Horario> listaHorario = ctrl.obterHorario();
-        DiaSemana dia = null;
-        if (listaHorario.size() > 0) {
-            dia = listaHorario.get(0).getDia();
-        }
-        for (int i = 0; i < listaHorario.size(); i++) {
-            Listheader lh = new Listheader();
-            lh.setAlign("Center");
-            if (i == 0) {
-                lh.setLabel("Dia");
-                listhead.appendChild(lh);
-            } else if (listaHorario.get(i - 1).getDia().equals(dia)) {
-                lh.setLabel(listaHorario.get(i - 1).toString());
-                listhead.appendChild(lh);
-
-            } else {
-                break;
+            List<Horario> listaHorario = ctrl.obterHorario();
+            DiaSemana dia = null;
+            if (listaHorario.size() > 0) {
+                dia = listaHorario.get(0).getDia();
             }
-        }
-
-        for (int i = 0; i < listaHorario.size();) {
-
-            int j;
-            Listitem linha = new Listitem();
-
-            for (j = i; j < listhead.getChildren().size() - 1 + i; j++) {
-                Listcell cell = new Listcell();
-                Checkbox c = new Checkbox();
-                if (j == i) {
-                    cell.setLabel(listaHorario.get(j).getDia().toString());
-                    linha.appendChild(cell);
-                    cell = new Listcell();
-                    cell.setValue(listaHorario.get(j));
-                    cell.appendChild(c);
-                    linha.appendChild(cell);
-                } else {
-                    cell.setValue(listaHorario.get(j));
-                    cell.appendChild(c);
-                    linha.appendChild(cell);
+            for (int i = 0; i < listaHorario.size(); i++) {
+                Listheader lh = new Listheader();
+                lh.setAlign("Center");
+                if (i == 0) {
+                    lh.setLabel("Dia");
+                    listhead.appendChild(lh);
                 }
-                horariosCheckbox.add(c);
+                else if (listaHorario.get(i - 1).getDia().equals(dia)) {
+                    lh.setLabel(listaHorario.get(i - 1).toString());
+                    listhead.appendChild(lh);
+
+                }
+                else {
+                    break;
+                }
             }
-            listHorario.appendChild(linha);
-            i = j;
+
+            for (int i = 0; i < listaHorario.size();) {
+
+                int j;
+                Listitem linha = new Listitem();
+
+                for (j = i; j < listhead.getChildren().size() - 1 + i; j++) {
+                    Listcell cell = new Listcell();
+                    Checkbox c = new Checkbox();
+                    if (j == i) {
+                        cell.setLabel(listaHorario.get(j).getDia().toString());
+                        linha.appendChild(cell);
+                        cell = new Listcell();
+                        cell.setValue(listaHorario.get(j));
+                        cell.appendChild(c);
+                        linha.appendChild(cell);
+                    }
+                    else {
+                        cell.setValue(listaHorario.get(j));
+                        cell.appendChild(c);
+                        linha.appendChild(cell);
+                    }
+                    horariosCheckbox.add(c);
+                }
+                listHorario.appendChild(linha);
+                i = j;
+            }
+
+            curso.setReadonly(true);
+            disciplina.setReadonly(true);
+            professor.setReadonly(true);
+            // listHorario.setModel(new ListModelList(listaHorario, true));
         }
-
-        curso.setReadonly(true);
-        disciplina.setReadonly(true);
-        professor.setReadonly(true);
-        // listHorario.setModel(new ListModelList(listaHorario, true));
-
     }
 
     public void onCreate$winFormularioTurma() throws AcademicoException {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != CtrlLetivo.SALVAR) {
-            obj = (Turma) arg.get("obj");
-            preencherTela();
-            if (MODO == CtrlLetivo.CONSULTAR) {
-                this.salvar.setVisible(false);
-                bloquearTela();
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioTurma.detach();
+        }
+        else {
+            MODO = (Integer) arg.get("tipo");
+
+            if (MODO != CtrlLetivo.SALVAR) {
+                obj = (Turma) arg.get("obj");
+                preencherTela();
+                if (MODO == CtrlLetivo.CONSULTAR) {
+                    this.salvar.setVisible(false);
+                    bloquearTela();
+                }
             }
         }
 
@@ -158,7 +171,7 @@ public class PagFormularioTurma extends GenericForwardComposer {
             if (obj.getHorario().contains(listaHorario.get(i))) {
                 horariosCheckbox.get(i).setChecked(true);
             }
-            if(tipo != 1){
+            if (tipo != 1) {
                 horariosCheckbox.get(i).setDisabled(true);
             }
         }
@@ -196,7 +209,8 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     args.add(selecionados);
                     if (professor.getSelectedItem() != null) {
                         args.add(professor.getSelectedItem().getValue());
-                    } else {
+                    }
+                    else {
                         args.add(null);
                     }
                     limparCampos();
@@ -204,7 +218,8 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
                     ctrl.incluirTurma(args);
                     Messagebox.show("Cadastro feito!");
-                } else {
+                }
+                else {
                     if (tipo == 1) {
                         obj.setDisciplina((Disciplina) disciplina.getSelectedItem().getValue());
                         obj.setCalendario((Calendario) calendario.getSelectedItem().getValue());
@@ -220,23 +235,26 @@ public class PagFormularioTurma extends GenericForwardComposer {
                         ctrl.alterarTurma(obj);
                         Messagebox.show("Cadastro editado!");
                     }
-                    else{
+                    else {
                         if (professor.getSelectedItem() != null) {
                             Professor p = professor.getSelectedItem().getValue();
                             obj.setProfessor(p);
                         }
                         ctrl.alterarTurma(obj);
                         Messagebox.show("Professor Alocado!");
-                        
+
                     }
                 }
                 winFormularioTurma.onClose();
-            } else {
+            }
+            else {
                 Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
             }
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.getLogger(PagFormularioCalendario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -310,4 +328,5 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
         return msg;
     }
+
 }

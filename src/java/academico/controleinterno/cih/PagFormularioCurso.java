@@ -23,6 +23,7 @@ import academico.util.academico.cdp.Regime;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -76,14 +77,22 @@ public class PagFormularioCurso extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioCurso() {
-        MODO = (Integer) arg.get("tipo");
+        
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioCurso.detach();
+        }
+        else {
+            MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrl.SALVAR) {
-            obj = (Curso) arg.get("obj");
-            preencherTela();
-            if (MODO == ctrl.CONSULTAR) {
-                this.salvarCurso.setVisible(false);
-                bloquearTela();
+            if (MODO != ctrl.SALVAR) {
+                obj = (Curso) arg.get("obj");
+                preencherTela();
+                if (MODO == ctrl.CONSULTAR) {
+                    this.salvarCurso.setVisible(false);
+                    bloquearTela();
+                }
             }
         }
     }
@@ -207,4 +216,5 @@ public class PagFormularioCurso extends GenericForwardComposer {
 
         return msg;
     }
+
 }

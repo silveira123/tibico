@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -40,7 +41,7 @@ public class PagEventosChamada extends GenericForwardComposer {
 
     private CtrlAula ctrl = CtrlAula.getInstance();
     private CtrlLetivo ctrlTurma = CtrlLetivo.getInstance();
-    private Window winEventosAvaliacao;
+    private Window winEventosChamada;
     private Combobox nome;
     private Menuitem incluir;
     private Menuitem excluir;
@@ -93,6 +94,14 @@ public class PagEventosChamada extends GenericForwardComposer {
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void onCreate$winEventosChamada(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winEventosChamada.detach();
         }
     }
 

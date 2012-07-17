@@ -21,6 +21,7 @@ import academico.controleinterno.cdp.Disciplina;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -48,6 +49,14 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
+    }
+    
+    public void onCreate$winEventosDisciplina(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winEventosDisciplina.detach();
+        }
     }
 
     public void onSelect$cursoCombo(Event event) throws AcademicoException {

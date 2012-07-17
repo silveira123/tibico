@@ -19,6 +19,7 @@ import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Turma;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -33,13 +34,13 @@ import org.zkoss.zul.*;
 public class PagEventosTurma extends GenericForwardComposer {
 
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private Window winFormularioTurma;
+    private Window winEventosTurma;
     private Menuitem incluir;
     private Menuitem excluir;
     private Menuitem consultar;
     private Menuitem alterar;
     private Listbox listbox;
-    private int tipo;
+    private Integer tipo;
     private Div boxInformacao;
     private Label msg;
 
@@ -48,31 +49,40 @@ public class PagEventosTurma extends GenericForwardComposer {
         super.doAfterCompose(comp);
         ctrl.setPagEventosTurma(this);
         tipo = (Integer) arg.get("class");
-
-        List<Turma> listaTurma = ctrl.obterTurma();
-        if (tipo == 1) {
-            for (int i = 0; i < listaTurma.size(); i++) {
-                Turma t = listaTurma.get(i);
-                Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
-                linha.appendChild(new Listcell(t.getDisciplina().toString()));
-                linha.appendChild(new Listcell(t.getCalendario().toString()));
-                if (t.getProfessor() != null) {
-                    linha.appendChild(new Listcell(t.getProfessor().toString()));
-                }
-                linha.setParent(listbox);
-            }
-        }
-        else {
-            for (int i = 0; i < listaTurma.size(); i++) {
-                Turma t = listaTurma.get(i);
-
-                if (t.getProfessor() == null) {
+        if (tipo != null) {
+            List<Turma> listaTurma = ctrl.obterTurma();
+            if (tipo == 1) {
+                for (int i = 0; i < listaTurma.size(); i++) {
+                    Turma t = listaTurma.get(i);
                     Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
                     linha.appendChild(new Listcell(t.getDisciplina().toString()));
                     linha.appendChild(new Listcell(t.getCalendario().toString()));
+                    if (t.getProfessor() != null) {
+                        linha.appendChild(new Listcell(t.getProfessor().toString()));
+                    }
                     linha.setParent(listbox);
                 }
             }
+            else {
+                for (int i = 0; i < listaTurma.size(); i++) {
+                    Turma t = listaTurma.get(i);
+
+                    if (t.getProfessor() == null) {
+                        Listitem linha = new Listitem(t.getDisciplina().getCurso().toString(), t);
+                        linha.appendChild(new Listcell(t.getDisciplina().toString()));
+                        linha.appendChild(new Listcell(t.getCalendario().toString()));
+                        linha.setParent(listbox);
+                    }
+                }
+            }
+        }
+    }
+
+    public void onCreate$winEventosTurma(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winEventosTurma.detach();
         }
     }
 
@@ -149,4 +159,5 @@ public class PagEventosTurma extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
+
 }

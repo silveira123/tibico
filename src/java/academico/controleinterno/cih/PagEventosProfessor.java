@@ -20,6 +20,7 @@ import academico.controleinterno.cdp.Professor;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -46,21 +47,29 @@ public class PagEventosProfessor extends GenericForwardComposer {
         super.doAfterCompose(comp);
         ctrl.setPagEventosProfessor(this);
         p = (Professor) arg.get("obj");
+        if (p != null) {
+            List<Professor> listaProfessores = ctrl.obterProfessor();
+            List<Professor> data = new ArrayList<Professor>();
 
-        List<Professor> listaProfessores = ctrl.obterProfessor();
-        List<Professor> data = new ArrayList<Professor>();
+            if (listaProfessores != null) {
+                for (int i = 0; i < listaProfessores.size(); i++) {
+                    Professor p = listaProfessores.get(i);
+                    Listitem linha = new Listitem(listaProfessores.get(i).toString(), p);
 
-        if (listaProfessores != null) {
-            for (int i = 0; i < listaProfessores.size(); i++) {
-                Professor p = listaProfessores.get(i);
-                Listitem linha = new Listitem(listaProfessores.get(i).toString(), p);
+                    linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
 
-                linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
-
-                linha.setParent(listProfessor);
+                    linha.setParent(listProfessor);
+                }
             }
         }
+    }
 
+    public void onCreate$winDadosProfessor(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winDadosProfessor.detach();
+        }
     }
 
     public void addProfessor(Professor p) {
@@ -125,4 +134,5 @@ public class PagEventosProfessor extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
+
 }

@@ -214,14 +214,20 @@ public class AplControlarMatricula {
         Integer peso = new Integer(0);
 
         for (int i=0; i<listResultados.size(); i++) {
-            notaFinal += listResultados.get(i).getAvaliacao().getPeso() * listResultados.get(i).getPontuacao();
-            peso += listResultados.get(i).getAvaliacao().getPeso();
+            if(listResultados.get(i).getPontuacao() != null){
+                notaFinal += listResultados.get(i).getAvaliacao().getPeso() * listResultados.get(i).getPontuacao();
+                peso += listResultados.get(i).getAvaliacao().getPeso();
+            }
         }
+        
+        System.out.println("Soma de Notas: " + notaFinal + "\nSoma dos Pesos: " + peso);
         
         notaFinal = notaFinal / peso;
         
         mt.setResultadoFinal(notaFinal);
 
+        System.out.println("Nota Final/Parcial: " + notaFinal);
+        
         alteraSituacao(mt);
     }
 

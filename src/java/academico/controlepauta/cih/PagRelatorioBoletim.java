@@ -100,7 +100,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirBoletim(obj, cal);
             curso.setValue(obj.getCurso().toString());
 
-            coeficiente.setValue(obj.getCoeficiente().toString());
+            if(obj.getCoeficiente() != null) coeficiente.setValue(obj.getCoeficiente().toString());
 
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {

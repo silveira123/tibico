@@ -95,7 +95,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         try {
             List<MatriculaTurma> matTurma = ctrlMatricula.emitirHistorico(obj);
             curso.setValue(obj.getCurso().toString());
-            coeficiente.setValue(obj.getCoeficiente().toString());
+            if(obj.getCoeficiente() != null) coeficiente.setValue(obj.getCoeficiente().toString());
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);

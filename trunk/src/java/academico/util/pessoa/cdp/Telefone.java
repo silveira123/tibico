@@ -31,9 +31,9 @@ import javax.persistence.Enumerated;
  */
 @Entity
 public class Telefone extends ObjetoPersistente{
-    private Integer numero;
-    private Integer ddd;
-    private Integer ddi;
+    private String numero;
+    private String ddd;
+    private String ddi;
     private TipoTel tipo;
 
     @Enumerated(EnumType.STRING)
@@ -48,42 +48,42 @@ public class Telefone extends ObjetoPersistente{
     /**
      * Obtém o DDD de Telefone.
      */
-    public Integer getDdd() {
+    public String getDdd() {
         return ddd;
     }
 
     /**
      * Altera o valor do DDD de Telefone.
      */
-    public void setDdd(Integer ddd) {
+    public void setDdd(String ddd) {
         this.ddd = ddd;
     }
 
     /**
      * Obtém o DDI de Telefone.
      */
-    public Integer getDdi() {
+    public String getDdi() {
         return ddi;
     }
 
     /**
      * Altera o valor do DDI de Telefone.
      */
-    public void setDdi(Integer ddi) {
+    public void setDdi(String ddi) {
         this.ddi = ddi;
     }
 
     /**
      * Obtém o número (numero) de Telefone.
      */
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
     /**
      * Altera o valor do número (numero) de Telefone.
      */
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
     

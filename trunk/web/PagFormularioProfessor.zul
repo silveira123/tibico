@@ -106,7 +106,7 @@
                                 
                                 <row>
                                     CEP:
-                                    <intbox id="cep" width="20%"
+                                    <textbox id="cep" width="20%"
                                              constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]+/: Entre com um CEP válido: 27458963"/>
                                 </row>
                                 

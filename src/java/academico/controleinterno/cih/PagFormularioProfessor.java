@@ -313,7 +313,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setIdentidade(rg.getText());
 
                 obj.getEndereco().setLogradouro(logradouro.getText());
-                obj.getEndereco().setCep(obterCEP(cep.getValue()));
+                obj.getEndereco().setCep(obterCEP(cep.getText()));
                 obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
@@ -386,9 +386,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             indice = listTelefone.size();
         }
 
-        System.out.print(tipo + " ");
-        System.out.println(indice);
-
         //TODO : arrumar uma expressão regular     
         //Se a String vinda do formulário for diferente de null (se não estiver vazia) ela é tratada e inserida na lista
         if (!telefone.equals("")) {
@@ -430,13 +427,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     public void obterEndereco(ArrayList<Object> listaEndereco) {
         listaEndereco.add(logradouro.getText());
-        listaEndereco.add(obterCEP(cep.getValue()));
+        listaEndereco.add(obterCEP(cep.getText()));
         listaEndereco.add(Integer.parseInt(numero.getText()));
         listaEndereco.add(complemento.getText());
         listaEndereco.add((Bairro) bairro.getSelectedItem().getValue());
     }
 
-    public Long obterCEP(int scep) {
+    public Long obterCEP(String scep) {
         Long cep = new Long(scep);
 
         return cep;

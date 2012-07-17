@@ -57,7 +57,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox nomeMae;
     private Textbox nomePai;
     private Combobox pais;
-    private Intbox cep;
+    private Textbox cep;
     private Combobox estado;
     private Combobox cidade;
     private Combobox bairro;
@@ -284,7 +284,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obj.setNomeMae(nomeMae.getText());
                 obj.setNomePai(nomePai.getText());
                 obj.getEndereco().setLogradouro(logradouro.getText());
-                obj.getEndereco().setCep(obterCEP(cep.getValue()));
+                obj.getEndereco().setCep(obterCEP(cep.getText()));
                 obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
@@ -342,10 +342,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
         else {
             indice = listTelefone.size();
-        }
-
-        System.out.print(tipo + " ");
-        System.out.println(indice);
+        }      
 
         //TODO : arrumar uma expressão regular     
         //Se a String vinda do formulário for diferente de null (se não estiver vazia) ela é tratada e inserida na lista
@@ -389,7 +386,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     public void obterEndereco(ArrayList<Object> listaEndereco) {
         listaEndereco.add(logradouro.getText());
-        listaEndereco.add(obterCEP(cep.getValue()));
+        listaEndereco.add(obterCEP(cep.getText()));
         listaEndereco.add(Integer.parseInt(numero.getText()));
         listaEndereco.add(complemento.getText());
         listaEndereco.add((Bairro) bairro.getSelectedItem().getValue());
@@ -434,7 +431,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
     }
 
-    public Long obterCEP(int scep) {
+    public Long obterCEP(String scep) {
         Long cep = new Long(scep);
 
         return cep;

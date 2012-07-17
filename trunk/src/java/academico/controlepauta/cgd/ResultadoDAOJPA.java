@@ -45,7 +45,7 @@ public class ResultadoDAOJPA extends DAOJPA<Resultado> implements ResultadoDAO {
     }
     
     public List<Resultado> obterResultados(MatriculaTurma mturma) { 
-         List<Resultado> resultado = entityManager.createQuery("select fr from Resultado fr, MatriculaTurma mt where mt.id = ?1").setParameter(1, mturma.getId()).getResultList();
+         List<Resultado> resultado = entityManager.createQuery("select fr from Resultado fr where fr.matriculaTurma.id = ?1").setParameter(1, mturma.getId()).getResultList();
          return resultado;
     }
     

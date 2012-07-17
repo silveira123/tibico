@@ -19,11 +19,14 @@ import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
+import academico.controlepauta.cci.CtrlAula;
+import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -53,10 +56,18 @@ public class PagEventosAluno extends GenericForwardComposer {
         ctrl.setPagEventosAluno(this);
 
         a = (Aluno) arg.get("obj");
+        if (a != null) {
+            List<Curso> cursos = ctrlCurso.obterCursos();
+            curso.setModel(new ListModelList(cursos, true));
+        }
+    }
 
-        List<Curso> cursos = ctrlCurso.obterCursos();
-        curso.setModel(new ListModelList(cursos, true));
-
+    public void onCreate$winDadosAluno(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winDadosAluno.detach();
+        }
     }
 
     public void onSelect$curso(Event event) throws AcademicoException {
@@ -118,16 +129,17 @@ public class PagEventosAluno extends GenericForwardComposer {
             try {
                 //Se não houver calendarios no Curso, imprime uma mensagem avisando e não deixa cadastrar.
                 if (!ctrl.obterCalendarios(select).isEmpty()) {
-                    ctrl.abrirIncluirAluno(a,select);  
+                    ctrl.abrirIncluirAluno(a, select);
                 }
-                else{
+                else {
                     Messagebox.show("Não há calendários para esse curso!");
                 }
-            } catch (AcademicoException ex) {
+            }
+            catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        else{
+        else {
             Messagebox.show("Selecione um curso!");
         }
     }
@@ -155,4 +167,5 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
+
 }

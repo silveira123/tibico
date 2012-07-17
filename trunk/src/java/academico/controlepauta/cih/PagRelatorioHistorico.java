@@ -23,6 +23,7 @@ import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -66,13 +67,21 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         nome.setReadonly(true);
         matricula.setReadonly(true);
     }
-
+    
+    public void onCreate$winHistorico(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winHistorico.detach();
+        }
+    }
+    
     public void onSelect$nome(Event event) throws Exception {
         obj = nome.getSelectedItem().getValue();
         matricula.setValue(obj.getMatricula().toString());
         adicionaDisciplinas(obj);
     }
-
+    
     /**
      * Função para adicionar no grid as turmas cursadas pelo aluno
      * <p/>

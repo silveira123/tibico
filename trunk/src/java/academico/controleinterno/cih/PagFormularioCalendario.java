@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -83,23 +84,32 @@ public class PagFormularioCalendario extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioCalendario() {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrl.SALVAR) {
-            obj = (Calendario) arg.get("obj");
-            preencherTela();
-            if (MODO == ctrl.CONSULTAR) {
-                this.salvar.setVisible(false);
-                bloquearTela();
-            }
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioCalendario.detach();
         }
         else {
-            Curso obj2 = (Curso) arg.get("obj");
-            List<Comboitem> cursos = curso.getItems();
-            for (int i = 0; i < cursos.size(); i++) {
-                // verificando qual a area de conhecimento cadastrado
-                if (obj2.equals(cursos.get(i).getValue())) {
-                    curso.setSelectedItem(cursos.get(i));
+
+            MODO = (Integer) arg.get("tipo");
+
+            if (MODO != ctrl.SALVAR) {
+                obj = (Calendario) arg.get("obj");
+                preencherTela();
+                if (MODO == ctrl.CONSULTAR) {
+                    this.salvar.setVisible(false);
+                    bloquearTela();
+                }
+            }
+            else {
+                Curso obj2 = (Curso) arg.get("obj");
+                List<Comboitem> cursos = curso.getItems();
+                for (int i = 0; i < cursos.size(); i++) {
+                    // verificando qual a area de conhecimento cadastrado
+                    if (obj2.equals(cursos.get(i).getValue())) {
+                        curso.setSelectedItem(cursos.get(i));
+                    }
                 }
             }
         }
@@ -303,4 +313,5 @@ public class PagFormularioCalendario extends GenericForwardComposer {
 
         return msg;
     }
+
 }

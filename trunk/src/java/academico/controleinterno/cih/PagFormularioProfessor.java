@@ -28,6 +28,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -101,14 +102,22 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioProfessor() {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrlPessoa.SALVAR) {
-            obj = (Professor) arg.get("obj");
-            preencherTela();
-            if (MODO == ctrlPessoa.CONSULTAR) {
-                this.salvarProfessor.setVisible(false);
-                bloquearTela();
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioProfessor.detach();
+        }
+        else {
+            MODO = (Integer) arg.get("tipo");
+
+            if (MODO != ctrlPessoa.SALVAR) {
+                obj = (Professor) arg.get("obj");
+                preencherTela();
+                if (MODO == ctrlPessoa.CONSULTAR) {
+                    this.salvarProfessor.setVisible(false);
+                    bloquearTela();
+                }
             }
         }
     }
@@ -123,14 +132,14 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         c = obj.getDataNascimento();
         dataNasc.setValue(c.getTime());
 
-        for (int i = 0; i < obj.getTelefone().size(); i++){
+        for (int i = 0; i < obj.getTelefone().size(); i++) {
             if (obj.getTelefone().get(i).getDdd() != null) {
                 if (obj.getTelefone().get(i).getTipo() == TipoTel.FIXO) {
                     telefone.setText(preencherTelefone(obj.getTelefone().get(i)));
                 }
-                else{
+                else {
                     celular.setText(preencherTelefone(obj.getTelefone().get(i)));
-                } 
+                }
             }
         }
 
@@ -185,12 +194,12 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         return telefone;
     }
-    
-    public String preencherCpf(String scpf){
+
+    public String preencherCpf(String scpf) {
         String cpf;
-        
+
         cpf = scpf.substring(0, 3) + "." + scpf.substring(3, 6) + "." + scpf.substring(6, 9) + "-" + scpf.substring(9, 11);
-        
+
         return cpf;
     }
 
@@ -270,43 +279,45 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setSexo(obterSexo(sexo.getSelectedIndex()));
                 c.setTime(dataNasc.getValue());
                 obj.setDataNascimento(c);
-				
+
                 obterTelefone(telefone.getText(), TipoTel.FIXO, listaTelefone);
 
                 obterTelefone(celular.getText(), TipoTel.CELULAR, listaTelefone);
-				
+
                 if (listaTelefone.get(0) != null) {
-                        obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
-                        obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
-                        obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
+
+					obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
+					obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
+					obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
-                else{
-                        obj.getTelefone().get(0).setDdd(null);
-                        obj.getTelefone().get(0).setNumero(null);
-                        obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
+                else {
+                    obj.getTelefone().get(0).setDdd(null);
+                    obj.getTelefone().get(0).setNumero(null);
+                    obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
 
                 if (listaTelefone.get(3) != null) {
-                        obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
-                        obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
-                        obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
+
+					obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
+					obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
+					obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
                 }
-                else{
-                        obj.getTelefone().get(1).setDdd(null);
-                        obj.getTelefone().get(1).setNumero(null);
-                        obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
+                else {
+                    obj.getTelefone().get(1).setDdd(null);
+                    obj.getTelefone().get(1).setNumero(null);
+                    obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
                 }
 
                 obj.setEmail(email.getText());
                 obj.setCpf(obterCPF(cpf.getText()));
                 obj.setIdentidade(rg.getText());
-                
+
                 obj.getEndereco().setLogradouro(logradouro.getText());
                 obj.getEndereco().setCep(obterCEP(cep.getValue()));
                 obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
-				
+
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
                 p = ctrlPessoa.alterarProfessor(obj);
@@ -315,7 +326,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
                 ArrayList<Object> list = new ArrayList<Object>();
                 listaEndereco = new ArrayList<Object>();
-				
+
                 list.add(nome.getText());
 
                 list.add(obterSexo(sexo.getSelectedIndex()));
@@ -365,19 +376,19 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     public void obterTelefone(String telefone, TipoTel tipo, List<Object> listTelefone) {
         String ddd, tel;
-        
+
         int indice;
-        
+
         if (listTelefone.contains(tipo)) {
             indice = listTelefone.indexOf(tipo) - 2;
         }
-        else{
+        else {
             indice = listTelefone.size();
         }
-        
+
         System.out.print(tipo + " ");
         System.out.println(indice);
-        
+
         //TODO : arrumar uma expressão regular     
         //Se a String vinda do formulário for diferente de null (se não estiver vazia) ela é tratada e inserida na lista
         if (!telefone.equals("")) {
@@ -392,13 +403,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             listTelefone.add(indice, parser.nextToken());
 
             listTelefone.add(indice + 1, parser.nextToken() + parser.nextToken());
-            
+
             listTelefone.add(indice + 2, tipo);
         }
-        else{
+        else {
             listTelefone.add(indice, null);
-            listTelefone.add(indice +1, null);
-            listTelefone.add(indice +2, tipo);
+            listTelefone.add(indice + 1, null);
+            listTelefone.add(indice + 2, tipo);
         }
     }
 
@@ -550,4 +561,5 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         return msg;
     }
+
 }

@@ -46,6 +46,7 @@ public class PagLogin extends GenericForwardComposer {
     private CtrlCadastrarUsuario ctrl = CtrlCadastrarUsuario.getInstance();
 
     public void onCreate$loginWin(Event event) {
+        //se ja existir um usuario logado ele eh direcionado para a pagina principal
         if (Executions.getCurrent().getSession().getAttribute("usuario") != null) {
             CtrlAula.getInstance().abrirPaginaPrincipal();
             loginWin.detach();

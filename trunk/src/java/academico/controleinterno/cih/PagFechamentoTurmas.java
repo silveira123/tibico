@@ -23,6 +23,7 @@ import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Usuario;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -35,6 +36,7 @@ import org.zkoss.zul.*;
  * @author Gabriel Quézid
  */
 public class PagFechamentoTurmas extends GenericForwardComposer {
+
     private CtrlMatricula ctrlMatricula = CtrlMatricula.getInstance();
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
     private Window winFechamentoTurmas;
@@ -42,61 +44,70 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     private Turma obj;
     private Button abrirTurma;
     private Usuario user;
-    
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        user = (Usuario) execution.getSession().getAttribute("usuario");
-        if (user.getPrivilegio() != 1) {
-            abrirTurma.setVisible(false);
-        }
         obj = (Turma) arg.get("turma");
-        List<MatriculaTurma> matTurma = ctrlMatricula.obter(obj);
-        Rows linhas = new Rows();
-        
-        for (int i = 0; i < matTurma.size(); i++) {              
-            MatriculaTurma c = matTurma.get(i);
-            Row linha = new Row();
+        if (obj != null) {
+            List<MatriculaTurma> matTurma = ctrlMatricula.obter(obj);
+            Rows linhas = new Rows();
 
-            ctrlMatricula.calculaNotaFinal(c);
+            for (int i = 0; i < matTurma.size(); i++) {
+                MatriculaTurma c = matTurma.get(i);
+                Row linha = new Row();
 
-            linha.appendChild(new Label(c.getAluno().getMatricula()));
-            linha.appendChild(new Label(c.getAluno().getNome()));
-            linha.appendChild(new Label(c.getPercentualPresenca().toString()));
-            linha.appendChild(new Label(c.getResultadoFinal().toString()));
-            linha.appendChild(new Label(c.getSituacaoAluno().toString()));
+                ctrlMatricula.calculaNotaFinal(c);
 
-            linha.setParent(linhas);
+                linha.appendChild(new Label(c.getAluno().getMatricula()));
+                linha.appendChild(new Label(c.getAluno().getNome()));
+                linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                linha.appendChild(new Label(c.getResultadoFinal().toString()));
+                linha.appendChild(new Label(c.getSituacaoAluno().toString()));
+
+                linha.setParent(linhas);
+            }
+            linhas.setParent(matriculas);
         }
-        linhas.setParent(matriculas);
     }
-    
-    public void onClick$fecharTurma(Event event) throws Exception
-    {
-        if(ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso()))
-        {
+
+    public void onCreate$winFechamentoTurmas(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFechamentoTurmas.detach();
+        }
+        else {
+            if (user.getPrivilegio() != 1) {
+                abrirTurma.setVisible(false);
+            }
+        }
+    }
+
+    public void onClick$fecharTurma(Event event) throws Exception {
+        if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(EstadoTurma.ENCERRADA);
             ctrl.fecharTurma(obj);
             winFechamentoTurmas.onClose();
         }
-        else
+        else {
             Messagebox.show("Está fora do periodo Letivo");
+        }
     }
-    
-    public void onClick$abrirTurma(Event event) throws Exception
-    {
-        if(ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso()))
-        {
+
+    public void onClick$abrirTurma(Event event) throws Exception {
+        if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(EstadoTurma.EM_CURSO);
             ctrl.abrirTurma(obj);
             winFechamentoTurmas.onClose();
         }
-        else
+        else {
             Messagebox.show("Está fora do periodo Letivo");
+        }
     }
-    
-    public void onClick$voltar(Event event) throws Exception
-    {
-       winFechamentoTurmas.onClose();
+
+    public void onClick$voltar(Event event) throws Exception {
+        winFechamentoTurmas.onClose();
     }
+
 }

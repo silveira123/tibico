@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -59,6 +60,14 @@ public class PagRelatorioResultados extends GenericForwardComposer{
         curso.setReadonly(true);
         calendarioAcademico.setReadonly(true);
         turma.setReadonly(true);
+    }
+    
+    public void onCreate$winResultados(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winResultados.detach();
+        }
     }
     
     public void onSelect$curso(Event event) throws AcademicoException {

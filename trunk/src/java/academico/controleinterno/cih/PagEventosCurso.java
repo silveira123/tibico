@@ -19,6 +19,7 @@ import academico.controleinterno.cci.CtrlCadastroCurso;
 import academico.controleinterno.cdp.Curso;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -55,7 +56,15 @@ public class PagEventosCurso extends GenericForwardComposer {
         }
 
     }
-
+    
+    public void onCreate$winEventosCurso(Event event) {
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winEventosCurso.detach();
+        }
+    }
+    
     public void addCurso(Curso c) {
         Listitem linha = new Listitem(c.getNome(), c);
         linha.appendChild(new Listcell(c.getGrauInstrucao().toString()));

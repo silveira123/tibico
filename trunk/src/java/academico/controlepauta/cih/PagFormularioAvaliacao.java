@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cdp.Turma;
@@ -25,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
@@ -33,8 +33,9 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados.
- * A classe contém os dados do formulário, abrangendo a leitura e interpretação para a tela PagFormularioAvaliacao.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os dados do formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioAvaliacao.zul
+ *
  * @author Pietro Crhist
  * @author Geann Valfré
  * @author Gabriel Quézid
@@ -57,20 +58,28 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioAvaliacao() {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != ctrl.SALVAR) {
-            obj = (Avaliacao) arg.get("obj");
-
-            preencherTela();
-            if (MODO == ctrl.CONSULTAR) {
-                this.salvar.setVisible(false);
-                bloquearTela();
-            }
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioAvaliacao.detach();
         }
         else {
-            obj2 = (Turma) arg.get("obj");
-            turma.setValue(obj2.toString());
+            MODO = (Integer) arg.get("tipo");
+
+            if (MODO != ctrl.SALVAR) {
+                obj = (Avaliacao) arg.get("obj");
+
+                preencherTela();
+                if (MODO == ctrl.CONSULTAR) {
+                    this.salvar.setVisible(false);
+                    bloquearTela();
+                }
+            }
+            else {
+                obj2 = (Turma) arg.get("obj");
+                turma.setValue(obj2.toString());
+            }
         }
     }
 
@@ -97,10 +106,10 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                     args.add(peso.getValue());
 
                     Avaliacao a = ctrl.incluirAvaliacao(args);
-                    
+
                     // Instancia um resultado, com nota ZERO, para cada Aluno
                     ctrl.atribuirResultado(a, obj2);
-                    
+
                     limparCampos();
                 }
                 else {
@@ -111,7 +120,9 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
                 }
                 winFormularioAvaliacao.onClose();
             }
-            else Messagebox.show(msg, "Informe: ", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show(msg, "Informe: ", 0, Messagebox.EXCLAMATION);
+            }
         }
         catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,4 +154,5 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
         return msg;
     }
+
 }

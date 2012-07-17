@@ -23,6 +23,7 @@ import academico.controlepauta.cci.CtrlMatricula;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -52,12 +53,20 @@ public class PagFormularioMatricula extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioMatricula() {
-        obj = (Aluno) arg.get("aluno");
-        if (obj != null) {
-            nomeAluno.setValue(obj.toString());
-            List<Turma> turma = ctrlMatricula.obterTurmasPossiveis(obj);
-            left.setModel(new ListModelList(turma, true));
-            ((ListModelList) left.getModel()).setMultiple(true);
+
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioMatricula.detach();
+        }
+        else {
+            obj = (Aluno) arg.get("aluno");
+            if (obj != null) {
+                nomeAluno.setValue(obj.toString());
+                List<Turma> turma = ctrlMatricula.obterTurmasPossiveis(obj);
+                left.setModel(new ListModelList(turma, true));
+                ((ListModelList) left.getModel()).setMultiple(true);
+            }
         }
     }
 
@@ -79,4 +88,5 @@ public class PagFormularioMatricula extends GenericForwardComposer {
         }
         winFormularioMatricula.onClose();
     }
+
 }

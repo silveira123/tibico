@@ -23,6 +23,7 @@ import academico.util.academico.cdp.AreaConhecimento;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -71,28 +72,36 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     }
 
     public void onCreate$winFormularioDisciplina() throws AcademicoException {
-        MODO = (Integer) arg.get("tipo");
 
-        if (MODO != CtrlCadastroCurso.SALVAR) {
-            obj = (Disciplina) arg.get("obj");
-            preencherTela();
-            if (MODO == CtrlCadastroCurso.CONSULTAR) {
-                this.salvarDisciplina.setVisible(false);
-                bloquearTela();
-            }
+        //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+        if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
+            Executions.sendRedirect("/");
+            winFormularioDisciplina.detach();
         }
         else {
-            obj2 = (Curso) arg.get("obj");
-            List<Comboitem> curso = cursoCombo.getItems();
-            for (int i = 0; i < curso.size(); i++) {
-                // verificando qual a area de conhecimento cadastrado
-                if (obj2.equals(curso.get(i).getValue())) {
-                    cursoCombo.setSelectedItem(curso.get(i));
-                    List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso) curso.get(i).getValue());
-                    if (disciplinas != null) {
-                        listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+            MODO = (Integer) arg.get("tipo");
+
+            if (MODO != CtrlCadastroCurso.SALVAR) {
+                obj = (Disciplina) arg.get("obj");
+                preencherTela();
+                if (MODO == CtrlCadastroCurso.CONSULTAR) {
+                    this.salvarDisciplina.setVisible(false);
+                    bloquearTela();
+                }
+            }
+            else {
+                obj2 = (Curso) arg.get("obj");
+                List<Comboitem> curso = cursoCombo.getItems();
+                for (int i = 0; i < curso.size(); i++) {
+                    // verificando qual a area de conhecimento cadastrado
+                    if (obj2.equals(curso.get(i).getValue())) {
+                        cursoCombo.setSelectedItem(curso.get(i));
+                        List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso) curso.get(i).getValue());
+                        if (disciplinas != null) {
+                            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+                        }
+                        ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
                     }
-                    ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
                 }
             }
         }
@@ -241,4 +250,5 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
         return msg;
     }
+
 }

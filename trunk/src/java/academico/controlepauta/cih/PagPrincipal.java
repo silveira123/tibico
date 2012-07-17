@@ -66,34 +66,44 @@ public class PagPrincipal extends GenericForwardComposer {
 
     public void onCreate$div(Event event) {
         user = (Usuario) execution.getSession().getAttribute("usuario");
+        
+        if (user != null) {
+            if (user.getPessoa() != null) {
+                nomeUsuario.setValue("Seja Bem Vindo(a) " + user.getPessoa());
+            }
+            else {
+                nomeUsuario.setValue("Seja Bem Vindo(a) ADMINISTRADOR");
+            }
 
-        if (user.getPessoa() != null) {
-            nomeUsuario.setValue("Seja Bem Vindo(a) " + user.getPessoa());
+            if (user.getPrivilegio() == 3) {
+                turma.setVisible(false);
+                matricularAluno.setVisible(false);
+                alocarProfessor.setVisible(false);
+                cadastroPessoa.setVisible(false);
+                cadastroAcademico.setVisible(false);
+                prof = (Professor) user.getPessoa();
+            }
+            else if (user.getPrivilegio() == 4) {
+                pauta.setVisible(false);
+                cadastroPessoa.setVisible(false);
+                cadastroAcademico.setVisible(false);
+                turma.setVisible(false);
+                alocarProfessor.setVisible(false);
+                resultado.setVisible(false);
+                visualizarTurmas.setVisible(false);
+                aluno = (Aluno) user.getPessoa();
+            }
         }
-        else nomeUsuario.setValue("Seja Bem Vindo(a) ADMINISTRADOR");
-
-        if (user.getPrivilegio() == 3) {
-            turma.setVisible(false);
-            matricularAluno.setVisible(false);
-            alocarProfessor.setVisible(false);
-            cadastroPessoa.setVisible(false);
-            cadastroAcademico.setVisible(false);
-            prof = (Professor) user.getPessoa();
-        }
-        else if (user.getPrivilegio() == 4) {
-            pauta.setVisible(false);
-            cadastroPessoa.setVisible(false);
-            cadastroAcademico.setVisible(false);
-            turma.setVisible(false);
-            alocarProfessor.setVisible(false);
-            resultado.setVisible(false);
-            visualizarTurmas.setVisible(false);
-            aluno = (Aluno) user.getPessoa();
+        else {
+            //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
+            Executions.sendRedirect("/");
+            div.detach();
         }
 
     }
 
-    public void onClick$curso(Event event) {
+
+public void onClick$curso(Event event) {
         border.getCenter().getChildren().clear();
         Window winCurso = (Window) CtrlCadastroCurso.getInstance().abrirEventosCurso();
         winCurso.setWidth("100%");
@@ -121,17 +131,17 @@ public class PagPrincipal extends GenericForwardComposer {
         winTurma.setHeight("100%");
         winTurma.setParent(border.getCenter());
     }
-    
+
     public void onClick$visualizarTurmas(Event event) {
         border.getCenter().getChildren().clear();
         Window winVisualizarTurmas;
         if (user.getPrivilegio() == 3) {
             winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas(prof);
         }
-        else{
+        else {
             winVisualizarTurmas = (Window) CtrlLetivo.getInstance().abrirVisualizarTurmas();
         }
-        
+
         winVisualizarTurmas.setWidth("100%");
         winVisualizarTurmas.setHeight("100%");
         winVisualizarTurmas.setParent(border.getCenter());
@@ -249,4 +259,5 @@ public class PagPrincipal extends GenericForwardComposer {
         winAvaliacao.setHeight("100%");
         winAvaliacao.setParent(border.getCenter());
     }
+
 }

@@ -1,6 +1,6 @@
 <?page title="Tibico-SRA"?> 
 <?link rel="icon" type="image/x-icon" href="images/fsw2.png"?>
-<window id="loginWin" apply ="academico.controlepauta.cih.PagLogin">
+<window id="loginWin" apply ="academico.controlepauta.cih.PagLogin" onOk="loginCheck()">
         <style>
                 .login-box {
                         width:333px;

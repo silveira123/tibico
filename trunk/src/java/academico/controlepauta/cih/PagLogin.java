@@ -53,6 +53,10 @@ public class PagLogin extends GenericForwardComposer {
         }
     }
 
+    public void onOK$loginWin(Event event) {
+        onClick$entrar(event);
+    }
+    
     public void onClick$entrar(Event event) {
         try {
             if (ctrl.validarUsuario(nome.getValue(), senha.getValue())) {

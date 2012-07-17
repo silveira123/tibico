@@ -115,7 +115,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             listbox.removeItemAt(0);
         }
 
-        if (c != null && obj != null) {
+        if (c != null && obj == null)  {
             calendarioAcademico.setModel(new ListModelList(ctrlLetivo.obterCalendarios(c)));
         } else if (c != null) {
             List<Calendario> calendarios = ctrlLetivo.obterCalendarios(c);

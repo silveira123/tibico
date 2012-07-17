@@ -110,7 +110,6 @@ public class AplControlarMatricula {
      * matriculas.
      */
     public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException, Exception {
-        calcularCoeficiente(aluno);
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCursadas(aluno);
     }
 
@@ -124,7 +123,6 @@ public class AplControlarMatricula {
      * @throws AcademicoException Caso não consiga buscar o boletim.
      */
     public List<MatriculaTurma> emitirBoletim(Aluno aluno, Calendario calendario) throws AcademicoException, Exception {
-        calcularCoeficiente(aluno);
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, calendario);
     }
 

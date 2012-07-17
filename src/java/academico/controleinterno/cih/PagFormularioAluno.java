@@ -56,7 +56,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox nomeMae;
     private Textbox nomePai;
     private Combobox pais;
-    private Textbox cep;
+    private Intbox cep;
     private Combobox estado;
     private Combobox cidade;
     private Combobox bairro;
@@ -154,8 +154,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     public String preencherTelefone(Telefone t) {
         String telefone = "(" + t.getDdd() + ")";
-        String parte1 = t.getNumero().toString().substring(0, 4);
-        String parte2 = t.getNumero().toString().substring(4, 8);
+        String parte1 = t.getNumero().substring(0, 4);
+        String parte2 = t.getNumero().substring(4, 8);
 
         telefone += parte1 + "-" + parte2;
 
@@ -248,8 +248,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obterTelefone(celular.getText(), TipoTel.CELULAR, listaTelefone);
 				
                 if (listaTelefone.get(0) != null) {
-                        obj.getTelefone().get(0).setDdd((Integer) listaTelefone.get(0));
-                        obj.getTelefone().get(0).setNumero((Integer) listaTelefone.get(1));
+                        obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
+                        obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
                         obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
                 else{
@@ -259,8 +259,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 }
 
                 if (listaTelefone.get(3) != null) {
-                        obj.getTelefone().get(1).setDdd((Integer) listaTelefone.get(3));
-                        obj.getTelefone().get(1).setNumero((Integer) listaTelefone.get(4));
+                        obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
+                        obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
                         obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
                 }
                 else{
@@ -270,12 +270,12 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 }
 
                 obj.setEmail(email.getText());
-                obj.setCpf((Long.parseLong(cpf.getText())));
+                obj.setCpf(obterCPF(cpf.getText()));
                 obj.setIdentidade(rg.getText());
                 obj.setNomeMae(nomeMae.getText());
                 obj.setNomePai(nomePai.getText());
                 obj.getEndereco().setLogradouro(logradouro.getText());
-                obj.getEndereco().setCep(obterCEP(cep.getText()));
+                obj.getEndereco().setCep(obterCEP(cep.getValue()));
                 obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
@@ -349,9 +349,9 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
             StringTokenizer parser = new StringTokenizer(tel);
 
-            listTelefone.add(indice, Integer.parseInt(parser.nextToken()));
+            listTelefone.add(indice, parser.nextToken());
 
-            listTelefone.add(indice + 1, Integer.parseInt(parser.nextToken() + parser.nextToken()));
+            listTelefone.add(indice + 1, parser.nextToken() + parser.nextToken());
             
             listTelefone.add(indice + 2, tipo);
         }
@@ -380,7 +380,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     public void obterEndereco(ArrayList<Object> listaEndereco) {
         listaEndereco.add(logradouro.getText());
-        listaEndereco.add(obterCEP(cep.getText()));
+        listaEndereco.add(obterCEP(cep.getValue()));
         listaEndereco.add(Integer.parseInt(numero.getText()));
         listaEndereco.add(complemento.getText());
         listaEndereco.add((Bairro) bairro.getSelectedItem().getValue());
@@ -425,12 +425,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
     }
 
-    public Long obterCEP(String scep) {
-        Long cep = null;
-
-        if (scep != null) {
-            cep = Long.parseLong(scep.replace("-", ""));
-        }
+    public Long obterCEP(int scep) {
+        Long cep = new Long(scep);
 
         return cep;
     }

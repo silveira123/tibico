@@ -193,8 +193,8 @@ public class AplCadastrarPessoa {
         for (int i = 0; i < listTelefones.size(); i = i+3) {
             tel = new Telefone();
             if (listTelefones.get(i) != null) {
-                tel.setDdd((Integer) listTelefones.get(i));
-                tel.setNumero((Integer) listTelefones.get(i+1));
+                tel.setDdd((String) listTelefones.get(i));
+                tel.setNumero((String) listTelefones.get(i+1));
                 tel.setTipo((TipoTel) listTelefones.get(i+2));
             }
             else

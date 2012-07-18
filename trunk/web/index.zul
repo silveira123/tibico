@@ -82,7 +82,7 @@
 
                 <separator/>
 
-                <span sclass="login-box-options"><checkbox id="checkbox" label="Remember Me" /> <a href="#" style="margin-left:30px;">Forgot password?</a></span>
+                <span sclass="login-box-options"><checkbox id="checkbox" label="Lembre-me" /></span>
                 <separator/>
                 <separator/>
 

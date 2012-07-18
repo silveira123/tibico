@@ -22,7 +22,7 @@ import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
-import academico.controleinterno.cgt.AplCadastroCurso;
+import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
@@ -37,7 +37,7 @@ import java.util.List;
  * @see
  */
 public class AplEmitirRelatorios {
-    private AplCadastroCurso aplCadastroCurso = AplCadastroCurso.getInstance();
+    private AplCadastrarCurso aplCadastroCurso = AplCadastrarCurso.getInstance();
     private AplCadastrarCalendario aplCadastrarCalendario = AplCadastrarCalendario.getInstance();
     private AplControlarTurma aplControlarTurma = AplControlarTurma.getInstance();
     private AplControlarMatricula aplControlarMatricula = AplControlarMatricula.getInstance();

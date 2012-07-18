@@ -15,7 +15,7 @@
  */
 package academico.controlepauta.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
@@ -105,7 +105,7 @@ public class PagPrincipal extends GenericForwardComposer {
 
 public void onClick$curso(Event event) {
         border.getCenter().getChildren().clear();
-        Window winCurso = (Window) CtrlCadastroCurso.getInstance().abrirEventosCurso();
+        Window winCurso = (Window) CtrlCurso.getInstance().abrirEventosCurso();
         winCurso.setWidth("100%");
         winCurso.setHeight("100%");
         winCurso.setParent(border.getCenter());
@@ -118,7 +118,7 @@ public void onClick$curso(Event event) {
 
     public void onClick$disciplina(Event event) {
         border.getCenter().getChildren().clear();
-        Window winDisciplina = (Window) CtrlCadastroCurso.getInstance().abrirEventosDisciplina();
+        Window winDisciplina = (Window) CtrlCurso.getInstance().abrirEventosDisciplina();
         winDisciplina.setWidth("100%");
         winDisciplina.setHeight("100%");
         winDisciplina.setParent(border.getCenter());

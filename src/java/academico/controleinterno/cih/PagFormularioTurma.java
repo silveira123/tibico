@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.*;
 import academico.util.Exceptions.AcademicoException;
@@ -42,7 +42,7 @@ import org.zkoss.zul.*;
 public class PagFormularioTurma extends GenericForwardComposer {
 
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrlCurso = CtrlCurso.getInstance();
     private Window winFormularioTurma;
     private Combobox curso;
     private Combobox disciplina;

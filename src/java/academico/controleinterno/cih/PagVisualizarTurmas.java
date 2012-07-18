@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.*;
@@ -43,7 +43,7 @@ import org.zkoss.zul.*;
 public class PagVisualizarTurmas extends GenericForwardComposer {
 
     private CtrlLetivo ctrlLetivo = CtrlLetivo.getInstance();
-    private CtrlCadastroCurso ctrlCadastroCurso = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrlCadastroCurso = CtrlCurso.getInstance();
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private Window winVisualizarTurmas;
     private Listbox listbox;

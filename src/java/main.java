@@ -1,7 +1,5 @@
-import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
-import academico.controleinterno.cgt.AplCadastroCurso;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

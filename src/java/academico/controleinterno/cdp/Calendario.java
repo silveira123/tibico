@@ -43,9 +43,10 @@ public class Calendario extends ObjetoPersistente {
     private Calendar dataFimPM;
     private Curso curso;
     private int sequencial;
+    private SituacaoCalendario situacao;
     
     public Calendario() {
-        
+        situacao = SituacaoCalendario.ABERTO;
     }
     
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -134,6 +135,15 @@ public class Calendario extends ObjetoPersistente {
 
     public void setSequencial(int sequencial) {
         this.sequencial = sequencial;
+    }
+    
+    @Enumerated(EnumType.STRING)
+    public SituacaoCalendario getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoCalendario situacao) {
+        this.situacao = situacao;
     }
     
     

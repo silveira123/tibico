@@ -56,7 +56,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private Textbox cpf;
     private Textbox rg;
     private Combobox pais;
-    private Intbox cep;
+    private Textbox cep;
     private Combobox estado;
     private Combobox cidade;
     private Combobox bairro;

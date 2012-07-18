@@ -18,6 +18,7 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cdp.SituacaoCalendario;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -40,6 +41,8 @@ public class PagEventosCalendario extends GenericForwardComposer {
     private Menuitem excluir;
     private Menuitem consultar;
     private Menuitem alterar;
+    private Menuitem fechar;
+    private Menuitem abrir;
     private Listbox listbox;
     private Combobox cursoCombo;
     private Div boxInformacao;
@@ -61,7 +64,25 @@ public class PagEventosCalendario extends GenericForwardComposer {
             winEventosCalendario.detach();
         }
     }
-
+    public void onClick$fechar(Event event) throws AcademicoException {
+        if(listbox.getSelectedItem()!=null){
+            Calendario select = (Calendario) listbox.getSelectedItem().getValue();
+            boolean a = ctrl.fecharPeriodo(select);
+            if(a) setMensagemAviso("success", "Período Fechado");
+            else setMensagemAviso("error", "Todas as turmas devem ser fechadas");
+        }
+        else setMensagemAviso("info", "Selecione um Calendário");
+    }
+    
+    public void onClick$abrir(Event event) throws AcademicoException {
+        if(listbox.getSelectedItem()!=null){
+            Calendario select = (Calendario) listbox.getSelectedItem().getValue();
+            ctrl.abrirPeriodo(select);
+            setMensagemAviso("success", "Abrir Período");
+        }
+        else setMensagemAviso("info", "Selecione um Calendário");
+    }
+    
     public void onSelect$cursoCombo(Event event) throws AcademicoException {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
 
@@ -146,7 +167,9 @@ public class PagEventosCalendario extends GenericForwardComposer {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             Calendario c = listitem.getValue();
-            ctrl.abrirEditarCalendario(c);
+            if(c.getSituacao().equals(SituacaoCalendario.ABERTO))
+                ctrl.abrirEditarCalendario(c);
+            else setMensagemAviso("info", "Período fechado");
         }
     }
 

@@ -32,7 +32,7 @@ import javax.persistence.Query;
 public class EstadoDAOJPA extends DAOJPA<Estado> implements EstadoDAO {
 
     public List<Estado> obter(Pais p) {
-        Query query = entityManager.createQuery("Select pE from Estado pE where pE.pais.id = ?1");
+        Query query = entityManager.createQuery("Select pE from Estado pE where pE.pais.id = ?1 order by pE.nome ASC");
         query.setParameter( 1, p.getId());
         return query.getResultList();
     }

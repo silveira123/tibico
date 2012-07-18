@@ -46,7 +46,8 @@ public class AplCadastroCurso {
             curso.setSigla((String) args.get(6));
 
             return (Curso) apDaoCurso.salvar(curso);
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -54,7 +55,8 @@ public class AplCadastroCurso {
     public Curso alterarCurso(Curso curso) throws Exception {
         if (curso.getDuracao() > 0) {
             return (Curso) apDaoCurso.salvar(curso);
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -98,7 +100,8 @@ public class AplCadastroCurso {
         if (disciplina.getPrerequisito().isEmpty() && !flag) {
             apDaoDisciplina.excluir(disciplina);
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }

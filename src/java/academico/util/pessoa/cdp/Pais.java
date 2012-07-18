@@ -28,26 +28,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Pais extends ObjetoPersistente{
-    private String iso;
-    private String iso3;
     private String nome;
-    private Integer numcode;
-
-    public String getIso() {
-        return iso;
-    }
-
-    public void setIso(String iso) {
-        this.iso = iso;
-    }
-
-    public String getIso3() {
-        return iso3;
-    }
-
-    public void setIso3(String iso3) {
-        this.iso3 = iso3;
-    }
 
     public String getNome() {
         return nome;
@@ -55,14 +36,6 @@ public class Pais extends ObjetoPersistente{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Integer getNumcode() {
-        return numcode;
-    }
-
-    public void setNumcode(Integer numcode) {
-        this.numcode = numcode;
     }
 
     @Override

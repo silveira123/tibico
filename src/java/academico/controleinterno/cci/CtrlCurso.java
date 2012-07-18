@@ -6,7 +6,7 @@ package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
-import academico.controleinterno.cgt.AplCadastroCurso;
+import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controleinterno.cih.PagEventosCurso;
 import academico.controleinterno.cih.PagEventosDisciplina;
 import academico.util.Exceptions.AcademicoException;
@@ -24,7 +24,7 @@ import org.zkoss.zul.Window;
  *
  * @author Administrador
  */
-public class CtrlCadastroCurso {
+public class CtrlCurso {
 
     public static final int SALVAR = 0;
     public static final int EDITAR = 1;
@@ -32,12 +32,12 @@ public class CtrlCadastroCurso {
     private Window window;
     private PagEventosCurso pagEventosCurso;
     private PagEventosDisciplina pagEventosDisciplina;
-    private AplCadastroCurso apl = AplCadastroCurso.getInstance();
+    private AplCadastrarCurso apl = AplCadastrarCurso.getInstance();
 
-    public static CtrlCadastroCurso getInstance() {
-        CtrlCadastroCurso instance = (CtrlCadastroCurso) Executions.getCurrent().getSession().getAttribute("ctrlCurso");
+    public static CtrlCurso getInstance() {
+        CtrlCurso instance = (CtrlCurso) Executions.getCurrent().getSession().getAttribute("ctrlCurso");
         if (instance == null) {
-            instance = new CtrlCadastroCurso();
+            instance = new CtrlCurso();
             Executions.getCurrent().getSession().setAttribute("ctrlCurso", instance);
         }
         return instance;
@@ -51,7 +51,7 @@ public class CtrlCadastroCurso {
         this.pagEventosDisciplina = pagEventosDisciplina;
     }
 
-    private CtrlCadastroCurso() {
+    private CtrlCurso() {
     }
     //TODO testando resolver exceção
 
@@ -145,41 +145,41 @@ public class CtrlCadastroCurso {
 
     public void abrirIncluirCurso() {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCurso.SALVAR);
+        map.put("tipo", CtrlCurso.SALVAR);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirEditarCurso(Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCurso.EDITAR);
+        map.put("tipo", CtrlCurso.EDITAR);
         map.put("obj", curso);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirConsultarCurso(Curso curso) {
         Map map = new HashMap();
-        Object put = map.put("tipo", CtrlCadastroCurso.CONSULTAR);
+        Object put = map.put("tipo", CtrlCurso.CONSULTAR);
         map.put("obj", curso);
         Executions.createComponents("/pagformulariocurso.zul", null, map);
     }
 
     public void abrirIncluirDisciplina(Curso curso) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCurso.SALVAR);
+        map.put("tipo", CtrlCurso.SALVAR);
         map.put("obj", curso);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
     public void abrirEditarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCurso.EDITAR);
+        map.put("tipo", CtrlCurso.EDITAR);
         map.put("obj", disciplina);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }
 
     public void abrirConsultarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
-        map.put("tipo", CtrlCadastroCurso.CONSULTAR);
+        map.put("tipo", CtrlCurso.CONSULTAR);
         map.put("obj", disciplina);
         Executions.createComponents("/pagformulariodisciplina.zul", null, map);
     }

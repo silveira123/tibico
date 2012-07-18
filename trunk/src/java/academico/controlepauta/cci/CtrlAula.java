@@ -177,6 +177,11 @@ public class CtrlAula {
         return apl.obterAulas(turma);
     }
 
+    public void abrirAbout() {
+        //Executions.sendRedirect("/PagInformacaoSobre.zul");
+        Executions.createComponents("/PagInformacaoSobre.zul", null, null);
+    }
+     
     public void abrirIncluirAula(Turma turma) {
         Map map = new HashMap();
         map.put("tipo", CtrlAula.SALVAR);
@@ -246,6 +251,7 @@ public class CtrlAula {
     public List<Resultado> obterResultados(Avaliacao obj) {
         return AplControlarAula.getInstance().obterResultados(obj);
     }
+    
 	public boolean validarFaltas(Integer qtd, List<Frequencia> frequencia){
         int maior = 0;
         for (int i = 0; i < frequencia.size(); i++) {
@@ -259,7 +265,6 @@ public class CtrlAula {
         }
         else return true;
     }
-
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException{
         AplControlarAula.getInstance().atribuirResultado(a, t);
     }

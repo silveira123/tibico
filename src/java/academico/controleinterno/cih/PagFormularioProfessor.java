@@ -75,9 +75,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         super.doAfterCompose(comp);
 
         List<Pais> paises = ctrlPessoa.obterPaises();
-
-        pais.setModel(new ListModelList(paises, true));
-
+        ListModelList<Pais> list = new ListModelList<Pais>(paises, true);
+        pais.setModel(list);
+        
+        //colocando brasil como pais padrão
+        list.addToSelection(paises.get(32));
+        onSelect$pais(null);
+        
         pais.setReadonly(true);
         estado.setReadonly(true);
         cidade.setReadonly(true);

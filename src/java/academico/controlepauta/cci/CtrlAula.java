@@ -7,6 +7,7 @@ package academico.controlepauta.cci;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
+import academico.controleinterno.cgt.AplPrincipal;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgt.AplControlarAula;
 import academico.controlepauta.cih.PagEventosAvaliacao;
@@ -31,6 +32,7 @@ public class CtrlAula {
     private PagEventosChamada pagEventosChamada;
     private PagEventosAvaliacao pagEventosAvaliacao;
     private AplControlarAula apl = AplControlarAula.getInstance();
+    private AplPrincipal aplPrincipal = AplPrincipal.getInstance();
 
     public static CtrlAula getInstance() {
         CtrlAula instance = (CtrlAula) Executions.getCurrent().getSession().getAttribute("ctrlAula");
@@ -258,9 +260,12 @@ public class CtrlAula {
         else return true;
     }
 
-    
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException{
         AplControlarAula.getInstance().atribuirResultado(a, t);
+    }
+
+    public Usuario login(String login, String senha) throws AcademicoException {
+        return aplPrincipal.login(login, senha);
     }
 
 }

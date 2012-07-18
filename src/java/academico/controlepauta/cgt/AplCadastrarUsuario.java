@@ -59,15 +59,15 @@ public class AplCadastrarUsuario
 		return apDaoUsuario.obter(Usuario.class);
 	}
 	
-	public boolean validarUsuario(String nome, String senha) throws AcademicoException
+	public Usuario validarUsuario(String nome, String senha) throws AcademicoException
 	{
 		List<Usuario> l = listarUsuarios();
 		
 		for(int i=0; i < l.size() ;i++)
 		{	if(l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senha)) 
-				return true;
+				return l.get(i);
 		}
-		return false;
+		return null;
 	}
     
     public Usuario obter(Aluno a) {

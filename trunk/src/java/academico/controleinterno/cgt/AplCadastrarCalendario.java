@@ -1,7 +1,6 @@
 package academico.controleinterno.cgt;
 
-import academico.controleinterno.cdp.Calendario;
-import academico.controleinterno.cdp.Curso;
+import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.CalendarioDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
@@ -14,6 +13,7 @@ public class AplCadastrarCalendario {
 
     private DAO apDaoCalendario = DAOFactory.obterDAO("JPA", Calendario.class);
     private AplCadastroCurso aplCadastrarCurso = AplCadastroCurso.getInstance();
+    //private AplControlarTurma aplControlarTurma = AplControlarTurma.getInstance();
     
     private AplCadastrarCalendario() {
     }
@@ -69,5 +69,26 @@ public class AplCadastrarCalendario {
 
     public List<Curso> obterCursos() throws AcademicoException {
         return aplCadastrarCurso.obterCursos();
+    }
+
+    public boolean fecharCalendario(Calendario select) throws AcademicoException {
+        List<Turma> turmas = AplControlarTurma.getInstance().obterTurmas(select);
+        int flag=0;
+        for (Turma turma : turmas) {
+            if(!turma.getEstadoTurma().equals(EstadoTurma.ENCERRADA))
+                flag++;
+        }
+        if(flag==0){
+            select.setSituacao(SituacaoCalendario.FECHADO);
+            this.alterarCalendario(select);
+            return true;
+        }
+        else return false;
+        
+    }
+
+    public void abrirCalendario(Calendario select) throws AcademicoException {
+        select.setSituacao(SituacaoCalendario.ABERTO);
+        this.alterarCalendario(select);
     }
 }

@@ -78,6 +78,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
             winFechamentoTurmas.detach();
         }
         else {
+            user = (Usuario)Executions.getCurrent().getSession().getAttribute("usuario");
             if (user.getPrivilegio() != 1) {
                 abrirTurma.setVisible(false);
             }

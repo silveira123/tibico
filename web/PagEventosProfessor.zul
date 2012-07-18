@@ -6,20 +6,7 @@
     <window id="winDadosProfessor" title="Professor(es) Cadastrado(s)" border="normal" closable="true"
             width="50%" apply = "academico.controleinterno.cih.PagEventosProfessor">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-                <fisheye tooltiptext="Incluir um Professor"
-                         image="/img/incluir.jpg" />
-                <fisheye tooltiptext="alterar um Professor"
-                         image="/img/alterar.jpg" />
-                <fisheye tooltiptext="consultar um Professor"
-                         image="/img/consultar.jpg" />
-                <fisheye tooltiptext="excluir um Professor"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
                 <menuitem tooltiptext="Incluir um Professor"

@@ -5,20 +5,7 @@
     <window id="winEventosTurma" title="Turmas Cadastradas" border="normal" closable="true"
             width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar>
-                <fisheye tooltiptext="Incluir uma turma"
-                         image="/img/incluir.jpg" />
-                <fisheye tooltiptext="alterar uma turma"
-                         image="/img/alterar.jpg" />
-                <fisheye tooltiptext="consultar uma turma"
-                         image="/img/consultar.jpg" />
-                <fisheye tooltiptext="excluir uma turma"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
                 <menuitem id="incluir" tooltiptext="Incluir uma turma" label="Incluir"

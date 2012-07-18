@@ -5,15 +5,7 @@
     <window id="winEventosTurma" title="Alocação de Professor" border="normal" closable="true"
             width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar>
-                <fisheye tooltiptext="Alocar Professor"
-                         image="/img/incluir.jpg" />
-				
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
 				

@@ -4,20 +4,7 @@
     <window title="Cursos Cadastrados" border="normal" closable="true"
             width="50%" id="winEventosCurso" apply ="academico.controleinterno.cih.PagEventosCurso">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-                <fisheye tooltiptext="Incluir um Curso"
-                         image="/img/incluir.jpg" />
-                <fisheye tooltiptext="alterar um Curso"
-                         image="/img/alterar.jpg" />
-                <fisheye tooltiptext="consultar um Curso"
-                         image="/img/consultar.jpg" />
-                <fisheye tooltiptext="excluir um Curso"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
                 <menuitem tooltiptext="Incluir um Curso"

@@ -6,7 +6,7 @@
     <window title="Disciplinas Matriculadas" border="normal" closable="true"
             width="50%" id="winEventosMatricula" apply = "academico.controlepauta.cih.PagEventosMatricula">
         <div align="center">
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <div align="left">
                 <space width="10px"/>	

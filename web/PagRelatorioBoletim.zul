@@ -5,7 +5,7 @@
         
         <div align="center">
         
-            <separator height="35px" />
+            <image src="images/tibico6.png" width="30%" height="20%"/>
         
             <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>
@@ -55,13 +55,14 @@
                     <row style="background:#FFFFFF;">
                         Disciplinas Cursadas:
                         <cell colspan="3">
-                            <grid id="disciplinas" height="500px">
+                            <grid id="disciplinas" height="400px">
                                 <columns>
                                     <column label="Disciplina" width="50%" align="center"/>
                                     <column label="Faltas" width="16%" align="center"/>
                                     <column label="Nota" width="15%" align="center"/>
                                     <column label="Situacão" width="19%" align="center"/>
                                 </columns>
+                                
                             </grid>
                         </cell>
                     </row> 

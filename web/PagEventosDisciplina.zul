@@ -6,20 +6,7 @@
     <window title="Discilplina Cadastradas" border="normal" closable="true"
             width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar itemMaxWidth="100" itemMaxHeight="100">
-                <fisheye tooltiptext="Incluir uma Discilplina"
-                         image="/img/incluir.jpg" />
-                <fisheye tooltiptext="Alterar uma Discilplina"
-                         image="/img/alterar.jpg" />
-                <fisheye tooltiptext="Consultar uma Discilplina"
-                         image="/img/consultar.jpg" />
-                <fisheye tooltiptext="Excluir uma Discilplina"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
                 <menuitem tooltiptext="Incluir uma Disciplina"

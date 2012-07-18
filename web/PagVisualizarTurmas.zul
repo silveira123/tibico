@@ -2,7 +2,7 @@
    	<window title="Visualizar Turmas" id="winVisualizarTurmas" border="normal" width="70%"
             apply = "academico.controleinterno.cih.PagVisualizarTurmas" closable="true">
 	    	<div align="center">
-	    	<separator height="25px" />
+	    	<image src="images/tibico6.png" width="30%" height="20%"/>
 	    	
     		<grid>
 				<columns>

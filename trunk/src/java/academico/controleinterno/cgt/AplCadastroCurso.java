@@ -1,7 +1,5 @@
 package academico.controleinterno.cgt;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
-import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controleinterno.cdp.Turma;

@@ -5,6 +5,7 @@
     <window id="winEventosAvaliacao" title="Avaliações Cadastradas" border="normal" closable="true"
             width="50%" apply="academico.controlepauta.cih.PagEventosAvaliacao">
         <div align="center">
+            <image src="images/tibico6.png" width="30%" height="20%"/>
             <grid>
                 <columns>
                     <column width="20%" label=""/>

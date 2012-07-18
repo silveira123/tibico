@@ -4,9 +4,10 @@
   
     <window id="winDadosAluno" title="Aluno(s) Cadastrado(s)" border="normal" closable="true"
             width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
+                
         <div align="center">                    
  
-            <separator height="120px" />
+        <image src="images/tibico6.png" width="30%" height="20%"/>
             
              
             

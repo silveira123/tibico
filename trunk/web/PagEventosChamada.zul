@@ -4,6 +4,7 @@
     <window id="winEventosChamada" title="Chamadas Cadastradas" border="normal" closable="true" 
             width="50%" apply="academico.controlepauta.cih.PagEventosChamada">
         <div align="center">
+            <image src="images/tibico6.png" width="30%" height="20%"/>
             <grid>
                 <columns>
                     <column width="20%" label=""/>

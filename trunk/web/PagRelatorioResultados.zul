@@ -7,7 +7,7 @@
                 closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioResultados">
 	
         <div align="center">
-            <separator height="10px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 	
             <grid>
                 <columns>
@@ -50,7 +50,7 @@
 
             <separator />
 
-            <grid id = "matriculas">
+            <grid id = "matriculas" height="360px">
                 <columns>
                     <column align="center" label="Matrícula" width="20%"/>
                     <column align="center" label="Nome" width="40%"/>

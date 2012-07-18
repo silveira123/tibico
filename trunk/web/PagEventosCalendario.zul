@@ -5,20 +5,7 @@
     <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
             width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
         <div align="center">
-            <separator height="35px"/>
-
-            <fisheyebar>
-                <fisheye id="" tooltiptext="Incluir um calendário"
-                         image="/img/incluir.jpg" />
-                <fisheye id="" tooltiptext="alterar um calendário"
-                         image="/img/alterar.jpg" />
-                <fisheye id="" tooltiptext="consultar um calendário"
-                         image="/img/consultar.jpg" />
-                <fisheye id="" tooltiptext="excluir um calendário"
-                         image="/img/excluir.jpg" />
-            </fisheyebar>
-
-            <separator height="35px"/>
+            <image src="images/tibico6.png" width="30%" height="20%"/>
 
             <menubar>
                 <menuitem id="" tooltiptext=""

@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;
@@ -42,7 +42,7 @@ import org.zkoss.zul.*;
 public class PagFormularioCalendario extends GenericForwardComposer {
 
     private CtrlLetivo ctrl = CtrlLetivo.getInstance();
-    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrlCurso = CtrlCurso.getInstance();
     private Window winFormularioCalendario;
     private Textbox identificador, duracao;
     private Datebox dataInicioCA, dataFimCA, dataInicioPL, dataFimPL, dataInicioPM, dataFimPM;

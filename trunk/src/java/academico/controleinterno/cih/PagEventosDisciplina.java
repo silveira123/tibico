@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.util.Exceptions.AcademicoException;
@@ -34,7 +34,7 @@ import org.zkoss.zul.*;
  */
 public class PagEventosDisciplina extends GenericForwardComposer {
 
-    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrl = CtrlCurso.getInstance();
     private Window winEventosDisciplina;
     private Listbox listDisciplina;
     private Curso curso;
@@ -109,9 +109,6 @@ public class PagEventosDisciplina extends GenericForwardComposer {
                 if (ctrl.apagarDisciplina(d)) {
                     listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
                     setMensagemAviso("success", "Disciplina excluida com sucesso");
-                }
-                else {
-                    setMensagemAviso("error", "Não foi possivel excluir a disciplina. A disciplina possui pré-requisito ou Está alocado em uma Turma.");
                 }
             }
             catch (Exception e) {

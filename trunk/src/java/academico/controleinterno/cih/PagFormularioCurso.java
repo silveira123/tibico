@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -37,7 +37,7 @@ import org.zkoss.zul.*;
  */
 public class PagFormularioCurso extends GenericForwardComposer {
 
-    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrl = CtrlCurso.getInstance();
     private Window winFormularioCurso;
     private Textbox nomeCurso, descricao;
     private Intbox duracao;

@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
@@ -40,7 +40,7 @@ import org.zkoss.zul.*;
 public class PagEventosAluno extends GenericForwardComposer {
 
     private CtrlPessoa ctrl = CtrlPessoa.getInstance();
-    private CtrlCadastroCurso ctrlCurso = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrlCurso = CtrlCurso.getInstance();
     private Window winDadosAluno;
     private Listbox listAluno;
     private ListModelList list; // the model of the listProfessor

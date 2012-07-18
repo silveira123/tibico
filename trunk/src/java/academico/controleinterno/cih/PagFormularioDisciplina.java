@@ -15,7 +15,7 @@
  */
 package academico.controleinterno.cih;
 
-import academico.controleinterno.cci.CtrlCadastroCurso;
+import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.util.Exceptions.AcademicoException;
@@ -38,7 +38,7 @@ import org.zkoss.zul.ext.Selectable;
  */
 public class PagFormularioDisciplina extends GenericForwardComposer {
 
-    private CtrlCadastroCurso ctrl = CtrlCadastroCurso.getInstance();
+    private CtrlCurso ctrl = CtrlCurso.getInstance();
     private Window winFormularioDisciplina;
     private Textbox nomeDisciplina;
     private Intbox cargaHoraria, creditos, periodo;
@@ -81,10 +81,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         else {
             MODO = (Integer) arg.get("tipo");
 
-            if (MODO != CtrlCadastroCurso.SALVAR) {
+            if (MODO != CtrlCurso.SALVAR) {
                 obj = (Disciplina) arg.get("obj");
                 preencherTela();
-                if (MODO == CtrlCadastroCurso.CONSULTAR) {
+                if (MODO == CtrlCurso.CONSULTAR) {
                     this.salvarDisciplina.setVisible(false);
                     bloquearTela();
                 }
@@ -177,7 +177,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
         Disciplina d = null;
         String msg = valido();
         if (msg.trim().equals("")) {
-            if (MODO == CtrlCadastroCurso.EDITAR) {
+            if (MODO == CtrlCurso.EDITAR) {
 
                 obj.setNome(nomeDisciplina.getText());
                 obj.setCargaHoraria(cargaHoraria.getValue());

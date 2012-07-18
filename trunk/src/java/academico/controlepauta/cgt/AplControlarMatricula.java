@@ -21,7 +21,7 @@ import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
-import academico.controleinterno.cgt.AplCadastroCurso;
+import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
@@ -43,7 +43,7 @@ public class AplControlarMatricula {
 
     private DAO apDaoResultado = DAOFactory.obterDAO("JPA", Resultado.class);
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
-    private AplCadastroCurso aplCadastroCurso = AplCadastroCurso.getInstance();
+    private AplCadastrarCurso aplCadastroCurso = AplCadastrarCurso.getInstance();
     private AplCadastrarPessoa aplCadastrarPessoa = AplCadastrarPessoa.getInstance();
 
     private AplControlarMatricula() {

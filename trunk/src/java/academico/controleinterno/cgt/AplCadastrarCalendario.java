@@ -12,7 +12,7 @@ import java.util.List;
 public class AplCadastrarCalendario {
 
     private DAO apDaoCalendario = DAOFactory.obterDAO("JPA", Calendario.class);
-    private AplCadastroCurso aplCadastrarCurso = AplCadastroCurso.getInstance();
+    private AplCadastrarCurso aplCadastrarCurso = AplCadastrarCurso.getInstance();
     //private AplControlarTurma aplControlarTurma = AplControlarTurma.getInstance();
     
     private AplCadastrarCalendario() {

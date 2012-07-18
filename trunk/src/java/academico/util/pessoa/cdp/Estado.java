@@ -31,9 +31,9 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Estado  extends ObjetoPersistente{
-    private Pais pais;
-    private String nome;
     private String sigla;
+    private String nome;
+    private Pais pais;
 
     /**
      * Obtém nome em Estado

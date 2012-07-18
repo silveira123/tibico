@@ -51,6 +51,7 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton resultado;
     private Toolbarbutton boletim;
     private Toolbarbutton historico;
+    private Toolbarbutton about;
     private Borderlayout border;
     private Panel controlarTurma;
     private Panel cadastroPessoa;
@@ -258,6 +259,10 @@ public void onClick$curso(Event event) {
         winAvaliacao.setWidth("100%");
         winAvaliacao.setHeight("100%");
         winAvaliacao.setParent(border.getCenter());
+    }
+    
+    public void onClick$about(Event event) {      
+        CtrlAula.getInstance().abrirAbout();
     }
 
 }

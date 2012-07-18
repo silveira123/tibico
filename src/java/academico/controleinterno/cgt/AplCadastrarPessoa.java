@@ -195,7 +195,8 @@ public class AplCadastrarPessoa {
             if (listTelefones.get(i) != null) {
                 tel.setDdd((String) listTelefones.get(i));
                 tel.setNumero((String) listTelefones.get(i+1));
-                tel.setTipo((TipoTel) listTelefones.get(i+2));
+                //tel.setTipo((TipoTel) listTelefones.get(i+2));
+                System.out.println(listTelefones.get(i+2));
             }
             else
             {

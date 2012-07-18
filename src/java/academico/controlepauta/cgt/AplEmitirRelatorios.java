@@ -15,7 +15,6 @@
  */
 
 package academico.controlepauta.cgt;
-
 // imports devem ficar aqui!
 
 import academico.controleinterno.cdp.Calendario;

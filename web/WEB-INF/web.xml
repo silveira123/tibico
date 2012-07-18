@@ -12,8 +12,8 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <description>Tibico Academico</description>
     <display-name>Tibico</display-name>
-    <description>ZK Demo</description>
-    <display-name>zkapp6</display-name>
+    <description>Tibico SRA</description>
+    <display-name>Tibico SRA</display-name>
     <!--
 	<icon>
 		<small-icon></small-icon>

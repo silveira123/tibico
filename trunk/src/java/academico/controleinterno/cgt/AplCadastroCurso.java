@@ -87,7 +87,7 @@ public class AplCadastroCurso {
     }
 
     public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
-        List<Turma> listas = CtrlLetivo.getInstance().obterTurma();
+        List<Turma> listas = AplControlarTurma.getInstance().obterTurmas();
         boolean flag = false;
 
         for (int i = 0; i < listas.size(); i++) {

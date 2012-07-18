@@ -32,7 +32,7 @@ import javax.persistence.Query;
 public class BairroDAOJPA extends DAOJPA<Bairro> implements BairroDAO 
 {
     public List<Bairro> obter(Municipio m) {
-        Query query = entityManager.createQuery("Select pE from Bairro pE where pE.municipio.id = ?1");
+        Query query = entityManager.createQuery("Select pE from Bairro pE where pE.municipio.id = ?1 order by pE.nome ASC");
         query.setParameter( 1, m.getId());
         return query.getResultList();
     }

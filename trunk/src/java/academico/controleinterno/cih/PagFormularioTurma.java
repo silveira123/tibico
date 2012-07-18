@@ -116,11 +116,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
             }
 
             curso.setReadonly(true);
-            disciplina.setReadonly(true);
-            professor.setReadonly(true);
-            // listHorario.setModel(new ListModelList(listaHorario, true));
+			disciplina.setReadonly(true);
+			professor.setReadonly(true);
+			calendario.setReadonly(true);
+			// listHorario.setModel(new ListModelList(listaHorario, true));
         }
-    }
+	}
 
     public void onCreate$winFormularioTurma() throws AcademicoException {
 

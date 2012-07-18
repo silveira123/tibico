@@ -11,24 +11,11 @@
                     <column width="20%" label=""/>
                     <column width="80%" label=""/>
                 </columns>
-                <rows>
-				
-                    <row>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                    </row>
-					
-					
+                <rows>	
                     <row>			
                         Turma: 		 
                         <combobox id="nome" width="50%"/>
-                    </row>
-					
-                    <row>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                    </row>
-					
+                    </row>	
                 </rows>
             </grid>
 			

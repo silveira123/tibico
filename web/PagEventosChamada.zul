@@ -7,27 +7,14 @@
             <image src="images/tibico6.png" width="30%" height="20%"/>
             <grid>
                 <columns>
-                    <column width="20%" label=""/>
-                    <column width="80%" label=""/>
+                    <column width="10%" label=""/>
+                    <column width="90%" label=""/>
                 </columns>
-                <rows>
-				
-                    <row>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                    </row>
-					
-					
+                <rows>		
                     <row>			
                         Turma: 		 
-                        <combobox id="nome" width="50%"/>
-                    </row>
-					
-                    <row>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                    </row>
-					
+                        <combobox id="nome" width="30%"/>
+                    </row>		
                 </rows>
             </grid>
 			

@@ -18,6 +18,11 @@ package academico.controlepauta.cih;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
+import java.net.CookieHandler;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.zkoss.zhtml.Messagebox;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,7 +88,7 @@ public class PagLogin extends GenericForwardComposer {
             System.err.println(ex.getMessage());
             msg.setValue("Error");
         }
-
+                
         if (usuario != null) {
             msg.setValue("");
 

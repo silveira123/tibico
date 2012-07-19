@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package academico.controleinterno.cdp;
 
 import academico.util.academico.cdp.AreaConhecimento;
@@ -10,13 +6,12 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
+ * Representa as disciplinas de um curso da instituição.
  *
- * @author Administrador
+ * @author FS
  */
-
 @Entity
 public class Disciplina extends ObjetoPersistente {
-
     private String nome;
     private Integer cargaHoraria;
     private Integer numCreditos;
@@ -25,20 +20,20 @@ public class Disciplina extends ObjetoPersistente {
     private List<Disciplina> prerequisito;
     private Curso curso;
 
-    public Integer getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    public void setCargaHoraria(Integer cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
     }
 
     public Integer getNumCreditos() {
@@ -49,7 +44,7 @@ public class Disciplina extends ObjetoPersistente {
         this.numCreditos = numCreditos;
     }
 
-    @ManyToMany(cascade= CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "DisciplinaConhecimento",
     joinColumns = {
         @JoinColumn(name = "disciplina_id")},
@@ -71,6 +66,20 @@ public class Disciplina extends ObjetoPersistente {
         this.periodoCorrespondente = periodoCorrespondente;
     }
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "PreRequisito",
+    joinColumns = {
+        @JoinColumn(name = "disciplina_id")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "prerequisito_id")})
+    public List<Disciplina> getPrerequisito() {
+        return prerequisito;
+    }
+
+    public void setPrerequisito(List<Disciplina> prerequisito) {
+        this.prerequisito = prerequisito;
+    }
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     public Curso getCurso() {
@@ -79,21 +88,6 @@ public class Disciplina extends ObjetoPersistente {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
-    }
-
-    @ManyToMany(cascade= CascadeType.PERSIST)
-    @JoinTable(name = "prerequisito",
-    joinColumns = {
-        @JoinColumn(name = "disciplina_id")},
-    inverseJoinColumns = {
-        @JoinColumn(name = "prerequisito_id")})
-    
-    public List<Disciplina> getPrerequisito() {
-        return prerequisito;
-    }
-
-    public void setPrerequisito(List<Disciplina> prerequisito) {
-        this.prerequisito = prerequisito;
     }
 
     @Override

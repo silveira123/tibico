@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.Curso;
@@ -88,7 +84,7 @@ public class CtrlCurso {
     }
 
     public void apagarCurso(Curso curso) throws Exception {
-        apl.apagarCurso(curso);
+        apl.excluirCurso(curso);
     }
 
     public List<Curso> obterCursos() throws AcademicoException {
@@ -124,7 +120,7 @@ public class CtrlCurso {
     }
 
     public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
-        return apl.apagarDisciplina(disciplina);
+        return apl.excluirDisciplina(disciplina);
     }
 
     public List<Disciplina> obterDisciplinas() throws AcademicoException {

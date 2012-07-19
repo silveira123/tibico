@@ -1,30 +1,34 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package academico.controleinterno.cdp;
 
-/**
- *
- * @author Administrador
- */
 import academico.util.academico.cdp.GrandeAreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.academico.cdp.Regime;
 import academico.util.persistencia.ObjetoPersistente;
 import javax.persistence.*;
 
+/**
+ * Representa os cursos da instituição.
+ *
+ * @author FS
+ */
 @Entity
 public class Curso extends ObjetoPersistente {
-
     private String nome;
-    private Integer duracao;
     private String descricao;
-    private GrauInstrucao grauInstrucao;
-    private GrandeAreaConhecimento grandeAreaConhecimento;
-    private Regime regime;
     private String sigla;
-    
+    private Integer duracao;
+    private GrandeAreaConhecimento grandeAreaConhecimento;
+    private GrauInstrucao grauInstrucao;
+    private Regime regime;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -33,20 +37,20 @@ public class Curso extends ObjetoPersistente {
         this.descricao = descricao;
     }
 
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
     public Integer getDuracao() {
         return duracao;
     }
 
     public void setDuracao(Integer duracao) {
         this.duracao = duracao;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -81,14 +85,4 @@ public class Curso extends ObjetoPersistente {
     public String toString() {
         return this.nome;
     }
-
-    public String getSigla() {
-        return sigla;
-    }
-
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
-    
-    
 }

@@ -14,17 +14,26 @@ import academico.util.persistencia.DAOFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Aplicação responsável por prover os eventos cadastrais de Curso e Disciplina.
+ *
+ * @author FS
+ */
 public class AplCadastrarCurso {
-
+    // DAOs para persistência.
+    //FIXME: não definir "JPA" aqui.
     private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
     private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
     private DAO apDaoGrandeAreaConhecimento = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
     private DAO apDaoAreaConhecimento = DAOFactory.obterDAO("JPA", AreaConhecimento.class);
-
-    private AplCadastrarCurso() {
-    }
+    // Instância única desta aplicação.
     private static AplCadastrarCurso instance = null;
 
+    /** Construtor privado, para implementação do padrão Singleton. */
+    private AplCadastrarCurso() {
+    }
+
+    /** Obtém uma instância da aplicação. Implementação do padrão Singleton. */
     public static AplCadastrarCurso getInstance() {
         if (instance == null) {
             instance = new AplCadastrarCurso();
@@ -32,9 +41,15 @@ public class AplCadastrarCurso {
         return instance;
     }
 
-    public Curso incluirCurso(ArrayList<Object> args) throws AcademicoException {
+    //////////////////// CURSO ////////////////////
+    /** Inclui um novo curso. */
+    // FIXME: rever questão da passagem de parâmetros.
+    public Curso incluirCurso(List<Object> args) throws AcademicoException {
+        Curso curso = null;
+        // validação
         if ((Integer) args.get(1) > 0) {
-            Curso curso = new Curso();
+            // criação do objeto
+            curso = new Curso();
             curso.setNome((String) args.get(0));
             curso.setDuracao((Integer) args.get(1));
             curso.setDescricao((String) args.get(2));
@@ -42,32 +57,45 @@ public class AplCadastrarCurso {
             curso.setGrandeAreaConhecimento((GrandeAreaConhecimento) args.get(4));
             curso.setRegime((Regime) args.get(5));
             curso.setSigla((String) args.get(6));
-
-            return (Curso) apDaoCurso.salvar(curso);
+            // registro do objeto
+            curso = (Curso) apDaoCurso.salvar(curso);
         }
-        else {
-            return null;
-        }
+        return curso;
     }
 
+    /** Altera um curso existente. */
+    //FIXME: por que aqui já vem o objeto curso alterado e não os parâmetros?
     public Curso alterarCurso(Curso curso) throws Exception {
+        // validação
         if (curso.getDuracao() > 0) {
+            // alteração??
+
+            // registro
             return (Curso) apDaoCurso.salvar(curso);
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
-    public void apagarCurso(Curso curso) throws Exception {
+    /** Exclui um curso. */
+    // FIXME: E se possuir disciplinas ou calendários associados??
+    public void excluirCurso(Curso curso) throws Exception {
+        //validação
+
+        //exclusão
         apDaoCurso.excluir(curso);
     }
 
+    /** Obtém todos os cursos. */
     public List<Curso> obterCursos() throws AcademicoException {
         return (List<Curso>) apDaoCurso.obter(Curso.class);
     }
 
-    public Disciplina incluirDisciplina(ArrayList<Object> args) throws AcademicoException {
+    //////////////////// DISCIPLINA ////////////////////
+    /** Inclui uma nova disciplina. */
+    // FIXME: rever questão da passagem de parâmetros.
+    public Disciplina incluirDisciplina(List<Object> args) throws AcademicoException {
+        // validação
+        // criação do objeto
         Disciplina disciplina = new Disciplina();
         disciplina.setNome((String) args.get(0));
         disciplina.setCargaHoraria((Integer) args.get(1));
@@ -76,17 +104,23 @@ public class AplCadastrarCurso {
         disciplina.setPrerequisito((List<Disciplina>) args.get(4));
         disciplina.setCurso((Curso) args.get(5));
         disciplina.setAreaConhecimento((List<AreaConhecimento>) args.get(6));
-
+        // registro
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
+    /** Altera uma disciplina existente. */
+    //FIXME: por que aqui já vem o objeto disciplina alterado e não os parâmetros?
     public Disciplina alterarDisciplina(Disciplina disciplina) throws AcademicoException {
+        //validação
+        //alteração
+        //registro
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
     /** Exclui uma disciplina. */
-    public boolean apagarDisciplina(Disciplina disciplina) throws Exception {
+    public boolean excluirDisciplina(Disciplina disciplina) throws Exception {
         // obtém as turmas
+        // FIXME: está obtendo TODAS as turmas. Obter só as da disciplina e ver se não é vazio.
         List<Turma> listas = AplControlarTurma.getInstance().obterTurmas();
 
         // verificar se a disciplina tem turma
@@ -95,29 +129,36 @@ public class AplCadastrarCurso {
                 return false;
             }
         }
-        
+
+        //FIXME: e se a disciplina for pré-requisito de uma outra?
+
         // exclui a disciplina
         apDaoDisciplina.excluir(disciplina);
         return true;
     }
 
+    /** Obtém todas as disciplinas. */
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return (List<Disciplina>) apDaoDisciplina.obter(Disciplina.class);
     }
 
+    /** Obtém todas as disciplinas de um curso. */
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
 
+    /** Obtém todas os pré-requisitos de uma disciplina. */
+    public List<Disciplina> obterPreRequisitos(Disciplina disciplina) {
+        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(disciplina);
+    }
+
+    /** Obtém todas as grandes áreas de conhecimento. */
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {
         return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);
     }
 
+    /** Obtém todas as áreas de conhecimento. */
     public List<AreaConhecimento> obterAreaConhecimentos() throws AcademicoException {
         return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
-    }
-
-    public List<Disciplina> obterPreRequisitos(Disciplina disciplina) {
-        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(disciplina);
     }
 }

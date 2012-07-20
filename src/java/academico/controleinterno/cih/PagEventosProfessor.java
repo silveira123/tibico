@@ -49,9 +49,9 @@ public class PagEventosProfessor extends GenericForwardComposer {
         p = (Professor) arg.get("obj");
         if (p != null) {
             List<Professor> listaProfessores = ctrl.obterProfessor();
-            List<Professor> data = new ArrayList<Professor>();
-
+            System.out.println("opaa 111");
             if (listaProfessores != null) {
+                System.out.println("opaa");
                 for (int i = 0; i < listaProfessores.size(); i++) {
                     Professor p = listaProfessores.get(i);
                     Listitem linha = new Listitem(listaProfessores.get(i).toString(), p);

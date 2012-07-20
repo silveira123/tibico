@@ -17,7 +17,6 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.AlunoDAO;
-import academico.controleinterno.cgd.AlunoDAOJPA;
 import academico.controleinterno.cgd.ProfessorDAO;
 import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplCadastrarUsuario;
@@ -30,8 +29,9 @@ import academico.util.pessoa.cdp.*;
 import academico.util.pessoa.cgd.BairroDAOJPA;
 import academico.util.pessoa.cgd.EstadoDAOJPA;
 import academico.util.pessoa.cgd.MunicipioDAOJPA;
-import java.util.*;
-import org.zkoss.zul.Messagebox;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Classe de aplicação responsável por realizar os casos de uso relativos ao
@@ -65,14 +65,9 @@ public class AplCadastrarPessoa {
         return instance;
     }
 
-    /**
-     * Inclui os dados de um Aluno no sistema
-     * <p/>
-     * @param args
-     * @return
-     * @throws Exception
-     */
-    public Aluno incluirAluno(ArrayList<Object> args) throws AcademicoException {
+    //////////////////// ALUNO ////////////////////
+    /** Inclui um novo aluno. */
+    public Aluno incluirAluno(List<Object> args) throws AcademicoException {
         Aluno aluno = new Aluno();
         ArrayList<Telefone> listTelefones;
         Endereco e;
@@ -150,14 +145,9 @@ public class AplCadastrarPessoa {
         return ((AlunoDAO) apDaoAluno).obterAlunosporTurma(t);
     }
 
-    /**
-     * Inclui os dados de um Professor no sistema
-     * <p/>
-     * @param args
-     * @return
-     * @throws Exception
-     */
-    public Professor incluirProfessor(ArrayList<Object> args) throws AcademicoException {
+    //////////////////// PROFESSOR ////////////////////
+    /** Inclui um novo professor. */
+    public Professor incluirProfessor(List<Object> args) throws AcademicoException {
         Professor professor = new Professor();
         ArrayList<Telefone> listTelefones;
         Endereco e;
@@ -186,7 +176,7 @@ public class AplCadastrarPessoa {
         return professor;
     }
 
-    public ArrayList<Telefone> setTelefones(ArrayList<Object> listTelefones){
+    public ArrayList<Telefone> setTelefones(List<Object> listTelefones){
         ArrayList<Telefone> lista = new ArrayList<Telefone>();
         Telefone tel;
         
@@ -195,8 +185,7 @@ public class AplCadastrarPessoa {
             if (listTelefones.get(i) != null) {
                 tel.setDdd((String) listTelefones.get(i));
                 tel.setNumero((String) listTelefones.get(i+1));
-                //tel.setTipo((TipoTel) listTelefones.get(i+2));
-                System.out.println(listTelefones.get(i+2));
+                tel.setTipo((TipoTel) listTelefones.get(i+2));
             }
             else
             {
@@ -210,7 +199,7 @@ public class AplCadastrarPessoa {
         return lista;
     }
     
-    public Endereco setEndereco(ArrayList<Object> listEndereco){
+    public Endereco setEndereco(List<Object> listEndereco){
         Endereco e = new Endereco();
         
         e.setLogradouro((String) listEndereco.get(0));

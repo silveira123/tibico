@@ -94,8 +94,7 @@ public class Pessoa extends ObjetoPersistente{
      * @return 
      */
     @OneToOne(cascade= CascadeType.PERSIST)
-    @JoinColumn(nullable= true)
-    //TODO colocar nullable = false
+    @JoinColumn(nullable= false)
     public Endereco getEndereco() {
         return endereco;
     }

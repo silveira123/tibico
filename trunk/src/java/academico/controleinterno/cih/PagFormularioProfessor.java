@@ -78,7 +78,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         ListModelList<Pais> list = new ListModelList<Pais>(paises, true);
         pais.setModel(list);
         
-        //colocando brasil como pais padrão
+        //colocando Brasil como pais padrão
         list.addToSelection(paises.get(32));
         onSelect$pais(null);
         
@@ -131,37 +131,29 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         Calendar c = Calendar.getInstance();
 
         nome.setText(obj.getNome());
-
         sexo.setSelectedIndex(marcarSexo(obj.getSexo()));
 
         c = obj.getDataNascimento();
         dataNasc.setValue(c.getTime());
 
-        for (int i = 0; i < obj.getTelefone().size(); i++) {
-            if (obj.getTelefone().get(i).getDdd() != null) {
-                if (obj.getTelefone().get(i).getTipo() == TipoTel.FIXO) {
-                    telefone.setText(preencherTelefone(obj.getTelefone().get(i)));
-                }
-                else {
-                    celular.setText(preencherTelefone(obj.getTelefone().get(i)));
-                }
-            }
+        //Preenchendo o campo telefone
+        if (obj.getTelefone().get(0).getDdd() != null) {
+                    telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
+        }
+        //Preenchendo o campo celular
+        if (obj.getTelefone().get(1).getDdd() != null) {
+                    celular.setText(preencherTelefone(obj.getTelefone().get(1)));
         }
 
         email.setText(obj.getEmail());
-
         cpf.setText(preencherCpf(obj.getCpf().toString()));
-
         rg.setText(obj.getIdentidade());
 
         preencherEndereco(obj.getEndereco());
 
         cep.setText(obj.getEndereco().getCep().toString());
-
         logradouro.setText(obj.getEndereco().getLogradouro());
-
         complemento.setText(obj.getEndereco().getComplemento());
-
         numero.setValue(obj.getEndereco().getNumero());
 
         List<Comboitem> a = grauInstrucao.getItems(); // retornado a lista de instruções
@@ -190,6 +182,10 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
     }
 
+    /**
+     * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
+     * @return String formatada no seguinte padrão (xx)xxxx-xxxx
+     */
     public String preencherTelefone(Telefone t) {
         String telefone = "(" + t.getDdd() + ")";
         String parte1 = t.getNumero().substring(0, 4);
@@ -289,23 +285,22 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
                 obterTelefone(celular.getText(), TipoTel.CELULAR, listaTelefone);
 
+                // Se o telefone foi preenchido ele é setado na lista de telefones do objeto (na posição correta ("0"))
                 if (listaTelefone.get(0) != null) {
-
-					obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
-					obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
-					obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
+                    obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
+                    obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
+                    obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
                 else {
                     obj.getTelefone().get(0).setDdd(null);
                     obj.getTelefone().get(0).setNumero(null);
                     obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
                 }
-
+                // Se o celular foi preenchido ele é setado na lista de telefones do objeto (na posição correta ("1"))
                 if (listaTelefone.get(3) != null) {
-
-					obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
-					obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
-					obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
+                    obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
+                    obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
+                    obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
                 }
                 else {
                     obj.getTelefone().get(1).setDdd(null);
@@ -384,15 +379,15 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         int indice;
 
+        //Obtendo o índice da lista onde o telefone (de acordo com o tipo) será inserido
         if (listTelefone.contains(tipo)) {
             indice = listTelefone.indexOf(tipo) - 2;
         }
         else {
             indice = listTelefone.size();
-        }
-
-        //TODO : arrumar uma expressão regular     
-        //Se a String vinda do formulário for diferente de null (se não estiver vazia) ela é tratada e inserida na lista
+        }      
+  
+        //Se a String vinda do formulário for diferente de "vazio" ela é tratada e inserida na lista
         if (!telefone.equals("")) {
             ddd = telefone.replace("(", " ");
 
@@ -408,6 +403,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
             listTelefone.add(indice + 2, tipo);
         }
+        //Caso contrário, se mantêm o tipo, mas os valores ficam como null
         else {
             listTelefone.add(indice, null);
             listTelefone.add(indice + 1, null);

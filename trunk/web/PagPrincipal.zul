@@ -9,22 +9,49 @@
         .z-north, .inner-border .z-west, .inner-border .z-south,
         .inner-border .z-east { background: #FFFFFF; } .dl-link {
         text-decoration: none; cursor: pointer; }
-
+        *{ 
+            margin:0px;
+            padding:0px;
+            border:0;
+        }
+        .container{
+                position:relative;
+        }
+        .clr{
+                clear: both;
+        }
+        .content{
+                position:relative;
+        }
+        /* Header Style */
+        .header{
+                font-family:'Arial Narrow', Arial, sans-serif;
+                line-height: 24px;
+                font-weight:bold; 
+                font-size:12px; 
+                color:white;
+                background: #4682B4;
+                opacity: 0.9;
+                text-transform: uppercase;
+                z-index: 9999;
+                position: relative;
+        }
+        .header span.right{
+                float: right;
+        }
     </style>
     <div id="div" apply="academico.controlepauta.cih.PagPrincipal">
         <borderlayout sclass="complex-layout" height="810px">
             <north size="30px" border="0">
-                <div id="divnorte">
-                    <div align="right">
+                <div class="container">
+                    <div class="header">
+                        <space width="2px"/>
                         <label id="nomeUsuario" value="" style="font-weight:bold; font-size:12px; color:white"/>
-                        <image id="logout" src="images/logout.png" width=""  height="" style="cursor:pointer;" tooltiptext="logout"/>
-                        <space width="1px"/>
-                    </div>
-                    <div align="center">
-                        <separator height="5px"/>		
-                        <label value=""
-                               style="font-weight:bold; font-size:34px; color:white">
-                        </label>
+                        <span class="right">
+                            <image id="logout" src="images/logout.png" width="16"  height="20" style="cursor:pointer;" tooltiptext="logout"/>
+                            <space width="2px"/>
+                        </span>
+                        <div class="clr"></div>
                     </div>
                 </div>
             </north>
@@ -39,8 +66,6 @@
                                 <toolbarbutton id="curso" label="Curso" />
                                 <toolbarbutton id="disciplina" label="Disciplina" />
                                 <toolbarbutton id="calendario" label="Calendário" />
-                                
-                                
                             </vbox>
                         </panelchildren>
                     </panel>

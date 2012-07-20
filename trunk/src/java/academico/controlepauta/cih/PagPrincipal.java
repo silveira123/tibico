@@ -70,10 +70,10 @@ public class PagPrincipal extends GenericForwardComposer {
         
         if (user != null) {
             if (user.getPessoa() != null) {
-                nomeUsuario.setValue("Seja Bem Vindo(a) " + user.getPessoa());
+                nomeUsuario.setValue("SEJA BEM VINDO(A) " + user.getPessoa().getNome().toUpperCase());
             }
             else {
-                nomeUsuario.setValue("Seja Bem Vindo(a) ADMINISTRADOR");
+                nomeUsuario.setValue("SEJA BEM VINDO(A) ADMINISTRADOR");
             }
 
             if (user.getPrivilegio() == 3) {

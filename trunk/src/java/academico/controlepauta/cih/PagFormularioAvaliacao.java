@@ -107,7 +107,7 @@ public class PagFormularioAvaliacao extends GenericForwardComposer {
 
                     Avaliacao a = ctrl.incluirAvaliacao(args);
 
-                    // Instancia um resultado, com nota ZERO, para cada Aluno
+                    // Instancia um resultado, com nota NULL, para cada Aluno
                     ctrl.atribuirResultado(a, obj2);
 
                     limparCampos();

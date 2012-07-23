@@ -69,6 +69,7 @@ public class CtrlMatricula {
         MatriculaTurma m = null;
         try {
             m = apl.efetuarMatricula(args);
+            CtrlAula.getInstance().atribuirResultado(m);
             pagEventosMatricula.addMatricula(m);
             pagEventosMatricula.setMensagemAviso("success", "Cadastro feito com sucesso");
         }

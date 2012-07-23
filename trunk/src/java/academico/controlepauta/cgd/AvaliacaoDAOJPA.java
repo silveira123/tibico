@@ -16,9 +16,10 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.util.persistencia.DAOJPA;
-
+import java.util.List;
 
 /**
  * Esta classe faz herança com DAOJPA e implementa AvaliacaoDAO
@@ -28,5 +29,10 @@ import academico.util.persistencia.DAOJPA;
  * @see
  */
 public class AvaliacaoDAOJPA extends DAOJPA<Avaliacao> implements AvaliacaoDAO{
+    
+    public List<Avaliacao> obter(Turma t) { 
+         List<Avaliacao> resultado = entityManager.createQuery("select av from Avaliacao av where av.turma.id = ?1").setParameter(1, t.getId()).getResultList();
+         return resultado;
+    }
     
 }

@@ -46,20 +46,16 @@ public class PagEventosProfessor extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosProfessor(this);
-        p = (Professor) arg.get("obj");
-        if (p != null) {
-            List<Professor> listaProfessores = ctrl.obterProfessor();
-            System.out.println("opaa 111");
-            if (listaProfessores != null) {
-                System.out.println("opaa");
-                for (int i = 0; i < listaProfessores.size(); i++) {
-                    Professor p = listaProfessores.get(i);
-                    Listitem linha = new Listitem(listaProfessores.get(i).toString(), p);
+        List<Professor> listaProfessores = ctrl.obterProfessor();
 
-                    linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
+        if (listaProfessores != null) {
+            for (int i = 0; i < listaProfessores.size(); i++) {
+                Professor p = listaProfessores.get(i);
+                Listitem linha = new Listitem(listaProfessores.get(i).toString(), p);
 
-                    linha.setParent(listProfessor);
-                }
+                linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
+
+                linha.setParent(listProfessor);
             }
         }
     }
@@ -134,5 +130,4 @@ public class PagEventosProfessor extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
-
 }

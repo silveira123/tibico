@@ -23,6 +23,7 @@ import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controlepauta.cdp.*;
+import academico.controlepauta.cgd.AvaliacaoDAO;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
@@ -76,7 +77,7 @@ public class AplControlarMatricula {
 
         return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
     }
-
+    
     /**
      * Cancela (exclui) uma matricula de um aluno em uma turma.
      * <p/>

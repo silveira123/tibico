@@ -265,8 +265,13 @@ public class CtrlAula {
         }
         else return true;
     }
+    
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException{
         AplControlarAula.getInstance().atribuirResultado(a, t);
+    }
+    
+    public void atribuirResultado(MatriculaTurma mTurma) throws AcademicoException{
+        AplControlarAula.getInstance().atribuirResultado(mTurma);
     }
 
     public Usuario login(String login, String senha) throws AcademicoException {

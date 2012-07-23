@@ -10,10 +10,7 @@ import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.*;
-import academico.controlepauta.cgd.AulaDAO;
-import academico.controlepauta.cgd.FrequenciaDAO;
-import academico.controlepauta.cgd.MatriculaTurmaDAO;
-import academico.controlepauta.cgd.ResultadoDAO;
+import academico.controlepauta.cgd.*;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
@@ -160,6 +157,16 @@ public class AplControlarAula {
         return (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(obj);
     }
     
+     /**
+     * 
+     * @param aluno
+     * @return
+     * @throws AcademicoException 
+     */
+    public List<Avaliacao> obterAvaliacoes(Turma turma) throws AcademicoException {
+        return (List<Avaliacao>) ((AvaliacaoDAO) apDaoAvaliacao).obter(turma);
+    }
+    
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException {
         List<MatriculaTurma> mTurma = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(t);
         Resultado resultado = null;
@@ -167,7 +174,18 @@ public class AplControlarAula {
         for(int i=0; i<mTurma.size(); i++){
             resultado = new Resultado(a, mTurma.get(i));
             apDaoResultado.salvar(resultado);           
+        }         
+    }
+    
+    public void atribuirResultado(MatriculaTurma mTurma) throws AcademicoException{
+        List<Avaliacao> aux = obterAvaliacoes(mTurma.getTurma());
+        Resultado resultado = null;
+        
+        if(aux != null){
+            for(Avaliacao a: aux){
+                resultado = new Resultado(a, mTurma);
+                apDaoResultado.salvar(resultado);
+            }
         }
-              
     }
 }

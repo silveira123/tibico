@@ -16,8 +16,10 @@
 
 package academico.controlepauta.cgd;
 
+import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Avaliacao;
 import academico.util.persistencia.DAO;
+import java.util.List;
 
 
 /**
@@ -28,5 +30,5 @@ import academico.util.persistencia.DAO;
  * @see
  */
 public interface AvaliacaoDAO extends DAO<Avaliacao>{
-    
+    public List<Avaliacao> obter(Turma t);
 }

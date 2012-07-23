@@ -1,5 +1,3 @@
-package academico.controleinterno.cdp;
-
 /*
  * Aluno.java 
  * Versão: 0.1 
@@ -15,6 +13,8 @@ package academico.controleinterno.cdp;
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
+
+package academico.controleinterno.cdp;
 
 import academico.util.horario.cdp.Horario;
 import academico.util.persistencia.ObjetoPersistente;

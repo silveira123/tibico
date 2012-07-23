@@ -35,8 +35,6 @@ import org.zkoss.zul.*;
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os dados do registro, abrangendo a leitura e interpretação para a tela
  * PagRegistroPontuacao.zul
  *
- * @author Pietro Crhist
- * @author Geann Valfré
  * @author Gabriel Quézid
  */
 public class PagRegistroPontuacao extends GenericForwardComposer {
@@ -53,7 +51,6 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
     private Avaliacao obj;
     private List<Doublebox> notas = new ArrayList<Doublebox>();
     private List<Textbox> observacoes = new ArrayList<Textbox>();
-    ;
     private List<Aluno> aluno;
     private List<Resultado> resultados;
 

@@ -1,6 +1,6 @@
 /*
  * PagRelatorioBoletim.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 03/07/2012, 13:40:23
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -15,8 +15,6 @@
  */
 
 package academico.controlepauta.cih;
-
-// imports devem ficar aqui!
 
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Curso;

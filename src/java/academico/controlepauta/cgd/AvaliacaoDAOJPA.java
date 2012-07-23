@@ -1,6 +1,6 @@
 /*
  * AvaliacaoDAOJPA.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:25:39
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -30,6 +30,11 @@ import java.util.List;
  */
 public class AvaliacaoDAOJPA extends DAOJPA<Avaliacao> implements AvaliacaoDAO{
     
+    /**
+     * Obtém todas as avaliações de uma turma
+     * @param t
+     * @return 
+     */
     public List<Avaliacao> obter(Turma t) { 
          List<Avaliacao> resultado = entityManager.createQuery("select av from Avaliacao av where av.turma.id = ?1").setParameter(1, t.getId()).getResultList();
          return resultado;

@@ -1,7 +1,7 @@
 /*
- * ResultadoDAOJPA.java 
- * Versão: _._ 
- * Data de Criação : 11/06/2012, 13:11:34
+ * UsuarioDAOJPA.java 
+ * Versão: 0.1 
+ * Data de Criação : 11/06/2012
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
  * Rodovia ES-010 - Km 6,5 - Manguinhos, Serra, ES, 29164-321, Brasil.
@@ -32,11 +32,21 @@ import java.util.List;
  */
 public class UsuarioDAOJPA extends DAOJPA<Usuario> implements UsuarioDAO {
     
+    /**
+     * Obtém os dados do usuário através de um aluno
+     * @param a
+     * @return 
+     */
     public Usuario obterUsuario(Aluno a) {
         List<Usuario> usuario = entityManager.createQuery("select u from Usuario u where u.pessoa.id = ?1").setParameter(1, a.getId()).getResultList();
         return usuario.get(0);
     }
     
+    /**
+     * Obtém os dados do usuário através de um professor
+     * @param p
+     * @return 
+     */
     public Usuario obterUsuario(Professor p) {
         List<Usuario> usuario = entityManager.createQuery("select u from Usuario u where u.pessoa.id = ?1").setParameter(1, p.getId()).getResultList();
         return usuario.get(0);

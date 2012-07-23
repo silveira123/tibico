@@ -1,6 +1,6 @@
 /*
  * AulaDAOJPA.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:28:21
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -31,6 +31,11 @@ import java.util.List;
  */
 public class AulaDAOJPA extends DAOJPA<Aula> implements AulaDAO{
 
+    /**
+     * Obtém todas as aulas de uma turma
+     * @param turma
+     * @return 
+     */
     public List<Aula> obter(Turma turma) {
         List<Aula> aula = entityManager.createQuery("select a from Aula a where a.turma.id = ?1").setParameter(1, turma.getId()).getResultList();
          return aula;

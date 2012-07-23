@@ -103,8 +103,19 @@ public class PagPrincipal extends GenericForwardComposer {
 
     }
 
-
-public void onClick$curso(Event event) {
+    public void setFundo()
+    {
+        if(border.getCenter().getChildren() == null)
+        {
+            Image img = new Image();
+            img.setSrc("images/tibico6.png");
+            img.setWidth("50%");
+            img.setHeight("30%");
+            img.setParent(border.getCenter());
+        }
+    }
+    
+    public void onClick$curso(Event event) {
         border.getCenter().getChildren().clear();
         Window winCurso = (Window) CtrlCurso.getInstance().abrirEventosCurso();
         winCurso.setWidth("100%");

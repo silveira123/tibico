@@ -53,7 +53,6 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
 
-        //TODO Fazer a selecao de disciplinas por curso
         List<Curso> vetCurso = ctrl.obterCursos();
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);

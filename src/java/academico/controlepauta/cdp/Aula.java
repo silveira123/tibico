@@ -97,9 +97,8 @@ public class Aula extends ObjetoPersistente {
      * Obtém a Turma a qual a Aula se refere
      * @return 
      */
-    //TODO voltar nullable para false
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(nullable = true)
+    @JoinColumn(nullable = false)
     public Turma getTurma() {
         return turma;
     }

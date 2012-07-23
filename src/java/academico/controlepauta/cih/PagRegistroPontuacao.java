@@ -118,7 +118,6 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
             argsObservacoes.add(observacoes.get(i).getValue());
         }
         try {
-            //TODO inserir a matriculaTurma no resultado
             ctrl.incluirResultado(obj, argsNotas, argsObservacoes);
         }
         catch (AcademicoException ex) {

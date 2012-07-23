@@ -93,8 +93,6 @@ public class AplCadastrarPessoa {
             aluno.setCurso((Curso) args.get(10));
             aluno.setMatricula(matricula);
             aluno.setCoeficiente(0.0);
-            //TODO o coeficiente vai iniciar com 0.0 mesmo??
-            //return (Aluno) apDaoAluno.salvar(aluno);
         }
          aluno = (Aluno) apDaoAluno.salvar(aluno);
         // Privilegios...

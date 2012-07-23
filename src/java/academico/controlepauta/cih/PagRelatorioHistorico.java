@@ -105,7 +105,6 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
 
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
-                //TODO if do fim do periodo
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

@@ -1,6 +1,6 @@
 /*
  * FrequenciaDAO.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:22:39
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -31,6 +31,19 @@ import java.util.List;
  * @see
  */
 public interface FrequenciaDAO extends DAO<Frequencia>{
+    
+    /**
+     * Enunciado da função que obtém todas as frequências de uma turma
+     * @param t
+     * @return 
+     */
     public List<Frequencia> obterFrequencias(Turma t);
+    
+    /**
+     * Enunciado da função que obtém todas as frequências de um aluno, em uma turma especifica
+     * @param a
+     * @param t
+     * @return 
+     */
     public List<Frequencia> obterFrequencias(Aluno a, Turma t);
 }

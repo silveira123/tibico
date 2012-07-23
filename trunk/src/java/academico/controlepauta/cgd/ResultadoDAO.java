@@ -1,6 +1,6 @@
 /*
  * ResultadoDAO.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:12:02
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -33,8 +33,32 @@ import java.util.List;
  * @see
  */
 public interface ResultadoDAO extends DAO<Resultado> {
+    
+    /**
+     * Enunciado da função que obtém todos os resultados de uma turma
+     * @param t
+     * @return 
+     */
     public List<Resultado> obterResultados(Turma t);
+    
+    /**
+     * Enunciado da função que obtém todos os resultados de um aluno
+     * @param a
+     * @return 
+     */
     public List<Resultado> obterResultados(Aluno a);
+    
+    /**
+     * Enunciado da função que obtém todos os resultados de um aluno, através da matricula da turma
+     * @param mturma
+     * @return 
+     */
     public List<Resultado> obterResultados(MatriculaTurma mt);
+    
+    /**
+     * Enunciado da função que obtém todos os resultados de uma avaliação
+     * @param a
+     * @return 
+     */
     public List<Resultado> obterResultados(Avaliacao a);
 }

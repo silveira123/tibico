@@ -29,6 +29,7 @@ import javax.persistence.ManyToOne;
  * o registro do aluno.
  * 
  * @author Gabriel Quézid
+ * @author Rodrigo Maia
  * @version 0.1
  * @see academico.controleinterno.cdp.Aluno
  */

@@ -36,7 +36,7 @@ import org.zkoss.zul.*;
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados do registro, abrangendo a leitura e interpretação para a tela
  * PagRegistroChamada.zul
- * <p/>
+ *
  * @author Pietro Crhist
  * @author Geann Valfré
  */

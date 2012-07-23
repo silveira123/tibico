@@ -19,7 +19,6 @@ package academico.controleinterno.cdp;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.pessoa.cdp.Pessoa;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -29,6 +28,7 @@ import javax.persistence.*;
  * e AreaConhecimento e faz herança com Pessoa, do pacote de utilitários, contemplando informações 
  * necessárias para o registro do professor.
  * 
+ * @author Gabriel Quézid
  * @author Rodrigo Maia
  * @version 0.1
  * @see

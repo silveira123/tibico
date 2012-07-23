@@ -13,16 +13,12 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
+
 package academico.controlepauta.cih;
 
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
-import java.net.CookieHandler;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.zkoss.zhtml.Messagebox;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +33,7 @@ import org.zkoss.zul.Window;
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os dados do login, abrangendo a leitura e interpretação para a tela
  * PagLogin.zul;
- * <p/>
+ * 
  * @author Pietro Crhist
  * @author Geann Valfré
  */

@@ -22,7 +22,7 @@ import javax.persistence.*;
 
 /**
  * Esta classe foi criada para conter os valores calculados do resultado final de um Aluno numa Turma, bem como seu percentual de presença.
- * <p/>
+ * 
  * @author Rodrigo Maia
  * @version 0.1
  * @see

@@ -15,7 +15,7 @@
  */
 package academico.controlepauta.cih;
 
-// imports devem ficar aqui!
+
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
@@ -32,7 +32,7 @@ import org.zkoss.zul.*;
 
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagRelatorioBoletim.zul
- * <p/>
+ * 
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioBoletim extends GenericForwardComposer {

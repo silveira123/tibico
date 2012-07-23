@@ -1,6 +1,6 @@
 /*
  * AvaliacaoDAO.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:26:03
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -30,5 +30,11 @@ import java.util.List;
  * @see
  */
 public interface AvaliacaoDAO extends DAO<Avaliacao>{
+    
+    /**
+     * Enunciado da função que obtém todas as avaliações de uma turma
+     * @param t
+     * @return 
+     */
     public List<Avaliacao> obter(Turma t);
 }

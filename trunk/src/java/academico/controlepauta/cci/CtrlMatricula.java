@@ -13,6 +13,7 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
+
 package academico.controlepauta.cci;
 
 import academico.controleinterno.cdp.Aluno;
@@ -32,9 +33,10 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
 /**
- * Controladora das aplicações de controle de matricula e de emitir relatórios.
- * <p/>
- * @author erigamonte
+ * Está classe controla as aplicações de controle de matricula e de emitir relatórios.
+ * 
+ * @author Eduardo Rigamonte
+ * @author Gabriel Quézid
  * @version 0.1
  * @see
  */

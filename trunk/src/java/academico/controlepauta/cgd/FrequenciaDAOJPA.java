@@ -1,6 +1,6 @@
 /*
  * FrequenciaDAOJPA.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:21:25
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -21,7 +21,6 @@ import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cdp.Frequencia;
 import academico.util.persistencia.DAOJPA;
 import java.util.List;
-import javax.persistence.Query;
 
 
 /**
@@ -33,11 +32,22 @@ import javax.persistence.Query;
  */
 public class FrequenciaDAOJPA extends DAOJPA<Frequencia> implements FrequenciaDAO{
 
+    /**
+     * Obtém todas as frequências de uma turma
+     * @param t
+     * @return 
+     */
     public List<Frequencia> obterFrequencias(Turma t) { 
          List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.turma.id = ?1").setParameter(1, t.getId()).getResultList();
          return frequencia;
     }
     
+    /**
+     * Obtém todas as frequências de um aluno, em uma turma especifica
+     * @param a
+     * @param t
+     * @return 
+     */
     public List<Frequencia> obterFrequencias(Aluno a, Turma t) { 
          List<Frequencia> frequencia = entityManager.createQuery("select fr from Frequencia fr, MatriculaTurma mt where mt.aluno.id = ?1 and fr.matriculaTurma.id = mt.id and mt.turma.id = ?2").setParameter(1, a.getId()).setParameter(2, t.getId()).getResultList();
           return frequencia;

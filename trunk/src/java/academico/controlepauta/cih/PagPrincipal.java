@@ -31,7 +31,7 @@ import org.zkoss.zul.*;
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos do Ptojeto Tibico; Os eventos são apresentados de acordo com o
  * privilégio de acesso.
- * <p/>
+ * 
  * @author Pietro Crhist
  * @author Geann Valfré
  */

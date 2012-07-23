@@ -1,6 +1,6 @@
 /*
  * AulaDAO.java 
- * Versão: _._ 
+ * Versão: 0.1 
  * Data de Criação : 11/06/2012, 13:27:30
  * Copyright (c) 2012 Fabrica de Software IFES.
  * Incubadora de Empresas IFES, sala 11
@@ -30,5 +30,11 @@ import java.util.List;
  * @see
  */
 public interface AulaDAO extends DAO<Aula>{
+    
+    /**
+     * Enunciado da função que obtém todas as aulas de uma turma
+     * @param turma
+     * @return 
+     */
     public List<Aula> obter(Turma turma);
 }

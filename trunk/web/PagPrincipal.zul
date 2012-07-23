@@ -112,10 +112,10 @@
 			<!-- Content -->
             <center>
                 <borderlayout id="border" sclass="inner-border">
-                    <center border="0" margins="0,3,3,3">
+                    <center id="center" border="0" margins="0,3,3,3">
                         <div align="center">
                              <separator height="200px"/>
-			<image src="images/tibico6.png" width="50%" height="30%"/>
+                            <image src="images/tibico6.png" width="50%" height="30%"/>
                                                 <!-- Setar a janela selecionada aqui -->
                         </div>
                     </center>

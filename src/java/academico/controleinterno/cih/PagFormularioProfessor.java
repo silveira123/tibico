@@ -31,9 +31,11 @@ import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
+import org.zkoss.util.media.Media;
 
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
@@ -47,6 +49,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     // Atributos da interface
     private Button salvarProfessor;
     private Button voltar;
+    private Button foto;
     private Textbox nome;
     private Radiogroup sexo;
     private Datebox dataNasc;
@@ -68,6 +71,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private Window winFormularioProfessor;
     private Professor obj;
+    private byte[] bytes;
     private int MODO;
 
     @Override
@@ -77,11 +81,11 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         List<Pais> paises = ctrlPessoa.obterPaises();
         ListModelList<Pais> list = new ListModelList<Pais>(paises, true);
         pais.setModel(list);
-        
+
         //colocando Brasil como pais padrão
         list.addToSelection(paises.get(32));
         onSelect$pais(null);
-        
+
         pais.setReadonly(true);
         estado.setReadonly(true);
         cidade.setReadonly(true);
@@ -138,11 +142,11 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
         //Preenchendo o campo telefone
         if (obj.getTelefone().get(0).getDdd() != null) {
-                    telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
+            telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
         }
         //Preenchendo o campo celular
         if (obj.getTelefone().get(1).getDdd() != null) {
-                    celular.setText(preencherTelefone(obj.getTelefone().get(1)));
+            celular.setText(preencherTelefone(obj.getTelefone().get(1)));
         }
 
         email.setText(obj.getEmail());
@@ -155,6 +159,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         logradouro.setText(obj.getEndereco().getLogradouro());
         complemento.setText(obj.getEndereco().getComplemento());
         numero.setValue(obj.getEndereco().getNumero());
+        
+        this.bytes = obj.getFoto();
 
         List<Comboitem> a = grauInstrucao.getItems(); // retornado a lista de instruções
         for (int i = 0; i < a.size(); i++) {
@@ -184,6 +190,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     /**
      * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
+     * <p/>
      * @return String formatada no seguinte padrão (xx)xxxx-xxxx
      */
     public String preencherTelefone(Telefone t) {
@@ -265,6 +272,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         logradouro.setDisabled(true);
         numero.setDisabled(true);
         complemento.setDisabled(true);
+        foto.setDisabled(true);
     }
 
     public void onClick$salvarProfessor(Event event) {
@@ -320,6 +328,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
+                obj.setFoto(bytes);
                 p = ctrlPessoa.alterarProfessor(obj);
             }
             else {
@@ -346,6 +355,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 list.add(listaEndereco);
                 list.add(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 list.add(getSelecionadosList(listAreaConhecimento));
+                list.add(this.bytes);
+                
                 p = ctrlPessoa.incluirProfessor(list);
             }
             winFormularioProfessor.onClose();
@@ -385,8 +396,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
         else {
             indice = listTelefone.size();
-        }      
-  
+        }
+
         //Se a String vinda do formulário for diferente de "vazio" ela é tratada e inserida na lista
         if (!telefone.equals("")) {
             ddd = telefone.replace("(", " ");
@@ -560,4 +571,20 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         return msg;
     }
 
+    public void onUpload$foto(UploadEvent event) {
+        Media media = event.getMedia();
+
+        if (media != null && media.isBinary()) {
+            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+                this.bytes = media.getByteData();
+            }
+            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+        }
+        else if (media != null && media.isBinary() == false) {
+            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+                this.bytes = media.getStringData().getBytes();
+            }
+            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+        }
+    }
 }

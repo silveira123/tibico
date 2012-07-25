@@ -3,7 +3,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="62%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="68%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>
@@ -18,6 +18,12 @@
                                 <column width="70%" />
                             </columns>
                             <rows>
+                                <row>
+                                        <cell colspan="2">
+                                            <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
+                                
                                 <row>	
                                     Nome:
                                     <textbox id="nome" width="80%" />		
@@ -76,8 +82,8 @@
                                 
                                 <row style="background:#FFFFFF;">
                                     Área de Conhecimeto:
-                                    <cell colspan="2">
-                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="100px">
+                                    <cell colspan="5">
+                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="115px">
                                             <listhead>
                                                 
                                             </listhead>
@@ -88,72 +94,102 @@
                             </rows>
                         </grid>
 						
-						
-                        <grid>
-                            <columns>
-                                <column width="30%" />
-                                <column width="70%" />
-                            </columns>
-                            <rows>
+                        <div>			
+                        
+                            <grid>
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
+                                    <row>
+                                        <cell colspan="2">
+                                            <label value="Foto" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
+                                    
+                                    <row>
+                                        <button id="foto" label="Upload" upload="true,maxsize=-1,multiple=false"/>
+                                        <vbox id="pics" />
+                                    </row>
+                                    
+                                    <row>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    </row>
+                                    
+                                    <row>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    </row>
+                                    
+                                    <row>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    </row>
+                                </rows>
+                            </grid>
+                        
+                            <separator/>
+                        
+                            <grid>
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
+                                                          
+                                    <row>
+                                        <cell colspan="2">
+                                            <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
                                 
+                                    <row>
+                                        CEP:
+                                        <textbox id="cep" width="20%"
+                                                 constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/: Entre com um CEP válido: 27458963"/>
+                                    </row>
                                 
-                                
-                                <row>
-                                    <cell colspan="2">
-                                        <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
-                                    </cell>
-                                </row>
-                                
-                                <row>
-                                    CEP:
-                                    <textbox id="cep" width="20%"
-                                             constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/: Entre com um CEP válido: 27458963"/>
-                                </row>
-                                
-                                <row>
-                                    Logradouro:
-                                    <textbox id="logradouro" width="80%" />
-                                </row>
+                                    <row>
+                                        Logradouro:
+                                        <textbox id="logradouro" width="80%" />
+                                    </row>
 			
 			
-                                <row>
-                                    Número:
-                                    <intbox width="15%" id="numero" />
-                                </row>
+                                    <row>
+                                        Número:
+                                        <intbox width="15%" id="numero" />
+                                    </row>
 								
-                                <row>
-                                    Complemento:
-                                    <textbox id="complemento" width="80%" />
-                                </row>
+                                    <row>
+                                        Complemento:
+                                        <textbox id="complemento" width="80%" />
+                                    </row>
                                 				
-                                <row>
-                                    País:
-                                    <combobox id="pais"></combobox>
-                                </row>
+                                    <row>
+                                        País:
+                                        <combobox id="pais"></combobox>
+                                    </row>
                                 
-                                <row>
-                                    Estado:
-                                    <combobox id="estado"></combobox>
-                                </row>
+                                    <row>
+                                        Estado:
+                                        <combobox id="estado"></combobox>
+                                    </row>
                                 
-                                <row>
-                                    Cidade:
-                                    <combobox id="cidade"></combobox>
-                                </row>
+                                    <row>
+                                        Cidade:
+                                        <combobox id="cidade"></combobox>
+                                    </row>
                                  
-                                <row>
-                                    Bairro:
-                                    <combobox id="bairro"></combobox>
-                                </row>
-                                
-				
-                                <row>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                </row>
+                                    <row>
+                                        Bairro:
+                                        <combobox id="bairro"></combobox>
+                                    </row>
 					
-                            </rows>
-                        </grid>
+                                </rows>
+                            </grid>
+                        </div>
 						
                     </row>
                 </rows>

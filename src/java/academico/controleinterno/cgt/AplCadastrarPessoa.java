@@ -167,6 +167,8 @@ public class AplCadastrarPessoa {
         professor.setGrauInstrucao((GrauInstrucao) args.get(8));
 
         professor.setAreaConhecimento((ArrayList<AreaConhecimento>) args.get(9));
+        
+        professor.setFoto((byte[])args.get(10));
         professor = (Professor) apDaoProfessor.salvar(professor);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno

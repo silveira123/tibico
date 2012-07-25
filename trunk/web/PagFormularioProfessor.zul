@@ -3,7 +3,7 @@
 
 <zk>
     <div align="center">
-        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" height="68%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
+        <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
             <grid>
                 <columns>

@@ -21,13 +21,17 @@ import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.pessoa.cdp.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -35,7 +39,6 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
-import org.zkoss.util.media.Media;
 
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
@@ -73,6 +76,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private Professor obj;
     private byte[] bytes;
     private int MODO;
+    
+    private Image pics;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -161,6 +166,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         numero.setValue(obj.getEndereco().getNumero());
         
         this.bytes = obj.getFoto();
+        construirImagem(this.bytes);
 
         List<Comboitem> a = grauInstrucao.getItems(); // retornado a lista de instruções
         for (int i = 0; i < a.size(); i++) {
@@ -179,6 +185,27 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     }
 
+    /**
+     * A partir de um byte array, controi uma imagem
+     * @param img  contém um byte array da imagem
+     */
+    public void construirImagem(byte[] img){
+        try {
+            ByteArrayInputStream bais = new ByteArrayInputStream(img);
+            BufferedImage bufferedImg = ImageIO.read(bais);
+            
+            pics.setContent(bufferedImg);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * A partir de um tipo enumerado Sexo, identifica a seleção adquada
+     * @param sexo
+     * @return 
+     */
     public int marcarSexo(Sexo sexo) {
         if (sexo == Sexo.FEMININO) {
             return 1;
@@ -190,7 +217,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     /**
      * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
-     * <p/>
+     * 
      * @return String formatada no seguinte padrão (xx)xxxx-xxxx
      */
     public String preencherTelefone(Telefone t) {
@@ -572,7 +599,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     }
 
     public void onUpload$foto(UploadEvent event) {
-        Media media = event.getMedia();
+        //Media media = event.getMedia();
+        org.zkoss.util.media.Media media = event.getMedia();
 
         if (media != null && media.isBinary()) {
             if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){

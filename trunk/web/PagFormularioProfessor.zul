@@ -106,25 +106,28 @@
                                         <cell colspan="2">
                                             <label value="Foto" style="font-weight:bold; font-size:14px"/> 
                                         </cell>
+                                        <cell rowspan="4">
+                                            <vlayout height="90px" style="overflow:auto">
+                                                <div align="center"> 
+                                                    <image id="pics" src="images/fsw.png"/>
+                                                </div>
+                                            </vlayout>
+                                        </cell>
                                     </row>
-                                    
+	        
                                     <row>
-                                        <button id="foto" label="Upload" upload="true,maxsize=-1,multiple=false"/>
-                                        <vbox id="pics" />
+                                        <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
                                     </row>
-                                    
-                                    <row>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    </row>
-                                    
-                                    <row>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    </row>
-                                    
+	        
                                     <row>
                                         <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    </row>
+	        
+                                    <row>
+                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    </row>
+	        
+                                    <row>
                                         <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
                                     </row>
                                 </rows>

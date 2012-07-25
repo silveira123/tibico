@@ -20,15 +20,20 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.pessoa.cdp.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
@@ -56,6 +61,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox rg;
     private Textbox nomeMae;
     private Textbox nomePai;
+    private Button foto;
     private Combobox pais;
     private Textbox cep;
     private Combobox estado;
@@ -66,6 +72,9 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox complemento;
     private Button salvarAluno;
     private Curso curso;
+    private byte[] bytes = null;
+    
+    private Image pics;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -132,7 +141,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
         
         email.setText(obj.getEmail());
-        cpf.setText(preencherCpf(obj.getCpf().toString()));
+        cpf.setText(preencherCpf(obj.getCpf()));
         rg.setText(obj.getIdentidade());
         nomeMae.setText(obj.getNomeMae());
         nomePai.setText(obj.getNomePai());
@@ -143,6 +152,27 @@ public class PagFormularioAluno extends GenericForwardComposer {
         logradouro.setText(obj.getEndereco().getLogradouro());
         complemento.setText(obj.getEndereco().getComplemento());
         numero.setValue(obj.getEndereco().getNumero());
+        
+        this.bytes = obj.getFoto();
+        construirImagem(this.bytes);
+    }
+    
+    /**
+     * A partir de um byte array, controi uma imagem
+     * @param img  contém um byte array da imagem
+     */
+    public void construirImagem(byte[] img){
+        if (img != null) {
+           try {
+                ByteArrayInputStream bais = new ByteArrayInputStream(img);
+                BufferedImage bufferedImg = ImageIO.read(bais);
+
+                pics.setContent(bufferedImg);
+            }
+            catch (IOException ex) {
+                Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } 
     }
 
     public int marcarSexo(Sexo sexo) {
@@ -232,6 +262,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         logradouro.setDisabled(true);
         numero.setDisabled(true);
         complemento.setDisabled(true);
+        foto.setDisabled(true);
     }
 
     public void onClick$salvarAluno(Event event) {
@@ -286,6 +317,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
                 obj.setCurso(curso);
+                obj.setFoto(bytes);
+
                 a = ctrlPessoa.alterarAluno(obj);
 
             }
@@ -309,6 +342,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obterEndereco(listaEndereco);
                 list.add(listaEndereco);
                 list.add(curso);
+                list.add(this.bytes);
+                
                 a = ctrlPessoa.incluirAluno(list);
             }
             winCadastro.onClose();
@@ -365,16 +400,13 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
     }
 
-    public Long obterCPF(String scpf) {
-        Long cpf = null;
-        String aux1;
+    public String obterCPF(String scpf) {
+        String cpf = null;
 
         if (scpf != null) {
-            aux1 = scpf.replace(".", "");
+            cpf = scpf.replace(".", "");
 
-            aux1 = aux1.replace("-", "");
-
-            cpf = new Long(Long.parseLong(aux1));
+            cpf = cpf.replace("-", "");
         }
 
         return cpf;
@@ -511,6 +543,26 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
 
         return msg;
+    }
+    
+    public void onUpload$foto(UploadEvent event) {
+        //Media media = event.getMedia();
+        org.zkoss.util.media.Media media = event.getMedia();
+
+        if (media != null && media.isBinary()) {
+            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+                this.bytes = media.getByteData();
+                construirImagem(bytes);
+            }
+            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+        }
+        else if (media != null && media.isBinary() == false) {
+            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+                this.bytes = media.getStringData().getBytes();
+                construirImagem(bytes);
+            }
+            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+        }
     }
 
 }

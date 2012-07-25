@@ -33,7 +33,7 @@ import javax.persistence.*;
 public class Pessoa extends ObjetoPersistente{
     protected String nome;
     protected Calendar dataNascimento;
-    protected Long cpf;
+    protected String cpf;
     protected String identidade;
     protected String email;
     protected Sexo sexo;
@@ -45,7 +45,7 @@ public class Pessoa extends ObjetoPersistente{
      * Obtém o cpf de Pessoa
      * @return 
      */
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -53,7 +53,7 @@ public class Pessoa extends ObjetoPersistente{
      * Altera o valor de cpf em Pessoa
      * @param cpf 
      */
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     
@@ -183,6 +183,7 @@ public class Pessoa extends ObjetoPersistente{
      * Obtém a foto de Pessoa
      * @return 
      */
+    @JoinColumn(nullable = true)
     public byte[] getFoto() {
         return foto;
     }

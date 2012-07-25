@@ -82,7 +82,7 @@ public class AplCadastrarPessoa {
             aluno.setTelefone(listTelefones);
 
             aluno.setEmail((String) args.get(4));
-            aluno.setCpf((Long) args.get(5));
+            aluno.setCpf((String) args.get(5));
             aluno.setIdentidade((String) args.get(6));
             aluno.setNomeMae((String) args.get(7));
             aluno.setNomePai((String) args.get(8));
@@ -158,7 +158,7 @@ public class AplCadastrarPessoa {
         professor.setTelefone(listTelefones);
         
         professor.setEmail((String) args.get(4));
-        professor.setCpf((Long) args.get(5));
+        professor.setCpf((String) args.get(5));
         professor.setIdentidade((String) args.get(6));
         
         e = setEndereco((ArrayList<Object>) args.get(7));

@@ -74,7 +74,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private Window winFormularioProfessor;
     private Professor obj;
-    private byte[] bytes;
+    private byte[] bytes = null;
     private int MODO;
     
     private Image pics;
@@ -155,7 +155,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
 
         email.setText(obj.getEmail());
-        cpf.setText(preencherCpf(obj.getCpf().toString()));
+        cpf.setText(preencherCpf(obj.getCpf()));
         rg.setText(obj.getIdentidade());
 
         preencherEndereco(obj.getEndereco());
@@ -190,15 +190,17 @@ public class PagFormularioProfessor extends GenericForwardComposer {
      * @param img  contém um byte array da imagem
      */
     public void construirImagem(byte[] img){
-        try {
-            ByteArrayInputStream bais = new ByteArrayInputStream(img);
-            BufferedImage bufferedImg = ImageIO.read(bais);
-            
-            pics.setContent(bufferedImg);
-        }
-        catch (IOException ex) {
-            Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if (img != null) {
+           try {
+                ByteArrayInputStream bais = new ByteArrayInputStream(img);
+                BufferedImage bufferedImg = ImageIO.read(bais);
+
+                pics.setContent(bufferedImg);
+            }
+            catch (IOException ex) {
+                Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } 
     }
     
     /**
@@ -356,6 +358,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
                 obj.setFoto(bytes);
+                
                 p = ctrlPessoa.alterarProfessor(obj);
             }
             else {
@@ -449,16 +452,13 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         }
     }
 
-    public Long obterCPF(String scpf) {
-        Long cpf = null;
-        String aux1;
+    public String obterCPF(String scpf) {
+        String cpf = null;
 
         if (scpf != null) {
-            aux1 = scpf.replace(".", "");
+            cpf = scpf.replace(".", "");
 
-            aux1 = aux1.replace("-", "");
-
-            cpf = new Long(Long.parseLong(aux1));
+            cpf = cpf.replace("-", "");
         }
 
         return cpf;
@@ -497,7 +497,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         pais.setSelectedItem(null);
         grauInstrucao.setSelectedItem(null);
         listAreaConhecimento.clearSelection();
-
     }
 
     public void onSelect$pais(Event event) {
@@ -605,12 +604,14 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         if (media != null && media.isBinary()) {
             if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
                 this.bytes = media.getByteData();
+                construirImagem(bytes);
             }
             else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
         }
         else if (media != null && media.isBinary() == false) {
             if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
                 this.bytes = media.getStringData().getBytes();
+                construirImagem(bytes);
             }
             else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
         }

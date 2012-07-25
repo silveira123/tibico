@@ -19,10 +19,10 @@
                             </columns>
                             <rows>
                                 <row>
-                                        <cell colspan="2">
-                                            <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
-                                        </cell>
-                                    </row>
+                                    <cell colspan="2">
+                                        <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
+                                    </cell>
+                                </row>
                                 
                                 <row>	
                                     Nome:
@@ -202,20 +202,5 @@
             <button width="10%" label="Voltar" id="voltar"></button>
 			
         </window>
-    </div><!--
-    <script type="text/javascript" src="/maskedinput-1.2.2.min.js" />
-    <script type="text/javascript" src="/watermarkinput.js" />
-    <script type="text/javascript">
-        zk.afterMount(function() {
-
-        jq("$complemento").Watermark("casa, bloco, nº apartamento,etc","gray");
-
-        jq("$telefone").mask("(99) 9999-9999");
-        jq("$celular").mask("(99) 9999-9999");
-        jq("$cep").mask("99999-999"); jq("$cpf").mask("999.999.999-99");
-
-
-        });
-    </script> -->
-
+    </div>
 </zk>

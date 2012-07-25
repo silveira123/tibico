@@ -2,6 +2,16 @@
 
 
 <zk>
+     <style>
+        .myimg {
+            margin: 6px; 
+            border: 2px solid #CFCFCF; 
+            z-index: 9999;
+            position: relative;
+            box-shadow: 1px 0px 2px #000;
+        }
+    </style>
+    
     <div align="center">
         <window id="winFormularioProfessor" title="Página Formulário Professor" mode="modal" border="normal" width="80%" apply = "academico.controleinterno.cih.PagFormularioProfessor">
 	
@@ -14,8 +24,8 @@
                     <row style="background:#FFFFFF;">
                         <grid>
                             <columns>
-                                <column width="30%" />
-                                <column width="70%" />
+                                <column width="30%"/>
+                                <column width="70%"/>
                             </columns>
                             <rows>
                                 <row>
@@ -83,7 +93,7 @@
                                 <row style="background:#FFFFFF;">
                                     Área de Conhecimeto:
                                     <cell colspan="5">
-                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="115px">
+                                        <listbox id="listAreaConhecimento"  checkmark="true" multiple="true" height="140px">
                                             <listhead>
                                                 
                                             </listhead>
@@ -102,33 +112,20 @@
                                     <column width="70%" />
                                 </columns>
                                 <rows>
-                                    <row>
+                                    <row height="10%">
                                         <cell colspan="2">
                                             <label value="Foto" style="font-weight:bold; font-size:14px"/> 
                                         </cell>
-                                        <cell rowspan="4">
-                                            <vlayout height="90px" style="overflow:auto">
-                                                <div align="center"> 
-                                                    <image id="pics" src="images/fsw.png"/>
-                                                </div>
-                                            </vlayout>
-                                        </cell>
+                                       
                                     </row>
-	        
-                                    <row>
-                                        <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
-                                    </row>
-	        
-                                    <row>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    </row>
-	        
-                                    <row>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    </row>
-	        
-                                    <row>
-                                        <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
+                                    <row style="background:#FFFFFF;" height="90%">
+                                        <div align="center">
+                                            <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
+                                        </div>
+                                        
+                                        <div align="center"> 
+                                            <image sclass="myimg" id="pics" width="32%" height="100%"/>
+                                        </div>
                                     </row>
                                 </rows>
                             </grid>

@@ -39,6 +39,7 @@ public class Pessoa extends ObjetoPersistente{
     protected Sexo sexo;
     protected Endereco endereco;
     protected List<Telefone> telefone;
+    protected byte[] foto;
 
     /**
      * Obtém o cpf de Pessoa
@@ -176,6 +177,22 @@ public class Pessoa extends ObjetoPersistente{
      */
     public void setTelefone(List<Telefone> telefone) {
         this.telefone = telefone;
+    }
+
+    /**
+     * Obtém a foto de Pessoa
+     * @return 
+     */
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    /**
+     * Altera de foto em Pessoa
+     * @param foto 
+     */
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
     
 }

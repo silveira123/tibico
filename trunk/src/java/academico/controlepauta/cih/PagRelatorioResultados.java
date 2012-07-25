@@ -21,6 +21,7 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
+import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,6 +49,7 @@ public class PagRelatorioResultados extends GenericForwardComposer{
     private Curso objCurso;
     private Calendario objCalendario;
     private Turma objTurma;
+    private Button gerarGrafico;
     
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -85,9 +87,47 @@ public class PagRelatorioResultados extends GenericForwardComposer{
         media.setValue("");
     }
     
+    public void onClick$gerarGrafico(Event event) {
+        double apr = 0, rep = 0;
+        Window win = new Window();
+        List row = matriculas.getRows().getChildren();
+      
+        for (int i = 0; i < row.size(); i++) {
+            MatriculaTurma m = ((Row) row.get(i)).getValue();
+            if(m.getSituacaoAluno() == SituacaoAlunoTurma.APROVADO)
+                apr++;
+            else if(m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADONOTA)
+                rep++;
+            else if(m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADOFALTA)
+                rep++;
+        }
+        
+        Chart chart = new Chart();
+        chart.setTitle("Gráfico de Aprovados e Reprovados");
+        chart.setWidth("550");
+        chart.setHeight("400");
+        chart.setType("pie");
+        chart.setThreeD(true);
+        chart.setPaneColor("#ffffff");
+        chart.setFgAlpha(128);
+        
+        PieModel model = new SimplePieModel();
+        model.setValue("Aprovados", new Double((apr/row.size())*100));
+        model.setValue("Reprovados", new Double((rep/row.size())*100));
+        chart.setModel(model);
+        chart.setParent(win);
+        
+        win.setWidth("40%");
+        win.setHeight("52%");
+        win.setMode(Window.Mode.POPUP);
+        win.setPosition("center,center");
+        win.setVisible(true);
+        win.setParent(winResultados);
+    }
     public void onSelect$turma(Event event) {
         if(matriculas.getRows()!=null)matriculas.removeChild(matriculas.getRows());
         media.setValue("");
+        gerarGrafico.setDisabled(false);
         Turma t = turma.getSelectedItem().getValue();
         double soma= 0;
         int contador=0;
@@ -97,9 +137,9 @@ public class PagRelatorioResultados extends GenericForwardComposer{
             for (int i = 0; i < matTurma.size(); i++) {              
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
-                
+                linha.setValue(c);
                 ctrlMatricula.calculaNotaFinal(c);
-                
+
                 linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));

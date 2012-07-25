@@ -42,7 +42,7 @@
             </grid>
 			
             <separator height="10px"/>
-							
+				
             <auxhead>
                 <auxheader align="center"
                            label="Relatório de Resultados" />
@@ -63,11 +63,10 @@
 
 				
             </grid>
-
-			
+	
             <separator height="8px"/>
-
-        </div>					
+        </div>
+        <button id="gerarGrafico" label="Gerar Gráfico" width="10%" height="4%" disabled="true"/>
     </window>
 </zk>
 

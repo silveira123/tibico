@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.*;
@@ -21,6 +20,7 @@ import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cih.PagEventosAluno;
 import academico.controleinterno.cih.PagEventosProfessor;
+import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.pessoa.cdp.*;
@@ -33,22 +33,21 @@ import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
-
 /**
- * <<descrição da Classe>> 
- * 
- * @author Gabriel Quézid 
+ * <<descrição da Classe>>
+ * <p/>
+ * @author Gabriel Quézid
  * @author Rodrigo Maia
  * @version 0.1
  * @see
  */
 public class CtrlPessoa {
 
-public static final int SALVAR = 0;
+    public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
-    private PagEventosAluno pagEventosAluno;
-    private PagEventosProfessor pagEventosProfessor;
+    private PagEventosAluno pagEventosAluno = null;
+    private PagEventosProfessor pagEventosProfessor = null;
     private AplCadastrarPessoa apl = AplCadastrarPessoa.getInstance();
     private AplCadastrarCalendario aplCalendario = AplCadastrarCalendario.getInstance();
 
@@ -60,10 +59,9 @@ public static final int SALVAR = 0;
         }
         return instance;
     }
-    
+
     public CtrlPessoa() {
     }
-
 
     public void setPagEventosAluno(PagEventosAluno pagEventosAluno) {
         this.pagEventosAluno = pagEventosAluno;
@@ -72,12 +70,13 @@ public static final int SALVAR = 0;
     public void setPagEventosProfessor(PagEventosProfessor pagEventosProfessor) {
         this.pagEventosProfessor = pagEventosProfessor;
     }
-    
+
     /**
      * Inclui os dados de um Aluno no sistema
+     * <p/>
      * @param args
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public Aluno incluirAluno(ArrayList<Object> args) {
         Aluno a = null;
@@ -95,19 +94,24 @@ public static final int SALVAR = 0;
 
     /**
      * Altera os dados do Aluno no sitema
+     * <p/>
      * @param professor
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public Aluno alterarAluno(Aluno aluno) {
         Aluno a = null;
         try {
             a = apl.alterarAluno(aluno);
-            pagEventosAluno.refreshAluno(a);
-            pagEventosAluno.setMensagemAviso("success", "Cadastro editado com sucesso");
+            if (pagEventosAluno != null) {
+                pagEventosAluno.refreshAluno(a);
+                pagEventosAluno.setMensagemAviso("success", "Cadastro editado com sucesso");
+            }
         }
         catch (AcademicoException ex) {
-            pagEventosAluno.setMensagemAviso("error", "Erro ao editar o aluno");
+            if (pagEventosAluno != null) {
+                pagEventosAluno.setMensagemAviso("error", "Erro ao editar o aluno");
+            }
             System.err.println(ex.getMessage());
         }
         return a;
@@ -115,8 +119,9 @@ public static final int SALVAR = 0;
 
     /**
      * Apaga os dados de um Aluno no sistema
+     * <p/>
      * @param aluno
-     * @throws Exception 
+     * @throws Exception
      */
     public void apagarAluno(Aluno aluno) throws Exception {
         apl.apagarAluno(aluno);
@@ -124,29 +129,32 @@ public static final int SALVAR = 0;
 
     /**
      * Obtém uma lista de todos os Alunos cadastrados
-     * @return 
+     * <p/>
+     * @return
      */
     public List<Aluno> obterAlunos() throws AcademicoException {
         return apl.obterAlunos();
     }
-    
+
     /**
      * Obtém uma lista de todos os Paises cadastrados
-     * @return 
+     * <p/>
+     * @return
      */
     public List<Pais> obterPaises() throws AcademicoException {
         return apl.obterPais();
     }
-    
-   public List<Curso> obterCurso() throws AcademicoException {
+
+    public List<Curso> obterCurso() throws AcademicoException {
         return apl.obterCursos();
     }
-    
+
     /**
      * Inclui os dados de um Professor no sistema
+     * <p/>
      * @param args
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public Professor incluirProfessor(ArrayList<Object> args) {
         Professor p = null;
@@ -164,19 +172,24 @@ public static final int SALVAR = 0;
 
     /**
      * Altera os dados do Professor no sitema
+     * <p/>
      * @param professor
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public Professor alterarProfessor(Professor professor) {
         Professor p = null;
         try {
             p = apl.alterarProfessor(professor);
-            pagEventosProfessor.refreshProfessor(p);
-            pagEventosProfessor.setMensagemAviso("success", "Cadastro editado com sucesso");
+            if (pagEventosProfessor != null) {
+                pagEventosProfessor.refreshProfessor(p);
+                pagEventosProfessor.setMensagemAviso("success", "Cadastro editado com sucesso");
+            }
         }
         catch (AcademicoException ex) {
-            pagEventosProfessor.setMensagemAviso("error", "Erro ao editar o professor");
+            if (pagEventosProfessor != null) {
+                pagEventosProfessor.setMensagemAviso("error", "Erro ao editar o professor");
+            }
             System.err.println(ex.getMessage());
         }
         return p;
@@ -184,8 +197,9 @@ public static final int SALVAR = 0;
 
     /**
      * Apaga os dados de um Professor no sistema
+     * <p/>
      * @param professor
-     * @throws Exception 
+     * @throws Exception
      */
     public void apagarProfessor(Professor professor) throws AcademicoException {
         apl.apagarProfessor(professor);
@@ -193,67 +207,78 @@ public static final int SALVAR = 0;
 
     /**
      * Obtém uma lista de todos os Professor cadastrados
-     * @return 
+     * <p/>
+     * @return
      */
     public List<Professor> obterProfessor() throws AcademicoException {
         return apl.obterProfessor();
     }
-    
+
     /**
      * Obtém uma lista com todas as Áreas de conhecimento
-     * @return 
+     * <p/>
+     * @return
      */
     public List<AreaConhecimento> obterAreaConhecimento() throws AcademicoException {
         return apl.obterAreaConhecimentos();
     }
-    
+
     /**
      * Obtém uma lista com todas as Estados a partir de um país
-     * @return 
+     * <p/>
+     * @return
      */
     public List<Estado> obterEstados(Pais pais) {
         try {
             return apl.obterEstados(pais);
+
+
         }
         catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Obtém uma lista com todas as Municipio a partir de um Estado
-     * @return 
+     * <p/>
+     * @return
      */
-    public List<Municipio> obterMunicipio(Estado estado){
+    public List<Municipio> obterMunicipio(Estado estado) {
         try {
             return apl.obterMunicipio(estado);
+
+
         }
         catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        return null;
     }
-    
+
     /**
      * Obtém uma lista com todas as Bairro a partir de um Municipio
-     * @return 
+     * <p/>
+     * @return
      */
-    public List<Bairro> obterBairro(Municipio municipio){
+    public List<Bairro> obterBairro(Municipio municipio) {
         try {
             return apl.obterBairro(municipio);
+
+
         }
         catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        return null;
     }
-    
-    public List<Telefone> setTelefones (ArrayList<Object> listTelefones){
+
+    public List<Telefone> setTelefones(ArrayList<Object> listTelefones) {
         return apl.setTelefones(listTelefones);
     }
-    
+
     public void abrirIncluirAluno(Aluno aluno, Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.SALVAR);
@@ -262,12 +287,12 @@ public static final int SALVAR = 0;
         Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
 
-    public void abrirEditarAluno(Aluno aluno, Curso curso) {
+    public Component abrirEditarAluno(Aluno aluno, Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.EDITAR);
         map.put("obj", aluno);
         map.put("curso", curso);
-        Executions.createComponents("/pagFormularioAluno.zul", null, map);
+        return Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
 
     public void abrirConsultarAluno(Aluno aluno) {
@@ -276,7 +301,7 @@ public static final int SALVAR = 0;
         map.put("obj", aluno);
         Executions.createComponents("/pagFormularioAluno.zul", null, map);
     }
-    
+
     public void abrirEventosAluno(Aluno aluno) {
         Map map = new HashMap();
         map.put("obj", aluno);
@@ -290,11 +315,11 @@ public static final int SALVAR = 0;
         Executions.createComponents("/pagFormularioProfessor.zul", null, map);
     }
 
-    public void abrirEditarProfessor(Professor professor) {
+    public Component abrirEditarProfessor(Professor professor) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.EDITAR);
         map.put("obj", professor);
-        Executions.createComponents("/pagFormularioProfessor.zul", null, map);
+        return Executions.createComponents("/pagFormularioProfessor.zul", null, map);
     }
 
     public void abrirConsultarProfessor(Professor professor) {
@@ -309,23 +334,20 @@ public static final int SALVAR = 0;
         map.put("obj", professor);
         Executions.createComponents("/pagEventosProfessor.zul", null, map);
     }
-    
+
     public void redirectPag(String url) {
         Executions.sendRedirect(url);
     }
- 
-    public List<Aluno> obterAlunosporTurma(Turma t)
-    {
+
+    public List<Aluno> obterAlunosporTurma(Turma t) {
         return apl.obterAlunosporTurma(t);
     }
-    
-    public Component abrirEventosAluno()
-    {
+
+    public Component abrirEventosAluno() {
         return Executions.createComponents("/pagEventosAluno.zul", null, null);
     }
-    
-    public Component abrirEventosProfessor()
-    {
+
+    public Component abrirEventosProfessor() {
         return Executions.createComponents("/pagEventosProfessor.zul", null, null);
     }
 
@@ -336,9 +358,24 @@ public static final int SALVAR = 0;
     public List<Calendario> obterCalendarios(Curso select) throws AcademicoException {
         return aplCalendario.obterCalendarios(select);
     }
-    
-    public List<Professor> obterProfessor(Calendario c)
-    {
+
+    public List<Professor> obterProfessor(Calendario c) {
         return apl.obterProfessor(c);
+    }
+
+    public Usuario obterUsuario(Pessoa p) {
+        return apl.obterUsuario(p);
+    }
+
+    public Usuario alterarUsuario(Usuario usuario) {
+        try {
+            return apl.alterarUsuario(usuario);
+
+
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

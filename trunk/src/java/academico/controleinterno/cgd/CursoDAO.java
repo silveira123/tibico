@@ -1,5 +1,6 @@
 package academico.controleinterno.cgd;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
 import academico.util.persistencia.DAO;
 

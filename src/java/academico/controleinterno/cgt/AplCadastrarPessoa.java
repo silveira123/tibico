@@ -34,8 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Classe de aplicação responsável por realizar os casos de uso relativos ao
- * Aluno e ao Professor
+ * Classe de aplicação responsável por realizar os casos de uso relativos ao Aluno e ao Professor
  * <p/>
  * @author Gabriel Quézid; Rodrigo Maia
  * @version 0.1
@@ -55,7 +54,6 @@ public class AplCadastrarPessoa {
     private static AplCadastrarPessoa instance = null;
 
     private AplCadastrarPessoa() {
-        
     }
 
     public static AplCadastrarPessoa getInstance() {
@@ -66,18 +64,20 @@ public class AplCadastrarPessoa {
     }
 
     //////////////////// ALUNO ////////////////////
-    /** Inclui um novo aluno. */
+    /**
+     * Inclui um novo aluno.
+     */
     public Aluno incluirAluno(List<Object> args) throws AcademicoException {
         Aluno aluno = new Aluno();
         ArrayList<Telefone> listTelefones;
         Endereco e;
-        
+
         String matricula = this.gerarMatricula((Curso) args.get(10));
-         if (matricula != null) {
+        if (matricula != null) {
             aluno.setNome((String) args.get(0));
             aluno.setSexo((Sexo) args.get(1));
             aluno.setDataNascimento((Calendar) args.get(2));
-            
+
             listTelefones = setTelefones((ArrayList<Object>) args.get(3));
             aluno.setTelefone(listTelefones);
 
@@ -86,19 +86,19 @@ public class AplCadastrarPessoa {
             aluno.setIdentidade((String) args.get(6));
             aluno.setNomeMae((String) args.get(7));
             aluno.setNomePai((String) args.get(8));
-            
+
             e = setEndereco((ArrayList<Object>) args.get(9));
             aluno.setEndereco(e);
-            
+
             aluno.setCurso((Curso) args.get(10));
-            aluno.setFoto((byte[])args.get(11));
+            aluno.setFoto((byte[]) args.get(11));
             aluno.setMatricula(matricula);
             aluno.setCoeficiente(0.0);
         }
-         aluno = (Aluno) apDaoAluno.salvar(aluno);
+        aluno = (Aluno) apDaoAluno.salvar(aluno);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
-        AplCadastrarUsuario.getInstance().incluirUsuario(matricula, "1234", new Integer(4), ((AlunoDAO)apDaoAluno).obterAluno(aluno.getId()));
+        AplCadastrarUsuario.getInstance().incluirUsuario(matricula, "1234", new Integer(4), ((AlunoDAO) apDaoAluno).obterAluno(aluno.getId()));
         //alert("BD Ok!");
         return aluno;
     }
@@ -137,7 +137,7 @@ public class AplCadastrarPessoa {
 
     /**
      * Obtém uma lista de todos os Alunos cadastrados
-     *
+     * <p/>
      * @return
      */
     public List<Aluno> obterAlunosporTurma(Turma t) {
@@ -145,7 +145,9 @@ public class AplCadastrarPessoa {
     }
 
     //////////////////// PROFESSOR ////////////////////
-    /** Inclui um novo professor. */
+    /**
+     * Inclui um novo professor.
+     */
     public Professor incluirProfessor(List<Object> args) throws AcademicoException {
         Professor professor = new Professor();
         ArrayList<Telefone> listTelefones;
@@ -154,64 +156,63 @@ public class AplCadastrarPessoa {
         professor.setNome((String) args.get(0));
         professor.setSexo((Sexo) args.get(1));
         professor.setDataNascimento((Calendar) args.get(2));
-        
+
         listTelefones = setTelefones((ArrayList<Object>) args.get(3));
         professor.setTelefone(listTelefones);
-        
+
         professor.setEmail((String) args.get(4));
         professor.setCpf((String) args.get(5));
         professor.setIdentidade((String) args.get(6));
-        
+
         e = setEndereco((ArrayList<Object>) args.get(7));
         professor.setEndereco(e);
 
         professor.setGrauInstrucao((GrauInstrucao) args.get(8));
 
         professor.setAreaConhecimento((ArrayList<AreaConhecimento>) args.get(9));
-        
-        professor.setFoto((byte[])args.get(10));
+
+        professor.setFoto((byte[]) args.get(10));
         professor = (Professor) apDaoProfessor.salvar(professor);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
-        AplCadastrarUsuario.getInstance().incluirUsuario(professor.getCpf() + "", "1234", new Integer(3), ((ProfessorDAO)apDaoProfessor).obterProfessor(professor.getId()));
+        AplCadastrarUsuario.getInstance().incluirUsuario(professor.getCpf() + "", "1234", new Integer(3), ((ProfessorDAO) apDaoProfessor).obterProfessor(professor.getId()));
         return professor;
     }
 
-    public ArrayList<Telefone> setTelefones(List<Object> listTelefones){
+    public ArrayList<Telefone> setTelefones(List<Object> listTelefones) {
         ArrayList<Telefone> lista = new ArrayList<Telefone>();
         Telefone tel;
-        
-        for (int i = 0; i < listTelefones.size(); i = i+3) {
+
+        for (int i = 0; i < listTelefones.size(); i = i + 3) {
             tel = new Telefone();
             if (listTelefones.get(i) != null) {
                 tel.setDdd((String) listTelefones.get(i));
-                tel.setNumero((String) listTelefones.get(i+1));
-                tel.setTipo((TipoTel) listTelefones.get(i+2));
+                tel.setNumero((String) listTelefones.get(i + 1));
+                tel.setTipo((TipoTel) listTelefones.get(i + 2));
             }
-            else
-            {
+            else {
                 tel.setDdd(null);
                 tel.setNumero(null);
-                tel.setTipo((TipoTel) listTelefones.get(i+2));
+                tel.setTipo((TipoTel) listTelefones.get(i + 2));
             }
             lista.add(tel);
         }
-         
+
         return lista;
     }
-    
-    public Endereco setEndereco(List<Object> listEndereco){
+
+    public Endereco setEndereco(List<Object> listEndereco) {
         Endereco e = new Endereco();
-        
+
         e.setLogradouro((String) listEndereco.get(0));
         e.setCep((Long) listEndereco.get(1));
         e.setNumero((Integer) (listEndereco.get(2)));
         e.setComplemento((String) listEndereco.get(3));
-        e.setBairro((Bairro) listEndereco.get(4));      
-        
+        e.setBairro((Bairro) listEndereco.get(4));
+
         return e;
     }
-    
+
     /**
      * Altera os dados do Professor no sitema
      * <p/>
@@ -309,32 +310,41 @@ public class AplCadastrarPessoa {
                 break;
             }
         }
-            
+
         matricula = c.getIdentificador() + curso.getSigla();
         sequencial = c.getSequencial();
         if (sequencial < 10) {
             matricula += "000" + sequencial;
-        } else if (sequencial < 100) {
+        }
+        else if (sequencial < 100) {
             matricula += "00" + sequencial;
-        } else if (sequencial < 1000) {
+        }
+        else if (sequencial < 1000) {
             matricula += "0" + sequencial;
         }
 
         c.setSequencial(c.getSequencial() + 1);
-            
+
         return matricula;
     }
 
     public Aluno obterAluno(String matricula) {
         return ((AlunoDAO) apDaoAluno).obterAluno(matricula);
     }
-    
+
     public Professor obterProfessor(String CPF) {
         return ((ProfessorDAO) apDaoProfessor).obterProfessor(CPF);
     }
- 
-    public List<Professor> obterProfessor(Calendario c)
-    {
+
+    public List<Professor> obterProfessor(Calendario c) {
         return ((ProfessorDAO) apDaoProfessor).obterProfessor(c);
+    }
+
+    public Usuario obterUsuario(Pessoa p) {
+        return AplCadastrarUsuario.getInstance().obter(p);
+    }
+
+    public Usuario alterarUsuario(Usuario usuario) throws AcademicoException {
+        return AplCadastrarUsuario.getInstance().alterarUsuario(usuario);
     }
 }

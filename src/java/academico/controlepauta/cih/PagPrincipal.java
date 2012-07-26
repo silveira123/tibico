@@ -19,6 +19,7 @@ import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
+import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Professor;
 import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
@@ -31,7 +32,7 @@ import org.zkoss.zul.*;
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos do Ptojeto Tibico; Os eventos são apresentados de acordo com o
  * privilégio de acesso.
- * 
+ * <p/>
  * @author Pietro Crhist
  * @author Geann Valfré
  */
@@ -67,7 +68,7 @@ public class PagPrincipal extends GenericForwardComposer {
 
     public void onCreate$div(Event event) {
         user = (Usuario) execution.getSession().getAttribute("usuario");
-        
+
         if (user != null) {
             if (user.getPessoa() != null) {
                 nomeUsuario.setValue("SEJA BEM VINDO(A) " + user.getPessoa().getNome().toUpperCase());
@@ -80,16 +81,23 @@ public class PagPrincipal extends GenericForwardComposer {
                 turma.setVisible(false);
                 matricularAluno.setVisible(false);
                 alocarProfessor.setVisible(false);
-                cadastroPessoa.setVisible(false);
+
+                cadastroPessoa.setVisible(true);
+                cadastrarAluno.setVisible(false);
+
                 cadastroAcademico.setVisible(false);
                 prof = (Professor) user.getPessoa();
             }
             else if (user.getPrivilegio() == 4) {
                 pauta.setVisible(false);
-                cadastroPessoa.setVisible(false);
                 cadastroAcademico.setVisible(false);
                 turma.setVisible(false);
                 alocarProfessor.setVisible(false);
+
+                cadastroPessoa.setVisible(true);
+                professor.setVisible(false);
+
+
                 resultado.setVisible(false);
                 visualizarTurmas.setVisible(false);
                 aluno = (Aluno) user.getPessoa();
@@ -103,10 +111,8 @@ public class PagPrincipal extends GenericForwardComposer {
 
     }
 
-    public void setFundo()
-    {
-        if(border.getCenter().getChildren() == null)
-        {
+    public void setFundo() {
+        if (border.getCenter().getChildren() == null) {
             Image img = new Image();
             img.setSrc("images/tibico6.png");
             img.setWidth("50%");
@@ -114,7 +120,7 @@ public class PagPrincipal extends GenericForwardComposer {
             img.setParent(border.getCenter());
         }
     }
-    
+
     public void onClick$curso(Event event) {
         border.getCenter().getChildren().clear();
         Window winCurso = (Window) CtrlCurso.getInstance().abrirEventosCurso();
@@ -183,19 +189,34 @@ public class PagPrincipal extends GenericForwardComposer {
     }
 
     public void onClick$cadastrarAluno(Event event) {
-        border.getCenter().getChildren().clear();
-        Window winCadastrarAluno = (Window) CtrlPessoa.getInstance().abrirEventosAluno();
-        winCadastrarAluno.setWidth("100%");
-        winCadastrarAluno.setHeight("100%");
-        winCadastrarAluno.setParent(border.getCenter());
+        Window winCadastrarAluno;
+        if (user.getPrivilegio() == 4) {
+            Aluno a = (Aluno) user.getPessoa();
+            CtrlPessoa.getInstance().abrirEditarAluno(a, a.getCurso());
+        }
+        else {
+            border.getCenter().getChildren().clear();
+            winCadastrarAluno = (Window) CtrlPessoa.getInstance().abrirEventosAluno();
+            winCadastrarAluno.setWidth("100%");
+            winCadastrarAluno.setHeight("100%");
+            winCadastrarAluno.setParent(border.getCenter());
+        }
     }
 
     public void onClick$professor(Event event) {
-        border.getCenter().getChildren().clear();
-        Window winProfessor = (Window) CtrlPessoa.getInstance().abrirEventosProfessor();
-        winProfessor.setWidth("100%");
-        winProfessor.setHeight("100%");
-        winProfessor.setParent(border.getCenter());
+        Window winProfessor;
+        if (user.getPrivilegio() == 3) {
+            Professor p = (Professor) user.getPessoa();
+            CtrlPessoa.getInstance().abrirEditarProfessor(p);
+        }
+        else {
+            border.getCenter().getChildren().clear();
+            winProfessor = (Window) CtrlPessoa.getInstance().abrirEventosProfessor();
+            winProfessor.setWidth("100%");
+            winProfessor.setHeight("100%");
+            winProfessor.setParent(border.getCenter());
+        }
+
     }
 
     public void onClick$alocarProfessor(Event event) {
@@ -271,9 +292,8 @@ public class PagPrincipal extends GenericForwardComposer {
         winAvaliacao.setHeight("100%");
         winAvaliacao.setParent(border.getCenter());
     }
-    
-    public void onClick$about(Event event) {      
+
+    public void onClick$about(Event event) {
         CtrlAula.getInstance().abrirAbout();
     }
-
 }

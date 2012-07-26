@@ -3,11 +3,11 @@
 <zk>
     <style>
         .myimg {
-            margin: 6px; 
-            border: 2px solid #CFCFCF; 
-            z-index: 9999;
-            position: relative;
-            box-shadow: 1px 0px 2px #000;
+        margin: 6px; 
+        border: 2px solid #CFCFCF; 
+        z-index: 9999;
+        position: relative;
+        box-shadow: 1px 0px 2px #000;
         }
     </style>
     
@@ -21,102 +21,111 @@
                 </columns>
                 <rows>
                     <row style="background:#FFFFFF;">
-                        <grid height="100%">
-                            <columns>
-                                <column width="30%" />
-                                <column width="70%" />
-                            </columns>
-                            <rows>
-                                <row>
-                                    <cell colspan="2">
-                                        <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
-                                    </cell>
-                                </row>
+                        <div>
+                            <grid height="100%">
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
+                                    <row style="background:#FFFFFF;">
+                                        <cell colspan="2">
+                                            <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
                                 
-                                <row>	
-                                    Nome:
-                                    <textbox id="nome" width="80%" />		
+                                    <row>	
+                                        Nome:
+                                        <textbox id="nome" width="80%" />		
 									
-                                </row>
+                                    </row>
 								
-                                <row>
-                                    Sexo:
-                                    <radiogroup Id="sexo" onCheck="">
-                                        <radio label="Masculino" />
-                                        <radio label="Feminino" />
-                                    </radiogroup>
-                                </row>
+                                    <row>
+                                        Sexo:
+                                        <radiogroup Id="sexo" onCheck="">
+                                            <radio label="Masculino" />
+                                            <radio label="Feminino" />
+                                        </radiogroup>
+                                    </row>
 								
-                                <row>
-                                    Data Nascimento:
-                                    <datebox id="dataNasc" readonly="true" />
-                                </row>
-                                <row>
-                                    Telefone:
-                                    <textbox id="telefone" width="30%"
-                                             constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um telefone válido: (27)3322-3322"/>
-                                </row>
+                                    <row>
+                                        Data Nascimento:
+                                        <datebox id="dataNasc" readonly="true" />
+                                    </row>
+                                    <row>
+                                        Telefone:
+                                        <textbox id="telefone" width="30%"
+                                                 constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um telefone válido: (27)3322-3322"/>
+                                    </row>
 			
 			
-                                <row>
-                                    Celular:
-                                    <textbox id="celular" width="30%"
-                                             constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um celular válido: (27)9522-3472"/>
-                                </row>
+                                    <row>
+                                        Celular:
+                                        <textbox id="celular" width="30%"
+                                                 constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um celular válido: (27)9522-3472"/>
+                                    </row>
 									
-                                <row>
-                                    Email:
-                                    <textbox id="email" width="50%"
-                                             constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com" />
-                                </row>
+                                    <row>
+                                        Email:
+                                        <textbox id="email" width="50%"
+                                                 constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com" />
+                                    </row>
 			
 			
-                                <row>
-                                    CPF:
-                                    <textbox id="cpf" width="30%" 
-                                             constraint="/[0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9][0-9]-[0-9][0-9]/: Entre com um CPF válido: 123.123.123-12"/>
-                                </row>
+                                    <row>
+                                        CPF:
+                                        <textbox id="cpf" width="30%" 
+                                                 constraint="/[0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9][0-9]-[0-9][0-9]/: Entre com um CPF válido: 123.123.123-12"/>
+                                    </row>
 								
-                                <row>
-                                    RG:
-                                    <textbox id="rg" width="30%" />
-                                </row>
+                                    <row>
+                                        RG:
+                                        <textbox id="rg" width="30%" />
+                                    </row>
 			
 					
-                                <row>
-                                    Nome da Mãe:
-                                    <textbox id="nomeMae" width="80%" />
-                                </row>
+                                    <row>
+                                        Nome da Mãe:
+                                        <textbox id="nomeMae" width="80%" />
+                                    </row>
 								
-                                <row>
-                                    Nome do Pai:
-                                    <textbox id="nomePai" width="80%" />
-                                </row>
+                                    <row>
+                                        Nome do Pai:
+                                        <textbox id="nomePai" width="80%" />
+                                    </row>
                                 
-                                <row>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                </row>
                                 
-                                <row>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                </row>
-                                
-                                <row>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                </row>
-                                
-                                <row>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                    <label  value="." style="font-family:comic sans ms; color:#f7f7f7"></label>
-                                </row>
                                                                 
-                            </rows>
-                        </grid>
-						
-			<div>			
+                                </rows>
+                            </grid>
+                            <separator id="separator"/>
+                        
+                            <grid id="gridUsuario">
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
+                                                          
+                                    <row style="background:#FFFFFF;">
+                                        <cell colspan="2">
+                                            <label value="Usuário" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
+                                
+                                    <row>
+                                        Senha:
+                                        <textbox id="senha" width="30%" type="password"></textbox>
+                                    </row>
+                                    
+                                    <row>
+                                        Confirmação de Senha:
+                                        <textbox id="confSenha" width="30%" type="password"></textbox>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </div>			
+                        <div>			
                         
                             <grid>
                                 <columns>
@@ -124,7 +133,7 @@
                                     <column width="30%" />
                                 </columns>
                                 <rows>
-                                    <row height="10%">
+                                    <row height="10%" style="background:#FFFFFF;">
                                         <cell colspan="2">
                                             <label value="Foto" style="font-weight:bold; font-size:14px"/> 
                                         </cell>
@@ -143,63 +152,63 @@
                             </grid>
                         
                             <separator/>			
-                        <grid>
-                            <columns>
-                                <column width="30%" />
-                                <column width="70%" />
-                            </columns>
-                            <rows>
+                            <grid>
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
                                 
-                                <row>
-                                    <cell colspan="2">
-                                    <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
-                                    </cell>
-                                </row>
+                                    <row style="background:#FFFFFF;">
+                                        <cell colspan="2">
+                                            <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
                                 
-                                <row>
-                                    CEP:
-                                    <textbox id="cep" width="20%" 
-                                             constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/: Entre com um CEP válido: 27458963"/>
-                                </row>
+                                    <row>
+                                        CEP:
+                                        <textbox id="cep" width="20%" 
+                                                 constraint="/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/: Entre com um CEP válido: 27458963"/>
+                                    </row>
                                 
-                                <row>
-                                    Logradouro:
-                                    <textbox id="logradouro" width="80%" />
-                                </row>
+                                    <row>
+                                        Logradouro:
+                                        <textbox id="logradouro" width="80%" />
+                                    </row>
 			
-                                <row>
-                                    Número:
-                                    <intbox width="15%" id="numero" />
-                                </row>
+                                    <row>
+                                        Número:
+                                        <intbox width="15%" id="numero" />
+                                    </row>
 								
-                                <row>
-                                    Complemento:
-                                    <textbox id="complemento" width="80%" />
-                                </row>
+                                    <row>
+                                        Complemento:
+                                        <textbox id="complemento" width="80%" />
+                                    </row>
 						
-                                <row>
-                                    País:
-                                    <combobox id="pais"></combobox>
-                                </row>
+                                    <row>
+                                        País:
+                                        <combobox id="pais"></combobox>
+                                    </row>
                                 
-                                <row>
-                                    Estado:
-                                    <combobox id="estado"></combobox>
-                                </row>
+                                    <row>
+                                        Estado:
+                                        <combobox id="estado"></combobox>
+                                    </row>
                                 
-                                <row>
-                                    Cidade:
-                                    <combobox id="cidade"></combobox>
-                                </row>
+                                    <row>
+                                        Cidade:
+                                        <combobox id="cidade"></combobox>
+                                    </row>
                                 
-                                <row>
-                                    Bairro:
-                                    <combobox id="bairro"></combobox>
-                                </row>
+                                    <row>
+                                        Bairro:
+                                        <combobox id="bairro"></combobox>
+                                    </row>
 											
-                            </rows>
-                        </grid>
-		    </div>			
+                                </rows>
+                            </grid>
+                        </div>			
                     </row>
                 </rows>
             </grid>

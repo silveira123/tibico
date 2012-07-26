@@ -136,7 +136,7 @@ public class PagEventosAluno extends GenericForwardComposer {
                     ctrl.abrirIncluirAluno(a, select);
                 }
                 else {
-                    Messagebox.show("Não há calendários para esse curso!");
+                    setMensagemAviso("info","Não há calendários para esse curso!");
                 }
             }
             catch (AcademicoException ex) {
@@ -144,7 +144,7 @@ public class PagEventosAluno extends GenericForwardComposer {
             }
         }
         else {
-            Messagebox.show("Selecione um curso!");
+            setMensagemAviso("info","Selecione um curso!");
         }
     }
 

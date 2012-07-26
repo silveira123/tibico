@@ -18,6 +18,7 @@ package academico.controleinterno.cih;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
+import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.pessoa.cdp.*;
 import java.awt.image.BufferedImage;
@@ -70,11 +71,15 @@ public class PagFormularioAluno extends GenericForwardComposer {
     private Textbox logradouro;
     private Intbox numero;
     private Textbox complemento;
+    private Textbox senha;
+    private Textbox confSenha;
     private Button salvarAluno;
     private Curso curso;
     private byte[] bytes = null;
-    
     private Image pics;
+    private Separator separator;
+    private Grid gridUsuario;
+    private Usuario usuarioObjetoAluno;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -83,7 +88,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
         List<Pais> paises = ctrlPessoa.obterPaises();
         ListModelList<Pais> list = new ListModelList<Pais>(paises, true);
         pais.setModel(list);
-        
+
         //colocando brasil como pais padrão
         list.addToSelection(paises.get(32));
         onSelect$pais(null);
@@ -105,12 +110,13 @@ public class PagFormularioAluno extends GenericForwardComposer {
         else {
             MODO = (Integer) arg.get("tipo");
 
-            if (MODO != ctrlPessoa.SALVAR) {
+            if (MODO != CtrlPessoa.SALVAR) {
 
                 obj = (Aluno) arg.get("obj");
                 curso = (Curso) arg.get("curso");
+                usuarioObjetoAluno = ctrlPessoa.obterUsuario(obj);
                 preencherTela();
-                if (MODO == ctrlPessoa.CONSULTAR) {
+                if (MODO == CtrlPessoa.CONSULTAR) {
                     this.salvarAluno.setVisible(false);
                     bloquearTela();
                 }
@@ -133,13 +139,13 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
         //Preenchendo o campo telefone
         if (obj.getTelefone().get(0).getDdd() != null) {
-                    telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
+            telefone.setText(preencherTelefone(obj.getTelefone().get(0)));
         }
         //Preenchendo o campo celular
         if (obj.getTelefone().get(1).getDdd() != null) {
-                    celular.setText(preencherTelefone(obj.getTelefone().get(1)));
+            celular.setText(preencherTelefone(obj.getTelefone().get(1)));
         }
-        
+
         email.setText(obj.getEmail());
         cpf.setText(preencherCpf(obj.getCpf()));
         rg.setText(obj.getIdentidade());
@@ -152,18 +158,34 @@ public class PagFormularioAluno extends GenericForwardComposer {
         logradouro.setText(obj.getEndereco().getLogradouro());
         complemento.setText(obj.getEndereco().getComplemento());
         numero.setValue(obj.getEndereco().getNumero());
-        
+
         this.bytes = obj.getFoto();
         construirImagem(this.bytes);
+
+        senha.setText(usuarioObjetoAluno.getSenha());
+        confSenha.setText(usuarioObjetoAluno.getSenha());
+
+        Usuario u = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
+        if (u != null && u.getPrivilegio() == 4) {
+            nome.setDisabled(true);
+            sexo.getItemAtIndex(0).setDisabled(true);
+            sexo.getItemAtIndex(1).setDisabled(true);
+            dataNasc.setDisabled(true);
+            cpf.setDisabled(true);
+            rg.setDisabled(true);
+            nomeMae.setDisabled(true);
+            nomePai.setDisabled(true);
+        }
     }
-    
+
     /**
      * A partir de um byte array, constroi uma imagem
-     * @param img  contém um byte array da imagem
+     * <p/>
+     * @param img contém um byte array da imagem
      */
-    public void construirImagem(byte[] img){
+    public void construirImagem(byte[] img) {
         if (img != null) {
-           try {
+            try {
                 ByteArrayInputStream bais = new ByteArrayInputStream(img);
                 BufferedImage bufferedImg = ImageIO.read(bais);
 
@@ -171,8 +193,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
             }
             catch (IOException ex) {
                 Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        } 
+            }
+        }
     }
 
     public int marcarSexo(Sexo sexo) {
@@ -186,6 +208,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
     /**
      * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
+     * <p/>
      * @return String formatada no seguinte padrão (xx)xxxx-xxxx
      */
     public String preencherTelefone(Telefone t) {
@@ -263,6 +286,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
         numero.setDisabled(true);
         complemento.setDisabled(true);
         foto.setDisabled(true);
+        senha.setDisabled(true);
+        confSenha.setDisabled(true);
     }
 
     public void onClick$salvarAluno(Event event) {
@@ -319,6 +344,9 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obj.setCurso(curso);
                 obj.setFoto(bytes);
 
+                usuarioObjetoAluno.setSenha(senha.getText());
+                usuarioObjetoAluno = ctrlPessoa.alterarUsuario(usuarioObjetoAluno);
+
                 a = ctrlPessoa.alterarAluno(obj);
 
             }
@@ -343,7 +371,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 list.add(listaEndereco);
                 list.add(curso);
                 list.add(this.bytes);
-                
+
                 a = ctrlPessoa.incluirAluno(list);
             }
             winCadastro.onClose();
@@ -374,8 +402,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
         }
         else {
             indice = listTelefone.size();
-        }      
-  
+        }
+
         //Se a String vinda do formulário for diferente de "vazio" ela é tratada e inserida na lista
         if (!telefone.equals("")) {
             ddd = telefone.replace("(", " ");
@@ -411,7 +439,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
 
         return cpf;
     }
-   
+
     public void obterEndereco(ArrayList<Object> listaEndereco) {
         listaEndereco.add(logradouro.getText());
         listaEndereco.add(obterCEP(cep.getText()));
@@ -484,6 +512,8 @@ public class PagFormularioAluno extends GenericForwardComposer {
         cidade.setSelectedItem(null);
         estado.setSelectedItem(null);
         pais.setSelectedItem(null);
+        senha.setText(null);
+        confSenha.setText(null);
     }
 
     public void onClick$voltar(Event event) {
@@ -541,27 +571,40 @@ public class PagFormularioAluno extends GenericForwardComposer {
         if (numero.getText().trim().equals("")) {
             msg += "- Numero\n";
         }
+        if (MODO != CtrlPessoa.SALVAR && senha.getText().trim().equals("")) {
+            msg += "- Senha\n";
+        }
+        if (MODO != CtrlPessoa.SALVAR && confSenha.getText().trim().equals("")) {
+            msg += "- Confirmação de Senha\n";
+        }
+        if (MODO != CtrlPessoa.SALVAR && !senha.getText().equals(confSenha.getText())) {
+            msg += "- Senha e Confirmação não são iguais\n";
+        }
 
         return msg;
     }
-    
+
     public void onUpload$foto(UploadEvent event) {
         //Media media = event.getMedia();
         org.zkoss.util.media.Media media = event.getMedia();
 
         if (media != null && media.isBinary()) {
-            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getByteData();
                 construirImagem(bytes);
             }
-            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
         }
         else if (media != null && media.isBinary() == false) {
-            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getStringData().getBytes();
                 construirImagem(bytes);
             }
-            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
         }
     }
 }

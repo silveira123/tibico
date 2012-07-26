@@ -51,14 +51,9 @@ public class AplCadastrarUsuario
 		return usuario;
 	}
 	
-	public Usuario alterarUsuario(Usuario usuario, String nome, String senha, int privilegio) throws AcademicoException
-	{
-		usuario.setNome(nome);		
-		usuario.setSenha(senha);		
-		usuario.setPrivilegio(privilegio);		
-		apDaoUsuario.salvar(usuario);
-		return usuario;
-	}
+    public Usuario alterarUsuario(Usuario usuario) throws AcademicoException {
+		return (Usuario) apDaoUsuario.salvar(usuario);
+    }
 	
 	public boolean apagarUsuario(Usuario usuario) throws AcademicoException 
 	{
@@ -86,11 +81,7 @@ public class AplCadastrarUsuario
 		return null;
 	}
     
-    public Usuario obter(Aluno a) {
-        return ((UsuarioDAO) apDaoUsuario).obterUsuario(a);
-    }
-    
-    public Usuario obter(Professor p) {
+    public Usuario obter(Pessoa p) {
         return ((UsuarioDAO) apDaoUsuario).obterUsuario(p);
     }
 }

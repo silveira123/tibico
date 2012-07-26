@@ -2,13 +2,13 @@
 
 
 <zk>
-     <style>
+    <style>
         .myimg {
-            margin: 6px; 
-            border: 2px solid #CFCFCF; 
-            z-index: 9999;
-            position: relative;
-            box-shadow: 1px 0px 2px #000;
+        margin: 6px; 
+        border: 2px solid #CFCFCF; 
+        z-index: 9999;
+        position: relative;
+        box-shadow: 1px 0px 2px #000;
         }
     </style>
     
@@ -28,7 +28,7 @@
                                 <column width="70%"/>
                             </columns>
                             <rows>
-                                <row>
+                                <row style="background:#FFFFFF;">
                                     <cell colspan="2">
                                         <label value="Dados Pessoais" style="font-weight:bold; font-size:14px"/> 
                                     </cell>
@@ -112,7 +112,7 @@
                                     <column width="30%" />
                                 </columns>
                                 <rows>
-                                    <row height="10%">
+                                    <row style="background:#FFFFFF;" height="10%">
                                         <cell colspan="2">
                                             <label value="Foto" style="font-weight:bold; font-size:14px"/> 
                                         </cell>
@@ -139,7 +139,7 @@
                                 </columns>
                                 <rows>
                                                           
-                                    <row>
+                                    <row style="background:#FFFFFF;">
                                         <cell colspan="2">
                                             <label value="Endereço" style="font-weight:bold; font-size:14px"/> 
                                         </cell>
@@ -186,7 +186,33 @@
                                         Bairro:
                                         <combobox id="bairro"></combobox>
                                     </row>
-					
+                                </rows>
+                            </grid>
+                            
+                            <separator id="separator"/>
+                        
+                            <grid id="gridUsuario">
+                                <columns>
+                                    <column width="30%" />
+                                    <column width="70%" />
+                                </columns>
+                                <rows>
+                                                          
+                                    <row style="background:#FFFFFF;">
+                                        <cell colspan="2">
+                                            <label value="Usuário" style="font-weight:bold; font-size:14px"/> 
+                                        </cell>
+                                    </row>
+                                
+                                    <row>
+                                        Senha:
+                                        <textbox id="senha" width="30%" type="password"></textbox>
+                                    </row>
+                                    
+                                    <row>
+                                        Confirmação de Senha:
+                                        <textbox id="confSenha" width="30%" type="password"></textbox>
+                                    </row>
                                 </rows>
                             </grid>
                         </div>

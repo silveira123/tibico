@@ -16,25 +16,17 @@
 
 package academico.controlepauta.cgd;
 
-import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Professor;
 import academico.controlepauta.cdp.Usuario;
 import academico.util.persistencia.DAO;
+import academico.util.pessoa.cdp.Pessoa;
 
 public interface UsuarioDAO extends DAO<Usuario>
 {
     /**
-     * Enunciado da função que obtém os dados do usuário através de um aluno
-     * @param a
-     * @return 
-     */
-    public Usuario obterUsuario(Aluno a); 
-    
-    /**
-     * Enunciado da função que obtém os dados do usuário através de um professor
+     * Enunciado da função que obtém os dados do usuário através de uma Pessoa
      * @param p
      * @return 
      */
-    public Usuario obterUsuario(Professor p);
+    public Usuario obterUsuario(Pessoa p);
 }
 

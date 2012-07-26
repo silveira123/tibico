@@ -17,6 +17,7 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Professor;
+import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -24,7 +25,6 @@ import academico.util.pessoa.cdp.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -71,13 +71,17 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     private Textbox complemento;
     private Combobox grauInstrucao;
     private Listbox listAreaConhecimento;
+    private Textbox senha;
+    private Textbox confSenha;
     private CtrlPessoa ctrlPessoa = CtrlPessoa.getInstance();
     private Window winFormularioProfessor;
     private Professor obj;
     private byte[] bytes = null;
     private int MODO;
-    
     private Image pics;
+    private Separator separator;
+    private Grid gridUsuario;
+    private Usuario usuarioObjetoProf;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -125,13 +129,18 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         else {
             MODO = (Integer) arg.get("tipo");
 
-            if (MODO != ctrlPessoa.SALVAR) {
+            if (MODO != CtrlPessoa.SALVAR) {
                 obj = (Professor) arg.get("obj");
+                usuarioObjetoProf = ctrlPessoa.obterUsuario(obj);
                 preencherTela();
-                if (MODO == ctrlPessoa.CONSULTAR) {
+                if (MODO == CtrlPessoa.CONSULTAR) {
                     this.salvarProfessor.setVisible(false);
                     bloquearTela();
                 }
+            }
+            else {
+                separator.setVisible(false);
+                gridUsuario.setVisible(false);
             }
         }
     }
@@ -164,7 +173,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         logradouro.setText(obj.getEndereco().getLogradouro());
         complemento.setText(obj.getEndereco().getComplemento());
         numero.setValue(obj.getEndereco().getNumero());
-        
+
         this.bytes = obj.getFoto();
         construirImagem(this.bytes);
 
@@ -183,15 +192,28 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
         }
 
+        senha.setText(usuarioObjetoProf.getSenha());
+        confSenha.setText(usuarioObjetoProf.getSenha());
+
+        Usuario u = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
+        if (u != null && u.getPrivilegio() == 3) {
+            nome.setDisabled(true);
+            sexo.getItemAtIndex(0).setDisabled(true);
+            sexo.getItemAtIndex(1).setDisabled(true);
+            dataNasc.setDisabled(true);
+            cpf.setDisabled(true);
+            rg.setDisabled(true);
+        }
     }
 
     /**
      * A partir de um byte array, constroi uma imagem
-     * @param img  contém um byte array da imagem
+     * <p/>
+     * @param img contém um byte array da imagem
      */
-    public void construirImagem(byte[] img){
+    public void construirImagem(byte[] img) {
         if (img != null) {
-           try {
+            try {
                 ByteArrayInputStream bais = new ByteArrayInputStream(img);
                 BufferedImage bufferedImg = ImageIO.read(bais);
 
@@ -199,14 +221,15 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             }
             catch (IOException ex) {
                 Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        } 
+            }
+        }
     }
-    
+
     /**
      * A partir de um tipo enumerado Sexo, identifica a seleção adquada
+     * <p/>
      * @param sexo
-     * @return 
+     * @return
      */
     public int marcarSexo(Sexo sexo) {
         if (sexo == Sexo.FEMININO) {
@@ -219,7 +242,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
 
     /**
      * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
-     * 
+     * <p/>
      * @return String formatada no seguinte padrão (xx)xxxx-xxxx
      */
     public String preencherTelefone(Telefone t) {
@@ -302,6 +325,9 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         numero.setDisabled(true);
         complemento.setDisabled(true);
         foto.setDisabled(true);
+        senha.setDisabled(true);
+        confSenha.setDisabled(true);
+
     }
 
     public void onClick$salvarProfessor(Event event) {
@@ -358,7 +384,10 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setGrauInstrucao(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
                 obj.setFoto(bytes);
-                
+
+                usuarioObjetoProf.setSenha(senha.getText());
+
+                usuarioObjetoProf = ctrlPessoa.alterarUsuario(usuarioObjetoProf);
                 p = ctrlPessoa.alterarProfessor(obj);
             }
             else {
@@ -386,7 +415,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 list.add(GrauInstrucao.valueOf(grauInstrucao.getText())); // grau de intrução
                 list.add(getSelecionadosList(listAreaConhecimento));
                 list.add(this.bytes);
-                
+
                 p = ctrlPessoa.incluirProfessor(list);
             }
             winFormularioProfessor.onClose();
@@ -497,6 +526,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         pais.setSelectedItem(null);
         grauInstrucao.setSelectedItem(null);
         listAreaConhecimento.clearSelection();
+        senha.setText(null);
+        confSenha.setText(null);
     }
 
     public void onSelect$pais(Event event) {
@@ -593,6 +624,15 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         if (numero.getText().trim().equals("")) {
             msg += "- Numero\n";
         }
+        if (MODO != CtrlPessoa.SALVAR && senha.getText().trim().equals("")) {
+            msg += "- Senha\n";
+        }
+        if (MODO != CtrlPessoa.SALVAR && confSenha.getText().trim().equals("")) {
+            msg += "- Confirmação de Senha\n";
+        }
+        if (MODO != CtrlPessoa.SALVAR && !senha.getText().equals(confSenha.getText())) {
+            msg += "- Senha e Confirmação não são iguais\n";
+        }
 
         return msg;
     }
@@ -602,18 +642,22 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         org.zkoss.util.media.Media media = event.getMedia();
 
         if (media != null && media.isBinary()) {
-            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getByteData();
                 construirImagem(bytes);
             }
-            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
         }
         else if (media != null && media.isBinary() == false) {
-            if("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())){
+            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getStringData().getBytes();
                 construirImagem(bytes);
             }
-            else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            else {
+                Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
         }
     }
 }

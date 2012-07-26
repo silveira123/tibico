@@ -144,8 +144,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
         if (comboitem != null) {
             Aluno a = comboitem.getValue();
             if (permissao == 1) {
-                boolean b = ctrlMatricula.verificaPeriodoMatricula(a.getCurso());
-                if (b) {
+                if (ctrlMatricula.verificaPeriodoMatricula(a.getCurso())) {
                     ctrlMatricula.abrirMatricular(a);
                 }
                 else {
@@ -163,8 +162,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
         if (listitem != null) {
             try {
                 if (permissao == 1) {
-                    boolean b = ctrlMatricula.verificaPeriodoMatricula(((Aluno) nomeAluno.getSelectedItem().getValue()).getCurso());
-                    if (b) {
+                    if (ctrlMatricula.verificaPeriodoMatricula(((Aluno) nomeAluno.getSelectedItem().getValue()).getCurso())) {
                         MatriculaTurma mt = listitem.getValue();
                         ctrlMatricula.cancelarMatricula(mt);
                         listbox.removeItemAt(listbox.getSelectedIndex());

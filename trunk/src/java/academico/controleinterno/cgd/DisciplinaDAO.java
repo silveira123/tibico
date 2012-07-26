@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface DisciplinaDAO extends DAO<Disciplina> {
     public List<Disciplina> obter(Curso curso);
-    public List<Disciplina> obter(Disciplina disciplina);
     public List<Disciplina> obterVinculadas(Aluno aluno);
     public List<Disciplina> obterAprovadas(Aluno aluno);
 }

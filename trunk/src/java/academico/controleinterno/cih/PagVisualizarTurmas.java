@@ -50,7 +50,6 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
     private Combobox curso;
     private Combobox calendarioAcademico;
     private Combobox professor;
-    private Button fecharTurmas;
     private Curso c;
     private Professor obj;
 
@@ -201,25 +200,5 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
         }
     }
 
-    public void onClick$fecharTurmas(Event event) throws Exception {
-        ArrayList<Turma> turmas = new ArrayList<Turma>();
-
-        for (int i = 0; i < listbox.getItemCount(); i++) {
-            if (listbox.getItemAtIndex(i).isSelected()) {
-                turmas.add((Turma) listbox.getItemAtIndex(i).getValue());
-            }
-        }
-
-        if (turmas.size() > 0) {
-            if (ctrlLetivo.verificarPeriodoLetivo(c)) {
-                for (int i = 0; i < turmas.size(); i++) {
-                    turmas.get(i).setEstadoTurma(EstadoTurma.ENCERRADA);
-                    ctrlLetivo.fecharTurma(turmas.get(i));
-                }
-            } else {
-                Messagebox.show("Está fora do periodo Letivo");
-            }
-        }
-
-    }
+    
 }

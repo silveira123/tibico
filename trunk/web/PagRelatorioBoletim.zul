@@ -69,5 +69,6 @@
                 </rows>
             </grid>
         </div>
+        <button id="gerarPdf" label="Gerar PDF" width="10%" height="4%" disabled="true"/>
     </window>
 </zk>

@@ -20,6 +20,10 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -46,6 +50,8 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     private Window winHistorico;
     private Div boxInformacao;
     private Label msg;
+    private Button gerarPdf;
+    private List<MatriculaTurma> matTurma;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -66,6 +72,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         }
         nome.setReadonly(true);
         matricula.setReadonly(true);
+        gerarPdf.setDisabled(true);
     }
     
     public void onCreate$winHistorico(Event event) {
@@ -80,6 +87,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         obj = nome.getSelectedItem().getValue();
         matricula.setValue(obj.getMatricula().toString());
         adicionaDisciplinas(obj);
+        gerarPdf.setDisabled(false);
     }
     
     /**
@@ -93,7 +101,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             disciplinas.removeChild(disciplinas.getRows());
         }
         try {
-            List<MatriculaTurma> matTurma = ctrlMatricula.emitirHistorico(obj);
+            matTurma = ctrlMatricula.emitirHistorico(obj);
             curso.setValue(obj.getCurso().toString());
             if(obj.getCoeficiente() != null) coeficiente.setValue(obj.getCoeficiente().toString());
             Rows linhas = new Rows();
@@ -125,5 +133,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
 
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
+    }
+    public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        if(matTurma.size()>0)ctrlMatricula.gerarPdf(matTurma, false);
+        else{
+            setMensagemAviso("error", "Não existem disciplinas encerradas");
+        }
     }
 }

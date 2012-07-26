@@ -18,10 +18,11 @@
                           label="Consultar" width="5%" />
                 <menuitem id="excluir" tooltiptext="excluir um calendário"
                           label="Excluir" width="5%" />
-                <menuitem id="fechar" tooltiptext="fechar periodo"
-                          label="Fechar Período" width="5%" />
                 <menuitem id="abrir" tooltiptext="abrir periodo"
-                                              label="Abrir Período" width="20%" />
+                                              label="Abrir Período" width="5%" />
+                <menuitem id="fechar" tooltiptext="fechar periodo"
+                          label="Fechar Período" width="20%" />
+                
                 
             </menubar>
             <grid>

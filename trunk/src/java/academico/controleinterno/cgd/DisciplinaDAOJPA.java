@@ -22,22 +22,7 @@ public class DisciplinaDAOJPA extends DAOJPA<Disciplina> implements DisciplinaDA
         return query.getResultList();
     }
 
-    /** Obtém as disciplinas... */
-    //FIXME: o Que faz este método? e Como faz?
-    public List<Disciplina> obter(Disciplina disc) {
-        Query query;
-        List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-        for (int i = 0; i < disc.getPrerequisito().size(); i++) {
-            query = entityManager.createQuery("SELECT pd from Disciplina pd WHERE pd.id = ?1");
-            query.setParameter(1, disc.getPrerequisito().get(i).getId());
-            List<Disciplina> lista = query.getResultList();
-            for (int j = 0; j < lista.size(); j++) {
-                disciplinas.add(lista.get(i));
-            }
-        }
-        return disciplinas;
-    }
-
+    
     /** Obtém as disciplinas às quais um aluno está vinculado (aprovado, cursando ou
      * matriculado). */
     public List<Disciplina> obterVinculadas(Aluno aluno) {

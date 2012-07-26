@@ -114,7 +114,7 @@
                                     </row>
                                 
                                     <row>
-                                        Senha:
+                                        Nova Senha:
                                         <textbox id="senha" width="30%" type="password"></textbox>
                                     </row>
                                     

@@ -114,6 +114,7 @@ public class CtrlPessoa {
             }
             System.err.println(ex.getMessage());
         }
+        pagEventosAluno = null;
         return a;
     }
 
@@ -192,6 +193,7 @@ public class CtrlPessoa {
             }
             System.err.println(ex.getMessage());
         }
+        pagEventosProfessor = null;
         return p;
     }
 

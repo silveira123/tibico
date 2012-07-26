@@ -16,8 +16,6 @@
 
 package academico.controlepauta.cgt;
 
-import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgd.UsuarioDAO;
@@ -44,7 +42,7 @@ public class AplCadastrarUsuario
 	{
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
-		usuario.setSenha(senha);
+		usuario.setSenhaCriptografar(senha);
 		usuario.setPrivilegio(privilegio);
         usuario.setPessoa(p);
         apDaoUsuario.salvar(usuario);
@@ -52,7 +50,8 @@ public class AplCadastrarUsuario
 	}
 	
     public Usuario alterarUsuario(Usuario usuario) throws AcademicoException {
-		return (Usuario) apDaoUsuario.salvar(usuario);
+		usuario.setSenhaCriptografar(usuario.getSenha());
+        return (Usuario) apDaoUsuario.salvar(usuario);
     }
 	
 	public boolean apagarUsuario(Usuario usuario) throws AcademicoException 
@@ -73,9 +72,10 @@ public class AplCadastrarUsuario
 	public Usuario validarUsuario(String nome, String senha) throws AcademicoException
 	{
 		List<Usuario> l = listarUsuarios();
-		
+		String senhaCrip = Usuario.gerarHashCode(senha);
+        
 		for(int i=0; i < l.size() ;i++)
-		{	if(l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senha)) 
+		{	if(l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senhaCrip)) 
 				return l.get(i);
 		}
 		return null;

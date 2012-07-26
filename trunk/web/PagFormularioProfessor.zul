@@ -108,8 +108,8 @@
                         
                             <grid>
                                 <columns>
-                                    <column width="30%" />
                                     <column width="70%" />
+                                    <column width="30%" />
                                 </columns>
                                 <rows>
                                     <row height="10%">
@@ -119,12 +119,12 @@
                                        
                                     </row>
                                     <row style="background:#FFFFFF;" height="90%">
-                                        <div align="center">
-                                            <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
-                                        </div>
-                                        
                                         <div align="center"> 
                                             <image sclass="myimg" id="pics" width="32%" height="118px"/>
+                                        </div>
+                                        
+                                        <div align="center">
+                                            <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
                                         </div>
                                     </row>
                                 </rows>

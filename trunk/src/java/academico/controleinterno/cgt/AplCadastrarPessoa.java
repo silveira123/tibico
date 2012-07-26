@@ -91,6 +91,7 @@ public class AplCadastrarPessoa {
             aluno.setEndereco(e);
             
             aluno.setCurso((Curso) args.get(10));
+            aluno.setFoto((byte[])args.get(11));
             aluno.setMatricula(matricula);
             aluno.setCoeficiente(0.0);
         }

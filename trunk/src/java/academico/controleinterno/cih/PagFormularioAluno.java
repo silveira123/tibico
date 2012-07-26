@@ -158,7 +158,7 @@ public class PagFormularioAluno extends GenericForwardComposer {
     }
     
     /**
-     * A partir de um byte array, controi uma imagem
+     * A partir de um byte array, constroi uma imagem
      * @param img  contém um byte array da imagem
      */
     public void construirImagem(byte[] img){
@@ -564,5 +564,4 @@ public class PagFormularioAluno extends GenericForwardComposer {
             else Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
         }
     }
-
 }

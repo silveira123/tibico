@@ -186,7 +186,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     }
 
     /**
-     * A partir de um byte array, controi uma imagem
+     * A partir de um byte array, constroi uma imagem
      * @param img  contém um byte array da imagem
      */
     public void construirImagem(byte[] img){

@@ -147,11 +147,7 @@ public class AplCadastrarCurso {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
 
-    /** Obtém todas os pré-requisitos de uma disciplina. */
-    public List<Disciplina> obterPreRequisitos(Disciplina disciplina) {
-        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(disciplina);
-    }
-
+    
     /** Obtém todas as grandes áreas de conhecimento. */
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {
         return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);

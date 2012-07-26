@@ -15,13 +15,19 @@
  */
 package academico.controlepauta.cih;
 
-
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.codec.Base64;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.zkoss.zk.ui.Component;
@@ -29,10 +35,13 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
+import org.zkoss.zul.Row;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagRelatorioBoletim.zul
- * 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagRelatorioBoletim.zul
+ *
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioBoletim extends GenericForwardComposer {
@@ -49,6 +58,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     private Window winBoletim;
     private Div boxInformacao;
     private Label msg;
+    private Button gerarPdf;
+    private List<MatriculaTurma> matTurma;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -63,15 +74,15 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             calendario.setModel(new ListModelList(buscaCalendarios(obj)));
             nome.setDisabled(true);
             matricula.setDisabled(true);
-        }
-        else {
+        } else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
         nome.setReadonly(true);
         matricula.setReadonly(true);
         calendario.setReadonly(true);
+        gerarPdf.setDisabled(true);
     }
-    
+
     public void onCreate$winBoletim(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -79,7 +90,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             winBoletim.detach();
         }
     }
-    
+
     public void onSelect$nome(Event event) {
         obj = nome.getSelectedItem().getValue();
         matricula.setValue(obj.getMatricula().toString());
@@ -97,10 +108,12 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
 
         Calendario cal = calendario.getSelectedItem().getValue();
         try {
-            List<MatriculaTurma> matTurma = ctrlMatricula.emitirBoletim(obj, cal);
+            matTurma = ctrlMatricula.emitirBoletim(obj, cal);
             curso.setValue(obj.getCurso().toString());
 
-            if(obj.getCoeficiente() != null) coeficiente.setValue(obj.getCoeficiente().toString());
+            if (obj.getCoeficiente() != null) {
+                coeficiente.setValue(obj.getCoeficiente().toString());
+            }
 
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
@@ -117,8 +130,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
                 linha.setParent(linhas);
             }
             linhas.setParent(disciplinas);
-        }
-        catch (AcademicoException ex) {
+            gerarPdf.setDisabled(false);
+        } catch (AcademicoException ex) {
             setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }
@@ -144,5 +157,12 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
 
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
+    }
+
+    public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        if(matTurma.size()>0)ctrlMatricula.gerarPdf(matTurma, true);
+        else{
+            setMensagemAviso("error", "Não existem disciplinas");
+        }
     }
 }

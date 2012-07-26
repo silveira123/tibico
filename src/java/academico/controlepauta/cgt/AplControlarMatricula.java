@@ -27,8 +27,13 @@ import academico.controlepauta.cgd.AvaliacaoDAO;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
+import academico.util.funcoes.BoletimHistoricoToPdf;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -141,11 +146,14 @@ public class AplControlarMatricula {
             }
         }
         //tira as turmas que ainda não foi cumprido o pré-requisito
+        //Será necessário obter as disciplinas que o aluno foi aprovado para posteriormente eliminar
+        //da lista das possiveis, as que não tiveram os pré-requisitos cumpridos
         disciplinas = ((DisciplinaDAO) DAOFactory.obterDAO("JPA", Disciplina.class)).obterAprovadas(aluno);
         for (int i = 0; i < turmas.size(); i++) {
-            List<Disciplina> listPreRequisitos = aplCadastroCurso.obterPreRequisitos(turmas.get(i).getDisciplina());
+            //List<Disciplina> listPreRequisitos = aplCadastroCurso.obterPreRequisitos(turmas.get(i).getDisciplina());
+            List<Disciplina> listPreRequisitos = turmas.get(i).getDisciplina().getPrerequisito();
             for (int j = 0; j < listPreRequisitos.size(); j++) {
-                if (!disciplinas.contains(listPreRequisitos.get(j))) {
+                if (!disciplinas.contains(listPreRequisitos.get(j))) {//caso o pre-requisito não tenha sido cumprido, a turma é excluida da lista das possiveis
                     turmas.remove(i);
                     i--;
                 }
@@ -271,5 +279,9 @@ public class AplControlarMatricula {
 
     public boolean verificaPeriodoMatricula(Curso curso) {
         return AplCadastrarCalendario.getInstance().verificarPeriodoMatricula(curso);
+    }
+
+    public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        BoletimHistoricoToPdf.gerarPdf(matTurma , b);
     }
 }

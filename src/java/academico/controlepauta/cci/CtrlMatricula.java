@@ -25,6 +25,10 @@ import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.controlepauta.cgt.AplEmitirRelatorios;
 import academico.controlepauta.cih.PagEventosMatricula;
 import academico.util.Exceptions.AcademicoException;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -237,5 +241,9 @@ public class CtrlMatricula {
 
     public boolean verificaPeriodoMatricula(Curso curso) {
         return apl.verificaPeriodoMatricula(curso);
+    }
+
+    public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        apl.gerarPdf(matTurma, b);
     }
 }

@@ -135,6 +135,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 preencherTela();
                 if (MODO == CtrlPessoa.CONSULTAR) {
                     this.salvarProfessor.setVisible(false);
+                    separator.setVisible(false);
+                    gridUsuario.setVisible(false);
                     bloquearTela();
                 }
             }
@@ -191,9 +193,6 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         if (obj.getAreaConhecimento().size() > 0) {
             setSelecionadosList(listAreaConhecimento, obj.getAreaConhecimento());
         }
-
-        senha.setText(usuarioObjetoProf.getSenha());
-        confSenha.setText(usuarioObjetoProf.getSenha());
 
         Usuario u = (Usuario) Executions.getCurrent().getSession().getAttribute("usuario");
         if (u != null && u.getPrivilegio() == 3) {
@@ -385,9 +384,11 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 obj.setAreaConhecimento(getSelecionadosList(listAreaConhecimento));
                 obj.setFoto(bytes);
 
-                usuarioObjetoProf.setSenha(senha.getText());
-
-                usuarioObjetoProf = ctrlPessoa.alterarUsuario(usuarioObjetoProf);
+                //se tiver colocado uma nova senha
+                if (!senha.getText().trim().equals("")) {
+                    usuarioObjetoProf.setSenha(senha.getText());
+                    usuarioObjetoProf = ctrlPessoa.alterarUsuario(usuarioObjetoProf);
+                }
                 p = ctrlPessoa.alterarProfessor(obj);
             }
             else {
@@ -624,10 +625,10 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         if (numero.getText().trim().equals("")) {
             msg += "- Numero\n";
         }
-        if (MODO != CtrlPessoa.SALVAR && senha.getText().trim().equals("")) {
+        if (MODO != CtrlPessoa.SALVAR && senha.getText().trim().equals("") && !confSenha.getText().trim().equals("")) {
             msg += "- Senha\n";
         }
-        if (MODO != CtrlPessoa.SALVAR && confSenha.getText().trim().equals("")) {
+        if (MODO != CtrlPessoa.SALVAR && confSenha.getText().trim().equals("") && !senha.getText().trim().equals("")) {
             msg += "- Confirmação de Senha\n";
         }
         if (MODO != CtrlPessoa.SALVAR && !senha.getText().equals(confSenha.getText())) {

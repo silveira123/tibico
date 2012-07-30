@@ -246,4 +246,8 @@ public class CtrlMatricula {
     public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
         apl.gerarPdf(matTurma, b);
     }
+
+    public void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        apl.gerarPdf(matTurma, media);
+    }
 }

@@ -28,6 +28,7 @@ import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.funcoes.BoletimHistoricoToPdf;
+import academico.util.funcoes.ResultadosToPdf;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import com.lowagie.text.BadElementException;
@@ -283,5 +284,9 @@ public class AplControlarMatricula {
 
     public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
         BoletimHistoricoToPdf.gerarPdf(matTurma , b);
+    }
+
+    public void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        ResultadosToPdf.gerarPdf(matTurma, media);
     }
 }

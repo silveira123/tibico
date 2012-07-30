@@ -8,7 +8,9 @@
 	
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>
-	
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
+                <label id="msg" value=""/>
+            </div>
             <grid>
                 <columns>
                     <column width="20%" label=""/>
@@ -67,6 +69,8 @@
             <separator height="8px"/>
         </div>
         <button id="gerarGrafico" label="Gerar Gráfico" width="10%" height="4%" disabled="true"/>
+        <button id="gerarPdf" label="Gerar PDF" width="10%" height="4%" disabled="true"/>
+       
     </window>
 </zk>
 

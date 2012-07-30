@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cih;
 
 import academico.controleinterno.cdp.Calendario;
@@ -23,6 +22,10 @@ import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.Exceptions.AcademicoException;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +35,15 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
-
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados;
- * A classe contém os eventos da tela PagRelatorioResultados.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados; A classe contém os eventos da tela
+ * PagRelatorioResultados.zul
+ *
  * @author Eduardo Rigamonte
  */
-public class PagRelatorioResultados extends GenericForwardComposer{
+public class PagRelatorioResultados extends GenericForwardComposer {
+
     private CtrlMatricula ctrlMatricula = CtrlMatricula.getInstance();
     private Combobox curso;
     private Combobox calendarioAcademico;
@@ -50,18 +55,24 @@ public class PagRelatorioResultados extends GenericForwardComposer{
     private Calendario objCalendario;
     private Turma objTurma;
     private Button gerarGrafico;
-    
+    private Div boxInformacao;
+    private Label msg;
+    private Button gerarPdf;
+    private List<MatriculaTurma> matTurma;
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        if (objCurso==null)
+        if (objCurso == null) {
             curso.setModel(new ListModelList(ctrlMatricula.obter()));
-        
+        }
+
         curso.setReadonly(true);
         calendarioAcademico.setReadonly(true);
         turma.setReadonly(true);
+        gerarPdf.setDisabled(true);
     }
-    
+
     public void onCreate$winResultados(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -69,54 +80,61 @@ public class PagRelatorioResultados extends GenericForwardComposer{
             winResultados.detach();
         }
     }
-    
+
     public void onSelect$curso(Event event) throws AcademicoException {
-        if(objCalendario==null)
-            calendarioAcademico.setModel(new ListModelList(ctrlMatricula.obter((Curso)curso.getSelectedItem().getValue())));
-        if(matriculas.getRows()!=null)matriculas.removeChild(matriculas.getRows());
+        if (objCalendario == null) {
+            calendarioAcademico.setModel(new ListModelList(ctrlMatricula.obter((Curso) curso.getSelectedItem().getValue())));
+        }
+        if (matriculas.getRows() != null) {
+            matriculas.removeChild(matriculas.getRows());
+        }
         turma.setValue("");
         calendarioAcademico.setValue("");
         media.setValue("");
-        
+
     }
+
     public void onSelect$calendarioAcademico(Event event) throws AcademicoException {
-        if(objTurma==null)
-            turma.setModel(new ListModelList(ctrlMatricula.obter((Calendario)calendarioAcademico.getSelectedItem().getValue())));
-        if(matriculas.getRows()!=null)matriculas.removeChild(matriculas.getRows());
+        if (objTurma == null) {
+            turma.setModel(new ListModelList(ctrlMatricula.obter((Calendario) calendarioAcademico.getSelectedItem().getValue())));
+        }
+        if (matriculas.getRows() != null) {
+            matriculas.removeChild(matriculas.getRows());
+        }
         turma.setValue("");
         media.setValue("");
     }
-    
+
     public void onClick$gerarGrafico(Event event) {
         double apr = 0, rep = 0;
         Window win = new Window();
         List row = matriculas.getRows().getChildren();
-      
+
         for (int i = 0; i < row.size(); i++) {
             MatriculaTurma m = ((Row) row.get(i)).getValue();
-            if(m.getSituacaoAluno() == SituacaoAlunoTurma.APROVADO)
+            if (m.getSituacaoAluno() == SituacaoAlunoTurma.APROVADO) {
                 apr++;
-            else if(m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADONOTA)
+            } else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADONOTA) {
                 rep++;
-            else if(m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADOFALTA)
+            } else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADOFALTA) {
                 rep++;
+            }
         }
-        
+
         Chart chart = new Chart();
         chart.setTitle("Gráfico de Aprovados e Reprovados");
         chart.setWidth("550");
-        chart.setHeight("400");
         chart.setType("pie");
         chart.setThreeD(true);
         chart.setPaneColor("#ffffff");
         chart.setFgAlpha(128);
-        
+
         PieModel model = new SimplePieModel();
-        model.setValue("Aprovados", new Double((apr/row.size())*100));
-        model.setValue("Reprovados", new Double((rep/row.size())*100));
+        model.setValue("Aprovados", new Double((apr / row.size()) * 100));
+        model.setValue("Reprovados", new Double((rep / row.size()) * 100));
         chart.setModel(model);
         chart.setParent(win);
-        
+
         win.setWidth("40%");
         win.setHeight("52%");
         win.setMode(Window.Mode.POPUP);
@@ -124,17 +142,20 @@ public class PagRelatorioResultados extends GenericForwardComposer{
         win.setVisible(true);
         win.setParent(winResultados);
     }
+
     public void onSelect$turma(Event event) {
-        if(matriculas.getRows()!=null)matriculas.removeChild(matriculas.getRows());
+        if (matriculas.getRows() != null) {
+            matriculas.removeChild(matriculas.getRows());
+        }
         media.setValue("");
         gerarGrafico.setDisabled(false);
         Turma t = turma.getSelectedItem().getValue();
-        double soma= 0;
-        int contador=0;
+        double soma = 0;
+        int contador = 0;
         try {
-            List<MatriculaTurma> matTurma = ctrlMatricula.obter(t);
+            matTurma = ctrlMatricula.obter(t);
             Rows linhas = new Rows();
-            for (int i = 0; i < matTurma.size(); i++) {              
+            for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
                 Row linha = new Row();
                 linha.setValue(c);
@@ -145,17 +166,35 @@ public class PagRelatorioResultados extends GenericForwardComposer{
                 linha.appendChild(new Label(c.getPercentualPresenca().toString()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
-                
+
                 linha.setParent(linhas);
-                soma+=c.getResultadoFinal();
-                contador ++;
+                soma += c.getResultadoFinal();
+                contador++;
             }
             linhas.setParent(matriculas);
-            media.setValue((soma/contador)+"");
-            
+            media.setValue((soma / contador) + "");
+            gerarPdf.setDisabled(false);
+
         } catch (Exception ex) {
             Logger.getLogger(PagRelatorioResultados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        if (matTurma.size() > 0) {
+            ctrlMatricula.gerarPdf(matTurma, Double.parseDouble(media.getValue()));
+        } else {
+            setMensagemAviso("error", "Não existem matriculas para está turma");
+        }
+    }
+
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
+
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
+    }
 }

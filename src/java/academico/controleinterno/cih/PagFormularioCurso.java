@@ -130,8 +130,9 @@ public class PagFormularioCurso extends GenericForwardComposer {
 
     private void bloquearTela() {
         nomeCurso.setDisabled(true);
-        descricao.setReadonly(true);
-        duracao.setReadonly(true);
+        descricao.setDisabled(true);
+        sigla.setDisabled(true);
+        duracao.setDisabled(true);
         grauInstrucao.setDisabled(true);
         grandeArea.setDisabled(true);
         regime.setDisabled(true);

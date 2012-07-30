@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Filedownload;
 
 /**
@@ -24,7 +25,7 @@ public class ResultadosToPdf {
 
     public static void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
         Document document = new Document();
-        com.lowagie.text.Image figura = com.lowagie.text.Image.getInstance("C:\\Users\\jmiranda\\Desktop\\Tibico\\web\\images\\tibico6.png");
+        com.lowagie.text.Image figura = com.lowagie.text.Image.getInstance( Executions.getCurrent().getDesktop().getWebApp().getRealPath("\\images\\tibico6.png"));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, baos);
 

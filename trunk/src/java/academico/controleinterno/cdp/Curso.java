@@ -8,11 +8,12 @@ import javax.persistence.*;
 
 /**
  * Representa os cursos da instituição.
- *
+ * <p/>
  * @author FS
  */
 @Entity
 public class Curso extends ObjetoPersistente {
+
     private String nome;
     private String descricao;
     private String sigla;
@@ -29,6 +30,7 @@ public class Curso extends ObjetoPersistente {
         this.nome = nome;
     }
 
+    @Column(length = 100000)
     public String getDescricao() {
         return descricao;
     }

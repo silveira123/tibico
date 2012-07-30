@@ -152,10 +152,10 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
     }
 
     private void bloquearTela() {
-        nomeDisciplina.setReadonly(true);
-        cargaHoraria.setReadonly(true);
-        creditos.setReadonly(true);
-        periodo.setReadonly(true);
+        nomeDisciplina.setDisabled(true);
+        cargaHoraria.setDisabled(true);
+        creditos.setDisabled(true);
+        periodo.setDisabled(true);
 
         List<Listitem> listItemsPreRequisito = listPreRequisitos.getItems();
         listPreRequisitos.setCheckmark(false);

@@ -18,6 +18,7 @@ package academico.controlepauta.cdp;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.util.persistencia.ObjetoPersistente;
+import java.text.DecimalFormat;
 import javax.persistence.*;
 
 /**
@@ -69,6 +70,11 @@ public class MatriculaTurma extends ObjetoPersistente {
      */
     public Double getPercentualPresenca() {
         return percentualPresenca;
+    }
+    
+    public String toDecimalFormat(){
+        DecimalFormat dec = new DecimalFormat("0.00");        
+        return dec.format(percentualPresenca);
     }
 
     /**

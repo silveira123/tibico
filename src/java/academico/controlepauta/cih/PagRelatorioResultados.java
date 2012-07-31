@@ -163,7 +163,7 @@ public class PagRelatorioResultados extends GenericForwardComposer {
 
                 linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
-                linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                linha.appendChild(new Label(c.toDecimalFormat()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

@@ -138,7 +138,7 @@ public class CtrlAula {
         Executions.sendRedirect(url);
     }
 
-    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes) throws AcademicoException {
+    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes) throws AcademicoException, Exception {
          apl.incluirResultado(obj, notas, observacoes, CtrlMatricula.getInstance().obter(obj.getTurma()));
     }
     

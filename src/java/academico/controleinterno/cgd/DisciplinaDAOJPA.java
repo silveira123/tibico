@@ -5,7 +5,6 @@ import academico.controleinterno.cdp.Curso;
 import academico.controleinterno.cdp.Disciplina;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.util.persistencia.DAOJPA;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 

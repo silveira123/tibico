@@ -6,7 +6,6 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
-import academico.controleinterno.cgd.DisciplinaDAOJPA;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;
@@ -52,7 +51,7 @@ public class AplControlarTurma {
             turma.setProfessor(p);
         }
 
-        turma.setEstadoTurma((EstadoTurma) args.get(5));
+        turma.setEstadoTurma((SituacaoTurma) args.get(5));
         
         return (Turma) apDaoTurma.salvar(turma);
     }
@@ -68,9 +67,19 @@ public class AplControlarTurma {
     public List<Turma> obterTurmas() throws AcademicoException {
         return (List<Turma>) apDaoTurma.obter(Turma.class);
     }
+    
+    public List<Turma> obterTurmasAtivas(){
+        return (List<Turma>)((TurmaDAO) apDaoTurma).obterAtivas();
+    }
+    
+    public List<Turma> obterTurmasAtivas(Professor p){
+        return (List<Turma>)((TurmaDAO) apDaoTurma).obterAtivas(p);
+    }
+    
     public List<Turma> obterTurmas(Professor p) throws AcademicoException {
         return (List<Turma>)((TurmaDAO) apDaoTurma).obter(p);
     }
+    
     public List<Horario> obterHorarios() throws AcademicoException {
         return (List<Horario>) apDaoHorario.obter(Horario.class);
     }
@@ -79,12 +88,9 @@ public class AplControlarTurma {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
 
-    
     public List<Turma> obterTurmas (Calendario calendario){
         return (List<Turma>) ((TurmaDAO) apDaoTurma).obter(calendario);
     }
-    
-
     
     public List<Professor> obterProfessores(Disciplina disciplina)throws AcademicoException{
         List<Professor> listProfessor = aplPessoa.obterProfessor();

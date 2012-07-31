@@ -21,12 +21,9 @@ import academico.controleinterno.cdp.Calendario;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.util.Exceptions.AcademicoException;
-import com.lowagie.text.*;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.codec.Base64;
-import java.io.*;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
-import org.zkoss.zul.Row;
 
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para
@@ -123,7 +119,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
                 ctrlMatricula.calculaNotaFinal(c);
 
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
-                linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                linha.appendChild(new Label(c.toDecimalFormat()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

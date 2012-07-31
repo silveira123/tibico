@@ -112,7 +112,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
                 ctrlMatricula.calculaNotaFinal(c);
 
                 linha.appendChild(new Label(c.getTurma().getDisciplina().toString()));
-                linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                linha.appendChild(new Label(c.toDecimalFormat()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 

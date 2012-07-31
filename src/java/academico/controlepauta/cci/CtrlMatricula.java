@@ -231,7 +231,7 @@ public class CtrlMatricula {
         return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
     }
 
-    public void calculaNotaFinal(MatriculaTurma c) throws AcademicoException {
+    public void calculaNotaFinal(MatriculaTurma c) throws AcademicoException, Exception {
          apl.calcularNotaFinal(c);
     }
 

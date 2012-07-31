@@ -62,10 +62,10 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
         if (obj != null) {
-            listaTurma = ctrlTurma.obterTurma(obj);
+            listaTurma = ctrlTurma.obterTurmasAtivas(obj);
         }
         else {
-            listaTurma = ctrlTurma.obterTurma();
+            listaTurma = ctrlTurma.obterTurmasAtivas();
         }
         nome.setModel(new ListModelList(listaTurma, true));
         nome.setReadonly(true);

@@ -20,10 +20,12 @@ import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
 import academico.controleinterno.cgt.AplCadastrarCalendario;
-import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cgt.AplCadastrarCurso;
-import academico.controlepauta.cdp.*;
-import academico.controlepauta.cgd.AvaliacaoDAO;
+import academico.controleinterno.cgt.AplCadastrarPessoa;
+import academico.controlepauta.cdp.Frequencia;
+import academico.controlepauta.cdp.MatriculaTurma;
+import academico.controlepauta.cdp.Resultado;
+import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
 import academico.util.Exceptions.AcademicoException;
@@ -80,6 +82,12 @@ public class AplControlarMatricula {
         matriculaTurma.setAluno(aluno);
         Turma turma = (Turma) args.get(1);
         matriculaTurma.setTurma(turma);
+        
+        if(Calendar.getInstance().after(turma.getCalendario().getDataFimPL()) && Calendar.getInstance().before(turma.getCalendario().getDataInicioPL())){
+            matriculaTurma.setSituacaoAluno(SituacaoAlunoTurma.MATRICULADO);
+        }else{
+            matriculaTurma.setSituacaoAluno(SituacaoAlunoTurma.CURSANDO);
+        }
 
         return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
     }
@@ -216,7 +224,7 @@ public class AplControlarMatricula {
 
     }
 
-    public void calcularNotaFinal(MatriculaTurma mt) throws AcademicoException {
+    public void calcularNotaFinal(MatriculaTurma mt) throws AcademicoException, Exception {
         List<Resultado> listResultados = (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(mt);
         Double notaFinal = new Double(0.0);
         Integer peso = new Integer(0);
@@ -228,19 +236,15 @@ public class AplControlarMatricula {
             }
         }
         
-        System.out.println("Soma de Notas: " + notaFinal + "\nSoma dos Pesos: " + peso);
-        
         notaFinal = notaFinal / peso;
         
         mt.setResultadoFinal(notaFinal);
-
-        System.out.println("Nota Final/Parcial: " + notaFinal);
         
         alteraSituacao(mt);
     }
 
-    private void alteraSituacao(MatriculaTurma mt) throws AcademicoException {
-        if (Calendar.getInstance().after(mt.getTurma().getCalendario().getDataFimPL())) {
+    private void alteraSituacao(MatriculaTurma mt) throws AcademicoException, Exception {
+        if (Calendar.getInstance().after(mt.getTurma().getCalendario().getDataFimPL()) || mt.getTurma().getEstadoTurma()==SituacaoTurma.ENCERRADA) {
             Double notaFinal = mt.getResultadoFinal();
             Double percentualPresenca = mt.getPercentualPresenca();
 
@@ -253,7 +257,7 @@ public class AplControlarMatricula {
                     mt.setSituacaoAluno(SituacaoAlunoTurma.REPROVADONOTA);
                 }
             }
-
+            calcularCoeficiente(mt.getAluno());
         }
         apDaoMatriculaTurma.salvar(mt);
 
@@ -272,7 +276,7 @@ public class AplControlarMatricula {
         }
 
         coeficiente = coeficiente / peso;
-        if(coeficiente>=0){
+        if(coeficiente >= 0.0){
             obj.setCoeficiente(coeficiente);
             aplCadastrarPessoa.alterarAluno(obj);
         }

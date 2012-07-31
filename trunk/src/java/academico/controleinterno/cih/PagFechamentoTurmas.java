@@ -16,7 +16,7 @@
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
-import academico.controleinterno.cdp.EstadoTurma;
+import academico.controleinterno.cdp.SituacaoTurma;
 import academico.controleinterno.cdp.Turma;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.MatriculaTurma;
@@ -61,7 +61,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
 
                 linha.appendChild(new Label(c.getAluno().getMatricula()));
                 linha.appendChild(new Label(c.getAluno().getNome()));
-                linha.appendChild(new Label(c.getPercentualPresenca().toString()));
+                linha.appendChild(new Label(c.toDecimalFormat()));
                 linha.appendChild(new Label(c.getResultadoFinal().toString()));
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 
@@ -87,7 +87,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
 
     public void onClick$fecharTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
-            obj.setEstadoTurma(EstadoTurma.ENCERRADA);
+            obj.setEstadoTurma(SituacaoTurma.ENCERRADA);
             ctrl.fecharTurma(obj);
             winFechamentoTurmas.onClose();
         }
@@ -98,7 +98,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
 
     public void onClick$abrirTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
-            obj.setEstadoTurma(EstadoTurma.EM_CURSO);
+            obj.setEstadoTurma(SituacaoTurma.CURSANDO);
             ctrl.abrirTurma(obj);
             winFechamentoTurmas.onClose();
         }

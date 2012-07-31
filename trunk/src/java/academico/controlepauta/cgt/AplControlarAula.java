@@ -75,7 +75,7 @@ public class AplControlarAula {
         return (List<Avaliacao>) apDaoAvaliacao.obter(Avaliacao.class);
     }
 
-    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException {
+    public void incluirResultado(Avaliacao obj, List<Object> notas, List<Object> observacoes, List<MatriculaTurma> matriculaturma) throws AcademicoException, Exception {
         List<Resultado> lista = apDaoResultado.obter(Resultado.class);
 
         for (int i = 0; i < notas.size(); i++) {

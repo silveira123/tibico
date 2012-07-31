@@ -75,7 +75,7 @@ public class AplCadastrarCalendario {
         List<Turma> turmas = AplControlarTurma.getInstance().obterTurmas(select);
         int flag=0;
         for (Turma turma : turmas) {
-            if(!turma.getEstadoTurma().equals(EstadoTurma.ENCERRADA))
+            if(!turma.getEstadoTurma().equals(SituacaoTurma.ENCERRADA))
                 flag++;
         }
         if(flag==0){

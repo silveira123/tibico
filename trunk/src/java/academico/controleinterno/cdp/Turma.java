@@ -39,7 +39,7 @@ public class Turma extends ObjetoPersistente {
     private Disciplina disciplina;
     private List<Horario> horario;
     private Professor professor;
-    private EstadoTurma estadoTurma;
+    private SituacaoTurma estadoTurma;
     
     public Turma() {
         
@@ -47,11 +47,11 @@ public class Turma extends ObjetoPersistente {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    public EstadoTurma getEstadoTurma() {
+    public SituacaoTurma getEstadoTurma() {
         return estadoTurma;
     }
 
-    public void setEstadoTurma(EstadoTurma estadoTurma) {
+    public void setEstadoTurma(SituacaoTurma estadoTurma) {
         this.estadoTurma = estadoTurma;
     }
     

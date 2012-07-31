@@ -169,7 +169,14 @@ public class CtrlLetivo {
     public List<Turma> obterTurma(Professor p) throws AcademicoException {
         return aplC.obterTurmas(p);
     }
+    
+    public List<Turma> obterTurmasAtivas(){
+        return aplC.obterTurmasAtivas();
+    }
 
+    public List<Turma> obterTurmasAtivas(Professor p){
+        return aplC.obterTurmasAtivas(p);
+    }
     
     public void abrirFechamentoTurmas(Turma t) {
         Map map = new HashMap();

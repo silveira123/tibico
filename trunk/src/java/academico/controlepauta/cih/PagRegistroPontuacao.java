@@ -107,7 +107,7 @@ public class PagRegistroPontuacao extends GenericForwardComposer {
         }
     }
 
-    public void onClick$salvar(Event event) {
+    public void onClick$salvar(Event event) throws Exception {
         ArrayList<Object> argsNotas = new ArrayList<Object>();
         ArrayList<Object> argsObservacoes = new ArrayList<Object>();
         for (int i = 0; i < notas.size(); i++) {

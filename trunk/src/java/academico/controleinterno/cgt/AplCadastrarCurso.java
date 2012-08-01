@@ -11,7 +11,6 @@ import academico.util.academico.cdp.GrauInstrucao;
 import academico.util.academico.cdp.Regime;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +21,7 @@ import java.util.List;
 public class AplCadastrarCurso {
     // DAOs para persistência.
     //FIXME: não definir "JPA" aqui.
+
     private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
     private DAO apDaoDisciplina = DAOFactory.obterDAO("JPA", Disciplina.class);
     private DAO apDaoGrandeAreaConhecimento = DAOFactory.obterDAO("JPA", GrandeAreaConhecimento.class);
@@ -29,11 +29,15 @@ public class AplCadastrarCurso {
     // Instância única desta aplicação.
     private static AplCadastrarCurso instance = null;
 
-    /** Construtor privado, para implementação do padrão Singleton. */
+    /**
+     * Construtor privado, para implementação do padrão Singleton.
+     */
     private AplCadastrarCurso() {
     }
 
-    /** Obtém uma instância da aplicação. Implementação do padrão Singleton. */
+    /**
+     * Obtém uma instância da aplicação. Implementação do padrão Singleton.
+     */
     public static AplCadastrarCurso getInstance() {
         if (instance == null) {
             instance = new AplCadastrarCurso();
@@ -42,7 +46,9 @@ public class AplCadastrarCurso {
     }
 
     //////////////////// CURSO ////////////////////
-    /** Inclui um novo curso. */
+    /**
+     * Inclui um novo curso.
+     */
     // FIXME: rever questão da passagem de parâmetros.
     public Curso incluirCurso(List<Object> args) throws AcademicoException {
         Curso curso = null;
@@ -63,7 +69,9 @@ public class AplCadastrarCurso {
         return curso;
     }
 
-    /** Altera um curso existente. */
+    /**
+     * Altera um curso existente.
+     */
     //FIXME: por que aqui já vem o objeto curso alterado e não os parâmetros?
     public Curso alterarCurso(Curso curso) throws Exception {
         // validação
@@ -76,7 +84,9 @@ public class AplCadastrarCurso {
         return null;
     }
 
-    /** Exclui um curso. */
+    /**
+     * Exclui um curso.
+     */
     // FIXME: E se possuir disciplinas ou calendários associados??
     public void excluirCurso(Curso curso) throws Exception {
         //validação
@@ -85,13 +95,17 @@ public class AplCadastrarCurso {
         apDaoCurso.excluir(curso);
     }
 
-    /** Obtém todos os cursos. */
+    /**
+     * Obtém todos os cursos.
+     */
     public List<Curso> obterCursos() throws AcademicoException {
         return (List<Curso>) apDaoCurso.obter(Curso.class);
     }
 
     //////////////////// DISCIPLINA ////////////////////
-    /** Inclui uma nova disciplina. */
+    /**
+     * Inclui uma nova disciplina.
+     */
     // FIXME: rever questão da passagem de parâmetros.
     public Disciplina incluirDisciplina(List<Object> args) throws AcademicoException {
         // validação
@@ -108,7 +122,9 @@ public class AplCadastrarCurso {
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
-    /** Altera uma disciplina existente. */
+    /**
+     * Altera uma disciplina existente.
+     */
     //FIXME: por que aqui já vem o objeto disciplina alterado e não os parâmetros?
     public Disciplina alterarDisciplina(Disciplina disciplina) throws AcademicoException {
         //validação
@@ -117,7 +133,9 @@ public class AplCadastrarCurso {
         return (Disciplina) apDaoDisciplina.salvar(disciplina);
     }
 
-    /** Exclui uma disciplina. */
+    /**
+     * Exclui uma disciplina.
+     */
     public boolean excluirDisciplina(Disciplina disciplina) throws Exception {
         // obtém as turmas
         // FIXME: está obtendo TODAS as turmas. Obter só as da disciplina e ver se não é vazio.
@@ -137,23 +155,30 @@ public class AplCadastrarCurso {
         return true;
     }
 
-    /** Obtém todas as disciplinas. */
+    /**
+     * Obtém todas as disciplinas.
+     */
     public List<Disciplina> obterDisciplinas() throws AcademicoException {
         return (List<Disciplina>) apDaoDisciplina.obter(Disciplina.class);
     }
 
-    /** Obtém todas as disciplinas de um curso. */
+    /**
+     * Obtém todas as disciplinas de um curso.
+     */
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
     }
 
-    
-    /** Obtém todas as grandes áreas de conhecimento. */
+    /**
+     * Obtém todas as grandes áreas de conhecimento.
+     */
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimentos() throws AcademicoException {
         return (List<GrandeAreaConhecimento>) apDaoGrandeAreaConhecimento.obter(GrandeAreaConhecimento.class);
     }
 
-    /** Obtém todas as áreas de conhecimento. */
+    /**
+     * Obtém todas as áreas de conhecimento.
+     */
     public List<AreaConhecimento> obterAreaConhecimentos() throws AcademicoException {
         return (List<AreaConhecimento>) apDaoAreaConhecimento.obter(AreaConhecimento.class);
     }

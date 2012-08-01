@@ -60,8 +60,7 @@ public class CtrlCurso {
                 pagEventosCurso.addCurso(c);
                 pagEventosCurso.setMensagemAviso("success", "Cadastro feito com sucesso");
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar o curso");
             System.err.println(ex.getMessage());
         }
@@ -76,8 +75,7 @@ public class CtrlCurso {
                 pagEventosCurso.refreshCurso(c);
                 pagEventosCurso.setMensagemAviso("success", "Cadastro editado com sucesso");
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar o curso");
             System.err.println(ex.getMessage());
         }
@@ -98,8 +96,7 @@ public class CtrlCurso {
             d = apl.incluirDisciplina(args);
             pagEventosDisciplina.addDisciplina(d);
             pagEventosDisciplina.setMensagemAviso("success", "Cadastro feito com sucesso");
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             pagEventosDisciplina.setMensagemAviso("error", "Erro ao cadastrar a disciplina");
             System.err.println(ex.getMessage());
         }
@@ -112,8 +109,7 @@ public class CtrlCurso {
             d = apl.alterarDisciplina(args);
             pagEventosDisciplina.refreshDisciplina(d);
             pagEventosDisciplina.setMensagemAviso("success", "Cadastro editado com sucesso");
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             pagEventosDisciplina.setMensagemAviso("error", "Erro ao editar a disciplina");
             System.err.println(ex.getMessage());
         }

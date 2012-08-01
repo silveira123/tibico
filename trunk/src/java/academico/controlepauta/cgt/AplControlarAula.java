@@ -13,13 +13,10 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cgt;
 
 import academico.controleinterno.cdp.Aluno;
-import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
-import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.*;
@@ -84,21 +81,22 @@ public class AplControlarAula {
             resultado.setObservacao((String) observacoes.get(i));
             resultado.setPontuacao((Double) notas.get(i));
             resultado.setMatriculaTurma(matriculaturma.get(i));
-            
+
             apDaoResultado.salvar(resultado);
-            
+
             CtrlMatricula.getInstance().calculaNotaFinal(matriculaturma.get(i));
         }
     }
-    
-    public Resultado obtemResultado(Avaliacao obj, MatriculaTurma matriculaturma) throws AcademicoException{
+
+    public Resultado obtemResultado(Avaliacao obj, MatriculaTurma matriculaturma) throws AcademicoException {
         List<Resultado> lista = apDaoResultado.obter(Resultado.class);
-        
-        for(int i=0;i<lista.size();i++){
-            if(lista.get(i).getMatriculaTurma()==matriculaturma && lista.get(i).getAvaliacao()==obj)
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getMatriculaTurma() == matriculaturma && lista.get(i).getAvaliacao() == obj) {
                 return lista.get(i);
+            }
         }
-        
+
         return null;
     }
 
@@ -142,7 +140,7 @@ public class AplControlarAula {
     }
 
     public List<Aula> obterAulas(Turma turma) throws AcademicoException {
-        return (List<Aula>)((AulaDAO)apDaoAula).obter(turma); 
+        return (List<Aula>) ((AulaDAO) apDaoAula).obter(turma);
     }
 
     public List<Frequencia> obterFrequencias(Turma t) {
@@ -154,44 +152,36 @@ public class AplControlarAula {
         apDaoFrequencia.excluir(frequencia);
     }
 
-    public Aluno obterAluno(String matricula) {
-        return AplCadastrarPessoa.getInstance().obterAluno(matricula);
-    }
-
-    public Professor obterProfessor(String CPF) {
-        return AplCadastrarPessoa.getInstance().obterProfessor(CPF);
-    }
-
     public List<Resultado> obterResultados(Avaliacao obj) {
         return (List<Resultado>) ((ResultadoDAO) apDaoResultado).obterResultados(obj);
     }
-    
-     /**
-     * 
+
+    /**
+     *
      * @param aluno
      * @return
-     * @throws AcademicoException 
+     * @throws AcademicoException
      */
     public List<Avaliacao> obterAvaliacoes(Turma turma) throws AcademicoException {
         return (List<Avaliacao>) ((AvaliacaoDAO) apDaoAvaliacao).obter(turma);
     }
-    
+
     public void atribuirResultado(Avaliacao a, Turma t) throws AcademicoException {
-        List<MatriculaTurma> mTurma = (List<MatriculaTurma>) ((MatriculaTurmaDAO)apDaoMatriculaTurma).obter(t);
+        List<MatriculaTurma> mTurma = (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(t);
         Resultado resultado = null;
-        
-        for(int i=0; i<mTurma.size(); i++){
+
+        for (int i = 0; i < mTurma.size(); i++) {
             resultado = new Resultado(a, mTurma.get(i));
-            apDaoResultado.salvar(resultado);           
-        }         
+            apDaoResultado.salvar(resultado);
+        }
     }
-    
-    public void atribuirResultado(MatriculaTurma mTurma) throws AcademicoException{
+
+    public void atribuirResultado(MatriculaTurma mTurma) throws AcademicoException {
         List<Avaliacao> aux = obterAvaliacoes(mTurma.getTurma());
         Resultado resultado = null;
-        
-        if(aux != null){
-            for(Avaliacao a: aux){
+
+        if (aux != null) {
+            for (Avaliacao a : aux) {
                 resultado = new Resultado(a, mTurma);
                 apDaoResultado.salvar(resultado);
             }

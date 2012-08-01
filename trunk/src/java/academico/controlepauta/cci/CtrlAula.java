@@ -255,14 +255,6 @@ public class CtrlAula {
         return Executions.createComponents("/PagPrincipal.zul", null, null);
     }
 
-    public Aluno getAluno(String matricula) {
-        return AplControlarAula.getInstance().obterAluno(matricula);
-    }
-
-    public Professor getProfessor(String CPF) {
-        return AplControlarAula.getInstance().obterProfessor(CPF);
-    }
-
     public List<Resultado> obterResultados(Avaliacao obj) {
         return AplControlarAula.getInstance().obterResultados(obj);
     }

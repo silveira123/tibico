@@ -28,9 +28,8 @@ import academico.controlepauta.cdp.Resultado;
 import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgd.MatriculaTurmaDAO;
 import academico.controlepauta.cgd.ResultadoDAO;
+import academico.controlepauta.cih.BoletimHistoricoToPdf;
 import academico.util.Exceptions.AcademicoException;
-import academico.util.funcoes.BoletimHistoricoToPdf;
-import academico.util.funcoes.ResultadosToPdf;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;
 import com.lowagie.text.BadElementException;
@@ -54,7 +53,8 @@ public class AplControlarMatricula {
     private DAO apDaoMatriculaTurma = DAOFactory.obterDAO("JPA", MatriculaTurma.class);
     private AplCadastrarCurso aplCadastroCurso = AplCadastrarCurso.getInstance();
     private AplCadastrarPessoa aplCadastrarPessoa = AplCadastrarPessoa.getInstance();
-
+    private AplEmitirRelatorios aplEmitirRelatorios = AplEmitirRelatorios.getInstance();
+    
     private AplControlarMatricula() {
     }
     private static AplControlarMatricula instance = null;
@@ -91,7 +91,7 @@ public class AplControlarMatricula {
 
         return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
     }
-    
+
     /**
      * Cancela (exclui) uma matricula de um aluno em uma turma.
      * <p/>
@@ -229,17 +229,17 @@ public class AplControlarMatricula {
         Double notaFinal = new Double(0.0);
         Integer peso = new Integer(0);
 
-        for (int i=0; i<listResultados.size(); i++) {
-            if(listResultados.get(i).getPontuacao() != null){
+        for (int i = 0; i < listResultados.size(); i++) {
+            if (listResultados.get(i).getPontuacao() != null) {
                 notaFinal += listResultados.get(i).getAvaliacao().getPeso() * listResultados.get(i).getPontuacao();
                 peso += listResultados.get(i).getAvaliacao().getPeso();
             }
         }
-        
+
         notaFinal = notaFinal / peso;
-        
+
         mt.setResultadoFinal(notaFinal);
-        
+
         alteraSituacao(mt);
     }
 
@@ -272,11 +272,13 @@ public class AplControlarMatricula {
             if ((m.getSituacaoAluno() != SituacaoAlunoTurma.CURSANDO) || (m.getSituacaoAluno() != SituacaoAlunoTurma.MATRICULADO)) {
                 coeficiente += m.getResultadoFinal() * m.getTurma().getDisciplina().getNumCreditos();
                 peso += m.getTurma().getDisciplina().getNumCreditos();
-            }  
+            }
         }
 
         coeficiente = coeficiente / peso;
+
         if(coeficiente >= 0.0){
+
             obj.setCoeficiente(coeficiente);
             aplCadastrarPessoa.alterarAluno(obj);
         }
@@ -286,11 +288,27 @@ public class AplControlarMatricula {
         return AplCadastrarCalendario.getInstance().verificarPeriodoMatricula(curso);
     }
 
-    public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        BoletimHistoricoToPdf.gerarPdf(matTurma , b);
+    public boolean gerarResultados(Turma obj, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        return aplEmitirRelatorios.gerarRelatorios(obj, media);
     }
 
-    public void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        ResultadosToPdf.gerarPdf(matTurma, media);
+    public boolean emitirBoletimPDF(Aluno obj, Calendario cal) throws AcademicoException, BadElementException, MalformedURLException, IOException, DocumentException, Exception {
+        List<MatriculaTurma> listaMat = this.emitirBoletim(obj, cal);
+        if (listaMat.size() > 0) {
+            BoletimHistoricoToPdf.gerarPdf(listaMat, true);
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean emitirHistoricoPDF(Aluno obj) throws AcademicoException, Exception {
+        List<MatriculaTurma> listaMat = this.emitirHistorico(obj);
+        if (listaMat.size() > 0) {
+            BoletimHistoricoToPdf.gerarPdf(listaMat, false);
+            return true;
+        }
+        return false;
+
     }
 }

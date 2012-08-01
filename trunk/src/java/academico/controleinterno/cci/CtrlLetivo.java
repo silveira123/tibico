@@ -87,20 +87,7 @@ public class CtrlLetivo {
         }
         return c;
     }
-    
-    public Turma fecharTurma(Turma turma) throws Exception {
-        Turma t = aplC.alterarTurma(turma);
-        System.out.println("turma" + t);
-        pagVisualizarTurmas.refreshTurma(t);
-        return t;
-    }
-    
-    public Turma abrirTurma(Turma turma) throws Exception {
-        Turma t = aplC.alterarTurma(turma);
-        pagVisualizarTurmas.refreshTurma(t);
-        return t;
-    }
-    
+        
     public void apagarCalendario(Calendario calendario) throws Exception {
         apl.apagarCalendario(calendario);
     }

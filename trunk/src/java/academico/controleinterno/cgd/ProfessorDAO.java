@@ -33,7 +33,6 @@ import java.util.List;
  */
 public interface ProfessorDAO extends DAO<Professor> {
 
-    public Professor obterProfessor(String CPF);
     public Professor obterProfessor(Long id);
     public List<Professor> obterProfessor(Calendario c);
     

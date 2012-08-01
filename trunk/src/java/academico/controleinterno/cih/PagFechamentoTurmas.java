@@ -88,7 +88,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     public void onClick$fecharTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(SituacaoTurma.ENCERRADA);
-            ctrl.fecharTurma(obj);
+            ctrl.alterarTurma(obj);
             winFechamentoTurmas.onClose();
         }
         else {
@@ -99,7 +99,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     public void onClick$abrirTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(SituacaoTurma.CURSANDO);
-            ctrl.abrirTurma(obj);
+            ctrl.alterarTurma(obj);
             winFechamentoTurmas.onClose();
         }
         else {

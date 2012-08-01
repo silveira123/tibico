@@ -13,7 +13,6 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controlepauta.cgt;
 
 import academico.controleinterno.cgt.AplCadastrarPessoa;
@@ -25,8 +24,8 @@ import academico.util.persistencia.DAOFactory;
 import academico.util.pessoa.cdp.Pessoa;
 import java.util.List;
 
-public class AplCadastrarUsuario 
-{
+public class AplCadastrarUsuario {
+
     private DAO apDaoUsuario = DAOFactory.obterDAO("JPA", Usuario.class);
     private AplCadastrarPessoa aplCadastrarPessoa = AplCadastrarPessoa.getInstance();
     private static AplCadastrarUsuario instance = null;
@@ -37,50 +36,47 @@ public class AplCadastrarUsuario
         }
         return instance;
     }
-        
-	public Usuario incluirUsuario(String nome, String senha, Integer privilegio, Pessoa p) throws AcademicoException
-	{
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setSenhaCriptografar(senha);
-		usuario.setPrivilegio(privilegio);
+
+    public Usuario incluirUsuario(String nome, String senha, Integer privilegio, Pessoa p) throws AcademicoException {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setSenhaCriptografar(senha);
+        usuario.setPrivilegio(privilegio);
         usuario.setPessoa(p);
         apDaoUsuario.salvar(usuario);
-		return usuario;
-	}
-	
+        return usuario;
+    }
+
     public Usuario alterarUsuario(Usuario usuario) throws AcademicoException {
-		usuario.setSenhaCriptografar(usuario.getSenha());
+        usuario.setSenhaCriptografar(usuario.getSenha());
         return (Usuario) apDaoUsuario.salvar(usuario);
     }
-	
-	public boolean apagarUsuario(Usuario usuario) throws AcademicoException 
-	{
-		if(usuario.getPrivilegio() != 0)
-		{
-			apDaoUsuario.excluir(usuario);
-			return true;
-		}
-		else return false;
-	}
-	
-	public List listarUsuarios() throws AcademicoException
-	{
-		return apDaoUsuario.obter(Usuario.class);
-	}
-	
-	public Usuario validarUsuario(String nome, String senha) throws AcademicoException
-	{
-		List<Usuario> l = listarUsuarios();
-		String senhaCrip = Usuario.gerarHashCode(senha);
-        
-		for(int i=0; i < l.size() ;i++)
-		{	if(l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senhaCrip)) 
-				return l.get(i);
-		}
-		return null;
-	}
-    
+
+    public boolean apagarUsuario(Usuario usuario) throws AcademicoException {
+        if (usuario.getPrivilegio() != 0) {
+            apDaoUsuario.excluir(usuario);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public List listarUsuarios() throws AcademicoException {
+        return apDaoUsuario.obter(Usuario.class);
+    }
+
+    public Usuario validarUsuario(String nome, String senha) throws AcademicoException {
+        List<Usuario> l = listarUsuarios();
+        String senhaCrip = Usuario.gerarHashCode(senha);
+
+        for (int i = 0; i < l.size(); i++) {
+            if (l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senhaCrip)) {
+                return l.get(i);
+            }
+        }
+        return null;
+    }
+
     public Usuario obter(Pessoa p) {
         return ((UsuarioDAO) apDaoUsuario).obterUsuario(p);
     }

@@ -19,8 +19,6 @@ import academico.controleinterno.cci.CtrlCurso;
 import academico.controleinterno.cci.CtrlPessoa;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Curso;
-import academico.controlepauta.cci.CtrlAula;
-import academico.controlepauta.cdp.Usuario;
 import academico.util.Exceptions.AcademicoException;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,7 +30,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosAluno.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagEventosAluno.zul
  * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
@@ -56,10 +56,10 @@ public class PagEventosAluno extends GenericForwardComposer {
         ctrl.setPagEventosAluno(this);
 
         a = (Aluno) arg.get("obj");
-        
+
         List<Curso> cursos = ctrlCurso.obterCursos();
         curso.setModel(new ListModelList(cursos, true));
-        
+
     }
 
     public void onCreate$winDadosAluno(Event event) {
@@ -76,7 +76,7 @@ public class PagEventosAluno extends GenericForwardComposer {
         while (listAluno.getItemCount() > 0) {
             listAluno.removeItemAt(0);
         }
-        
+
         List<Aluno> listaAlunos = ctrl.obterAlunos();
 
         if (listaAlunos != null) {
@@ -117,12 +117,10 @@ public class PagEventosAluno extends GenericForwardComposer {
                 ctrl.apagarAluno((Aluno) listitem.getValue());
                 listAluno.removeItemAt(listAluno.getSelectedIndex());
                 setMensagemAviso("success", "Aluno excluido com sucesso");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir o aluno");
             }
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione um aluno");
         }
 
@@ -134,17 +132,14 @@ public class PagEventosAluno extends GenericForwardComposer {
                 //Se não houver calendarios no Curso, imprime uma mensagem avisando e não deixa cadastrar.
                 if (!ctrl.obterCalendarios(select).isEmpty()) {
                     ctrl.abrirIncluirAluno(a, select);
+                } else {
+                    setMensagemAviso("info", "Não há calendários para esse curso!");
                 }
-                else {
-                    setMensagemAviso("info","Não há calendários para esse curso!");
-                }
-            }
-            catch (AcademicoException ex) {
+            } catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else {
-            setMensagemAviso("info","Selecione um curso!");
+        } else {
+            setMensagemAviso("info", "Selecione um curso!");
         }
     }
 
@@ -171,5 +166,4 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
-
 }

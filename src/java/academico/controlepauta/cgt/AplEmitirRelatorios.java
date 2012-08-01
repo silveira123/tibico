@@ -24,7 +24,12 @@ import academico.controleinterno.cgt.AplCadastrarCalendario;
 import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.controlepauta.cdp.MatriculaTurma;
+import academico.controlepauta.cih.ResultadosToPdf;
 import academico.util.Exceptions.AcademicoException;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 
@@ -39,7 +44,6 @@ public class AplEmitirRelatorios {
     private AplCadastrarCurso aplCadastroCurso = AplCadastrarCurso.getInstance();
     private AplCadastrarCalendario aplCadastrarCalendario = AplCadastrarCalendario.getInstance();
     private AplControlarTurma aplControlarTurma = AplControlarTurma.getInstance();
-    private AplControlarMatricula aplControlarMatricula = AplControlarMatricula.getInstance();
     
     
     private AplEmitirRelatorios() {
@@ -79,7 +83,16 @@ public class AplEmitirRelatorios {
         return aplControlarTurma.obterTurmas(calendario);
     }
     public List<MatriculaTurma> obter(Turma t) {
-        return aplControlarMatricula.obter(t);
+        return AplControlarMatricula.getInstance().obter(t);
     }
+    public boolean gerarRelatorios(Turma obj, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        List<MatriculaTurma> listaMat = obter(obj);
+        if(listaMat.size()>0){
+            ResultadosToPdf.gerarPdf(listaMat, media);
+            return true;
+        }
+        return false;
+    }
+    
     
  }

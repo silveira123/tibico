@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
@@ -243,11 +245,30 @@ public class CtrlMatricula {
         return apl.verificaPeriodoMatricula(curso);
     }
 
-    public void gerarPdf(List<MatriculaTurma> matTurma, boolean b) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        apl.gerarPdf(matTurma, b);
+    public boolean gerarResultados(Turma obj, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
+        return apl.gerarResultados(obj, media);
     }
 
-    public void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        apl.gerarPdf(matTurma, media);
+    public boolean emitirBoletimPDF(Aluno obj, Calendario cal) {
+        try {
+            return apl.emitirBoletimPDF(obj, cal);
+        } catch (AcademicoException ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadElementException ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CtrlMatricula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean emitirHistoricoPDF(Aluno obj) throws AcademicoException, Exception {
+        return apl.emitirHistoricoPDF(obj);
     }
 }

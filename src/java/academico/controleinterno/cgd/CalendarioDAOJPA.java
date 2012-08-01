@@ -11,48 +11,47 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Query;
 
-public class CalendarioDAOJPA extends DAOJPA<Calendario> implements CalendarioDAO 
-{
-        public List<Calendario> obter(Curso c) {
-        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1" );
-        query.setParameter( 1, c.getId());
+public class CalendarioDAOJPA extends DAOJPA<Calendario> implements CalendarioDAO {
+
+    public List<Calendario> obter(Curso c) {
+        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1");
+        query.setParameter(1, c.getId());
         return query.getResultList();
     }
 
     public boolean verificarPeriodoMatricula(Curso curso) {
-        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1" 
-                + "AND (?2 - pd.dataInicioPM >= 0 "
-                + "AND ?2 - pd.dataFimPM <= 0)"
-                );
-        query.setParameter( 1, curso.getId());
+        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1 AND (?2 - pd.dataInicioPM >= 0 AND ?2 - pd.dataFimPM <= 0)");
+        query.setParameter(1, curso.getId());
         query.setParameter(2, Calendar.getInstance());
         List<Calendario> calendario = query.getResultList();
-        if(calendario.size()>0)return true;
-        else return false;
+        if (calendario.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-  
+
     public boolean verificarPeriodoLetivo(Curso curso) {
-        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1" 
-                + "AND (?2 - pd.dataInicioPL >= 0 "
-                + "AND ?2 - pd.dataFimPL <= 0)"
-                );
-        query.setParameter( 1, curso.getId());
+        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1 AND (?2 - pd.dataInicioPL >= 0 AND ?2 - pd.dataFimPL <= 0)");
+        query.setParameter(1, curso.getId());
         query.setParameter(2, Calendar.getInstance());
         List<Calendario> calendario = query.getResultList();
-        if(calendario.size()>0)return true;
-        else return false;
+        if (calendario.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     public boolean verificarPeriodoCalendarioAcademico(Curso curso) {
-        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1" 
-                + "AND (?2 - pd.dataInicioCA >= 0 "
-                + "AND ?2 - pd.dataFimCA <= 0)"
-                );
-        query.setParameter( 1, curso.getId());
+        Query query = entityManager.createQuery("Select pd from Calendario pd where pd.curso.id = ?1 AND (?2 - pd.dataInicioCA >= 0 AND ?2 - pd.dataFimCA <= 0)");
+        query.setParameter(1, curso.getId());
         query.setParameter(2, Calendar.getInstance());
         List<Calendario> calendario = query.getResultList();
-        if(calendario.size()>0)return true;
-        else return false;
+        if (calendario.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

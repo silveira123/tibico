@@ -56,7 +56,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     private Label msg;
     private Button gerarPdf;
     private List<MatriculaTurma> matTurma;
-
+    private Calendario cal;
+    
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -102,7 +103,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             disciplinas.removeChild(disciplinas.getRows());
         }
 
-        Calendario cal = calendario.getSelectedItem().getValue();
+        cal = calendario.getSelectedItem().getValue();
         try {
             matTurma = ctrlMatricula.emitirBoletim(obj, cal);
             curso.setValue(obj.getCurso().toString());
@@ -156,9 +157,10 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     }
 
     public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        if(matTurma.size()>0)ctrlMatricula.gerarPdf(matTurma, true);
-        else{
-            setMensagemAviso("error", "Não existem disciplinas");
+        cal = calendario.getSelectedItem().getValue();
+        if(!ctrlMatricula.emitirBoletimPDF(obj, cal)){
+            setMensagemAviso("error", "Não existem disciplinas associadas ao aluno nesse calendário");
         }
+        
     }
 }

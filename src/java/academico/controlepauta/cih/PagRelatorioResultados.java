@@ -149,11 +149,11 @@ public class PagRelatorioResultados extends GenericForwardComposer {
         }
         media.setValue("");
         gerarGrafico.setDisabled(false);
-        Turma t = turma.getSelectedItem().getValue();
+        objTurma = turma.getSelectedItem().getValue();
         double soma = 0;
         int contador = 0;
         try {
-            matTurma = ctrlMatricula.obter(t);
+            matTurma = ctrlMatricula.obter(objTurma);
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
@@ -181,11 +181,13 @@ public class PagRelatorioResultados extends GenericForwardComposer {
     }
 
     public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        if (matTurma.size() > 0) {
-            ctrlMatricula.gerarPdf(matTurma, Double.parseDouble(media.getValue()));
-        } else {
-            setMensagemAviso("error", "Não existem matriculas para está turma");
-        }
+        
+            if(!ctrlMatricula.gerarResultados(objTurma, Double.parseDouble(media.getValue()))){
+                setMensagemAviso("error", "Não existem matriculas para está turma");
+            }
+        
+            
+        
     }
 
     public void setMensagemAviso(String tipo, String mensagem) {

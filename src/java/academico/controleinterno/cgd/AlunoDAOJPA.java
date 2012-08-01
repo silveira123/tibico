@@ -36,11 +36,6 @@ public class AlunoDAOJPA extends DAOJPA<Aluno> implements AlunoDAO{
          return aluno;
     }
 
-    public Aluno obterAluno(String matricula) {
-        List<Aluno> aluno = entityManager.createQuery("select mt a from Aluno mt where mt.matricula = ?1").setParameter(1, matricula).getResultList();
-        return aluno.get(0);
-    }
-    
     public Aluno obterAluno(Long id) {
         List<Aluno> aluno = entityManager.createQuery("select mt a from Aluno mt where mt.id = ?1").setParameter(1, id).getResultList();
         return aluno.get(0);

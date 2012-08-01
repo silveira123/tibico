@@ -134,10 +134,10 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
-    public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        if(matTurma.size()>0)ctrlMatricula.gerarPdf(matTurma, false);
-        else{
-            setMensagemAviso("error", "Não existem disciplinas encerradas");
+    public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException, AcademicoException, Exception {
+        if(!ctrlMatricula.emitirHistoricoPDF(obj)){
+             setMensagemAviso("error", "Não existem disciplinas encerradas");
         }
+        
     }
 }

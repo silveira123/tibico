@@ -84,8 +84,7 @@ public class CtrlPessoa {
             a = apl.incluirAluno(args);
             pagEventosAluno.addAluno(a);
             pagEventosAluno.setMensagemAviso("success", "Cadastro feito com sucesso");
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             pagEventosAluno.setMensagemAviso("error", "Erro ao cadastrar o aluno");
             System.err.println(ex.getMessage());
         }
@@ -95,7 +94,7 @@ public class CtrlPessoa {
     /**
      * Altera os dados do Aluno no sitema
      * <p/>
-     * @param professor
+     * @param aluno
      * @return
      * @throws Exception
      */
@@ -107,8 +106,7 @@ public class CtrlPessoa {
                 pagEventosAluno.refreshAluno(a);
                 pagEventosAluno.setMensagemAviso("success", "Cadastro editado com sucesso");
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             if (pagEventosAluno != null) {
                 pagEventosAluno.setMensagemAviso("error", "Erro ao editar o aluno");
             }
@@ -163,8 +161,7 @@ public class CtrlPessoa {
             p = apl.incluirProfessor(args);
             pagEventosProfessor.addProfessor(p);
             pagEventosProfessor.setMensagemAviso("success", "Cadastro feito com sucesso");
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             pagEventosProfessor.setMensagemAviso("error", "Erro ao cadastrar o professor");
             System.err.println(ex.getMessage());
         }
@@ -186,8 +183,7 @@ public class CtrlPessoa {
                 pagEventosProfessor.refreshProfessor(p);
                 pagEventosProfessor.setMensagemAviso("success", "Cadastro editado com sucesso");
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             if (pagEventosProfessor != null) {
                 pagEventosProfessor.setMensagemAviso("error", "Erro ao editar o professor");
             }
@@ -235,8 +231,7 @@ public class CtrlPessoa {
             return apl.obterEstados(pais);
 
 
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -253,8 +248,7 @@ public class CtrlPessoa {
             return apl.obterMunicipio(estado);
 
 
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -270,8 +264,7 @@ public class CtrlPessoa {
             return apl.obterBairro(municipio);
 
 
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -374,8 +367,7 @@ public class CtrlPessoa {
             return apl.alterarUsuario(usuario);
 
 
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

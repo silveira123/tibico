@@ -132,7 +132,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             List<Calendario> calendarios = ctrlLetivo.obterCalendarios(c);
             List<Turma> turmas = ctrlLetivo.obterTurma(obj);
             List<Calendario> cal = new ArrayList<Calendario>();
-            for (int i = 0; i < turmas.size();) {
+            for (int i = 0; i < turmas.size();i++) {
                 cal.add(turmas.get(i).getCalendario());
             }
             for (Calendario calendario : calendarios) {

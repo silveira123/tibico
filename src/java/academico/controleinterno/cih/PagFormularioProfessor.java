@@ -25,6 +25,7 @@ import academico.util.pessoa.cdp.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.xml.bind.JAXBException;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -117,6 +119,57 @@ public class PagFormularioProfessor extends GenericForwardComposer {
             listAreaConhecimento.setModel(new ListModelList(areaConhecimentos, true));
         }
         ((ListModelList) listAreaConhecimento.getModel()).setMultiple(true);
+    }
+
+    public void onBlur$cep() {
+        Webservicecep web = null;
+        try {
+            web = academico.util.pessoa.cgt.BuscaCep.getEndereco(cep.getValue());
+
+        }
+        catch (JAXBException ex) {
+            Logger.getLogger(PagFormularioAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (MalformedURLException ex) {
+            Logger.getLogger(PagFormularioAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        logradouro.setValue(web.getTipo_logradouro() + " " + web.getLogradouro());
+        for (int i = 0; i < estado.getModel().getSize(); i++) {
+            Estado e = (Estado) estado.getModel().getElementAt(i);
+            if (e.getSigla().equals(web.getUf())) {
+                ((ListModelList) estado.getModel()).addToSelection(e);
+                onSelect$estado(null);
+            }
+            //estado.setValue(web.getUf());
+
+        }
+        for (int i = 0; i < cidade.getModel().getSize(); i++) {
+            Municipio e = (Municipio) cidade.getModel().getElementAt(i);
+            if (e.getNome().equals(web.getCidade())) {
+                ((ListModelList) cidade.getModel()).addToSelection(e);
+                onSelect$cidade(null);
+            }
+            //cidade.setValue(web.getCidade());
+
+        }
+        for (int i = 0; i < bairro.getModel().getSize(); i++) {
+            Bairro e = (Bairro) bairro.getModel().getElementAt(i);
+            if (e.getNome().equals(web.getBairro())) {
+                ((ListModelList) bairro.getModel()).addToSelection(e);
+            }
+            //bairro.setValue(web.getBairro());
+
+        }
+
+        //bairro.setValue(web.getBairro());
+        System.out.println(web.getResultado());
+        System.out.println(web.getResultado_txt());
+        System.out.println(web.getLogradouro());
+        System.out.println(web.getTipo_logradouro());
+        System.out.println(web.getUf());
+        System.out.println(web.getCidade());
+        System.out.println(web.getBairro());
     }
 
     public void onCreate$winFormularioProfessor() {

@@ -8,6 +8,7 @@ import academico.controleinterno.cih.PagEventosDisciplina;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrandeAreaConhecimento;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,42 +143,42 @@ public class CtrlCurso {
     public void abrirIncluirCurso() {
         Map map = new HashMap();
         map.put("tipo", CtrlCurso.SALVAR);
-        Executions.createComponents("/pagformulariocurso.zul", null, map);
+        Executions.createComponents("/PagFormularioCurso.zul", null, map);
     }
 
     public void abrirEditarCurso(Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlCurso.EDITAR);
         map.put("obj", curso);
-        Executions.createComponents("/pagformulariocurso.zul", null, map);
+        Executions.createComponents("/PagFormularioCurso.zul", null, map);
     }
 
     public void abrirConsultarCurso(Curso curso) {
         Map map = new HashMap();
         Object put = map.put("tipo", CtrlCurso.CONSULTAR);
         map.put("obj", curso);
-        Executions.createComponents("/pagformulariocurso.zul", null, map);
+        Executions.createComponents("/PagFormularioCurso.zul", null, map);
     }
 
     public void abrirIncluirDisciplina(Curso curso) {
         Map map = new HashMap();
         map.put("tipo", CtrlCurso.SALVAR);
         map.put("obj", curso);
-        Executions.createComponents("/pagformulariodisciplina.zul", null, map);
+        Executions.createComponents("/PagFormularioDisciplina.zul", null, map);
     }
 
     public void abrirEditarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
         map.put("tipo", CtrlCurso.EDITAR);
         map.put("obj", disciplina);
-        Executions.createComponents("/pagformulariodisciplina.zul", null, map);
+        Executions.createComponents("/PagFormularioDisciplina.zul", null, map);
     }
 
     public void abrirConsultarDisciplina(Disciplina disciplina) {
         Map map = new HashMap();
         map.put("tipo", CtrlCurso.CONSULTAR);
         map.put("obj", disciplina);
-        Executions.createComponents("/pagformulariodisciplina.zul", null, map);
+        Executions.createComponents("/PagFormularioDisciplina.zul", null, map);
     }
 
     public void redirectPag(String url) {
@@ -185,11 +186,11 @@ public class CtrlCurso {
     }
 
     public Component abrirEventosCurso() {
-        window = (Window) Executions.createComponents("/pagEventosCurso.zul", null, null);
+        window = (Window) Executions.createComponents("/PagEventosCurso.zul", null, null);
         return window;
     }
 
     public Component abrirEventosDisciplina() {
-        return Executions.createComponents("/pagEventosDisciplina.zul", null, null);
+        return Executions.createComponents("/PagEventosDisciplina.zul", null, null);
     }
 }

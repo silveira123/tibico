@@ -194,7 +194,6 @@ public class CtrlAula {
     }
 
     public void abrirAbout() {
-        //Executions.sendRedirect("/PagInformacaoSobre.zul");
         Executions.createComponents("/PagInformacaoSobre.zul", null, null);
     }
      
@@ -223,26 +222,26 @@ public class CtrlAula {
     
     public Component abrirEventosAvaliacao()
     {
-        return Executions.createComponents("/pagEventosAvaliacao.zul", null, null);
+        return Executions.createComponents("/PagEventosAvaliacao.zul", null, null);
     }
     
     public Component abrirEventosAvaliacao(Professor prof)
     {
         Map map = new HashMap();
         map.put("professor", prof);
-        return Executions.createComponents("/pagEventosAvaliacao.zul", null, map);
+        return Executions.createComponents("/PagEventosAvaliacao.zul", null, map);
     }
     
     public Component abrirEventosChamada()
     {
-        return Executions.createComponents("/pagEventosChamada.zul", null, null);
+        return Executions.createComponents("/PagEventosChamada.zul", null, null);
     }
     
     public Component abrirEventosChamada(Professor prof)
     {
         Map map = new HashMap();
         map.put("professor", prof);
-        return Executions.createComponents("/pagEventosChamada.zul", null, map);
+        return Executions.createComponents("/PagEventosChamada.zul", null, map);
     }
     
     public Component abrirPaginaPrincipal(Usuario usuario)

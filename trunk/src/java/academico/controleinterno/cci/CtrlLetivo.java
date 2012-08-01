@@ -218,27 +218,27 @@ public class CtrlLetivo {
     public Component abrirEventosTurma(int tipo) {
         Map map = new HashMap();
         map.put("class", tipo);
-        return Executions.createComponents("/pagEventosTurma.zul", null, map);
+        return Executions.createComponents("/PagEventosTurma.zul", null, map);
     }
     
     public Component abrirVisualizarTurmas() {
-        return Executions.createComponents("/pagVisualizarTurmas.zul", null, null);
+        return Executions.createComponents("/PagVisualizarTurmas.zul", null, null);
     }
     
     public Component abrirVisualizarTurmas(Professor prof) {
         Map map = new HashMap();
         map.put("professor", prof);
-        return Executions.createComponents("/pagVisualizarTurmas.zul", null, map);
+        return Executions.createComponents("/PagVisualizarTurmas.zul", null, map);
     }
 
     public Component abrirEventosAlocarProfessor(int tipo) {
         Map map = new HashMap();
         map.put("class", tipo);
-        return Executions.createComponents("/pagEventosAlocarProfessor.zul", null, map);
+        return Executions.createComponents("/PagEventosAlocarProfessor.zul", null, map);
     }
 
     public Component abrirEventosCalendario() {
-        return Executions.createComponents("/pagEventosCalendario.zul", null, null);
+        return Executions.createComponents("/PagEventosCalendario.zul", null, null);
     }
 
     public List<Disciplina> obterDisciplinas(Curso curso) {

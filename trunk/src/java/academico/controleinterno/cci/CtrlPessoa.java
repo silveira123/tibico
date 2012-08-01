@@ -286,7 +286,7 @@ public class CtrlPessoa {
         map.put("tipo", CtrlPessoa.SALVAR);
         map.put("aluno", aluno);
         map.put("curso", curso);
-        Executions.createComponents("/pagFormularioAluno.zul", null, map);
+        Executions.createComponents("/PagFormularioAluno.zul", null, map);
     }
 
     public Component abrirEditarAluno(Aluno aluno, Curso curso) {
@@ -294,47 +294,47 @@ public class CtrlPessoa {
         map.put("tipo", CtrlPessoa.EDITAR);
         map.put("obj", aluno);
         map.put("curso", curso);
-        return Executions.createComponents("/pagFormularioAluno.zul", null, map);
+        return Executions.createComponents("/PagFormularioAluno.zul", null, map);
     }
 
     public void abrirConsultarAluno(Aluno aluno) {
         Map map = new HashMap();
         Object put = map.put("tipo", CtrlPessoa.CONSULTAR);
         map.put("obj", aluno);
-        Executions.createComponents("/pagFormularioAluno.zul", null, map);
+        Executions.createComponents("/PagFormularioAluno.zul", null, map);
     }
 
     public void abrirEventosAluno(Aluno aluno) {
         Map map = new HashMap();
         map.put("obj", aluno);
-        Executions.createComponents("/pagEventosAluno.zul", null, map);
+        Executions.createComponents("/PagEventosAluno.zul", null, map);
     }
 
     public void abrirIncluirProfessor(Professor professor) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.SALVAR);
         map.put("professor", professor);
-        Executions.createComponents("/pagFormularioProfessor.zul", null, map);
+        Executions.createComponents("/PagFormularioProfessor.zul", null, map);
     }
 
     public Component abrirEditarProfessor(Professor professor) {
         Map map = new HashMap();
         map.put("tipo", CtrlPessoa.EDITAR);
         map.put("obj", professor);
-        return Executions.createComponents("/pagFormularioProfessor.zul", null, map);
+        return Executions.createComponents("/PagFormularioProfessor.zul", null, map);
     }
 
     public void abrirConsultarProfessor(Professor professor) {
         Map map = new HashMap();
         Object put = map.put("tipo", CtrlPessoa.CONSULTAR);
         map.put("obj", professor);
-        Executions.createComponents("/pagFormularioProfessor.zul", null, map);
+        Executions.createComponents("/PagFormularioProfessor.zul", null, map);
     }
 
     public void abrirEventosProfessor(Professor professor) {
         Map map = new HashMap();
         map.put("obj", professor);
-        Executions.createComponents("/pagEventosProfessor.zul", null, map);
+        Executions.createComponents("/PagEventosProfessor.zul", null, map);
     }
 
     public void redirectPag(String url) {
@@ -346,11 +346,11 @@ public class CtrlPessoa {
     }
 
     public Component abrirEventosAluno() {
-        return Executions.createComponents("/pagEventosAluno.zul", null, null);
+        return Executions.createComponents("/PagEventosAluno.zul", null, null);
     }
 
     public Component abrirEventosProfessor() {
-        return Executions.createComponents("/pagEventosProfessor.zul", null, null);
+        return Executions.createComponents("/PagEventosProfessor.zul", null, null);
     }
 
     public Endereco setEndereco(ArrayList<Object> listaEndereco) {

@@ -187,48 +187,48 @@ public class CtrlMatricula {
     
     public Component abrirEventosMatricula()
     {
-        return Executions.createComponents("/pagEventosMatricula.zul", null, null);
+        return Executions.createComponents("/PagEventosMatricula.zul", null, null);
     }
     
     public Component abrirEventosMatricula(Aluno aluno)
     {
         Map map = new HashMap();
         map.put("aluno", aluno);
-        return Executions.createComponents("/pagEventosMatricula.zul", null, map);
+        return Executions.createComponents("/PagEventosMatricula.zul", null, map);
     }
     
     public Component abrirConsultaMatriculas()
     {
-        return Executions.createComponents("/pagConsultaMatriculas.zul", null, null);
+        return Executions.createComponents("/PagConsultaMatriculas.zul", null, null);
     }
     
     public Component abrirRelatorioBoletim()
     {
-        return Executions.createComponents("/pagRelatorioBoletim.zul", null, null);
+        return Executions.createComponents("/PagRelatorioBoletim.zul", null, null);
     }
     
     public Component abrirRelatorioBoletim(Aluno aluno)
     {
         Map map = new HashMap();
         map.put("aluno", aluno);
-        return Executions.createComponents("/pagRelatorioBoletim.zul", null, map);
+        return Executions.createComponents("/PagRelatorioBoletim.zul", null, map);
     }
     
     public Component abrirRelatorioHistorico()
     {
-        return Executions.createComponents("/pagRelatorioHistorico.zul", null, null);
+        return Executions.createComponents("/PagRelatorioHistorico.zul", null, null);
     }
     
     public Component abrirRelatorioHistorico(Aluno aluno)
     {
         Map map = new HashMap();
         map.put("aluno", aluno);
-        return Executions.createComponents("/pagRelatorioHistorico.zul", null, map);
+        return Executions.createComponents("/PagRelatorioHistorico.zul", null, map);
     }
     
     public Component abrirRelatorioResultados()
     {
-        return Executions.createComponents("/pagRelatorioResultados.zul", null, null);
+        return Executions.createComponents("/PagRelatorioResultados.zul", null, null);
     }
 
     public void calculaNotaFinal(MatriculaTurma c) throws AcademicoException, Exception {

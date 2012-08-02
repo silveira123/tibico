@@ -46,7 +46,7 @@
                     <div data-role="content" style="padding: 15px">
                         <%
                             List<MatriculaTurma> matTurma = (List<MatriculaTurma>) request.getAttribute("matriculas");
-                            for (int i = 0; i < matTurma.size(); i++) {
+                            for (int i = 0; matTurma != null && i < matTurma.size(); i++) {
                         %>
                         <div data-role="collapsible-set" data-theme="b" data-content-theme="b">
                             <div data-role="collapsible" data-collapsed="true">

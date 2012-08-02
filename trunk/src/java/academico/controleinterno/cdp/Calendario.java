@@ -146,7 +146,12 @@ public class Calendario extends ObjetoPersistente {
         this.situacao = situacao;
     }
     
-    
+    public boolean ehAtual()
+    {
+        if(Calendar.getInstance().after(dataInicioCA) && Calendar.getInstance().before(dataFimCA))
+            return true;
+        return false;
+    }
     
     @Override
     public String toString() {

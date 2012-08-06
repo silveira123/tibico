@@ -20,6 +20,7 @@ import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
 import academico.util.persistencia.DAOJPA;
 import java.util.List;
+import javax.persistence.Query;
 
 
 /**
@@ -32,13 +33,14 @@ import java.util.List;
 public class AlunoDAOJPA extends DAOJPA<Aluno> implements AlunoDAO{
     
      public List<Aluno> obterAlunosporTurma(Turma t) {
-         List<Aluno> aluno = entityManager.createQuery("select mt.aluno a from MatriculaTurma mt where mt.turma.id = ?1 ").setParameter(1, t.getId()).getResultList();
+         List<Aluno> aluno = entityManager.createQuery("select mt.aluno from MatriculaTurma mt where mt.turma.id = ?1 ").setParameter(1, t.getId()).getResultList();
          return aluno;
     }
 
     public Aluno obterAluno(Long id) {
-        List<Aluno> aluno = entityManager.createQuery("select mt a from Aluno mt where mt.id = ?1").setParameter(1, id).getResultList();
-        return aluno.get(0);
+        Query query = entityManager.createQuery("select mt from Aluno mt where mt.id = ?1");
+        query.setParameter(1, id);
+        return (Aluno) query.getSingleResult();
     }
 
 }

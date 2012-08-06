@@ -19,6 +19,7 @@ import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Professor;
 import academico.util.persistencia.DAOJPA;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  * Esta classe faz herança com DAOJPA e implementa ProfessorDAOJPA
@@ -30,12 +31,14 @@ import java.util.List;
 public class ProfessorDAOJPA extends DAOJPA<Professor> implements ProfessorDAO {
 
     public Professor obterProfessor(Long id) {
-        List<Professor> professor = entityManager.createQuery("select mt from Professor mt where mt.id = ?1").setParameter(1, id).getResultList();
-        return professor.get(0);
+        Query query = entityManager.createQuery("select mt from Professor mt where mt.id = ?1");
+        query.setParameter(1, id);
+        return (Professor) query.getSingleResult();
     }
 
     public List<Professor> obterProfessor(Calendario c) {
-        List<Professor> professor = entityManager.createQuery("select distinct t.professor from Turma t where t.calendario.id = ?1").setParameter(1, c.getId()).getResultList();
-        return professor;
+        Query query = entityManager.createQuery("select distinct t.professor from Turma t where t.calendario.id = ?1");
+        query.setParameter(1, c.getId());
+        return query.getResultList();
     }
 }

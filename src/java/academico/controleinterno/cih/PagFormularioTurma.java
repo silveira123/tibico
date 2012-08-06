@@ -218,7 +218,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
                     args.add(SituacaoTurma.CURSANDO);
 
                     ctrl.incluirTurma(args);
-                    Messagebox.show("Cadastro feito!");
                 }
                 else {
                     if (tipo == 1) {
@@ -234,7 +233,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
                         }
 
                         ctrl.alterarTurma(obj);
-                        Messagebox.show("Cadastro editado!");
                     }
                     else {
                         if (professor.getSelectedItem() != null) {
@@ -242,7 +240,6 @@ public class PagFormularioTurma extends GenericForwardComposer {
                             obj.setProfessor(p);
                         }
                         ctrl.alterarTurma(obj);
-                        Messagebox.show("Professor Alocado!");
 
                     }
                 }

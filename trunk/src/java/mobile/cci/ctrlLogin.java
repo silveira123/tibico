@@ -136,7 +136,7 @@ public class ctrlLogin extends HttpServlet {
             rd.forward(request, response);
         } else if (usuario != null) {
             //se algum usuario que não seja aluno tentar logar
-            response.sendRedirect("ErroSemAutoricaoMobile.jsp");
+            response.sendRedirect("ErroSemAutorizacaoMobile.jsp");
         } else {
             //usuario digitar login ou senha errada
             response.sendRedirect("ErroLoginMobile.jsp");

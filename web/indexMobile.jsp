@@ -37,7 +37,7 @@
 
                 <div data-role="content" style="padding: 15px">
                     <div style=" text-align:center">
-                        <img style="width: 288px; height: 100px" src="images/tibico6.png">
+                        <img style="width: 350px; height: 150px" src="images/tibico6.png">
                     </div>
                     <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">

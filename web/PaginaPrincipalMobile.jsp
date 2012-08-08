@@ -1,3 +1,4 @@
+<%@page import="academico.controleinterno.cdp.Aluno"%>
 <%@page import="academico.controleinterno.cdp.Professor"%>
 <%@page import="academico.controlepauta.cdp.Usuario"%>
 <%@page import="academico.controlepauta.cdp.MatriculaTurma"%>
@@ -28,22 +29,26 @@
             <div data-theme="b" data-role="header">
                 <h3>
                     <label id="header">
-                        
                         Seja Bem Vindo(a)
-                        <%
-                            Usuario u = (Usuario) request.getAttribute("usuario");
-                        %>
-                        <%=  u.getPessoa().toString()%>
                     </label>
                 </h3>
             </div>
             <form action="ctrlConsulta" method="POST">
                 <div data-role="content" style="padding: 15px">
                     <div style=" text-align:center">
-                        <img style="width: 288px; height: 100px" src="images/tibico6.png">
+                        <img style="width: 350px; height: 150px" src="images/tibico6.png">
                     </div>
-
+                    <%
+                        Usuario u = (Usuario) request.getAttribute("usuario");
+                    %>
                     <div data-role="content" style="padding: 15px">
+                        <div align="left">
+                            <h4>
+                                Aluno: <%=  u.getPessoa().toString()%>
+                                <br>
+                                Curso: <%=  ((Aluno) u.getPessoa()).getCurso().getSigla()%>
+                            </h4>
+                        </div>
                         <%
                             List<MatriculaTurma> matTurma = (List<MatriculaTurma>) request.getAttribute("matriculas");
                             for (int i = 0; matTurma != null && i < matTurma.size(); i++) {
@@ -52,29 +57,40 @@
                             <div data-role="collapsible" data-collapsed="true">
                                 <h3>
                                     <%=  matTurma.get(i).getTurma().getDisciplina().toString()%>
+                                    <br> 
+                                    Freq: <%=  matTurma.get(i).toDecimalFormat()%>% /
+                                    Nota: <%=  matTurma.get(i).getResultadoFinal().toString()%>
                                 </h3>
-                                <div class="ui-grid-a">
-                                    <div class="ui-block-a">
-                                        <h2>
-                                            Frequência
-                                        </h2>
+                                <b>
+                                    <div class="ui-grid-a">
+                                        <div class="ui-block-a">
+                                            Professor
+                                        </div>
+                                        <div class="ui-block-b">
+                                            <%  if (matTurma.get(i).getTurma().getProfessor() != null) {
+                                            %>
+                                            <%=  matTurma.get(i).getTurma().getProfessor()%>
+                                            <% }
+                                            else {
+                                            %>
+                                            --
+                                            <% }
+                                            %>
+                                        </div>
+                                        <div class="ui-block-a">
+                                            CH:
+                                        </div>
+                                        <div class="ui-block-b">
+                                            <%=  matTurma.get(i).getTurma().getDisciplina().getCargaHoraria()%>
+                                        </div>
+                                        <div class="ui-block-a">
+                                            Status:
+                                        </div>
+                                        <div class="ui-block-b">
+                                            <%=  matTurma.get(i).getTurma().getEstadoTurma().toString()%>
+                                        </div> 
                                     </div>
-                                    <div class="ui-block-b">
-                                        <h2>
-                                            <%=  matTurma.get(i).toDecimalFormat()%>
-                                        </h2>
-                                    </div>
-                                    <div class="ui-block-a">
-                                        <h2>
-                                            Nota
-                                        </h2>
-                                    </div>
-                                    <div class="ui-block-b">
-                                        <h2>
-                                            <%=  matTurma.get(i).getResultadoFinal().toString()%>
-                                        </h2>
-                                    </div>
-                                </div>
+                                </b>
                             </div>
                         </div>
                         <%

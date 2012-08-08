@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jmiranda
  */
-@WebServlet(name = "ctrl", urlPatterns = {"/ctrl"})
+@WebServlet(name = "AreaLogada", urlPatterns = {"/AreaLogada"})
 public class ctrlLogin extends HttpServlet {
 
     public Usuario obterLogin(HttpServletRequest request) {

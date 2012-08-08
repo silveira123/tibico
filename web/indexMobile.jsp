@@ -33,7 +33,7 @@
                 <h3>
                 </h3>
             </div>
-            <form name="form1" action="ctrl" method="post">
+            <form name="form1" action="AreaLogada" method="post">
 
                 <div data-role="content" style="padding: 15px">
                     <div style=" text-align:center">

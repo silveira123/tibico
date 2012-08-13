@@ -112,7 +112,7 @@ public class AplControlarMatricula {
      * @throws AcademicoException caso não seja possivel buscar as matriculas.
      */
     public List<MatriculaTurma> obterMatriculadas(Aluno aluno) throws AcademicoException {
-        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, SituacaoAlunoTurma.MATRICULADO);
+        return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obter(aluno, SituacaoAlunoTurma.CURSANDO);
     }
 
     /**

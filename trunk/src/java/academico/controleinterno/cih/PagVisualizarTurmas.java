@@ -55,6 +55,8 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
     private Combobox professor;
     private Curso c;
     private Professor obj;
+    private Div boxInformacao;
+    private Label msg;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -203,5 +205,13 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
         }
     }
 
+    public void setMensagemAviso(String tipo, String mensagem) {
+        boxInformacao.setClass(tipo);
+        boxInformacao.setVisible(true);
+        msg.setValue(mensagem);
+    }
     
+    public void onClick$boxInformacao(Event event) {
+        boxInformacao.setVisible(false);
+    }
 }

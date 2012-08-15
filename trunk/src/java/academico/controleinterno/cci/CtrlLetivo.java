@@ -144,6 +144,20 @@ public class CtrlLetivo {
         }
         return t;
     }
+    
+    public Turma alterarVisualizarTurma(Turma turma) {
+        Turma t = null;
+        try {
+            t = aplC.alterarTurma(turma);
+            pagVisualizarTurmas.refreshTurma(t);
+            pagVisualizarTurmas.setMensagemAviso("success", "Cadastro editado com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagVisualizarTurmas.setMensagemAviso("error", "Erro ao editar a turma");
+            System.err.println(ex.getMessage());
+        }
+        return t;
+    }
 
     public void apagarTurma(Turma turma) throws Exception {
         aplC.apagarTurma(turma);

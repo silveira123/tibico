@@ -42,7 +42,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     private Window winFechamentoTurmas;
     private Grid matriculas;
     private Turma obj;
-    private Button abrirTurma;
+    private Button abrirTurma, fecharTurma;
     private Usuario user;
 
     @Override
@@ -50,6 +50,17 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
         super.doAfterCompose(comp);
         obj = (Turma) arg.get("turma");
         if (obj != null) {
+            if(obj.getEstadoTurma().equals(SituacaoTurma.CURSANDO))
+            {
+                abrirTurma.setDisabled(true);
+                fecharTurma.setDisabled(false);
+            }
+            else if(obj.getEstadoTurma().equals(SituacaoTurma.ENCERRADA))
+            {
+                fecharTurma.setDisabled(true);
+                abrirTurma.setDisabled(false);
+            }
+                
             List<MatriculaTurma> matTurma = ctrlMatricula.obter(obj);
             Rows linhas = new Rows();
 
@@ -88,7 +99,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     public void onClick$fecharTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(SituacaoTurma.ENCERRADA);
-            ctrl.alterarTurma(obj);
+            ctrl.alterarVisualizarTurma(obj);
             winFechamentoTurmas.onClose();
         }
         else {
@@ -99,7 +110,7 @@ public class PagFechamentoTurmas extends GenericForwardComposer {
     public void onClick$abrirTurma(Event event) throws Exception {
         if (ctrl.verificarPeriodoLetivo(obj.getDisciplina().getCurso())) {
             obj.setEstadoTurma(SituacaoTurma.CURSANDO);
-            ctrl.alterarTurma(obj);
+            ctrl.alterarVisualizarTurma(obj);
             winFechamentoTurmas.onClose();
         }
         else {

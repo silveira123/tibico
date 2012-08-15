@@ -96,9 +96,8 @@
                         }
                     %>
                 </div>
-                <form name="form1" action="PrincipalMobile" method="post">
-                    <input data-theme="b" data-icon="back" data-inline="true" data-iconpos="left" value="Sair" type="submit" />
-                </form>
+                <input data-theme="b" data-icon="back" data-inline="true" data-iconpos="left" value="Sair" type="submit" onClick='javascript:location.href="indexMobile.jsp"'/>
+
             </div>
 
             <div data-theme="b" data-role="footer" data-position="fixed">

@@ -128,6 +128,7 @@ public class ctrlLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("oi");
         Usuario usuario = obterLogin(request);
         if (usuario != null && usuario.getPrivilegio() == 4) {
             request.setAttribute("matriculas", obterTurmas(usuario));

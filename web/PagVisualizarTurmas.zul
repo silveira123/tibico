@@ -33,7 +33,11 @@
             </grid>
     		   			
             <separator height="25px" />
-			
+            
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
+                <label id="msg" value=""/>
+            </div>
+            
             <auxhead>
                 <auxheader align="center"
                            label="Turmas Cadastradas" />
@@ -50,6 +54,7 @@
             </listbox>			
             <separator/>
         </div>
+        <style src="/information.css"/>
     </window> 
 </zk>
 

@@ -25,16 +25,16 @@ public class ResultadosToPdf {
 
     public static void gerarPdf(List<MatriculaTurma> matTurma, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {
         Document document = new Document();
-        com.lowagie.text.Image figura = com.lowagie.text.Image.getInstance( Executions.getCurrent().getDesktop().getWebApp().getRealPath("\\images\\tibico6.png"));
+        //com.lowagie.text.Image figura = com.lowagie.text.Image.getInstance( Executions.getCurrent().getDesktop().getWebApp().getRealPath("\\images\\tibico6.png"));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, baos);
 
 
-
-        figura.scaleAbsolute(200, 75);
-        figura.setAlignment(Element.ALIGN_CENTER);
+//
+//        figura.scaleAbsolute(200, 75);
+//        figura.setAlignment(Element.ALIGN_CENTER);
         document.open();
-        document.add(figura);
+//        document.add(figura);
 
         Font f = new Font();
         f.setSize(18);
@@ -103,7 +103,7 @@ public class ResultadosToPdf {
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph(mt.getPercentualPresenca().toString(), f2));
+            cell = new PdfPCell(new Paragraph(mt.toDecimalFormat(), f2));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(cell);
             
@@ -121,6 +121,6 @@ public class ResultadosToPdf {
 
         document.close();
         Filedownload fd = null;
-        fd.save(baos.toByteArray(), null, "resultados" + "-" + matTurma.get(0).getTurma() );
+        fd.save(baos.toByteArray(), null, "resultados" + "-" + matTurma.get(0).getTurma()+".pdf");
     }
 }

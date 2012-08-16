@@ -124,7 +124,7 @@
                                         </div>
                                         
                                         <div align="center">
-                                            <button id="foto" label="Upload" upload="true,maxsize=1024,multiple=false"/>
+                                            <button id="foto" label="Carregar" upload="true,maxsize=1024,multiple=false"/>
                                         </div>
                                     </row>
                                 </rows>

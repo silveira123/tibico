@@ -136,6 +136,15 @@ public class AplCadastrarPessoa {
     }
 
     /**
+     * Obtém uma lista de todos os Alunos pesquisados
+     * <p/>
+     * @return
+     */
+    public List<Aluno> obterAlunosPesquisa(String pesquisa) throws AcademicoException {
+        return ((AlunoDAO) apDaoAluno).obterAluno(pesquisa);
+    }
+    
+    /**
      * Obtém uma lista de todos os Alunos cadastrados
      * <p/>
      * @return

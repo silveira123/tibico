@@ -26,14 +26,18 @@
             
             <grid>
                 <columns>
-                    <column label="" width="10%"/>
-                    <column label="" width="90%"/>
+                    <column label="" width="5%"/>
+                    <column label="" width="65%"/>
+                    <column label="" width="23%"/>
+                    <column label="" width="7%"/>
                 </columns>
                 <rows>
       
                     <row>
                         Curso:
-                        <combobox id="curso" width="20%" readonly="true"/>
+                        <combobox id="curso" width="60%" readonly="true"/>
+                        <textbox  id="pesquisarNome" width="100%"/>
+                        <button id="pesquisarBotao" label="Buscar" />
                     </row>
                       
                 </rows>
@@ -55,6 +59,7 @@
 
             <listbox id="listAluno" mold="paging" pageSize="10">
                 <listhead>
+                    <listheader align="center" label="Matricula" />
                     <listheader align="center" label="Nome" />
                     <listheader align="center" label="Curso" />
                 </listhead>

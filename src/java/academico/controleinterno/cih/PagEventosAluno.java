@@ -49,6 +49,7 @@ public class PagEventosAluno extends GenericForwardComposer {
     private Curso select = null;
     private Div boxInformacao;
     private Label msg;
+    private Textbox pesquisarNome;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -83,8 +84,9 @@ public class PagEventosAluno extends GenericForwardComposer {
             for (int i = 0; i < listaAlunos.size(); i++) {
                 Aluno a = listaAlunos.get(i);
                 if (a.getCurso() == select) {
-                    Listitem linha = new Listitem(listaAlunos.get(i).toString(), a);
+                    Listitem linha = new Listitem(listaAlunos.get(i).getMatricula(), a);
 
+                    linha.appendChild(new Listcell(listaAlunos.get(i).toString()));
                     linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
 
                     linha.setParent(listAluno);
@@ -94,7 +96,8 @@ public class PagEventosAluno extends GenericForwardComposer {
     }
 
     public void addAluno(Aluno a) {
-        Listitem linha = new Listitem(a.toString(), a);
+        Listitem linha = new Listitem(a.getMatricula(), a);
+        linha.appendChild(new Listcell(a.toString()));
         linha.appendChild(new Listcell(a.getCurso().toString()));
         linha.setParent(listAluno);
     }
@@ -103,6 +106,7 @@ public class PagEventosAluno extends GenericForwardComposer {
         for (int i = 0; i < listAluno.getItemCount(); i++) {
             if (listAluno.getItemAtIndex(i).getValue() == a) {
                 listAluno.getItemAtIndex(i).getChildren().clear();
+                listAluno.getItemAtIndex(i).appendChild(new Listcell(a.getMatricula()));
                 listAluno.getItemAtIndex(i).appendChild(new Listcell(a.toString()));
                 listAluno.getItemAtIndex(i).appendChild(new Listcell(a.getCurso().toString()));
                 break;
@@ -110,6 +114,45 @@ public class PagEventosAluno extends GenericForwardComposer {
         }
     }
 
+    public void onOK$pesquisarNome(Event event) {
+        onClick$pesquisarBotao(event);
+    }
+     
+    public void onClick$pesquisarBotao(Event event) {
+        while (listAluno.getItemCount() > 0) {
+            listAluno.removeItemAt(0);
+        }
+        
+        if(!pesquisarNome.getText().trim().equals(""))
+        {
+            List<Aluno> listaAlunos = null;
+            try {
+                listaAlunos = ctrl.obterAlunosPesquisa(pesquisarNome.getText());
+            }
+            catch (AcademicoException ex) {
+                Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (listaAlunos != null) {
+                for (int i = 0; i < listaAlunos.size(); i++) {
+                    Aluno a = listaAlunos.get(i);
+                    Listitem linha = new Listitem(listaAlunos.get(i).getMatricula(), a);
+
+                    linha.appendChild(new Listcell(listaAlunos.get(i).toString()));
+                    if(listaAlunos.get(i).getCurso()==null)
+                        System.out.println(listaAlunos.get(i));
+                    else
+                    linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
+
+                    linha.setParent(listAluno);
+                }
+            }
+            else
+                setMensagemAviso("info", "Nenhum aluno encontrado!");
+        }
+        
+    }
+    
     public void onClick$excluirAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {

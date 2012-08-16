@@ -311,4 +311,11 @@ public class AplControlarMatricula {
         return false;
 
     }
+    public void alterarStatusCursando(Turma turma) throws AcademicoException {
+        List<MatriculaTurma> mat = obter(turma);
+        for (MatriculaTurma matriculaTurma : mat) {
+            matriculaTurma.setSituacaoAluno(SituacaoAlunoTurma.CURSANDO);
+            apDaoMatriculaTurma.salvar(matriculaTurma);
+        }
+    }
 }

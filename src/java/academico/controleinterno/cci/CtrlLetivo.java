@@ -149,6 +149,8 @@ public class CtrlLetivo {
         Turma t = null;
         try {
             t = aplC.alterarTurma(turma);
+            if(turma.getEstadoTurma().equals(SituacaoTurma.CURSANDO))
+                aplC.alterarStatusCursando(turma);
             pagVisualizarTurmas.refreshTurma(t);
             pagVisualizarTurmas.setMensagemAviso("success", "Cadastro editado com sucesso");
         }

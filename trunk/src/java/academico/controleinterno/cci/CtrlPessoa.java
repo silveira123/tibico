@@ -136,6 +136,15 @@ public class CtrlPessoa {
     }
 
     /**
+     * Obtém uma lista de todos os Alunos pesquisadoss
+     * <p/>
+     * @return
+     */
+    public List<Aluno> obterAlunosPesquisa(String pesquisa) throws AcademicoException {
+        return apl.obterAlunosPesquisa(pesquisa);
+    }
+    
+    /**
      * Obtém uma lista de todos os Paises cadastrados
      * <p/>
      * @return

@@ -32,4 +32,5 @@ import java.util.List;
 public interface AlunoDAO extends DAO<Aluno>{
     public List<Aluno> obterAlunosporTurma(Turma t);
     public Aluno obterAluno(Long id);
+    public List<Aluno> obterAluno(String parametro);
 }

@@ -392,7 +392,6 @@ public class PagFormularioAluno extends GenericForwardComposer {
                 obj.getEndereco().setNumero(Integer.parseInt(numero.getText()));
                 obj.getEndereco().setComplemento(complemento.getText());
                 obj.getEndereco().setBairro((Bairro) bairro.getSelectedItem().getValue());
-                obj.setCurso(curso);
                 obj.setFoto(bytes);
 
                 //se tiver colocado uma nova senha

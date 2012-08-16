@@ -57,6 +57,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         obj = (Aluno) arg.get("aluno");
+        
+        nome.setReadonly(true);
+        matricula.setReadonly(true);
+        gerarPdf.setDisabled(true);
+        
         if (obj != null) {
             List<Aluno> alunos = new ArrayList<Aluno>();
             alunos.add(obj);
@@ -70,9 +75,6 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
-        nome.setReadonly(true);
-        matricula.setReadonly(true);
-        gerarPdf.setDisabled(true);
     }
     
     public void onCreate$winHistorico(Event event) {
@@ -117,7 +119,9 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 
                 linha.setParent(linhas);
+                
             }
+            gerarPdf.setDisabled(false);
             linhas.setParent(disciplinas);
         }
         catch (AcademicoException ex) {

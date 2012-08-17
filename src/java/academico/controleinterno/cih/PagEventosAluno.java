@@ -73,12 +73,23 @@ public class PagEventosAluno extends GenericForwardComposer {
 
     public void onSelect$curso(Event event) throws AcademicoException {
         select = (Curso) curso.getSelectedItem().getValue();
+        
+        carregarAlunos();
+    }
 
+    public void carregarAlunos() 
+    {
         while (listAluno.getItemCount() > 0) {
             listAluno.removeItemAt(0);
         }
-
-        List<Aluno> listaAlunos = ctrl.obterAlunos();
+        
+        List<Aluno> listaAlunos = null;
+        try {
+            listaAlunos = ctrl.obterAlunos();
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (listaAlunos != null) {
             for (int i = 0; i < listaAlunos.size(); i++) {
@@ -94,7 +105,7 @@ public class PagEventosAluno extends GenericForwardComposer {
             }
         }
     }
-
+    
     public void addAluno(Aluno a) {
         Listitem linha = new Listitem(a.getMatricula(), a);
         linha.appendChild(new Listcell(a.toString()));
@@ -117,6 +128,12 @@ public class PagEventosAluno extends GenericForwardComposer {
     public void onOK$pesquisarNome(Event event) {
         onClick$pesquisarBotao(event);
     }
+    
+    
+    public void onBlur$pesquisarNome(Event event) {
+        if(pesquisarNome.getText().trim().equals(""))
+            carregarAlunos();
+    }
      
     public void onClick$pesquisarBotao(Event event) {
         while (listAluno.getItemCount() > 0) {
@@ -133,7 +150,7 @@ public class PagEventosAluno extends GenericForwardComposer {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            if (listaAlunos != null) {
+            if (listaAlunos != null && !listaAlunos.isEmpty()) {
                 for (int i = 0; i < listaAlunos.size(); i++) {
                     Aluno a = listaAlunos.get(i);
                     Listitem linha = new Listitem(listaAlunos.get(i).getMatricula(), a);

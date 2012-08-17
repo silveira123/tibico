@@ -45,7 +45,7 @@ public class AlunoDAOJPA extends DAOJPA<Aluno> implements AlunoDAO{
     
     //Retorna os alunos pesquisados por nome ou matricula
     public List<Aluno> obterAluno(String parametro) {
-        Query query = entityManager.createQuery("select distinct a from Pessoa p, Aluno a where p.id = a.id and (p.nome like '%" + parametro + "%' or a.matricula like '%" + parametro + "%')");
+        Query query = entityManager.createQuery("select distinct a from Pessoa p, Aluno a where p.id = a.id and (lower(p.nome) like lower('%" + parametro + "%') or lower(a.matricula) like lower('%" + parametro + "%'))");
         return (List<Aluno>) query.getResultList();
     }
 

@@ -18,6 +18,20 @@
                 <menuitem tooltiptext="Excluir um Professor"
                           label="Excluir" width="20%" id="excluirProfessor"/>
             </menubar>
+            <grid>
+                <columns>
+                    <column label="" width="30%"/>
+                    <column label="" width="70%"/>
+                </columns>
+                <rows>
+      
+                    <row>
+                        <textbox  id="pesquisarNome" width="100%"/>
+                        <button id="pesquisarBotao" label="Buscar" />
+                    </row>
+                      
+                </rows>
+            </grid>
             
             <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
                 <label id="msg" value=""/>

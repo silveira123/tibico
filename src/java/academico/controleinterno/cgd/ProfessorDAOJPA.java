@@ -15,6 +15,7 @@
  */
 package academico.controleinterno.cgd;
 
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cdp.Professor;
 import academico.util.persistencia.DAOJPA;
@@ -40,5 +41,12 @@ public class ProfessorDAOJPA extends DAOJPA<Professor> implements ProfessorDAO {
         Query query = entityManager.createQuery("select distinct t.professor from Turma t where t.calendario.id = ?1");
         query.setParameter(1, c.getId());
         return query.getResultList();
+    }
+    
+    //Retorna os alunos pesquisados por nome ou matricula
+    public List<Professor> obterProfessor(String nome) {
+        //Query query = entityManager.createQuery("select distinct a from Pessoa p, Professor a where p.id = a.id and (p.nome like '%" + nome + "%')");
+        Query query = entityManager.createQuery("select distinct a from Pessoa p, Professor a where p.id = a.id and (lower(p.nome) like lower('%" + nome + "%'))");
+        return (List<Professor>) query.getResultList();
     }
 }

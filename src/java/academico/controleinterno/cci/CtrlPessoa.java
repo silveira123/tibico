@@ -222,6 +222,15 @@ public class CtrlPessoa {
     }
 
     /**
+     * Obtém uma lista de todos os Professores pesquisados
+     * <p/>
+     * @return
+     */
+    public List<Professor> obterProfessorPesquisa(String nome) throws AcademicoException {
+        return apl.obterProfessorPesquisa(nome);
+    }
+    
+    /**
      * Obtém uma lista com todas as Áreas de conhecimento
      * <p/>
      * @return

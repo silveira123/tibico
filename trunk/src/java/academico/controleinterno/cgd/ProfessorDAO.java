@@ -35,5 +35,6 @@ public interface ProfessorDAO extends DAO<Professor> {
 
     public Professor obterProfessor(Long id);
     public List<Professor> obterProfessor(Calendario c);
+    public List<Professor> obterProfessor(String nome);
     
 }

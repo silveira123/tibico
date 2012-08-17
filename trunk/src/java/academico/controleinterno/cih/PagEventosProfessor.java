@@ -16,9 +16,13 @@
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
+import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
+import academico.util.Exceptions.AcademicoException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -41,12 +45,28 @@ public class PagEventosProfessor extends GenericForwardComposer {
     private Professor p;
     private Div boxInformacao;
     private Label msg;
+    private Textbox pesquisarNome;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosProfessor(this);
-        List<Professor> listaProfessores = ctrl.obterProfessor();
+        carregarProfessores();
+    }
+
+    public void carregarProfessores()
+    {
+        while (listProfessor.getItemCount() > 0) {
+            listProfessor.removeItemAt(0);
+        }
+        
+        List<Professor> listaProfessores = null;
+        try {
+            listaProfessores = ctrl.obterProfessor();
+        }
+        catch (AcademicoException ex) {
+            Logger.getLogger(PagEventosProfessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (listaProfessores != null) {
             for (int i = 0; i < listaProfessores.size(); i++) {
@@ -59,7 +79,7 @@ public class PagEventosProfessor extends GenericForwardComposer {
             }
         }
     }
-
+    
     public void onCreate$winDadosProfessor(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -85,6 +105,46 @@ public class PagEventosProfessor extends GenericForwardComposer {
         }
     }
 
+    public void onOK$pesquisarNome(Event event) {
+        onClick$pesquisarBotao(event);
+    }
+
+    public void onBlur$pesquisarNome(Event event) {
+        if(pesquisarNome.getText().trim().equals(""))
+            carregarProfessores();
+    }
+    
+    public void onClick$pesquisarBotao(Event event) {
+        while (listProfessor.getItemCount() > 0) {
+            listProfessor.removeItemAt(0);
+        }
+        System.out.println(pesquisarNome.getText());
+        if(!pesquisarNome.getText().trim().equals(""))
+        {
+            List<Professor> listaProfessores = null;
+            try {
+                listaProfessores = ctrl.obterProfessorPesquisa(pesquisarNome.getText());
+            }
+            catch (AcademicoException ex) {
+                Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (listaProfessores != null && !listaProfessores.isEmpty()) {
+                for (int i = 0; i < listaProfessores.size(); i++) {
+                    Professor a = listaProfessores.get(i);
+                    Listitem linha = new Listitem(listaProfessores.get(i).toString(), a);
+
+                    linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
+                    
+                    linha.setParent(listProfessor);
+                }
+            }
+            else
+                setMensagemAviso("info", "Nenhum professor encontrado!");
+        }
+        
+    }
+    
     public void onClick$excluirProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {

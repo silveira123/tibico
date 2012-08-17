@@ -255,6 +255,15 @@ public class AplCadastrarPessoa {
     }
 
     /**
+     * Obtém uma lista de todos os Professores pesquisados
+     * <p/>
+     * @return
+     */
+    public List<Professor> obterProfessorPesquisa(String nome) throws AcademicoException {
+        return ((ProfessorDAO) apDaoProfessor).obterProfessor(nome);
+    }
+    
+    /**
      * Obtém uma lista com todas as Áreas de conhecimento
      * <p/>
      * @return

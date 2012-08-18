@@ -72,7 +72,7 @@
         <div sclass="login-box" > 
             <label value="Tibico" style="font-size:40px; font-weight: bold;"/>
             <separator/>
-            <label value="Sistema de Registro Acadêmico." style="font-size:15px;"/>
+            <label value="Sistema de Registro Acadêmico" style="font-size:15px;"/>
 
             <separator/>
             <separator/>

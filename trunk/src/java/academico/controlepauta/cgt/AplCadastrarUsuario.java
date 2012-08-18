@@ -70,7 +70,7 @@ public class AplCadastrarUsuario {
         String senhaCrip = Usuario.gerarHashCode(senha);
 
         for (int i = 0; i < l.size(); i++) {
-            if (l.get(i).getNome().equals(nome) && l.get(i).getSenha().equals(senhaCrip)) {
+            if (l.get(i).getNome().toLowerCase().equals(nome.toLowerCase()) && l.get(i).getSenha().equals(senhaCrip)) {
                 return l.get(i);
             }
         }

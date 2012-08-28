@@ -286,4 +286,8 @@ public class CtrlLetivo {
     public void abrirPeriodo(Calendario select) throws AcademicoException{
         apl.abrirCalendario(select);
     }
+
+    public List<Turma> obterTurmaPesquisa(String parametro) throws AcademicoException{
+        return aplC.obterTurmaPesquisa(parametro);
+    }
 }

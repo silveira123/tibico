@@ -46,7 +46,7 @@ public class ProfessorDAOJPA extends DAOJPA<Professor> implements ProfessorDAO {
     //Retorna os alunos pesquisados por nome ou matricula
     public List<Professor> obterProfessor(String nome) {
         //Query query = entityManager.createQuery("select distinct a from Pessoa p, Professor a where p.id = a.id and (p.nome like '%" + nome + "%')");
-        Query query = entityManager.createQuery("select distinct a from Pessoa p, Professor a where p.id = a.id and (lower(p.nome) like lower('%" + nome + "%'))");
+        Query query = entityManager.createQuery("select distinct a from Pessoa p, Professor a where p.id = a.id and (lower(p.nome) like lower('%" + nome + "%') or lower(a.grauInstrucao) like lower('%" + nome + "%'))");
         return (List<Professor>) query.getResultList();
     }
 }

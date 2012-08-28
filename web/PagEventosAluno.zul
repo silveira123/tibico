@@ -36,7 +36,7 @@
                     <row>
                         Curso:
                         <combobox id="curso" width="60%" readonly="true"/>
-                        <textbox  id="pesquisarNome" width="100%"/>
+                        <textbox  id="pesquisarNome" width="100%" instant="true"/>
                         <button id="pesquisarBotao" label="Buscar" />
                     </row>
                       

@@ -32,8 +32,8 @@
         }
     </style>
     <div id="div" apply="academico.controlepauta.cih.PagPrincipal">
-        <borderlayout sclass="complex-layout" height="810px">
-            <north size="30px" border="0">
+        <borderlayout id="telaprincipal" sclass="complex-layout">
+            <north id="north" border="0">
                 <div class="container">
                     <div class="header">
                         <space width="2px"/>
@@ -47,7 +47,7 @@
                 </div>
             </north>
 			<!-- Sidebar -->
-            <west title=" " width="200px" border="0" flex="true" splittable="true" collapsible="true"
+            <west id="west" title=" " border="0" flex="true" splittable="true" collapsible="true"
                   margins="0,5,0,0">
                 <vlayout spacing="0">
                     <panel id="cadastroAcademico" width="100%" border="normal"
@@ -121,7 +121,7 @@
                     </center>
                 </borderlayout>
             </center>
-            <south size="40px" border="0"
+            <south id="south" border="0"
                    style="background: none repeat scroll 0 0 ;">
                 <toolbar mold="panel" align="center">
                     <toolbarbutton label="Sign in" />

@@ -135,6 +135,13 @@ public class PagEventosAluno extends GenericForwardComposer {
             carregarAlunos();
     }
      
+    public void onChange$pesquisarNome(Event event) {
+        if(pesquisarNome.getText().trim().equals(""))
+            carregarAlunos();
+        else
+            onClick$pesquisarBotao(event);
+    }
+    
     public void onClick$pesquisarBotao(Event event) {
         while (listAluno.getItemCount() > 0) {
             listAluno.removeItemAt(0);

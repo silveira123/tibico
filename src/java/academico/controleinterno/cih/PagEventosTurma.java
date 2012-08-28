@@ -17,7 +17,10 @@ package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlLetivo;
 import academico.controleinterno.cdp.Turma;
+import academico.util.Exceptions.AcademicoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -43,14 +46,32 @@ public class PagEventosTurma extends GenericForwardComposer {
     private Integer tipo;
     private Div boxInformacao;
     private Label msg;
+    private Textbox pesquisarNome;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosTurma(this);
         tipo = (Integer) arg.get("class");
+        carregarTurma();
+    }
+
+    public void carregarTurma() {
+
         if (tipo != null) {
-            List<Turma> listaTurma = ctrl.obterTurma();
+
+            while (listbox.getItemCount() > 0) {
+                listbox.removeItemAt(0);
+            }
+
+            List<Turma> listaTurma=null;
+            try {
+                listaTurma = ctrl.obterTurma();
+            }
+            catch (AcademicoException ex) {
+                Logger.getLogger(PagEventosTurma.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             if (tipo == 1) {
                 for (int i = 0; i < listaTurma.size(); i++) {
                     Turma t = listaTurma.get(i);
@@ -160,4 +181,55 @@ public class PagEventosTurma extends GenericForwardComposer {
         boxInformacao.setVisible(false);
     }
 
+    public void onOK$pesquisarNome(Event event) {
+        onClick$pesquisarBotao(event);
+    }
+
+    public void onBlur$pesquisarNome(Event event) {
+        if (pesquisarNome.getText().trim().equals("")) {
+            carregarTurma();
+        }
+    }
+    
+    public void onChange$pesquisarNome(Event event) {
+        if(pesquisarNome.getText().trim().equals(""))
+            carregarTurma();
+        else
+            onClick$pesquisarBotao(event);
+    }
+
+    public void onClick$pesquisarBotao(Event event) {
+        while (listbox.getItemCount() > 0) {
+            listbox.removeItemAt(0);
+        }
+        System.out.println(pesquisarNome.getText());
+        if (!pesquisarNome.getText().trim().equals("")) {
+            List<Turma> listaTurmas = null;
+            try {
+                listaTurmas = ctrl.obterTurmaPesquisa(pesquisarNome.getText());
+            }
+            catch (AcademicoException ex) {
+                Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (listaTurmas != null && !listaTurmas.isEmpty()) {
+                for (int i = 0; i < listaTurmas.size(); i++) {
+                    Turma t = listaTurmas.get(i);
+                    Listitem linha = new Listitem(listaTurmas.get(i).getDisciplina().getCurso().toString(), t);
+
+                    linha.appendChild(new Listcell(listaTurmas.get(i).getDisciplina().toString()));
+
+                    linha.appendChild(new Listcell(listaTurmas.get(i).getCalendario().toString()));
+
+                    linha.appendChild(new Listcell(listaTurmas.get(i).getProfessor().toString()));
+
+                    linha.setParent(listbox);
+                }
+            }
+            else {
+                setMensagemAviso("info", "Nenhuma turma encontrada!");
+            }
+        }
+
+    }
 }

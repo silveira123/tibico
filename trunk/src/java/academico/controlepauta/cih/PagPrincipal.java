@@ -25,6 +25,7 @@ import academico.controlepauta.cci.CtrlAula;
 import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.Usuario;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
@@ -53,7 +54,10 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton boletim;
     private Toolbarbutton historico;
     private Toolbarbutton about;
-    private Borderlayout border;
+    private North north;
+    private West west;
+    private South south;
+    private Borderlayout border, telaprincipal;
     private Panel controlarTurma;
     private Panel cadastroPessoa;
     private Panel cadastroAcademico;
@@ -69,7 +73,7 @@ public class PagPrincipal extends GenericForwardComposer {
     public void onCreate$div(Event event) {
         user = (Usuario) execution.getSession().getAttribute("usuario");
 
-        if (user != null) {
+        if (user != null) {         
             if (user.getPessoa() != null) {
                 nomeUsuario.setValue("SEJA BEM VINDO(A) " + user.getPessoa().getNome().toUpperCase());
             }
@@ -111,6 +115,15 @@ public class PagPrincipal extends GenericForwardComposer {
 
     }
 
+    public void onClientInfo$div(ClientInfoEvent event)
+    {
+        telaprincipal.setHeight(event.getDesktopHeight() + "px");
+        telaprincipal.setWidth((event.getDesktopWidth() - 10) + "px");
+        north.setSize((event.getDesktopHeight() * 0.037) + "px");
+        west.setWidth((event.getDesktopHeight() * 0.246) + "px");
+        south.setSize((event.getDesktopHeight() * 0.049) + "px");;
+    }
+    
     public void setFundo() {
         if (border.getCenter().getChildren() == null) {
             Image img = new Image();

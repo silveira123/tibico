@@ -115,4 +115,8 @@ public class AplControlarTurma {
         
     }
 
+    public List<Turma> obterTurmaPesquisa(String parametro) throws AcademicoException{
+        return ((TurmaDAO) apDaoTurma).obterTurma(parametro);
+    }
+
 }

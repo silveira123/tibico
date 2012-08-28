@@ -58,6 +58,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
     private Div boxInformacao;
     private Label msg;
 
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -204,7 +205,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             }
         }
     }
-
+    
     public void setMensagemAviso(String tipo, String mensagem) {
         boxInformacao.setClass(tipo);
         boxInformacao.setVisible(true);

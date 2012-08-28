@@ -14,4 +14,6 @@ public interface TurmaDAO extends DAO<Turma> {
     public List<Turma> obter(Professor prof);
     public List<Turma> obterAtivas();
     public List<Turma> obterAtivas(Professor prof);
+
+    public List<Turma> obterTurma(String parametro);
 }

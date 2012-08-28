@@ -20,13 +20,16 @@
             </menubar>
             <grid>
                 <columns>
-                    <column label="" width="30%"/>
-                    <column label="" width="70%"/>
+                    <column label="" width="5%"/>
+                    <column label="" width="65%"/>
+                    <column label="" width="23%"/>
+                    <column label="" width="7%"/>
                 </columns>
                 <rows>
-      
                     <row>
-                        <textbox  id="pesquisarNome" width="100%"/>
+                        <label value=""/>
+                        <label value=""/>
+                        <textbox  id="pesquisarNome" width="100%" instant="true"/>
                         <button id="pesquisarBotao" label="Buscar" />
                     </row>
                       

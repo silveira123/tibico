@@ -59,7 +59,7 @@ public class Resultado extends ObjetoPersistente{
     * Obtém a Avaliação relativa ao Resultado em questão
     * @return 
     */    
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(nullable = false)
     public Avaliacao getAvaliacao() {
         return avaliacao;

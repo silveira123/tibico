@@ -323,7 +323,7 @@ public class AplCadastrarPessoa {
         String matricula = null;
         Integer sequencial;
         for (Calendario calendario : calendarios) {
-            if (calendario.getDataInicioCA().before(Calendar.getInstance()) && calendario.getDataFimCA().after(Calendar.getInstance())) {
+            if (Calendario.estaEntre(calendario.getDataInicioCA(), calendario.getDataFimCA())) {
                 c = calendario;
                 break;
             }

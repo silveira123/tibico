@@ -65,6 +65,11 @@ public class AplControlarAula {
     }
 
     public void apagarAvaliacao(Avaliacao avaliacao) throws AcademicoException {
+        
+        List<Resultado> resultados = ((ResultadoDAO)apDaoResultado).obterResultados(avaliacao);
+        for (Resultado resultado : resultados) {
+            apDaoResultado.excluir(resultado);
+        }
         apDaoAvaliacao.excluir(avaliacao);
     }
 

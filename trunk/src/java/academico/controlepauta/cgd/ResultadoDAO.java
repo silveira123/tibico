@@ -61,4 +61,5 @@ public interface ResultadoDAO extends DAO<Resultado> {
      * @return 
      */
     public List<Resultado> obterResultados(Avaliacao a);
+    
 }

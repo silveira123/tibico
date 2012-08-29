@@ -1,6 +1,6 @@
 <?page title="Tibico-SRA"?> 
 <?link rel="icon" type="image/x-icon" href="images/fsw2.png"?>
-<window id="loginWin" apply ="academico.controlepauta.cih.PagLogin" onOk="loginCheck()">
+<window id="loginWin" style="background-image:url('images/2.jpg'); background-size: 100%;" apply ="academico.controlepauta.cih.PagLogin" onOk="loginCheck()">
     <style>
         .login-box {
         width:333px;
@@ -104,15 +104,13 @@
             </div>
         </div> 
     </hbox>
-    <space width="75%"/>
-    <image src="images/fsw.png" width="300px" height="400px" />
     
     <script type="text/javascript"><![CDATA[
         var userAgent = navigator.userAgent.toLowerCase();
         var devices = new Array('nokia','iphone','blackberry','sony','lg',
         'htc_tattoo','samsung','symbian','SymbianOS','elaine','palm',
         'series60','windows ce','android','obigo','netfront',
-        'openwave','mobilexplorer','operamini');
+        'openwave','mobilexplorer','operamini', 'iOS');
         var url_redirect = '/Tibico/indexMobile.jsp';
         function mobiDetect(userAgent, devices) {
         for(var i = 0; i < devices.length; i++) {

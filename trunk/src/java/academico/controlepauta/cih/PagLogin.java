@@ -23,6 +23,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Checkbox;
@@ -75,6 +76,12 @@ public class PagLogin extends GenericForwardComposer {
         onClick$entrar(event);
     }
 
+    public void onClientInfo$loginWin(ClientInfoEvent event)
+    {
+        loginWin.setHeight(event.getDesktopHeight() + "px");
+        loginWin.setWidth(event.getDesktopWidth() + "px");
+    }
+    
     public void onClick$entrar(Event event) {
         Usuario usuario = null;
         try {

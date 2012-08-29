@@ -33,6 +33,8 @@ import java.util.List;
  */
 public class ResultadoDAOJPA extends DAOJPA<Resultado> implements ResultadoDAO {
     
+    
+    
     /**
      * Obtém todos os resultados de uma turma
      * @param t

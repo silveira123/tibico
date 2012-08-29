@@ -3,7 +3,7 @@
 <zk>
     <div align="center">
         <window id="winFormularioAvaliacao" title="Página Formulário Avaliação" border="normal" mode="modal" width="30%"
-                apply = "academico.controlepauta.cih.PagFormularioAvaliacao">
+                sclass="windowStyle" apply = "academico.controlepauta.cih.PagFormularioAvaliacao">
 
             <separator height="15px" />
             <grid>
@@ -34,7 +34,7 @@
             <separator/>
             <button  id="salvar" label="Salvar" onClick="" />
             <button  id="voltar" label="Voltar" onClick="" />
-			
+	    <style src="/information.css"/> 	
         </window>
     </div>
 </zk>

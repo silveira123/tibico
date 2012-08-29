@@ -105,10 +105,6 @@ public class PagEventosProfessor extends GenericForwardComposer {
         }
     }
 
-    public void onOK$pesquisarNome(Event event) {
-        onClick$pesquisarBotao(event);
-    }
-
     public void onBlur$pesquisarNome(Event event) {
         if(pesquisarNome.getText().trim().equals(""))
             carregarProfessores();
@@ -118,10 +114,10 @@ public class PagEventosProfessor extends GenericForwardComposer {
         if(pesquisarNome.getText().trim().equals(""))
             carregarProfessores();
         else
-            onClick$pesquisarBotao(event);
+            onOK$pesquisarNome(event);
     }
     
-    public void onClick$pesquisarBotao(Event event) {
+    public void onOK$pesquisarNome(Event event) {
         while (listProfessor.getItemCount() > 0) {
             listProfessor.removeItemAt(0);
         }

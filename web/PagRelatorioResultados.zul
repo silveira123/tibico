@@ -3,8 +3,8 @@
 <zk>
 
     
-    <window title="Página Resultados" id="winResultados"  position="center"
-                closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagRelatorioResultados">
+    <window title="Página Resultados" border="normal" closable="true" sclass="windowStyle"
+            width="50%" id="winResultados" apply="academico.controlepauta.cih.PagRelatorioResultados">
 	
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>
@@ -68,9 +68,9 @@
 	
             <separator height="8px"/>
         </div>
-        <button id="gerarGrafico" label="Gerar Gráfico" width="10%" height="4%" disabled="true"/>
-        <button id="gerarPdf" label="Gerar PDF" width="10%" height="4%" disabled="true"/>
-       
+        <button id="gerarGrafico" label="Gerar Gráfico" width="10%"  disabled="true"/>
+        <button id="gerarPdf" label="Gerar PDF" width="10%" disabled="true"/>
+        <style src="/information.css"/>
     </window>
 </zk>
 

@@ -3,7 +3,7 @@
 <zk>
 	
     <window id="winEventosCalendario" title="Calendários Cadastrados" border="normal" closable="true"
-            width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosCalendario" sclass="windowStyle">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>
 

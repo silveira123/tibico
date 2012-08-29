@@ -3,7 +3,7 @@
 <zk>
 
        
-    <window title="Discilplina Cadastradas" border="normal" closable="true"
+    <window title="Discilplina Cadastradas" border="normal" closable="true" sclass="windowStyle"
             width="50%" id="winEventosDisciplina" apply ="academico.controleinterno.cih.PagEventosDisciplina">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>

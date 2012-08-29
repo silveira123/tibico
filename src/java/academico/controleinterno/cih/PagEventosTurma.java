@@ -181,10 +181,6 @@ public class PagEventosTurma extends GenericForwardComposer {
         boxInformacao.setVisible(false);
     }
 
-    public void onOK$pesquisarNome(Event event) {
-        onClick$pesquisarBotao(event);
-    }
-
     public void onBlur$pesquisarNome(Event event) {
         if (pesquisarNome.getText().trim().equals("")) {
             carregarTurma();
@@ -195,10 +191,10 @@ public class PagEventosTurma extends GenericForwardComposer {
         if(pesquisarNome.getText().trim().equals(""))
             carregarTurma();
         else
-            onClick$pesquisarBotao(event);
+            onOK$pesquisarNome(event);
     }
 
-    public void onClick$pesquisarBotao(Event event) {
+    public void onOK$pesquisarNome(Event event) {
         while (listbox.getItemCount() > 0) {
             listbox.removeItemAt(0);
         }

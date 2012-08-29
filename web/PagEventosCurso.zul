@@ -1,7 +1,7 @@
 <?page title="Eventos Curso"?>
 
 <zk>
-    <window title="Cursos Cadastrados" border="normal" closable="true"
+    <window title="Cursos Cadastrados" border="normal" closable="true" sclass="windowStyle"
             width="50%" id="winEventosCurso" apply ="academico.controleinterno.cih.PagEventosCurso">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>

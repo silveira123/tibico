@@ -30,3 +30,12 @@
     background-color: #FFCCBA; 
     background-image: url('img/validation.png'); 
 }
+
+.windowStyle .z-window-embedded-cnt, 
+	              .z-window-embedded-body, 
+	              .z-window-overlapped-body, 
+	              .z-window-popup-body, 
+	              .z-window-highlighted-body, 
+	              .z-window-modal-body{
+                        overflow:auto;
+                      }

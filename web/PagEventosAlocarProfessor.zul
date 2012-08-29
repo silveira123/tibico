@@ -3,7 +3,7 @@
 <zk>
 	
     <window id="winEventosTurma" title="Alocação de Professor" border="normal" closable="true"
-            width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosTurma" sclass="windowStyle">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>
 

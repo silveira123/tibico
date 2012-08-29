@@ -68,7 +68,6 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
             listaTurma = ctrlTurma.obterTurmasAtivas();
         }
         nome.setModel(new ListModelList(listaTurma, true));
-        nome.setReadonly(true);
     }
     
     public void onCreate$winEventosAvaliacao(Event event) {

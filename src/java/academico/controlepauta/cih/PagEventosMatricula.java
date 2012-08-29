@@ -79,9 +79,6 @@ public class PagEventosMatricula extends GenericForwardComposer {
             nomeAluno.setModel(new ListModelList(alunos, true));
             permissao = 0;
         }
-
-
-        nomeAluno.setReadonly(true);
     }
     
     public void onCreate$winEventosMatricula(Event event) {

@@ -48,7 +48,7 @@
             </north>
 			<!-- Sidebar -->
             <west id="west" title=" " border="0" flex="true" splittable="true" collapsible="true"
-                  margins="0,5,0,0">
+                  margins="0,5,0,0" autoscroll="true">
                 <vlayout spacing="0">
                     <panel id="cadastroAcademico" width="100%" border="normal"
                             title="Cadastro Acadêmico">

@@ -5,7 +5,7 @@
 	
     <div align="center">
         <window id="winRegistroPontuacao"  mode="modal" title="Página Registro Pontuação" border="normal"
-                width="50%" apply="academico.controlepauta.cih.PagRegistroPontuacao">
+                sclass="windowStyle" width="50%" apply="academico.controlepauta.cih.PagRegistroPontuacao">
 	
 			
 	
@@ -67,7 +67,7 @@
                 <button id="voltar" width="10%" label="Voltar" onClick=""></button>
             </div>
                     
-                    
+        <style src="/information.css"/>            
         </window>
     </div>
 	

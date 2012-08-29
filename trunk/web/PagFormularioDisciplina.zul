@@ -3,7 +3,7 @@
 <zk>
     <div align="center">
         <window title="Página Formulário Disciplina" id="winFormularioDisciplina" action="show: slideDown;hide: slideUp" mode="modal" position="center"
-                closable="true" border="normal" width="60%" apply="academico.controleinterno.cih.PagFormularioDisciplina">
+                closable="true" sclass="windowStyle" border="normal" width="60%" apply="academico.controleinterno.cih.PagFormularioDisciplina">
 
             <separator height="15px" />
             <grid>
@@ -63,6 +63,7 @@
             <separator/>
             <button  label="Salvar" id="salvarDisciplina" />
             <button  label="Voltar" id="voltar" />
+            <style src="/information.css"/> 
         </window>
     </div>
 	

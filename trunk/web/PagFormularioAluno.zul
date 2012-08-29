@@ -12,7 +12,7 @@
     </style>
     
     <div align="center">
-        <window id="winCadastro" title="Página Formulário Aluno" mode="modal" position="center" border="normal" width="80%" apply="academico.controleinterno.cih.PagFormularioAluno">
+        <window id="winCadastro" title="Página Formulário Aluno" sclass="windowStyle" mode="modal" position="center" border="normal" width="80%" apply="academico.controleinterno.cih.PagFormularioAluno">
 	
             <grid>
                 <columns>
@@ -215,7 +215,7 @@
 			
             <button width="10%" label="Salvar" id="salvarAluno"></button>
             <button width="10%" label="Voltar" id="voltar"></button>
-			
+            <style src="/information.css"/> 
         </window>
     </div>
 </zk>

@@ -3,7 +3,7 @@
 	
 	
     <div align="center">
-        <window id="winFormularioTurma" title="Página Formulário Turma" border="normal" width="60%" apply="academico.controleinterno.cih.PagFormularioTurma" mode="modal">
+        <window id="winFormularioTurma" sclass="windowStyle" title="Página Formulário Turma" border="normal" width="60%" apply="academico.controleinterno.cih.PagFormularioTurma" mode="modal">
             <grid>
                 <columns>
                     <column width="15%"/>
@@ -46,7 +46,7 @@
             </grid>			
             <button id="salvar" width="10%" label="Salvar" onClick=""></button>
             <button id="voltar" width="10%" label="Voltar" onClick=""></button>
-            
+        <style src="/information.css"/>     
         </window>
     </div>
 </zk>

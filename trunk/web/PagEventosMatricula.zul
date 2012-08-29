@@ -3,7 +3,7 @@
 <zk>
 
     
-    <window title="Disciplinas Matriculadas" border="normal" closable="true"
+    <window title="Disciplinas Matriculadas" border="normal" closable="true" sclass="windowStyle"
             width="50%" id="winEventosMatricula" apply = "academico.controlepauta.cih.PagEventosMatricula">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>

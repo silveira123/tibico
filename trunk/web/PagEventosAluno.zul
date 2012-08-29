@@ -3,7 +3,7 @@
 <zk>
   
     <window id="winDadosAluno" title="Aluno(s) Cadastrado(s)" border="normal" closable="true"
-            width="50%" apply = "academico.controleinterno.cih.PagEventosAluno">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosAluno" sclass="windowStyle">
                 
         <div align="center">                    
  
@@ -28,16 +28,14 @@
                 <columns>
                     <column label="" width="5%"/>
                     <column label="" width="65%"/>
-                    <column label="" width="23%"/>
-                    <column label="" width="7%"/>
+                    <column label="" width="30%"/>
                 </columns>
                 <rows>
       
                     <row>
                         Curso:
                         <combobox id="curso" width="60%" readonly="true"/>
-                        <textbox  id="pesquisarNome" width="100%" instant="true"/>
-                        <button id="pesquisarBotao" label="Buscar" />
+                        <textbox  id="pesquisarNome" width="100%" instant="true" value="Pesquisar"/>
                     </row>
                       
                 </rows>

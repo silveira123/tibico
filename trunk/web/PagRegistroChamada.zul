@@ -4,7 +4,7 @@
 
     <div align="center">
         <window id='winRegistroChamada' title="Página Registro Chamada" border="normal" 
-                width="50%" mode="modal" apply="academico.controlepauta.cih.PagRegistroChamada">
+                sclass="windowStyle" width="50%" mode="modal" apply="academico.controlepauta.cih.PagRegistroChamada">
 	
 			
 	
@@ -69,7 +69,7 @@
 			
             <button id="salvar" width="10%" label="Salvar" onClick=""></button>
             <button id="voltar" width="10%" label="Voltar" onClick=""></button>
-						
+	<style src="/information.css"/> 					
         </window>
     </div>
 </zk>

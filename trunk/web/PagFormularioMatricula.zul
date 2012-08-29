@@ -2,7 +2,7 @@
 <zk>
     <div align="center">
         <window title="Página Formulário Matrícula" id="winFormularioMatricula" action="show: slideDown;hide: slideUp" mode="modal" position="center"
-                closable="true" border="normal" width="60%" apply="academico.controlepauta.cih.PagFormularioMatricula">
+                closable="true" sclass="windowStyle" border="normal" width="60%" apply="academico.controlepauta.cih.PagFormularioMatricula">
             <separator height="35px" />
             <div align="left">
                 <space width="10px"/>
@@ -75,7 +75,7 @@
             <button width="10%" label="Salvar" id="salvarMatricula"></button>
             <button width="10%" label="Voltar" id="voltar"></button>
 		    
-                    
+        <style src="/information.css"/>            
         </window>
     </div>
 </zk>

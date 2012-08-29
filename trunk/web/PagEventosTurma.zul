@@ -3,7 +3,7 @@
 <zk>
 	
     <window id="winEventosTurma" title="Turmas Cadastradas" border="normal" closable="true"
-            width="50%" apply = "academico.controleinterno.cih.PagEventosTurma">
+            width="50%" apply = "academico.controleinterno.cih.PagEventosTurma" sclass="windowStyle">
         <div align="center">
             <image src="images/tibico6.png" width="30%" height="20%"/>
 
@@ -22,16 +22,14 @@
                 <columns>
                     <column label="" width="5%"/>
                     <column label="" width="65%"/>
-                    <column label="" width="23%"/>
-                    <column label="" width="7%"/>
+                    <column label="" width="30%"/>
                 </columns>
                 <rows>
       
                     <row>
                         <label value=""/>
                         <label value=""/>
-                        <textbox  id="pesquisarNome" width="100%" instant="true"/>
-                        <button id="pesquisarBotao" label="Buscar" />
+                        <textbox  id="pesquisarNome" width="100%" instant="true" value="Pesquisar"/>
                     </row>
                       
                 </rows>

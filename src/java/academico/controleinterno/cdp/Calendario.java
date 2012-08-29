@@ -13,19 +13,17 @@
  * shall use it only in accordance with the terms of the 
  * license agreement you entered into with Fabrica de Software IFES.
  */
-
 package academico.controleinterno.cdp;
 
 import academico.util.persistencia.ObjetoPersistente;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.persistence.*;
 
-
 /**
- * Esta classe descreve as informações de um aluno, a classe possui a associação com um Curso 
- * e faz herança com Pessoa, do pacote de utilitários, contemplando informações necessárias para 
- * o registro do aluno.
- * 
+ * Esta classe descreve as informações de um aluno, a classe possui a associação com um Curso e faz herança com Pessoa, do pacote de utilitários, contemplando informações necessárias para o registro
+ * do aluno.
+ * <p/>
  * @author Gabriel Quézid
  * @version 0.1
  * @see academico.controleinterno.cdp.Aluno
@@ -34,8 +32,8 @@ import javax.persistence.*;
 public class Calendario extends ObjetoPersistente {
 
     private String identificador;
-    private String duracao;   
-    private Calendar dataInicioCA; 
+    private String duracao;
+    private Calendar dataInicioCA;
     private Calendar dataFimCA;
     private Calendar dataInicioPL;
     private Calendar dataFimPL;
@@ -44,11 +42,11 @@ public class Calendario extends ObjetoPersistente {
     private Curso curso;
     private int sequencial;
     private SituacaoCalendario situacao;
-    
+
     public Calendario() {
         situacao = SituacaoCalendario.ABERTO;
     }
-    
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = true)
     public Curso getCurso() {
@@ -136,7 +134,7 @@ public class Calendario extends ObjetoPersistente {
     public void setSequencial(int sequencial) {
         this.sequencial = sequencial;
     }
-    
+
     @Enumerated(EnumType.STRING)
     public SituacaoCalendario getSituacao() {
         return situacao;
@@ -145,14 +143,25 @@ public class Calendario extends ObjetoPersistente {
     public void setSituacao(SituacaoCalendario situacao) {
         this.situacao = situacao;
     }
-    
-    public boolean ehAtual()
-    {
-        if(Calendar.getInstance().after(dataInicioCA) && Calendar.getInstance().before(dataFimCA))
+
+    public boolean ehAtual() {
+        if (Calendar.getInstance().after(dataInicioCA) && Calendar.getInstance().before(dataFimCA)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean estaEntre(Calendar inicio, Calendar fim) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String ini = sdf.format(inicio.getTime());
+        String f = sdf.format(fim.getTime());
+        String hoje = sdf.format(Calendar.getInstance().getTime());
+        
+        if((inicio.before(Calendar.getInstance()) || ini.equals(hoje)) && (fim.after(Calendar.getInstance()) || f.equals(hoje)))
             return true;
         return false;
     }
-    
+
     @Override
     public String toString() {
         return this.identificador;

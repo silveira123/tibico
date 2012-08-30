@@ -58,6 +58,7 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         super.doAfterCompose(comp);
         obj = (Aluno) arg.get("aluno");
         
+        nome.setReadonly(true);
         matricula.setReadonly(true);
         gerarPdf.setDisabled(true);
         

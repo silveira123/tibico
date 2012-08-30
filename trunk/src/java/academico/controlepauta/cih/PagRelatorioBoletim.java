@@ -34,10 +34,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para
- * leitura e interpretação de dados. A classe contém os eventos da tela
- * PagRelatorioBoletim.zul
- *
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagRelatorioBoletim.zul
+ * <p/>
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioBoletim extends GenericForwardComposer {
@@ -57,7 +55,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     private Button gerarPdf;
     private List<MatriculaTurma> matTurma;
     private Calendario cal;
-    
+
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -71,9 +69,11 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             calendario.setModel(new ListModelList(buscaCalendarios(obj)));
             nome.setDisabled(true);
             matricula.setDisabled(true);
-        } else {
+        }
+        else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
+        nome.setReadonly(true);
         matricula.setReadonly(true);
         calendario.setReadonly(true);
         gerarPdf.setDisabled(true);
@@ -89,12 +89,15 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
 
     public void onSelect$nome(Event event) {
         obj = nome.getSelectedItem().getValue();
-        matricula.setValue(obj.getMatricula().toString());
-        calendario.setModel(new ListModelList(buscaCalendarios(obj)));
-        calendario.setValue("");
-        if (disciplinas.getRows() != null) {
-            disciplinas.removeChild(disciplinas.getRows());
+        if (obj != null) {
+            matricula.setValue(obj.getMatricula().toString());
+            calendario.setModel(new ListModelList(buscaCalendarios(obj)));
+            calendario.setValue("");
+            if (disciplinas.getRows() != null) {
+                disciplinas.removeChild(disciplinas.getRows());
+            }
         }
+        gerarPdf.setDisabled(true);
     }
 
     public void onSelect$calendario(Event event) throws Exception {
@@ -127,7 +130,8 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             }
             linhas.setParent(disciplinas);
             gerarPdf.setDisabled(false);
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }
@@ -157,9 +161,9 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
 
     public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
         cal = calendario.getSelectedItem().getValue();
-        if(!ctrlMatricula.emitirBoletimPDF(obj, cal)){
+        if (!ctrlMatricula.emitirBoletimPDF(obj, cal)) {
             setMensagemAviso("error", "Não existem disciplinas associadas ao aluno nesse calendário");
         }
-        
+
     }
 }

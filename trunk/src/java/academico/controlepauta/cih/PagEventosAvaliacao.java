@@ -58,6 +58,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosAvaliacao(this);
+        nome.setReadonly(true);
 
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
@@ -69,7 +70,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         }
         nome.setModel(new ListModelList(listaTurma, true));
     }
-    
+
     public void onCreate$winEventosAvaliacao(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -78,22 +79,31 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         }
     }
 
+    public void onClick$nome(Event event) {
+
+        while (listbox.getItemCount() > 0) {
+            listbox.removeItemAt(0);
+        }
+    }
+
     public void onSelect$nome(Event event) {
         try {
             Turma t = nome.getSelectedItem().getValue();
-            List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
+            if (t != null) {
+                List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
 
-            while (listbox.getItemCount() > 0) {
-                listbox.removeItemAt(0);
-            }
+                while (listbox.getItemCount() > 0) {
+                    listbox.removeItemAt(0);
+                }
 
-            for (int i = 0; i < listaAvaliacao.size(); i++) {
-                Avaliacao a = listaAvaliacao.get(i);
-                if (a.getTurma() == t) {
-                    Listitem linha = new Listitem(a.toString(), a);
-                    linha.appendChild(new Listcell(a.getPeso() + ""));
+                for (int i = 0; i < listaAvaliacao.size(); i++) {
+                    Avaliacao a = listaAvaliacao.get(i);
+                    if (a.getTurma().equals(t)) {
+                        Listitem linha = new Listitem(a.toString(), a);
+                        linha.appendChild(new Listcell(a.getPeso() + ""));
 
-                    linha.setParent(listbox);
+                        linha.setParent(listbox);
+                    }
                 }
             }
         }
@@ -144,6 +154,9 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
             Turma t = comboitem.getValue();
             ctrl.abrirIncluirAvaliacao(t);
         }
+        else {
+            setMensagemAviso("info", "Selecione uma turma");
+        }
     }
 
     public void onClick$alterar(Event event) {
@@ -151,6 +164,9 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirEditarAvaliacao(c);
+        }
+        else {
+            setMensagemAviso("info", "Selecione uma avaliação");
         }
     }
 
@@ -160,6 +176,9 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
             Avaliacao c = listitem.getValue();
             ctrl.abrirConsultarAvaliacao(c);
         }
+        else {
+            setMensagemAviso("info", "Selecione uma avaliação");
+        }
     }
 
     public void onClick$inserirPontuacao(Event event) {
@@ -167,6 +186,9 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirRegistroPontuacao(c);
+        }
+        else {
+            setMensagemAviso("info", "Selecione uma avaliação");
         }
     }
 

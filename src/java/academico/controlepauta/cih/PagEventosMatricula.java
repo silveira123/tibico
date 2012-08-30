@@ -80,7 +80,7 @@ public class PagEventosMatricula extends GenericForwardComposer {
             permissao = 0;
         }
     }
-    
+
     public void onCreate$winEventosMatricula(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -88,13 +88,21 @@ public class PagEventosMatricula extends GenericForwardComposer {
             winEventosMatricula.detach();
         }
     }
-    
+
     public void addMatricula(MatriculaTurma matTurma) {
         Listitem linha = new Listitem(matTurma.toString(), matTurma);
         linha.appendChild(new Listcell(matTurma.getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
         linha.appendChild(new Listcell(matTurma.getTurma().getProfessor() + ""));
         linha.setParent(listbox);
 
+    }
+
+    public void onClick$nomeAluno(Event event) {
+
+        while (listbox.getItemCount() > 0) {
+            listbox.removeItemAt(0);
+        }
+        Aluno select = null;
     }
 
     public void onSelect$nomeAluno(Event event) {
@@ -112,27 +120,28 @@ public class PagEventosMatricula extends GenericForwardComposer {
         else {
             select = (Aluno) nomeAluno.getSelectedItem().getValue();
         }
+        if (select != null) {
+            listbox.renderAll();
+            try {
+                List<MatriculaTurma> matTurma = ctrlMatricula.obterMatriculadas(select);
 
-        listbox.renderAll();
-        try {
-            List<MatriculaTurma> matTurma = ctrlMatricula.obterMatriculadas(select);
+                for (int i = 0; i < matTurma.size(); i++) {
+                    MatriculaTurma c = matTurma.get(i);
+                    Listitem linha = new Listitem(matTurma.get(i).toString(), c);
 
-            for (int i = 0; i < matTurma.size(); i++) {
-                MatriculaTurma c = matTurma.get(i);
-                Listitem linha = new Listitem(matTurma.get(i).toString(), c);
-
-                linha.appendChild(new Listcell(matTurma.get(i).getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
-                if (matTurma.get(i).getTurma().getProfessor() == null) {
-                    linha.appendChild(new Listcell(""));
+                    linha.appendChild(new Listcell(matTurma.get(i).getTurma().getDisciplina().getPeriodoCorrespondente().toString()));
+                    if (matTurma.get(i).getTurma().getProfessor() == null) {
+                        linha.appendChild(new Listcell(""));
+                    }
+                    else {
+                        linha.appendChild(new Listcell(matTurma.get(i).getTurma().getProfessor().toString()));
+                    }
+                    linha.setParent(listbox);
                 }
-                else {
-                    linha.appendChild(new Listcell(matTurma.get(i).getTurma().getProfessor().toString()));
-                }
-                linha.setParent(listbox);
             }
-        }
-        catch (AcademicoException ex) {
-            setMensagemAviso("error", "Erro ao obter matriculas");
+            catch (AcademicoException ex) {
+                setMensagemAviso("error", "Erro ao obter matriculas");
+            }
         }
     }
 

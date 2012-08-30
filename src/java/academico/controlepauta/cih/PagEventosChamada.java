@@ -66,28 +66,39 @@ public class PagEventosChamada extends GenericForwardComposer {
         else {
             listaTurma = ctrlTurma.obterTurmasAtivas();
         }
-
+        nome.setReadonly(true);
         nome.setModel(new ListModelList(listaTurma, true));
+    }
+
+    public void onClick$nome(Event event) {
+
+        while (listbox.getItemCount() > 0) {
+            listbox.removeItemAt(0);
+        }
     }
 
     public void onSelect$nome(Event event) {
         try {
-            Turma t = nome.getSelectedItem().getValue();
-            List<Aula> listaAula = ctrl.obterAulas(t);
+            Turma t = null;
 
-            while (listbox.getItemCount() > 0) {
-                listbox.removeItemAt(0);
-            }
+            t = (Turma) nome.getSelectedItem().getValue();
+            if (t != null) {
+                List<Aula> listaAula = ctrl.obterAulas(t);
 
-            for (int i = 0; i < listaAula.size(); i++) {
-                Aula a = listaAula.get(i);
-                if (a.getTurma() == t) {
-                    Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
-                            + "/" + (a.getDia().getTime().getYear() + 1900), a);
-                    linha.appendChild(new Listcell(a.getConteudo()));
-                    linha.appendChild(new Listcell(a.getQuantidade() + ""));
+                while (listbox.getItemCount() > 0) {
+                    listbox.removeItemAt(0);
+                }
 
-                    linha.setParent(listbox);
+                for (int i = 0; i < listaAula.size(); i++) {
+                    Aula a = listaAula.get(i);
+                    if (a.getTurma() == t) {
+                        Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                                + "/" + (a.getDia().getTime().getYear() + 1900), a);
+                        linha.appendChild(new Listcell(a.getConteudo()));
+                        linha.appendChild(new Listcell(a.getQuantidade() + ""));
+
+                        linha.setParent(listbox);
+                    }
                 }
             }
         }
@@ -95,7 +106,7 @@ public class PagEventosChamada extends GenericForwardComposer {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void onCreate$winEventosChamada(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {

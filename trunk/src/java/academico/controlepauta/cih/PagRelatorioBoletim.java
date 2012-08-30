@@ -74,7 +74,6 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
         } else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
-        nome.setReadonly(true);
         matricula.setReadonly(true);
         calendario.setReadonly(true);
         gerarPdf.setDisabled(true);

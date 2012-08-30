@@ -100,11 +100,7 @@
 
             </div>
 
-            <div data-theme="b" data-role="footer" data-position="fixed">
-                <h3>
-                    Fabrica de Software - IFES
-                </h3>
-            </div>
+            
         </div>
         <script>
             //App custom javascript

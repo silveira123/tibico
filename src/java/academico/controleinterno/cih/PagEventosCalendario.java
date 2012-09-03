@@ -56,7 +56,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
     }
-    
+
     public void onCreate$winEventosCalendario(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -64,25 +64,36 @@ public class PagEventosCalendario extends GenericForwardComposer {
             winEventosCalendario.detach();
         }
     }
+
     public void onClick$fechar(Event event) throws AcademicoException {
-        if(listbox.getSelectedItem()!=null){
+        if (listbox.getSelectedItem() != null) {
             Calendario select = (Calendario) listbox.getSelectedItem().getValue();
             boolean a = ctrl.fecharPeriodo(select);
-            if(a) setMensagemAviso("success", "Período Fechado");
-            else setMensagemAviso("error", "Todas as turmas devem ser fechadas");
+            if (a) {
+                setMensagemAviso("success", "Período Fechado");
+                refreshCalendario(select);
+            }
+            else {
+                setMensagemAviso("error", "Todas as turmas devem ser fechadas");
+            }
         }
-        else setMensagemAviso("info", "Selecione um Calendário");
+        else {
+            setMensagemAviso("info", "Selecione um Calendário");
+        }
     }
-    
+
     public void onClick$abrir(Event event) throws AcademicoException {
-        if(listbox.getSelectedItem()!=null){
+        if (listbox.getSelectedItem() != null) {
             Calendario select = (Calendario) listbox.getSelectedItem().getValue();
             ctrl.abrirPeriodo(select);
-            setMensagemAviso("success", "Abrir Período");
+            setMensagemAviso("success", "Período Aberto");
+            refreshCalendario(select);
         }
-        else setMensagemAviso("info", "Selecione um Calendário");
+        else {
+            setMensagemAviso("info", "Selecione um Calendário");
+        }
     }
-    
+
     public void onSelect$cursoCombo(Event event) throws AcademicoException {
         Curso select = (Curso) cursoCombo.getSelectedItem().getValue();
 
@@ -90,8 +101,8 @@ public class PagEventosCalendario extends GenericForwardComposer {
         while (listbox.getItemCount() > 0) {
             listbox.removeItemAt(0);
         }
-        
-        List<Calendario> listaCalendario = ctrl.obterCalendarios(select); 
+
+        List<Calendario> listaCalendario = ctrl.obterCalendarios(select);
 
         for (int i = 0; i < listaCalendario.size(); i++) {
             Calendario c = listaCalendario.get(i);
@@ -103,7 +114,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
             linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
                     + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
                     + (c.getDataFimCA().getTime().getYear() + 1900)));
-
+            linha.appendChild(new Listcell(c.getSituacao().toString()));
             linha.setParent(listbox);
         }
 
@@ -117,6 +128,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
         linha.appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
                 + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
                 + (c.getDataFimCA().getTime().getYear() + 1900)));
+        linha.appendChild(new Listcell(c.getSituacao().toString()));
         linha.setParent(listbox);
     }
 
@@ -131,6 +143,7 @@ public class PagEventosCalendario extends GenericForwardComposer {
                 listbox.getItemAtIndex(i).appendChild(new Listcell(c.getDataFimCA().getTime().getDate() + "/"
                         + (c.getDataFimCA().getTime().getMonth() + 1) + "/"
                         + (c.getDataFimCA().getTime().getYear() + 1900)));
+                listbox.getItemAtIndex(i).appendChild(new Listcell(c.getSituacao().toString()));
                 break;
             }
         }
@@ -167,9 +180,12 @@ public class PagEventosCalendario extends GenericForwardComposer {
         Listitem listitem = listbox.getSelectedItem();
         if (listitem != null) {
             Calendario c = listitem.getValue();
-            if(c.getSituacao().equals(SituacaoCalendario.ABERTO))
+            if (c.getSituacao().equals(SituacaoCalendario.ABERTO)) {
                 ctrl.abrirEditarCalendario(c);
-            else setMensagemAviso("info", "Período fechado");
+            }
+            else {
+                setMensagemAviso("info", "Período fechado");
+            }
         }
     }
 

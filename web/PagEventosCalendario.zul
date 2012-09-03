@@ -60,6 +60,7 @@
                     <listheader label="Identificador"/>
                     <listheader label="Data de Inicio Calendário Acadêmico"/>
                     <listheader label="Data de Fim Calendário Acadêmico"/>
+                    <listheader label="Situação"/>
                 </listhead>
             </listbox>
 

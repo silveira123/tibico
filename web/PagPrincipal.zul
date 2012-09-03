@@ -124,10 +124,7 @@
             <south id="south" border="0"
                    style="background: none repeat scroll 0 0 ;">
                 <toolbar mold="panel" align="center">
-                    <toolbarbutton label="Sign in" />
-                    <toolbarbutton label="Home" />
-                    <toolbarbutton label="Terms" />
-                    <toolbarbutton label="Report Abuse" />
+                    <toolbarbutton label="Home" href="http://200.137.75.208:8080/site/"/>
                     <toolbarbutton id="about" label="About"/>
                     <separator orient="vertical" bar="true" />
                     Powered by Fabrica de Software - IFES

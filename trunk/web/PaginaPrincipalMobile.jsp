@@ -87,7 +87,7 @@
                                         Situação Aluno:
                                     </div>
                                     <%
-                                        if (matTurma.get(i).getSituacaoAluno().equals(SituacaoAlunoTurma.REPROVADOFALTA)) {
+                                        if (matTurma.get(i).getSituacaoAluno().equals(SituacaoAlunoTurma.REPROVADOFALTA) || matTurma.get(i).getSituacaoAluno().equals(SituacaoAlunoTurma.REPROVADONOTA)) {
                                     %>
                                     <div class="ui-block-b" style="color:red;">
                                         <%=  matTurma.get(i).getSituacaoAluno()%>

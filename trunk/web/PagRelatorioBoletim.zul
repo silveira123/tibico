@@ -55,7 +55,7 @@
                     <row style="background:#FFFFFF;">
                         Disciplinas Cursadas:
                         <cell colspan="3">
-                            <grid id="disciplinas" height="400px">
+                            <grid id="disciplinas">
                                 <columns>
                                     <column label="Disciplina" width="50%" align="center"/>
                                     <column label="Faltas" width="16%" align="center"/>

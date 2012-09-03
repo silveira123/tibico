@@ -1,3 +1,4 @@
+<%@page import="academico.controlepauta.cdp.SituacaoAlunoTurma"%>
 <%@page import="academico.controleinterno.cdp.Aluno"%>
 <%@page import="academico.controleinterno.cdp.Professor"%>
 <%@page import="academico.controlepauta.cdp.Usuario"%>
@@ -83,7 +84,28 @@
                                         <%=  matTurma.get(i).getTurma().getDisciplina().getCargaHoraria()%>
                                     </div>
                                     <div class="ui-block-a">
-                                        Status:
+                                        Situação Aluno:
+                                    </div>
+                                    <%
+                                        if (matTurma.get(i).getSituacaoAluno().equals(SituacaoAlunoTurma.REPROVADOFALTA)) {
+                                    %>
+                                    <div class="ui-block-b" style="color:red;">
+                                        <%=  matTurma.get(i).getSituacaoAluno()%>
+                                    </div> 
+                                    <%}
+                                    else if (matTurma.get(i).getSituacaoAluno().equals(SituacaoAlunoTurma.APROVADO)) {%>
+                                    <div class="ui-block-b" style="color:green;">
+                                        <%=  matTurma.get(i).getSituacaoAluno()%>
+                                    </div> 
+                                    <%}
+                                    else {%>
+                                    <div class="ui-block-b">
+                                        <%=  matTurma.get(i).getSituacaoAluno()%>
+                                    </div> 
+                                    <%}%>
+
+                                    <div class="ui-block-a">
+                                        Status Turma:
                                     </div>
                                     <div class="ui-block-b">
                                         <%=  matTurma.get(i).getTurma().getEstadoTurma().toString()%>
@@ -100,7 +122,7 @@
 
             </div>
 
-            
+
         </div>
         <script>
             //App custom javascript

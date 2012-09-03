@@ -38,7 +38,7 @@
 
             <separator />
 
-            <listbox id="listbox" mold="paging" pageSize="10">
+            <listbox id="listbox" mold="paging">
                 <listhead>
                     <listheader align="center" label="Nome"/>
                     <listheader align="center" label="Período"/>

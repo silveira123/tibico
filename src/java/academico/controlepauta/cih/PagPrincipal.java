@@ -54,6 +54,7 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton boletim;
     private Toolbarbutton historico;
     private Toolbarbutton about;
+    private Vlayout vlayout;
     private North north;
     private West west;
     private South south;
@@ -120,7 +121,8 @@ public class PagPrincipal extends GenericForwardComposer {
         telaprincipal.setHeight(event.getDesktopHeight() + "px");
         telaprincipal.setWidth((event.getDesktopWidth() - 10) + "px");
         north.setSize((event.getDesktopHeight() * 0.037) + "px");
-        west.setWidth((event.getDesktopHeight() * 0.246) + "px");
+       // vlayout.setHeight((event.getDesktopHeight() * 0.246) + "px");
+        west.setSize((event.getDesktopHeight() * 0.246) + "px");
         south.setSize((event.getDesktopHeight() * 0.049) + "px");;
     }
     

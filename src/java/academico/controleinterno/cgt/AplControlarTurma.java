@@ -79,6 +79,9 @@ public class AplControlarTurma {
         return (List<Turma>)((TurmaDAO) apDaoTurma).obterAtivas(p);
     }
     
+    public List<Turma> obterTurmas(Professor p, Curso c) throws AcademicoException {
+        return (List<Turma>)((TurmaDAO) apDaoTurma).obter(p, c);
+    }
     public List<Turma> obterTurmas(Professor p) throws AcademicoException {
         return (List<Turma>)((TurmaDAO) apDaoTurma).obter(p);
     }

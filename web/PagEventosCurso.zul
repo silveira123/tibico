@@ -33,7 +33,7 @@
 
             <separator />
                         
-            <listbox id="listCurso" mold="paging" pageSize="10">
+            <listbox id="listCurso" mold="paging">
                 <listhead>
                     <listheader align="center" label="Nome" />
                     <listheader align="center" label="Grau Instrução" />

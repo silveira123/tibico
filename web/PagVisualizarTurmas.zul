@@ -44,7 +44,7 @@
             </auxhead>
             
             <separator height="10px" />	
-            <listbox id = "listbox" mold="paging" pageSize="10" >
+            <listbox id = "listbox" mold="paging" >
                 <listhead>
                     <listheader label="Professor" width="29%" align="center"/>
                     <listheader label="Turma" width="38%" align="center"/>

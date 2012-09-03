@@ -32,7 +32,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosAvaliacao.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagEventosAvaliacao.zul
  * <p/>
  * @author Pietro Crhist
  * @author Geann Valfré
@@ -44,11 +46,6 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
     private CtrlLetivo ctrlTurma = CtrlLetivo.getInstance();
     private Window winEventosAvaliacao;
     private Combobox nome;
-    private Menuitem incluir;
-    private Menuitem excluir;
-    private Menuitem consultar;
-    private Menuitem alterar;
-    private Menuitem inserirPontuacao;
     private Listbox listbox;
     private Professor obj;
     private Div boxInformacao;
@@ -58,14 +55,12 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         ctrl.setPagEventosAvaliacao(this);
-        nome.setReadonly(true);
 
         List<Turma> listaTurma = new ArrayList<Turma>();
         obj = (Professor) arg.get("professor");
         if (obj != null) {
             listaTurma = ctrlTurma.obterTurmasAtivas(obj);
-        }
-        else {
+        } else {
             listaTurma = ctrlTurma.obterTurmasAtivas();
         }
         nome.setModel(new ListModelList(listaTurma, true));
@@ -79,35 +74,35 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         }
     }
 
-    public void onClick$nome(Event event) {
-
-        while (listbox.getItemCount() > 0) {
-            listbox.removeItemAt(0);
-        }
-    }
-
     public void onSelect$nome(Event event) {
         try {
-            Turma t = nome.getSelectedItem().getValue();
-            if (t != null) {
-                List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
+            if (nome.getSelectedItem() != null) {
+                Turma t = nome.getSelectedItem().getValue();
 
-                while (listbox.getItemCount() > 0) {
-                    listbox.removeItemAt(0);
-                }
+                if (t != null) {
+                    List<Avaliacao> listaAvaliacao = ctrl.obterAvaliacoes();
 
-                for (int i = 0; i < listaAvaliacao.size(); i++) {
-                    Avaliacao a = listaAvaliacao.get(i);
-                    if (a.getTurma().equals(t)) {
-                        Listitem linha = new Listitem(a.toString(), a);
-                        linha.appendChild(new Listcell(a.getPeso() + ""));
+                    while (listbox.getItemCount() > 0) {
+                        listbox.removeItemAt(0);
+                    }
 
-                        linha.setParent(listbox);
+                    for (int i = 0; i < listaAvaliacao.size(); i++) {
+                        Avaliacao a = listaAvaliacao.get(i);
+                        if (a.getTurma().equals(t)) {
+                            Listitem linha = new Listitem(a.toString(), a);
+                            linha.appendChild(new Listcell(a.getPeso() + ""));
+
+                            linha.setParent(listbox);
+                        }
                     }
                 }
+            }else {
+                while (listbox.getItemCount() > 0) {
+                        listbox.removeItemAt(0);
+                    }
+                setMensagemAviso("info", "Turma não encontrada");
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagEventosAvaliacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -138,12 +133,10 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
                 ctrl.apagarAvaliacao(c);
                 listbox.removeItemAt(listbox.getSelectedIndex());
                 setMensagemAviso("success", "Avaliação excluida com sucesso");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir a avaliação");
             }
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma avaliação");
         }
     }
@@ -153,8 +146,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (comboitem != null) {
             Turma t = comboitem.getValue();
             ctrl.abrirIncluirAvaliacao(t);
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma turma");
         }
     }
@@ -164,8 +156,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirEditarAvaliacao(c);
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma avaliação");
         }
     }
@@ -175,8 +166,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirConsultarAvaliacao(c);
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma avaliação");
         }
     }
@@ -186,8 +176,7 @@ public class PagEventosAvaliacao extends GenericForwardComposer {
         if (listitem != null) {
             Avaliacao c = listitem.getValue();
             ctrl.abrirRegistroPontuacao(c);
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma avaliação");
         }
     }

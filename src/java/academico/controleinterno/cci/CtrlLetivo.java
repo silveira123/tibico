@@ -169,10 +169,12 @@ public class CtrlLetivo {
         return aplC.obterTurmas();
     }
 
+    public List<Turma> obterTurma(Professor p, Curso c) throws AcademicoException {
+        return aplC.obterTurmas(p, c);
+    }
     public List<Turma> obterTurma(Professor p) throws AcademicoException {
         return aplC.obterTurmas(p);
     }
-    
     public List<Turma> obterTurmasAtivas(){
         return aplC.obterTurmasAtivas();
     }

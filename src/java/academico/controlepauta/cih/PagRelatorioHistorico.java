@@ -33,8 +33,10 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos da tela PagRelatorioHistorico.zul
- * 
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados; A classe contém os eventos da tela
+ * PagRelatorioHistorico.zul
+ *
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioHistorico extends GenericForwardComposer {
@@ -57,11 +59,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         obj = (Aluno) arg.get("aluno");
-        
-        
+
+
         matricula.setReadonly(true);
         gerarPdf.setDisabled(true);
-        
+
         if (obj != null) {
             List<Aluno> alunos = new ArrayList<Aluno>();
             alunos.add(obj);
@@ -71,13 +73,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             nome.setDisabled(true);
             matricula.setDisabled(true);
             adicionaDisciplinas(obj);
-        }
-        else {
+        } else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
-        nome.setReadonly(true);
     }
-    
+
     public void onCreate$winHistorico(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -85,14 +85,18 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
             winHistorico.detach();
         }
     }
-    
+
     public void onSelect$nome(Event event) throws Exception {
-        obj = nome.getSelectedItem().getValue();
-        matricula.setValue(obj.getMatricula().toString());
-        adicionaDisciplinas(obj);
+        if (nome.getSelectedItem() != null) {
+            obj = nome.getSelectedItem().getValue();
+            if (obj != null) {
+                matricula.setValue(obj.getMatricula().toString());
+                adicionaDisciplinas(obj);
+            }
+        }else setMensagemAviso("info", "Aluno não encontrado");
         gerarPdf.setDisabled(false);
     }
-    
+
     /**
      * Função para adicionar no grid as turmas cursadas pelo aluno
      * <p/>
@@ -106,7 +110,9 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
         try {
             matTurma = ctrlMatricula.emitirHistorico(obj);
             curso.setValue(obj.getCurso().toString());
-            if(obj.getCoeficiente() != null) coeficiente.setValue(obj.getCoeficiente().toString());
+            if (obj.getCoeficiente() != null) {
+                coeficiente.setValue(obj.getCoeficiente().toString());
+            }
             Rows linhas = new Rows();
             for (int i = 0; i < matTurma.size(); i++) {
                 MatriculaTurma c = matTurma.get(i);
@@ -120,12 +126,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
                 linha.appendChild(new Label(c.getSituacaoAluno().toString()));
 
                 linha.setParent(linhas);
-                
+
             }
             gerarPdf.setDisabled(false);
             linhas.setParent(disciplinas);
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }
@@ -139,10 +144,11 @@ public class PagRelatorioHistorico extends GenericForwardComposer {
     public void onClick$boxInformacao(Event event) {
         boxInformacao.setVisible(false);
     }
+
     public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException, AcademicoException, Exception {
-        if(!ctrlMatricula.emitirHistoricoPDF(obj)){
-             setMensagemAviso("error", "Não existem disciplinas encerradas");
+        if (!ctrlMatricula.emitirHistoricoPDF(obj)) {
+            setMensagemAviso("error", "Não existem disciplinas encerradas");
         }
-        
+
     }
 }

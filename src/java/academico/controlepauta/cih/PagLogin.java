@@ -72,15 +72,17 @@ public class PagLogin extends GenericForwardComposer {
         }
     }
 
-    public void onOK$loginWin(Event event) {
-        onClick$entrar(event);
-    }
-
     public void onClientInfo$loginWin(ClientInfoEvent event)
     {
         loginWin.setHeight(event.getDesktopHeight() + "px");
         loginWin.setWidth(event.getDesktopWidth() + "px");
     }
+    
+    public void onOK$loginWin(Event event) {
+        onClick$entrar(event);
+    }
+
+    
     
     public void onClick$entrar(Event event) {
         Usuario usuario = null;

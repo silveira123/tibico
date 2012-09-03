@@ -33,7 +33,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosChamada.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagEventosChamada.zul
  * <p/>
  * @author
  */
@@ -43,11 +45,6 @@ public class PagEventosChamada extends GenericForwardComposer {
     private CtrlLetivo ctrlTurma = CtrlLetivo.getInstance();
     private Window winEventosChamada;
     private Combobox nome;
-    private Menuitem incluir;
-    private Menuitem excluir;
-    private Menuitem consultar;
-    private Menuitem alterar;
-    private Menuitem inserirPontuacao;
     private Listbox listbox;
     private Professor obj;
     private Div boxInformacao;
@@ -62,47 +59,49 @@ public class PagEventosChamada extends GenericForwardComposer {
         obj = (Professor) arg.get("professor");
         if (obj != null) {
             listaTurma = ctrlTurma.obterTurmasAtivas(obj);
-        }
-        else {
+        } else {
             listaTurma = ctrlTurma.obterTurmasAtivas();
         }
-        nome.setReadonly(true);
         nome.setModel(new ListModelList(listaTurma, true));
     }
-
-    public void onClick$nome(Event event) {
-
-        while (listbox.getItemCount() > 0) {
-            listbox.removeItemAt(0);
-        }
+    
+    public void onOK$nome(Event event) {
+        onSelect$nome(event);
     }
-
+    
     public void onSelect$nome(Event event) {
         try {
-            Turma t = null;
+            if (nome.getSelectedItem() != null) {
+                Turma t = null;
 
-            t = (Turma) nome.getSelectedItem().getValue();
-            if (t != null) {
-                List<Aula> listaAula = ctrl.obterAulas(t);
 
+                t = (Turma) nome.getSelectedItem().getValue();
+                if (t != null) {
+                    List<Aula> listaAula = ctrl.obterAulas(t);
+
+                    while (listbox.getItemCount() > 0) {
+                        listbox.removeItemAt(0);
+                    }
+
+                    for (int i = 0; i < listaAula.size(); i++) {
+                        Aula a = listaAula.get(i);
+                        if (a.getTurma() == t) {
+                            Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
+                                    + "/" + (a.getDia().getTime().getYear() + 1900), a);
+                            linha.appendChild(new Listcell(a.getConteudo()));
+                            linha.appendChild(new Listcell(a.getQuantidade() + ""));
+
+                            linha.setParent(listbox);
+                        }
+                    }
+                }
+            } else {
                 while (listbox.getItemCount() > 0) {
                     listbox.removeItemAt(0);
                 }
-
-                for (int i = 0; i < listaAula.size(); i++) {
-                    Aula a = listaAula.get(i);
-                    if (a.getTurma() == t) {
-                        Listitem linha = new Listitem(a.getDia().getTime().getDate() + "/" + (a.getDia().getTime().getMonth() + 1)
-                                + "/" + (a.getDia().getTime().getYear() + 1900), a);
-                        linha.appendChild(new Listcell(a.getConteudo()));
-                        linha.appendChild(new Listcell(a.getQuantidade() + ""));
-
-                        linha.setParent(listbox);
-                    }
-                }
+                setMensagemAviso("info", "Turma não encontrada");
             }
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             Logger.getLogger(PagEventosChamada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -153,12 +152,10 @@ public class PagEventosChamada extends GenericForwardComposer {
 
                 listbox.removeItemAt(listbox.getSelectedIndex());
                 setMensagemAviso("success", "Chamada excluida com sucesso");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir a chamada");
             }
-        }
-        else {
+        } else {
             setMensagemAviso("info", "Selecione uma chamada");
         }
     }

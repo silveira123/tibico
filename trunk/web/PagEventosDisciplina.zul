@@ -46,7 +46,7 @@
 
             <separator />
 
-            <listbox id="listDisciplina" mold="paging" pageSize="10">
+            <listbox id="listDisciplina" mold="paging">
                 <listhead>
                     <listheader align="center" label="Nome" />
                     <listheader align="center" label="Curso" />

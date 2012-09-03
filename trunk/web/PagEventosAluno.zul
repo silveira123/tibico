@@ -55,7 +55,7 @@
 
             <separator />
 
-            <listbox id="listAluno" mold="paging" pageSize="10">
+            <listbox id="listAluno" mold="paging">
                 <listhead>
                     <listheader align="center" label="Matricula" />
                     <listheader align="center" label="Nome" />

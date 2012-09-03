@@ -34,7 +34,9 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagRelatorioBoletim.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para
+ * leitura e interpretação de dados. A classe contém os eventos da tela
+ * PagRelatorioBoletim.zul
  * <p/>
  * @author Eduardo Rigamonte
  */
@@ -69,11 +71,9 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             calendario.setModel(new ListModelList(buscaCalendarios(obj)));
             nome.setDisabled(true);
             matricula.setDisabled(true);
-        }
-        else {
+        } else {
             nome.setModel(new ListModelList(ctrlPessoa.obterAlunos()));
         }
-        nome.setReadonly(true);
         matricula.setReadonly(true);
         calendario.setReadonly(true);
         gerarPdf.setDisabled(true);
@@ -88,14 +88,23 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
     }
 
     public void onSelect$nome(Event event) {
-        obj = nome.getSelectedItem().getValue();
-        if (obj != null) {
-            matricula.setValue(obj.getMatricula().toString());
-            calendario.setModel(new ListModelList(buscaCalendarios(obj)));
+        if (nome.getSelectedItem() != null) {
+            obj = nome.getSelectedItem().getValue();
+            if (obj != null) {
+                matricula.setValue(obj.getMatricula().toString());
+                calendario.setModel(new ListModelList(buscaCalendarios(obj)));
+                calendario.setValue("");
+                if (disciplinas.getRows() != null) {
+                    disciplinas.removeChild(disciplinas.getRows());
+                }
+            }
+        } else {
             calendario.setValue("");
             if (disciplinas.getRows() != null) {
                 disciplinas.removeChild(disciplinas.getRows());
             }
+            setMensagemAviso("info", "Aluno não encontrado");
+
         }
         gerarPdf.setDisabled(true);
     }
@@ -130,8 +139,7 @@ public class PagRelatorioBoletim extends GenericForwardComposer {
             }
             linhas.setParent(disciplinas);
             gerarPdf.setDisabled(false);
-        }
-        catch (AcademicoException ex) {
+        } catch (AcademicoException ex) {
             setMensagemAviso("error", "Erro ao obter matriculas");
         }
     }

@@ -52,7 +52,7 @@
 
             <separator />
 
-            <grid id = "matriculas" height="360px">
+            <grid id = "matriculas" >
                 <columns>
                     <column align="center" label="Matrícula" width="20%"/>
                     <column align="center" label="Nome" width="40%"/>

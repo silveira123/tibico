@@ -133,7 +133,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             calendarioAcademico.setModel(new ListModelList(ctrlLetivo.obterCalendarios(c)));
         } else if (c != null) {
             List<Calendario> calendarios = ctrlLetivo.obterCalendarios(c);
-            List<Turma> turmas = ctrlLetivo.obterTurma(obj);
+            List<Turma> turmas = ctrlLetivo.obterTurma(obj,c);
             List<Calendario> cal = new ArrayList<Calendario>();
             for (int i = 0; i < turmas.size();i++) {
                 cal.add(turmas.get(i).getCalendario());
@@ -181,7 +181,7 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             }
 
             try {
-                turmas = ctrlLetivo.obterTurma(p);
+                turmas = ctrlLetivo.obterTurma(p, c);
             } catch (AcademicoException ex) {
                 Logger.getLogger(PagVisualizarTurmas.class.getName()).log(Level.SEVERE, null, ex);
             }

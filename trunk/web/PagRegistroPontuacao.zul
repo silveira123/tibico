@@ -50,7 +50,7 @@
             </div>
             <separator />
                         
-            <listbox id = "listbox" mold="paging" pageSize="10">
+            <listbox id = "listbox" mold="paging">
                 <listhead>
                     <listheader label="Matrícula" sort="auto" width="15%"/>
                     <listheader label="Nome" sort="auto" width="45%"/>

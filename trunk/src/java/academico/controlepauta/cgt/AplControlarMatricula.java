@@ -89,7 +89,8 @@ public class AplControlarMatricula {
             matriculaTurma.setSituacaoAluno(SituacaoAlunoTurma.CURSANDO);
         }
 
-        return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
+        if(turma.getCalendario().getSituacao().equals(SituacaoCalendario.ABERTO)) return (MatriculaTurma) apDaoMatriculaTurma.salvar(matriculaTurma);
+        else throw new AcademicoException("Calendario fechado");
     }
 
     /**

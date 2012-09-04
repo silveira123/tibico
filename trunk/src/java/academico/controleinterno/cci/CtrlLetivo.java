@@ -277,8 +277,8 @@ public class CtrlLetivo {
         return apl.obterCursos();
     }
     
-    public boolean verificarPeriodoLetivo(Curso curso) {
-        return apl.verificarPeriodoLetivo(curso);
+    public boolean verificarPeriodoLetivo(Curso curso, Turma t) {
+        return apl.verificarPeriodoLetivo(curso, t);
     }
 
     public boolean fecharPeriodo(Calendario select) throws AcademicoException {

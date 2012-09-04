@@ -104,7 +104,9 @@
                         </panelchildren>
                     </panel>
                     <div align="center">
-                        <image src="images/fsw.png" width="150px" height="155px" />
+                        <a href="http://200.137.75.208:8080/site/">
+                            <image src="images/fsw.png" width="150px" height="155px" />
+                        </a>
                     </div>
                                         
                 </vlayout>

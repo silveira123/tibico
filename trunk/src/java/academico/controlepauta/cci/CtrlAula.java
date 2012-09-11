@@ -19,7 +19,7 @@ package academico.controlepauta.cci;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
 import academico.controleinterno.cdp.Turma;
-import academico.controleinterno.cgt.AplPrincipal;
+import academico.controlepauta.cgt.AplPrincipal;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgt.AplControlarAula;
 import academico.controlepauta.cih.PagEventosAvaliacao;

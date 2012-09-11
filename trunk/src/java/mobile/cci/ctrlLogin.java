@@ -7,7 +7,7 @@ package mobile.cci;
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Calendario;
 import academico.controleinterno.cgt.AplControlarTurma;
-import academico.controleinterno.cgt.AplPrincipal;
+import academico.controlepauta.cgt.AplPrincipal;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplControlarMatricula;

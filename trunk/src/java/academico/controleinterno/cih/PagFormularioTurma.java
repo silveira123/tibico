@@ -34,7 +34,7 @@ import org.zkoss.zul.*;
 /**
  * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
  * PagFormularioTurma.zul
- *
+ * <p/>
  * @author Pietro Crhist
  * @author Geann Valfré
  * @author Gabriel Quézid
@@ -116,12 +116,12 @@ public class PagFormularioTurma extends GenericForwardComposer {
             }
 
             curso.setReadonly(true);
-			disciplina.setReadonly(true);
-			professor.setReadonly(true);
-			calendario.setReadonly(true);
-			// listHorario.setModel(new ListModelList(listaHorario, true));
+            disciplina.setReadonly(true);
+            professor.setReadonly(true);
+            calendario.setReadonly(true);
+            // listHorario.setModel(new ListModelList(listaHorario, true));
         }
-	}
+    }
 
     public void onCreate$winFormularioTurma() throws AcademicoException {
 
@@ -294,6 +294,17 @@ public class PagFormularioTurma extends GenericForwardComposer {
             disciplina.setModel(new ListModelList(listDisciplinas, true));
 
             List<Calendario> listCalendarios = ctrl.obterCalendarios((Curso) curso.getSelectedItem().getValue());
+            for (int i = 0; i < listCalendarios.size();) {
+                if (listCalendarios.get(i).getSituacao().equals(SituacaoCalendario.FECHADO)) {
+                    listCalendarios.remove(i);
+                            
+                }
+                else {
+                    i++;
+            
+                }
+            }
+
             calendario.setModel(new ListModelList(listCalendarios, true));
         }
     }
@@ -326,5 +337,4 @@ public class PagFormularioTurma extends GenericForwardComposer {
 
         return msg;
     }
-
 }

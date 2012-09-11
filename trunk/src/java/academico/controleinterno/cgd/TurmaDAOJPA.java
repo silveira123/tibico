@@ -12,9 +12,9 @@ import javax.persistence.Query;
 public class TurmaDAOJPA extends DAOJPA<Turma> implements TurmaDAO {
 
     public List<Turma> obterTurmasAtuais(Aluno aluno) {
-        javax.persistence.Query query = entityManager.createQuery("SELECT t FROM Aluno a, Curso c, Disciplina d, Turma t, Calendario cal WHERE a.id = ?1 AND t.disciplina.id = d.id AND d.curso.id = c.id AND d.curso.id = a.curso.id AND t.calendario.id = cal.id ");
+        javax.persistence.Query query = entityManager.createQuery("SELECT t FROM Aluno a, Curso c, Disciplina d, Turma t, Calendario cal WHERE a.id = ?1 AND t.disciplina.id = d.id AND d.curso.id = c.id AND d.curso.id = a.curso.id AND t.calendario.id = cal.id AND cal.situacao = ?2");
         query.setParameter(1, aluno.getId());
-
+        query.setParameter(2, SituacaoCalendario.ABERTO); 
         List<Turma> list = query.getResultList();
         return list;
     }

@@ -2,7 +2,6 @@ package academico.controleinterno.cgt;
 
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.CalendarioDAO;
-import academico.controleinterno.cgd.TurmaDAO;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.persistencia.DAO;
 import academico.util.persistencia.DAOFactory;

@@ -17,7 +17,6 @@ package academico.controlepauta.cgt;
 
 import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Turma;
-import academico.controlepauta.cci.CtrlMatricula;
 import academico.controlepauta.cdp.*;
 import academico.controlepauta.cgd.*;
 import academico.util.Exceptions.AcademicoException;
@@ -89,7 +88,7 @@ public class AplControlarAula {
 
             apDaoResultado.salvar(resultado);
 
-            CtrlMatricula.getInstance().calculaNotaFinal(matriculaturma.get(i));
+            AplControlarMatricula.getInstance().calcularNotaFinal(matriculaturma.get(i));
         }
     }
 

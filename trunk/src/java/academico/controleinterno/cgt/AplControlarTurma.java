@@ -7,8 +7,6 @@ package academico.controleinterno.cgt;
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
-import academico.controlepauta.cdp.MatriculaTurma;
-import academico.controlepauta.cdp.SituacaoAlunoTurma;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.horario.cdp.Horario;

@@ -151,7 +151,7 @@ public class PagRegistroChamada extends GenericForwardComposer {
                     winRegistroChamada.onClose();
                 }
                 else {
-                    Messagebox.show("Numero de faltas superior ao limite de aulas");
+                    Messagebox.show("Numero de faltas irregular!");
                 }
 
 
@@ -191,7 +191,7 @@ public class PagRegistroChamada extends GenericForwardComposer {
                     winRegistroChamada.onClose();
                 }
                 else {
-                    Messagebox.show("Numero de faltas superior ao limite de aulas");
+                    Messagebox.show("Numero de faltas irregular!");
                 }
             }
         }

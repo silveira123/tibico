@@ -260,14 +260,16 @@ public class CtrlAula {
     }
     
 	public boolean validarFaltas(Integer qtd, List<Frequencia> frequencia){
-        int maior = 0;
+        int maior = 0, menor = 9999;
         for (int i = 0; i < frequencia.size(); i++) {
-            if(maior< frequencia.get(i).getNumFaltasAula()){
+            if(maior < frequencia.get(i).getNumFaltasAula()){
                 maior = frequencia.get(i).getNumFaltasAula();
             }
+            else if(menor > frequencia.get(i).getNumFaltasAula())
+                    menor = frequencia.get(i).getNumFaltasAula();
             
         }
-        if(qtd<maior){
+        if(qtd<maior || menor < 0){
             return false;
         }
         else return true;

@@ -138,9 +138,10 @@ public class PagVisualizarTurmas extends GenericForwardComposer {
             for (int i = 0; i < turmas.size();i++) {
                 cal.add(turmas.get(i).getCalendario());
             }
-            for (Calendario calendario : calendarios) {
-                if (!cal.contains(calendario)) {
-                    calendarios.remove(calendario);
+            for (int i = 0; i < calendarios.size(); i++) {
+                if (!cal.contains(calendarios.get(i))) {
+                    calendarios.remove(calendarios.get(i));
+                    i--;
                 }
             }
 

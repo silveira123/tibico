@@ -1,5 +1,6 @@
 import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
+import academico.util.email.Mail;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -34,6 +35,7 @@ public class main {
 //       a.setCpf(Long.valueOf("32132132132"));
 //       a.setMatricula(Long.valueOf("32132132132"));
        AlunoDAO tdao = new AlunoDAOJPA();
+       
 //       tdao.salvar(a);
         
         //TurmaDAO d = new TurmaDAOJPA();

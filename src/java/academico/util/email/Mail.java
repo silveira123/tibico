@@ -4,6 +4,8 @@
  */
 package academico.util.email;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
@@ -16,8 +18,8 @@ import org.apache.commons.mail.SimpleEmail;
  */
 public class Mail {
 
-    private String emailDestinatario;
-    private String nomeDestinatario;
+    private List<String> emailDestinatario = new ArrayList<String>();
+    private List<String> nomeDestinatario = new ArrayList<String>();
     private String emailRemetente;
     private String nomeRemetente;
     private Integer portaSmtp;
@@ -27,19 +29,7 @@ public class Mail {
     private String login;
     private String senha;
 
-    /**
-     * Retorna o nome de Email do Destinatario.
-     */
-    public String getEmailDestinatario() {
-        return emailDestinatario;
-    }
-
-    /**
-     * Altera o nome de Email do Destinatario.
-     */
-    public void setEmailDestinatario(String emailDestinatario) {
-        this.emailDestinatario = emailDestinatario;
-    }
+    
 
     /**
      * Retorna o nome de email do remtente.
@@ -111,18 +101,14 @@ public class Mail {
         this.mensagem = mensagem;
     }
 
-    /**
-     * Retorna o Nome ou apelido do Destinatario.
-     */
-    public String getNomeDestinatario() {
-        return nomeDestinatario;
-    }
+    
 
     /**
-     * Altera o Nome ou apelido do Destinatario.
+     * Adiciona um Destinatario.
      */
-    public void setNomeDestinatario(String nomeDestinatario) {
-        this.nomeDestinatario = nomeDestinatario;
+    public void addRemetente(String nome, String email){
+        this.emailDestinatario.add(email);
+        this.nomeDestinatario.add(nome);
     }
 
     /**
@@ -176,7 +162,9 @@ public class Mail {
 
         email.setHostName(this.hostSmtp);
         email.setSmtpPort(this.portaSmtp);
-        email.addTo(this.emailDestinatario, this.nomeDestinatario);
+        for (int i = 0; i < emailDestinatario.size(); i++) {
+            email.addTo(this.emailDestinatario.get(i), this.nomeDestinatario.get(i));
+        }
         email.setFrom(this.emailRemetente, this.nomeRemetente);
         email.setSubject(this.assunto);
         email.setMsg(this.mensagem);

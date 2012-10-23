@@ -36,7 +36,7 @@
                                 
                                 <row>	
                                     Nome:
-                                    <textbox id="nome" width="80%" />		
+                                    <textbox id="nome" width="80%" maxlength="255"/>		
 									
                                 </row>
 								
@@ -54,33 +54,33 @@
                                 </row>
                                 <row>
                                     Telefone:
-                                    <textbox id="telefone" width="30%"
+                                    <textbox id="telefone" width="30%" maxlength="255"
                                              constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um telefone válido: (27)3322-3322"/>
                                 </row>
 			
 			
                                 <row>
                                     Celular:
-                                    <textbox id="celular" width="30%"
+                                    <textbox id="celular" width="30%" maxlength="255"
                                              constraint="/\([0-9][0-9]\)[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/: Entre com um celular válido: (27)9522-3472"/>
                                 </row>
 									
                                 <row>
                                     Email:
-                                    <textbox id="email" width="50%"
-                                             constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com" />
+                                    <textbox id="email" width="50%" maxlength="255"
+                                             constraint="/.+@.+\.[a-z]+/: Entre com um email válido: exemplo@gmail.com"/>
                                 </row>
 			
 			
                                 <row>
                                     CPF:
-                                    <textbox id="cpf" width="30%"
+                                    <textbox id="cpf" width="30%" maxlength="255"
                                              constraint="/[0-9][0-9][0-9].[0-9][0-9][0-9].[0-9][0-9][0-9]-[0-9][0-9]/: Entre com um CPF válido: 123.123.123-12"/>
                                 </row>
 								
                                 <row>
                                     RG:
-                                    <textbox id="rg" width="30%" />
+                                    <textbox id="rg" width="30%" maxlength="255"/>
                                 </row>
 				
                                 <row>
@@ -124,7 +124,7 @@
                                         </div>
                                         
                                         <div align="center">
-                                            <button id="foto" label="Carregar" upload="true,maxsize=1024,multiple=false"/>
+                                            <button id="foto" label="Carregar" upload="true,multiple=false"/>
                                         </div>
                                     </row>
                                 </rows>

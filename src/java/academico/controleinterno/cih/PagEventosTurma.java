@@ -64,14 +64,14 @@ public class PagEventosTurma extends GenericForwardComposer {
                 listbox.removeItemAt(0);
             }
 
-            List<Turma> listaTurma=null;
+            List<Turma> listaTurma = null;
             try {
                 listaTurma = ctrl.obterTurma();
             }
             catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosTurma.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             if (tipo == 1) {
                 for (int i = 0; i < listaTurma.size(); i++) {
                     Turma t = listaTurma.get(i);
@@ -138,9 +138,10 @@ public class PagEventosTurma extends GenericForwardComposer {
         if (listitem != null) {
             try {
                 Turma t = listitem.getValue();
-                ctrl.apagarTurma(t);
-                listbox.removeItemAt(listbox.getSelectedIndex());
-                setMensagemAviso("success", "Turma excluida com sucesso");
+                if (ctrl.apagarTurma(t)) {
+                    listbox.removeItemAt(listbox.getSelectedIndex());
+                    setMensagemAviso("success", "Turma excluida com sucesso");
+                } else setMensagemAviso("error", "Não foi possivel excluir a turma, já possui alunos vinculados");
             }
             catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir a turma");
@@ -186,12 +187,14 @@ public class PagEventosTurma extends GenericForwardComposer {
             carregarTurma();
         }
     }
-    
+
     public void onChange$pesquisarNome(Event event) {
-        if(pesquisarNome.getText().trim().equals(""))
+        if (pesquisarNome.getText().trim().equals("")) {
             carregarTurma();
-        else
+        }
+        else {
             onOK$pesquisarNome(event);
+        }
     }
 
     public void onOK$pesquisarNome(Event event) {

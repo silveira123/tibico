@@ -16,10 +16,8 @@
 package academico.controleinterno.cih;
 
 import academico.controleinterno.cci.CtrlPessoa;
-import academico.controleinterno.cdp.Aluno;
 import academico.controleinterno.cdp.Professor;
 import academico.util.Exceptions.AcademicoException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,12 +52,11 @@ public class PagEventosProfessor extends GenericForwardComposer {
         carregarProfessores();
     }
 
-    public void carregarProfessores()
-    {
+    public void carregarProfessores() {
         while (listProfessor.getItemCount() > 0) {
             listProfessor.removeItemAt(0);
         }
-        
+
         List<Professor> listaProfessores = null;
         try {
             listaProfessores = ctrl.obterProfessor();
@@ -79,7 +76,7 @@ public class PagEventosProfessor extends GenericForwardComposer {
             }
         }
     }
-    
+
     public void onCreate$winDadosProfessor(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -106,24 +103,26 @@ public class PagEventosProfessor extends GenericForwardComposer {
     }
 
     public void onBlur$pesquisarNome(Event event) {
-        if(pesquisarNome.getText().trim().equals(""))
+        if (pesquisarNome.getText().trim().equals("")) {
             carregarProfessores();
+        }
     }
-    
+
     public void onChange$pesquisarNome(Event event) {
-        if(pesquisarNome.getText().trim().equals(""))
+        if (pesquisarNome.getText().trim().equals("")) {
             carregarProfessores();
-        else
+        }
+        else {
             onOK$pesquisarNome(event);
+        }
     }
-    
+
     public void onOK$pesquisarNome(Event event) {
         while (listProfessor.getItemCount() > 0) {
             listProfessor.removeItemAt(0);
         }
         System.out.println(pesquisarNome.getText());
-        if(!pesquisarNome.getText().trim().equals(""))
-        {
+        if (!pesquisarNome.getText().trim().equals("")) {
             List<Professor> listaProfessores = null;
             try {
                 listaProfessores = ctrl.obterProfessorPesquisa(pesquisarNome.getText());
@@ -131,30 +130,33 @@ public class PagEventosProfessor extends GenericForwardComposer {
             catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             if (listaProfessores != null && !listaProfessores.isEmpty()) {
                 for (int i = 0; i < listaProfessores.size(); i++) {
                     Professor a = listaProfessores.get(i);
                     Listitem linha = new Listitem(listaProfessores.get(i).toString(), a);
 
                     linha.appendChild(new Listcell(listaProfessores.get(i).getGrauInstrucao().toString()));
-                    
+
                     linha.setParent(listProfessor);
                 }
             }
-            else
+            else {
                 setMensagemAviso("info", "Nenhum professor encontrado!");
+            }
         }
-        
+
     }
-    
+
     public void onClick$excluirProfessor(Event event) {
         Listitem listitem = listProfessor.getSelectedItem();
         if (listitem != null) {
             try {
-                ctrl.apagarProfessor((Professor) listitem.getValue());
-                listProfessor.removeItemAt(listProfessor.getSelectedIndex());
-                setMensagemAviso("success", "Professor excluido com sucesso");
+                if (ctrl.apagarProfessor((Professor) listitem.getValue())) {
+                    listProfessor.removeItemAt(listProfessor.getSelectedIndex());
+                    setMensagemAviso("success", "Professor excluido com sucesso");
+                }
+                else setMensagemAviso("error", "Não foi possivel excluir o professor, já possui vinculo com Turma");
             }
             catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir o professor");

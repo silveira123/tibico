@@ -22,7 +22,7 @@
                     <row>
                         Nome:
                         <cell colspan="2">
-                            <textbox id="nomeDisciplina" width="60%"/>
+                            <textbox id="nomeDisciplina" width="60%" maxlength="255"/>
                         </cell>
                     </row>
                     <row style="background:#FFFFFF;">
@@ -34,20 +34,20 @@
 						
                     <row>
                         Carga Horária:
-                        <intbox id="cargaHoraria" width="90%"/>
+                        <intbox id="cargaHoraria" width="90%" constraint="no negative"/>
 								
                         Horas
                     </row>
                     <row>
                         Créditos:
                         <cell colspan="2">
-                            <intbox id="creditos" width="4%"/>
+                            <intbox id="creditos" width="4%" constraint="no negative,no zero"/>
                         </cell>
                     </row>
                     <row>
                         Período Correspondente:
                         <cell colspan="2">
-                            <intbox id="periodo" width="4%"/>
+                            <intbox id="periodo" width="4%" constraint="no negative,no zero"/>
                         </cell>
                     </row>
                     <row style="background:#FFFFFF;">

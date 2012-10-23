@@ -56,7 +56,7 @@ public class PagEventosCurso extends GenericForwardComposer {
         }
 
     }
-    
+
     public void onCreate$winEventosCurso(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -64,7 +64,7 @@ public class PagEventosCurso extends GenericForwardComposer {
             winEventosCurso.detach();
         }
     }
-    
+
     public void addCurso(Curso c) {
         Listitem linha = new Listitem(c.getNome(), c);
         linha.appendChild(new Listcell(c.getGrauInstrucao().toString()));
@@ -89,9 +89,10 @@ public class PagEventosCurso extends GenericForwardComposer {
         if (listitem != null) {
             try {
                 Curso c = listitem.getValue();
-                ctrl.apagarCurso(c);
-                listCurso.removeItemAt(listCurso.getSelectedIndex());
-                setMensagemAviso("success", "Curso excluido com sucesso");
+                if (ctrl.apagarCurso(c)) {
+                    listCurso.removeItemAt(listCurso.getSelectedIndex());
+                    setMensagemAviso("success", "Curso excluido com sucesso");
+                } else setMensagemAviso("error", "Não foi possivel excluir o curso, já possui vinculos");
             }
             catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir o curso");

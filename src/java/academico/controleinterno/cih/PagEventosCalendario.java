@@ -154,9 +154,13 @@ public class PagEventosCalendario extends GenericForwardComposer {
         if (listitem != null) {
             try {
                 Calendario c = listitem.getValue();
-                ctrl.apagarCalendario(c);
-                listbox.removeItemAt(listbox.getSelectedIndex());
-                setMensagemAviso("success", "Calendário excluido com sucesso");
+                if(ctrl.apagarCalendario(c))
+                {
+                    listbox.removeItemAt(listbox.getSelectedIndex());
+                    setMensagemAviso("success", "Calendário excluido com sucesso");
+                }
+                else
+                    setMensagemAviso("error", "Calendário está vinculado a uma turma");
             }
             catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir o calendário");

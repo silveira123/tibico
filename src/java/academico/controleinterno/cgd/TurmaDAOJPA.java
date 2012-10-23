@@ -56,9 +56,18 @@ public class TurmaDAOJPA extends DAOJPA<Turma> implements TurmaDAO {
         List<Turma> list = query.getResultList();
         return list;
     }
-
+    
+    //faz a pesquisa em turmas pelo parametro
     public List<Turma> obterTurma(String parametro) {
         Query query = entityManager.createQuery("select distinct t from Turma t, Disciplina d, Professor p, Calendario c, Curso curso where t.disciplina.id = d.id and t.professor.id = p.id and t.calendario.id = c.id and curso.id = t.disciplina.curso.id and (lower(p.nome) like lower('%" + parametro + "%') or lower(t.estadoTurma) like lower('%" + parametro + "%') or lower(d.nome) like lower('%" + parametro + "%') or lower(c.identificador) like lower('%" + parametro + "%') or lower(curso.nome) like lower('%" + parametro + "%'))");
         return (List<Turma>) query.getResultList();
+    }
+
+    //busca as turmas de uma disciplina
+    public List<Turma> obter(Disciplina d) {
+        javax.persistence.Query query = entityManager.createQuery("SELECT t FROM Turma t WHERE t.disciplina.id = ?1");
+        query.setParameter(1, d.getId());
+        List<Turma> list = query.getResultList();
+        return list;
     }
 }

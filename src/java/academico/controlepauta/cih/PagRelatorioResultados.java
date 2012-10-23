@@ -36,10 +36,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para
- * leitura e interpretação de dados; A classe contém os eventos da tela
- * PagRelatorioResultados.zul
- *
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os eventos da tela PagRelatorioResultados.zul
+ * <p/>
  * @author Eduardo Rigamonte
  */
 public class PagRelatorioResultados extends GenericForwardComposer {
@@ -52,7 +50,6 @@ public class PagRelatorioResultados extends GenericForwardComposer {
     private Grid matriculas;
     private Window winResultados;
     private Curso objCurso;
-    private Calendario objCalendario;
     private Turma objTurma;
     private Button gerarGrafico;
     private Div boxInformacao;
@@ -82,9 +79,10 @@ public class PagRelatorioResultados extends GenericForwardComposer {
     }
 
     public void onSelect$curso(Event event) throws AcademicoException {
-        if (objCalendario == null) {
-            calendarioAcademico.setModel(new ListModelList(ctrlMatricula.obter((Curso) curso.getSelectedItem().getValue())));
-        }
+        gerarGrafico.setDisabled(true);
+        gerarPdf.setDisabled(true);
+
+        calendarioAcademico.setModel(new ListModelList(ctrlMatricula.obter((Curso) curso.getSelectedItem().getValue())));
         if (matriculas.getRows() != null) {
             matriculas.removeChild(matriculas.getRows());
         }
@@ -95,9 +93,10 @@ public class PagRelatorioResultados extends GenericForwardComposer {
     }
 
     public void onSelect$calendarioAcademico(Event event) throws AcademicoException {
-        if (objTurma == null) {
-            turma.setModel(new ListModelList(ctrlMatricula.obter((Calendario) calendarioAcademico.getSelectedItem().getValue())));
-        }
+        gerarGrafico.setDisabled(true);
+        gerarPdf.setDisabled(true);
+
+        turma.setModel(new ListModelList(ctrlMatricula.obter((Calendario) calendarioAcademico.getSelectedItem().getValue())));
         if (matriculas.getRows() != null) {
             matriculas.removeChild(matriculas.getRows());
         }
@@ -114,9 +113,11 @@ public class PagRelatorioResultados extends GenericForwardComposer {
             MatriculaTurma m = ((Row) row.get(i)).getValue();
             if (m.getSituacaoAluno() == SituacaoAlunoTurma.APROVADO) {
                 apr++;
-            } else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADONOTA) {
+            }
+            else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADONOTA) {
                 rep++;
-            } else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADOFALTA) {
+            }
+            else if (m.getSituacaoAluno() == SituacaoAlunoTurma.REPROVADOFALTA) {
                 rep++;
             }
         }
@@ -148,7 +149,7 @@ public class PagRelatorioResultados extends GenericForwardComposer {
             matriculas.removeChild(matriculas.getRows());
         }
         media.setValue("");
-        gerarGrafico.setDisabled(false);
+        
         objTurma = turma.getSelectedItem().getValue();
         double soma = 0;
         int contador = 0;
@@ -174,20 +175,22 @@ public class PagRelatorioResultados extends GenericForwardComposer {
             linhas.setParent(matriculas);
             media.setValue((soma / contador) + "");
             gerarPdf.setDisabled(false);
+            gerarGrafico.setDisabled(false);
 
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.getLogger(PagRelatorioResultados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void onClick$gerarPdf(Event event) throws BadElementException, MalformedURLException, IOException, DocumentException {
-        
-            if(!ctrlMatricula.gerarResultados(objTurma, Double.parseDouble(media.getValue()))){
-                setMensagemAviso("error", "Não existem matriculas para está turma");
-            }
-        
-            
-        
+
+        if (!ctrlMatricula.gerarResultados(objTurma, Double.parseDouble(media.getValue()))) {
+            setMensagemAviso("error", "Não existem matriculas para está turma");
+        }
+
+
+
     }
 
     public void setMensagemAviso(String tipo, String mensagem) {

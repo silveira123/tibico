@@ -241,7 +241,7 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             msg += "- Carga Horária\n";
         }
         if (creditos.getValue() == null) {
-            msg += "- Carga Horária\n";
+            msg += "- Créditos\n";
         }
         if (periodo.getValue() == null) {
             msg += "- Periodo Correspondente\n";

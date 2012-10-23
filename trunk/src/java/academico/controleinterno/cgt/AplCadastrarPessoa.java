@@ -20,6 +20,7 @@ import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.ProfessorDAO;
 import academico.controlepauta.cdp.Usuario;
 import academico.controlepauta.cgt.AplCadastrarUsuario;
+import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.util.Exceptions.AcademicoException;
 import academico.util.academico.cdp.AreaConhecimento;
 import academico.util.academico.cdp.GrauInstrucao;
@@ -120,10 +121,16 @@ public class AplCadastrarPessoa {
      * @param aluno
      * @throws Exception
      */
-    public void apagarAluno(Aluno aluno) throws AcademicoException {
+    public boolean apagarAluno(Aluno aluno) throws AcademicoException {
+        if(!AplControlarMatricula.getInstance().obterMatriculadas(aluno).isEmpty())
+            return false;
+        if(!AplControlarMatricula.getInstance().emitirHistorico(aluno).isEmpty())
+            return false;
+        
         Usuario usuario = AplCadastrarUsuario.getInstance().obter(aluno);
         AplCadastrarUsuario.getInstance().apagarUsuario(usuario);
         apDaoAluno.excluir(aluno);
+        return true;
     }
 
     /**
@@ -151,6 +158,10 @@ public class AplCadastrarPessoa {
      */
     public List<Aluno> obterAlunosporTurma(Turma t) {
         return ((AlunoDAO) apDaoAluno).obterAlunosporTurma(t);
+    }
+    
+    public List<Aluno> obterAlunosporCurso(Curso c) {
+        return ((AlunoDAO) apDaoAluno).obterAlunosporCurso(c);
     }
 
     //////////////////// PROFESSOR ////////////////////
@@ -181,6 +192,14 @@ public class AplCadastrarPessoa {
         professor.setAreaConhecimento((ArrayList<AreaConhecimento>) args.get(9));
 
         professor.setFoto((byte[]) args.get(10));
+        
+        List<Professor> listProf = this.obterProfessor();
+        //verifica se ja existe um cpf igual cadastrado
+        for (Professor p : listProf) {
+            if(p.getCpf().equals(professor.getCpf()))
+                return null;
+        }
+                
         professor = (Professor) apDaoProfessor.salvar(professor);
         // Privilegios...
         //1 = Admin, 2 = Func, 3 = Prof, 4 = Aluno
@@ -230,6 +249,13 @@ public class AplCadastrarPessoa {
      * @throws Exception
      */
     public Professor alterarProfessor(Professor professor) throws AcademicoException {
+        List<Professor> listProf = this.obterProfessor();
+        //verifica se ja existe um cpf igual cadastrado e nao for o que ja estava cadastrado
+        for (Professor p : listProf) {
+            if(p.getCpf().equals(professor.getCpf()) && p.getId()!=professor.getId())
+                return null;
+        }
+        
         return (Professor) apDaoProfessor.salvar(professor);
     }
 
@@ -239,10 +265,15 @@ public class AplCadastrarPessoa {
      * @param professor
      * @throws Exception
      */
-    public void apagarProfessor(Professor professor) throws AcademicoException {
+    public boolean apagarProfessor(Professor professor) throws AcademicoException {
+        if(!AplControlarTurma.getInstance().obterTurmas(professor).isEmpty())
+            return false;
+        
         Usuario usuario = AplCadastrarUsuario.getInstance().obter(professor);
         AplCadastrarUsuario.getInstance().apagarUsuario(usuario);
         apDaoProfessor.excluir(professor);
+        
+        return true;
     }
 
     /**

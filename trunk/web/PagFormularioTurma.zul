@@ -40,7 +40,7 @@
                     </row>
                      <row>
                         Número de vagas 
-                        <intbox id="numVagas" width="6%"/>	
+                        <intbox id="numVagas" width="6%" constraint="no negative"/>	
                     </row>
                 </rows>
             </grid>			

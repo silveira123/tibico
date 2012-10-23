@@ -82,8 +82,8 @@ public class CtrlCurso {
         return c;
     }
 
-    public void apagarCurso(Curso curso) throws Exception {
-        apl.excluirCurso(curso);
+    public boolean apagarCurso(Curso curso) throws Exception {
+        return apl.excluirCurso(curso);
     }
 
     public List<Curso> obterCursos() throws AcademicoException {

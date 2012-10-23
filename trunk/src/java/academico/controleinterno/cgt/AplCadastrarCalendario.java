@@ -46,8 +46,14 @@ public class AplCadastrarCalendario {
         return (Calendario) apDaoCalendario.salvar(calendario);
     }
 
-    public void apagarCalendario(Calendario calendario) throws AcademicoException {
+    public boolean apagarCalendario(Calendario calendario) throws AcademicoException {
+        //Verifica se o calendario possui alguma turma vinculada a ele
+        List<Turma> listas = AplControlarTurma.getInstance().obterTurmas(calendario);
+        if(!listas.isEmpty())    
+            return false;
+        
         apDaoCalendario.excluir(calendario);
+        return true;
     }
 
     public List<Calendario> obterCalendarios() throws AcademicoException {

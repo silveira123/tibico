@@ -84,7 +84,8 @@ public class CtrlPessoa {
             a = apl.incluirAluno(args);
             pagEventosAluno.addAluno(a);
             pagEventosAluno.setMensagemAviso("success", "Cadastro feito com sucesso");
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             pagEventosAluno.setMensagemAviso("error", "Erro ao cadastrar o aluno");
             System.err.println(ex.getMessage());
         }
@@ -106,7 +107,8 @@ public class CtrlPessoa {
                 pagEventosAluno.refreshAluno(a);
                 pagEventosAluno.setMensagemAviso("success", "Cadastro editado com sucesso");
             }
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             if (pagEventosAluno != null) {
                 pagEventosAluno.setMensagemAviso("error", "Erro ao editar o aluno");
             }
@@ -122,8 +124,8 @@ public class CtrlPessoa {
      * @param aluno
      * @throws Exception
      */
-    public void apagarAluno(Aluno aluno) throws Exception {
-        apl.apagarAluno(aluno);
+    public boolean apagarAluno(Aluno aluno) throws Exception {
+        return apl.apagarAluno(aluno);
     }
 
     /**
@@ -134,7 +136,11 @@ public class CtrlPessoa {
     public List<Aluno> obterAlunos() throws AcademicoException {
         return apl.obterAlunos();
     }
-
+    
+    public List<Aluno> obterAlunosporCurso(Curso c) {
+        return apl.obterAlunosporCurso(c);
+    }
+    
     /**
      * Obtém uma lista de todos os Alunos pesquisadoss
      * <p/>
@@ -143,7 +149,7 @@ public class CtrlPessoa {
     public List<Aluno> obterAlunosPesquisa(String pesquisa) throws AcademicoException {
         return apl.obterAlunosPesquisa(pesquisa);
     }
-    
+
     /**
      * Obtém uma lista de todos os Paises cadastrados
      * <p/>
@@ -164,17 +170,21 @@ public class CtrlPessoa {
      * @return
      * @throws Exception
      */
-    public Professor incluirProfessor(ArrayList<Object> args) {
+    public boolean incluirProfessor(ArrayList<Object> args) {
         Professor p = null;
         try {
             p = apl.incluirProfessor(args);
+            if (p == null) {
+                return false;
+            }
             pagEventosProfessor.addProfessor(p);
             pagEventosProfessor.setMensagemAviso("success", "Cadastro feito com sucesso");
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             pagEventosProfessor.setMensagemAviso("error", "Erro ao cadastrar o professor");
             System.err.println(ex.getMessage());
         }
-        return p;
+        return true;
     }
 
     /**
@@ -184,22 +194,26 @@ public class CtrlPessoa {
      * @return
      * @throws Exception
      */
-    public Professor alterarProfessor(Professor professor) {
+    public boolean alterarProfessor(Professor professor) {
         Professor p = null;
         try {
             p = apl.alterarProfessor(professor);
+            if (p == null) {
+                return false;
+            }
             if (pagEventosProfessor != null) {
                 pagEventosProfessor.refreshProfessor(p);
                 pagEventosProfessor.setMensagemAviso("success", "Cadastro editado com sucesso");
             }
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             if (pagEventosProfessor != null) {
                 pagEventosProfessor.setMensagemAviso("error", "Erro ao editar o professor");
             }
             System.err.println(ex.getMessage());
         }
         pagEventosProfessor = null;
-        return p;
+        return true;
     }
 
     /**
@@ -208,8 +222,8 @@ public class CtrlPessoa {
      * @param professor
      * @throws Exception
      */
-    public void apagarProfessor(Professor professor) throws AcademicoException {
-        apl.apagarProfessor(professor);
+    public boolean apagarProfessor(Professor professor) throws AcademicoException {
+        return apl.apagarProfessor(professor);
     }
 
     /**
@@ -229,7 +243,7 @@ public class CtrlPessoa {
     public List<Professor> obterProfessorPesquisa(String nome) throws AcademicoException {
         return apl.obterProfessorPesquisa(nome);
     }
-    
+
     /**
      * Obtém uma lista com todas as Áreas de conhecimento
      * <p/>
@@ -249,7 +263,8 @@ public class CtrlPessoa {
             return apl.obterEstados(pais);
 
 
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -266,7 +281,8 @@ public class CtrlPessoa {
             return apl.obterMunicipio(estado);
 
 
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -282,7 +298,8 @@ public class CtrlPessoa {
             return apl.obterBairro(municipio);
 
 
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -385,7 +402,8 @@ public class CtrlPessoa {
             return apl.alterarUsuario(usuario);
 
 
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(CtrlPessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

@@ -8,6 +8,7 @@ public interface TurmaDAO extends DAO<Turma> {
 
     public List<Turma> obterTurmasAtuais(Aluno aluno);
     public List<Turma> obter(Calendario calendario);
+    public List<Turma> obter(Disciplina d);
     public List<Turma> obter(Professor prof, Curso c);
     public List<Turma> obter(Professor prof);
     public List<Turma> obterAtivas();

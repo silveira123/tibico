@@ -16,36 +16,36 @@
                     <row>
                         Nome:
                         <cell colspan="2">
-                            <textbox id="nomeCurso" width="60%"/>
+                            <textbox constraint="no empty" id="nomeCurso" width="60%" maxlength="255"/>
                         </cell>
                     </row>
                     <row>
                         Sigla:
                         <cell colspan="2">
-                            <textbox id="sigla" width="10%"/>
+                            <textbox constraint="no empty" id="sigla" width="10%" maxlength="255"/>
                         </cell>
                     </row>
                     <row>
                         Grande Área de Conhecimeto:
                         <cell colspan="2">
-                            <combobox id="grandeArea" width="40%"/>
+                            <combobox constraint="no empty" id="grandeArea" width="40%"/>
                         </cell>
                     </row>
                     <row>
                         Grau de Instrução:
                         <cell colspan="2">
-                            <combobox id="grauInstrucao" width="30%"/>
+                            <combobox constraint="no empty" id="grauInstrucao" width="30%"/>
                         </cell>
                     </row>
                     <row>
                         Regime:
                         <cell colspan="2">
-                            <combobox id="regime" width="30%"/>
+                            <combobox id="regime" width="30%" constraint="no empty"/>
                         </cell>
                     </row>
                     <row>
                         Duracão:
-                        <intbox id="duracao" width="90%"/>
+                        <intbox constraint="no empty" id="duracao" width="90%"/>
 								
                         Número de Períodos
                     </row>
@@ -53,7 +53,7 @@
                     <row style="background:#FFFFFF;">
                         Descrição:
                         <cell colspan="2">
-                            <textbox id="descricao" width="60%" multiline="true" rows="8"  />
+                            <textbox id="descricao" constraint="no empty" width="60%" multiline="true" rows="8" maxlength="10000"/>
                         </cell>
                     </row>
 						

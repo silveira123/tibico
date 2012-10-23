@@ -43,9 +43,8 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para
- * leitura e interpretação de dados; A classe contém os dados formulário,
- * abrangendo a leitura e interpretação para a tela PagFormularioProfessor.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados; A classe contém os dados formulário, abrangendo a leitura e interpretação para a tela
+ * PagFormularioProfessor.zul
  * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
@@ -127,9 +126,11 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         try {
             web = academico.util.pessoa.cgt.BuscaCep.getEndereco(cep.getValue());
 
-        } catch (JAXBException ex) {
+        }
+        catch (JAXBException ex) {
             Logger.getLogger(PagFormularioAluno.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MalformedURLException ex) {
+        }
+        catch (MalformedURLException ex) {
             Logger.getLogger(PagFormularioAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (web != null) {
@@ -180,7 +181,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
             Executions.sendRedirect("/");
             winFormularioProfessor.detach();
-        } else {
+        }
+        else {
             MODO = (Integer) arg.get("tipo");
 
             if (MODO != CtrlPessoa.SALVAR) {
@@ -193,7 +195,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                     gridUsuario.setVisible(false);
                     bloquearTela();
                 }
-            } else {
+            }
+            else {
                 separator.setVisible(false);
                 gridUsuario.setVisible(false);
             }
@@ -270,7 +273,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 BufferedImage bufferedImg = ImageIO.read(bais);
 
                 pics.setContent(bufferedImg);
-            } catch (IOException ex) {
+            }
+            catch (IOException ex) {
                 Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -285,14 +289,14 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     public int marcarSexo(Sexo sexo) {
         if (sexo == Sexo.FEMININO) {
             return 1;
-        } else {
+        }
+        else {
             return 0;
         }
     }
 
     /**
-     * A partir de um objeto Telefone, cria uma string de acordo com o padrão da
-     * interface
+     * A partir de um objeto Telefone, cria uma string de acordo com o padrão da interface
      * <p/>
      * @return String formatada no seguinte padrão (xx)xxxx-xxxx
      */
@@ -345,7 +349,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 ((ListModelList) bairro.getModel()).addToSelection(b);
             }
 
-        } catch (AcademicoException ex) {
+        }
+        catch (AcademicoException ex) {
             Logger.getLogger(PagFormularioProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -387,6 +392,7 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         ArrayList<Object> listaTelefone = new ArrayList<Object>();
         ArrayList<Object> listaEndereco;
         String msg = valido();
+        boolean valido = false;
         if (msg.trim().equals("")) {
             if (MODO == ctrlPessoa.EDITAR) {
                 obj.setNome(nome.getText());
@@ -403,7 +409,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                     obj.getTelefone().get(0).setDdd((String) listaTelefone.get(0));
                     obj.getTelefone().get(0).setNumero((String) listaTelefone.get(1));
                     obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
-                } else {
+                }
+                else {
                     obj.getTelefone().get(0).setDdd(null);
                     obj.getTelefone().get(0).setNumero(null);
                     obj.getTelefone().get(0).setTipo((TipoTel) listaTelefone.get(2));
@@ -413,7 +420,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                     obj.getTelefone().get(1).setDdd((String) listaTelefone.get(3));
                     obj.getTelefone().get(1).setNumero((String) listaTelefone.get(4));
                     obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
-                } else {
+                }
+                else {
                     obj.getTelefone().get(1).setDdd(null);
                     obj.getTelefone().get(1).setNumero(null);
                     obj.getTelefone().get(1).setTipo((TipoTel) listaTelefone.get(5));
@@ -438,8 +446,9 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                     usuarioObjetoProf.setSenha(senha.getText());
                     usuarioObjetoProf = ctrlPessoa.alterarUsuario(usuarioObjetoProf);
                 }
-                p = ctrlPessoa.alterarProfessor(obj);
-            } else {
+                valido = ctrlPessoa.alterarProfessor(obj);
+            }
+            else {
 
                 ArrayList<Object> list = new ArrayList<Object>();
                 listaEndereco = new ArrayList<Object>();
@@ -465,10 +474,16 @@ public class PagFormularioProfessor extends GenericForwardComposer {
                 list.add(getSelecionadosList(listAreaConhecimento));
                 list.add(this.bytes);
 
-                p = ctrlPessoa.incluirProfessor(list);
+                valido = ctrlPessoa.incluirProfessor(list);
             }
-            winFormularioProfessor.onClose();
-        } else {
+            if (valido) {
+                winFormularioProfessor.onClose();
+            }
+            else {
+                Messagebox.show("CPF já Cadastrado!", "ERRO", 0, Messagebox.EXCLAMATION);
+            }
+        }
+        else {
             Messagebox.show(msg, "Informe:", 0, Messagebox.EXCLAMATION);
         }
     }
@@ -486,7 +501,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
     public Sexo obterSexo(int i) {
         if (i == 0) {
             return Sexo.MASCULINO;
-        } else {
+        }
+        else {
             return Sexo.FEMININO;
         }
     }
@@ -499,7 +515,8 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         //Obtendo o índice da lista onde o telefone (de acordo com o tipo) será inserido
         if (listTelefone.contains(tipo)) {
             indice = listTelefone.indexOf(tipo) - 2;
-        } else {
+        }
+        else {
             indice = listTelefone.size();
         }
 
@@ -682,22 +699,31 @@ public class PagFormularioProfessor extends GenericForwardComposer {
         return msg;
     }
 
-    public void onUpload$foto(UploadEvent event) {
+        public void onUpload$foto(UploadEvent event) {
         //Media media = event.getMedia();
         org.zkoss.util.media.Media media = event.getMedia();
 
         if (media != null && media.isBinary()) {
-            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
+            if (media.getByteData().length > 1000 * 1024) {
+                Messagebox.show("O arquivo selecionado é muito grande (máx 1024kb)!", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
+            else if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getByteData();
                 construirImagem(bytes);
-            } else {
+            }
+            else {
                 Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
             }
-        } else if (media != null && media.isBinary() == false) {
-            if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
+        }
+        else if (media != null && media.isBinary() == false) {
+            if (media.getStringData().getBytes().length > 1000 * 1024) {
+                Messagebox.show("O arquivo selecionado é muito grande (máx 1024kb)!", "Alerta!", 0, Messagebox.EXCLAMATION);
+            }
+            else if ("jpg".equals(media.getFormat()) || "jpeg".equals(media.getFormat()) || "png".equals(media.getFormat())) {
                 this.bytes = media.getStringData().getBytes();
                 construirImagem(bytes);
-            } else {
+            }
+            else {
                 Messagebox.show("O arquivo selecionado não é valido! Por favor, selecione um arquivo do tipo jpg, jpeg ou png.", "Alerta!", 0, Messagebox.EXCLAMATION);
             }
         }

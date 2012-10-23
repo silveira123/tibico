@@ -50,7 +50,7 @@ public class PagEventosDisciplina extends GenericForwardComposer {
         cursoCombo.setModel(new ListModelList(vetCurso, true));
         cursoCombo.setReadonly(true);
     }
-    
+
     public void onCreate$winEventosDisciplina(Event event) {
         //if feito para verificar se existe algum usuario logado, se nao existir eh redirecionado para o login
         if (Executions.getCurrent().getSession().getAttribute("usuario") == null) {
@@ -109,6 +109,9 @@ public class PagEventosDisciplina extends GenericForwardComposer {
                 if (ctrl.apagarDisciplina(d)) {
                     listDisciplina.removeItemAt(listDisciplina.getSelectedIndex());
                     setMensagemAviso("success", "Disciplina excluida com sucesso");
+                }
+                else {
+                    setMensagemAviso("error", "Não foi possivel excluir a disciplina");
                 }
             }
             catch (Exception e) {

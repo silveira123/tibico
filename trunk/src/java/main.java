@@ -1,6 +1,6 @@
 import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
-import academico.util.email.Mail;
+//import academico.util.email.Mail;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

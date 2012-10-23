@@ -30,9 +30,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
 /**
- * Esta classe, através de alguns importes utiliza atributos do zkoss para
- * leitura e interpretação de dados. A classe contém os eventos da tela
- * PagEventosAluno.zul
+ * Esta classe, através de alguns importes utiliza atributos do zkoss para leitura e interpretação de dados. A classe contém os eventos da tela PagEventosAluno.zul
  * <p/>
  * @author Gabriel Quézid
  * @author Rodrigo Maia
@@ -73,16 +71,15 @@ public class PagEventosAluno extends GenericForwardComposer {
 
     public void onSelect$curso(Event event) throws AcademicoException {
         select = (Curso) curso.getSelectedItem().getValue();
-        
+
         carregarAlunos();
     }
 
-    public void carregarAlunos() 
-    {
+    public void carregarAlunos() {
         while (listAluno.getItemCount() > 0) {
             listAluno.removeItemAt(0);
         }
-        
+
         List<Aluno> listaAlunos = null;
         try {
             listaAlunos = ctrl.obterAlunos();
@@ -105,7 +102,7 @@ public class PagEventosAluno extends GenericForwardComposer {
             }
         }
     }
-    
+
     public void addAluno(Aluno a) {
         Listitem linha = new Listitem(a.getMatricula(), a);
         linha.appendChild(new Listcell(a.toString()));
@@ -126,24 +123,26 @@ public class PagEventosAluno extends GenericForwardComposer {
     }
 
     public void onBlur$pesquisarNome(Event event) {
-        if(pesquisarNome.getText().trim().equals(""))
+        if (pesquisarNome.getText().trim().equals("")) {
             carregarAlunos();
+        }
     }
-     
+
     public void onChange$pesquisarNome(Event event) {
-        if(pesquisarNome.getText().trim().equals(""))
+        if (pesquisarNome.getText().trim().equals("")) {
             carregarAlunos();
-        else
+        }
+        else {
             onOK$pesquisarNome(event);
+        }
     }
-    
+
     public void onOK$pesquisarNome(Event event) {
         while (listAluno.getItemCount() > 0) {
             listAluno.removeItemAt(0);
         }
-        
-        if(!pesquisarNome.getText().trim().equals(""))
-        {
+
+        if (!pesquisarNome.getText().trim().equals("")) {
             List<Aluno> listaAlunos = null;
             try {
                 listaAlunos = ctrl.obterAlunosPesquisa(pesquisarNome.getText());
@@ -151,38 +150,48 @@ public class PagEventosAluno extends GenericForwardComposer {
             catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             if (listaAlunos != null && !listaAlunos.isEmpty()) {
                 for (int i = 0; i < listaAlunos.size(); i++) {
                     Aluno a = listaAlunos.get(i);
                     Listitem linha = new Listitem(listaAlunos.get(i).getMatricula(), a);
 
                     linha.appendChild(new Listcell(listaAlunos.get(i).toString()));
-                    if(listaAlunos.get(i).getCurso()==null)
+                    if (listaAlunos.get(i).getCurso() == null) {
                         System.out.println(listaAlunos.get(i));
-                    else
-                    linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
+                    }
+                    else {
+                        linha.appendChild(new Listcell(listaAlunos.get(i).getCurso().toString()));
+                    }
 
                     linha.setParent(listAluno);
                 }
             }
-            else
+            else {
                 setMensagemAviso("info", "Nenhum aluno encontrado!");
+            }
         }
-        
+
     }
-    
+
     public void onClick$excluirAluno(Event event) {
         Listitem listitem = listAluno.getSelectedItem();
         if (listitem != null) {
             try {
-                ctrl.apagarAluno((Aluno) listitem.getValue());
-                listAluno.removeItemAt(listAluno.getSelectedIndex());
-                setMensagemAviso("success", "Aluno excluido com sucesso");
-            } catch (Exception e) {
+
+                if (ctrl.apagarAluno((Aluno) listitem.getValue())) {
+                    listAluno.removeItemAt(listAluno.getSelectedIndex());
+                    setMensagemAviso("success", "Aluno excluido com sucesso");
+                }
+                else {
+                    setMensagemAviso("error", "Não foi possivel excluir o aluno, já possui algum vinculo");
+                }
+            }
+            catch (Exception e) {
                 setMensagemAviso("error", "Não foi possivel excluir o aluno");
             }
-        } else {
+        }
+        else {
             setMensagemAviso("info", "Selecione um aluno");
         }
 
@@ -194,13 +203,16 @@ public class PagEventosAluno extends GenericForwardComposer {
                 //Se não houver calendarios no Curso, imprime uma mensagem avisando e não deixa cadastrar.
                 if (!ctrl.obterCalendarios(select).isEmpty()) {
                     ctrl.abrirIncluirAluno(a, select);
-                } else {
+                }
+                else {
                     setMensagemAviso("info", "Não há calendários para esse curso!");
                 }
-            } catch (AcademicoException ex) {
+            }
+            catch (AcademicoException ex) {
                 Logger.getLogger(PagEventosAluno.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        }
+        else {
             setMensagemAviso("info", "Selecione um curso!");
         }
     }

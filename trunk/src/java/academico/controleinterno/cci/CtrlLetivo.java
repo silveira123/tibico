@@ -88,8 +88,8 @@ public class CtrlLetivo {
         return c;
     }
         
-    public void apagarCalendario(Calendario calendario) throws Exception {
-        apl.apagarCalendario(calendario);
+    public boolean apagarCalendario(Calendario calendario) throws Exception {
+        return apl.apagarCalendario(calendario);
     }
 
     public List<Calendario> obterCalendario() throws AcademicoException {
@@ -161,8 +161,8 @@ public class CtrlLetivo {
         return t;
     }
 
-    public void apagarTurma(Turma turma) throws Exception {
-        aplC.apagarTurma(turma);
+    public boolean apagarTurma(Turma turma) throws Exception {
+        return aplC.apagarTurma(turma);
     }
 
     public List<Turma> obterTurma() throws AcademicoException {

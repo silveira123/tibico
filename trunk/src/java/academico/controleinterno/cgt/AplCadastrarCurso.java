@@ -87,12 +87,19 @@ public class AplCadastrarCurso {
     /**
      * Exclui um curso.
      */
-    // FIXME: E se possuir disciplinas ou calendários associados??
-    public void excluirCurso(Curso curso) throws Exception {
+    public boolean excluirCurso(Curso curso) throws Exception {
         //validação
-
+        if(!this.obterDisciplinas(curso).isEmpty())
+            return false;
+        if(!AplCadastrarPessoa.getInstance().obterAlunosporCurso(curso).isEmpty())
+            return false;
+        if(!AplCadastrarCalendario.getInstance().obterCalendarios(curso).isEmpty())
+            return false;
+        
         //exclusão
         apDaoCurso.excluir(curso);
+        
+        return true;
     }
 
     /**
@@ -138,17 +145,25 @@ public class AplCadastrarCurso {
      */
     public boolean excluirDisciplina(Disciplina disciplina) throws Exception {
         // obtém as turmas
-        // FIXME: está obtendo TODAS as turmas. Obter só as da disciplina e ver se não é vazio.
-        List<Turma> listas = AplControlarTurma.getInstance().obterTurmas();
+        List<Turma> listas = AplControlarTurma.getInstance().obterTurmas(disciplina);
 
         // verificar se a disciplina tem turma
+        if (listas != null)
         for (Turma turma : listas) {
             if (turma.getDisciplina().equals(disciplina)) {
                 return false;
             }
         }
 
-        //FIXME: e se a disciplina for pré-requisito de uma outra?
+        //recebe a lista de disciplinas do curso
+        List<Disciplina> dispList = AplCadastrarCurso.getInstance().obterDisciplinas(disciplina.getCurso());
+        
+        if (dispList != null)
+        for (Disciplina d : dispList) {
+            //se a disciplina a ser excluida estiver no grupo de prerrequisito de outras a exclusão é impedida
+            if (d.getPrerequisito().contains(disciplina))
+                return false;
+        }
 
         // exclui a disciplina
         apDaoDisciplina.excluir(disciplina);

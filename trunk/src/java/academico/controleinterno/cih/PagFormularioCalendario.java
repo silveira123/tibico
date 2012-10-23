@@ -177,7 +177,6 @@ public class PagFormularioCalendario extends GenericForwardComposer {
                 args.add(fimPM);
 
                 ctrl.incluirCalendario(args);
-                limparCampos();
             }
             else {
                 obj.setCurso((Curso) curso.getSelectedItem().getValue());

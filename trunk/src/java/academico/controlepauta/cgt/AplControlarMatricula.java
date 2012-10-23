@@ -125,7 +125,7 @@ public class AplControlarMatricula {
      * @throws AcademicoException caso não seja possivel possivel buscar as
      * matriculas.
      */
-    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException, Exception {
+    public List<MatriculaTurma> emitirHistorico(Aluno aluno) throws AcademicoException {
         return (List<MatriculaTurma>) ((MatriculaTurmaDAO) apDaoMatriculaTurma).obterCursadas(aluno);
     }
 

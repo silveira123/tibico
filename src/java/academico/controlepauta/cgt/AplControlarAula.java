@@ -96,7 +96,7 @@ public class AplControlarAula {
         List<Resultado> lista = apDaoResultado.obter(Resultado.class);
 
         for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).getMatriculaTurma() == matriculaturma && lista.get(i).getAvaliacao() == obj) {
+            if (lista.get(i).getMatriculaTurma().equals(matriculaturma) && lista.get(i).getAvaliacao().equals(obj)) {
                 return lista.get(i);
             }
         }
@@ -191,4 +191,8 @@ public class AplControlarAula {
             }
         }
     }
+    
+     public List<Resultado> obterResultados(MatriculaTurma mturma) {
+         return  ((ResultadoDAO)apDaoResultado).obterResultados(mturma);
+     }
 }

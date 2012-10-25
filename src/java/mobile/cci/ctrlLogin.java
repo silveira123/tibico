@@ -10,6 +10,7 @@ import academico.controleinterno.cgt.AplControlarTurma;
 import academico.controlepauta.cgt.AplPrincipal;
 import academico.controlepauta.cdp.MatriculaTurma;
 import academico.controlepauta.cdp.Usuario;
+import academico.controlepauta.cgt.AplControlarAula;
 import academico.controlepauta.cgt.AplControlarMatricula;
 import academico.util.Exceptions.AcademicoException;
 import java.io.IOException;
@@ -128,11 +129,13 @@ public class ctrlLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("oi");
         Usuario usuario = obterLogin(request);
         if (usuario != null && usuario.getPrivilegio() == 4) {
             request.setAttribute("matriculas", obterTurmas(usuario));
             request.setAttribute("usuario", usuario);
+            
+            request.setAttribute("apl", AplControlarAula.getInstance());
+
             RequestDispatcher rd = request.getRequestDispatcher("PaginaPrincipalMobile.jsp");
             rd.forward(request, response);
         } else if (usuario != null) {

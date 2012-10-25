@@ -282,6 +282,10 @@ public class CtrlAula {
     public void atribuirResultado(MatriculaTurma mTurma) throws AcademicoException{
         AplControlarAula.getInstance().atribuirResultado(mTurma);
     }
+    
+    public Resultado obtemResultado(Avaliacao obj, MatriculaTurma matriculaturma) throws AcademicoException {
+        return AplControlarAula.getInstance().obtemResultado(obj, matriculaturma);
+    }
 
     public Usuario login(String login, String senha) throws AcademicoException {
         return aplPrincipal.login(login, senha);

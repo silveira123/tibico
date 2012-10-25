@@ -1,3 +1,7 @@
+<%@page import="academico.controlepauta.cgt.AplControlarAula"%>
+<%@page import="academico.controlepauta.cdp.Resultado"%>
+<%@page import="academico.controlepauta.cci.CtrlAula"%>
+<%@page import="academico.controlepauta.cdp.Avaliacao"%>
 <%@page import="academico.controlepauta.cdp.SituacaoAlunoTurma"%>
 <%@page import="academico.controleinterno.cdp.Aluno"%>
 <%@page import="academico.controleinterno.cdp.Professor"%>
@@ -109,7 +113,44 @@
                                     </div>
                                     <div class="ui-block-b">
                                         <%=  matTurma.get(i).getTurma().getEstadoTurma().toString()%>
-                                    </div> 
+                                    </div>
+                                    <%
+                                    //Isso foi feito por Gabriel Miranda, isto é muito feio não faça
+                                    List<Avaliacao> listAvaliacao = ((AplControlarAula) request.getAttribute("apl")).obterAvaliacoes(matTurma.get(i).getTurma());
+                                    if(!listAvaliacao.isEmpty()) 
+                                    {%>
+                                        <div class="ui-block-a">
+                                            <br>
+                                        </div>
+                                        <div class="ui-block-b">
+                                            <br>
+                                        </div>
+                                        <div class="ui-block-a">
+                                            AVALIAÇÃO
+                                        </div>
+                                        <div class="ui-block-b">
+                                            NOTA
+                                        </div>
+                                    <%
+                                        
+                                        for(int j=0; j<listAvaliacao.size();j++){
+                                            //Isso foi feito por Gabriel Miranda, isto é muito feio não faça
+                                            Resultado r = ((AplControlarAula) request.getAttribute("apl")).obtemResultado(listAvaliacao.get(j), matTurma.get(i));
+                                            %>
+                                                <div class="ui-block-a">
+                                                    <%=  listAvaliacao.get(j).toString()%>
+                                                </div>
+                                                <div class="ui-block-b">
+                                                    <% if(r.getPontuacao()!=null) {%>
+                                                            <%=r.getPontuacao()%>
+                                                        <%}
+                                                        else {%>
+                                                            --
+                                                        <%}
+                                                    %>
+                                                </div>
+                                        <%}
+                                    }%>
                                 </div>
                             </b>
                         </div>
@@ -119,7 +160,7 @@
                     %>
                 </div>
                 <input data-theme="b" data-icon="back" data-inline="true" data-iconpos="left" value="Sair" type="submit" onClick='javascript:location.href="indexMobile.jsp"'/>
-
+ 
             </div>
 
 

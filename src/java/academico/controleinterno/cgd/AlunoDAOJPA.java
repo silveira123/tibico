@@ -32,7 +32,7 @@ import javax.persistence.Query;
 public class AlunoDAOJPA extends DAOJPA<Aluno> implements AlunoDAO {
 
     public List<Aluno> obterAlunosporTurma(Turma t) {
-        List<Aluno> aluno = entityManager.createQuery("select mt.aluno from MatriculaTurma mt where mt.turma.id = ?1 ").setParameter(1, t.getId()).getResultList();
+        List<Aluno> aluno = entityManager.createQuery("select mt.aluno from MatriculaTurma mt where mt.turma.id = ?1 ORDER BY mt.aluno.nome").setParameter(1, t.getId()).getResultList();
         return aluno;
     }
     

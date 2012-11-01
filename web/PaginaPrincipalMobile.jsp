@@ -115,7 +115,7 @@
                                         <%=  matTurma.get(i).getTurma().getEstadoTurma().toString()%>
                                     </div>
                                     <%
-                                    //Isso foi feito por Gabriel Miranda, isto é muito feio não faça
+                                    //Isto é muito feio não faça
                                     List<Avaliacao> listAvaliacao = ((AplControlarAula) request.getAttribute("apl")).obterAvaliacoes(matTurma.get(i).getTurma());
                                     if(!listAvaliacao.isEmpty()) 
                                     {%>

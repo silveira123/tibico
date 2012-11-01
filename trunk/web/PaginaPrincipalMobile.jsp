@@ -129,7 +129,7 @@
                                             AVALIAÇÃO
                                         </div>
                                         <div class="ui-block-b">
-                                            NOTA
+                                            NOTAS
                                         </div>
                                     <%
                                         

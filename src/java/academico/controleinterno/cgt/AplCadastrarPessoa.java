@@ -51,7 +51,7 @@ public class AplCadastrarPessoa {
     private DAO apDaoMunicipio = DAOFactory.obterDAO("JPA", Municipio.class);
     private DAO apDaoBairro = DAOFactory.obterDAO("JPA", Bairro.class);
     private DAO apDaoCurso = DAOFactory.obterDAO("JPA", Curso.class);
-    private AplCadastrarCalendario aplCadastrarCalendario = AplCadastrarCalendario.getInstance();
+    private AplCadastrarCalendarioSala aplCadastrarCalendario = AplCadastrarCalendarioSala.getInstance();
     private static AplCadastrarPessoa instance = null;
 
     private AplCadastrarPessoa() {

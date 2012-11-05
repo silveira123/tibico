@@ -5,9 +5,10 @@
 package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.*;
-import academico.controleinterno.cgt.AplCadastrarCalendario;
+import academico.controleinterno.cgt.AplCadastrarCalendarioSala;
 import academico.controleinterno.cgt.AplControlarTurma;
 import academico.controleinterno.cih.PagEventosCalendario;
+import academico.controleinterno.cih.PagEventosSala;
 import academico.controleinterno.cih.PagEventosTurma;
 import academico.controleinterno.cih.PagVisualizarTurmas;
 import academico.util.Exceptions.AcademicoException;
@@ -30,10 +31,11 @@ public class CtrlLetivo {
     public static final int SALVAR = 0;
     public static final int EDITAR = 1;
     public static final int CONSULTAR = 2;
-    private AplCadastrarCalendario apl = AplCadastrarCalendario.getInstance();
+    private AplCadastrarCalendarioSala apl = AplCadastrarCalendarioSala.getInstance();
     private PagEventosCalendario pagEventosCalendario;
     private PagEventosTurma pagEventosTurma;
     private PagVisualizarTurmas pagVisualizarTurmas;
+    private PagEventosSala pagEventosSala;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
 
     public static CtrlLetivo getInstance() {
@@ -44,6 +46,12 @@ public class CtrlLetivo {
         }
         return instance;
     }
+
+    public void setPagEventosSala(PagEventosSala pagEventosSala) {
+        this.pagEventosSala = pagEventosSala;
+    }
+    
+    
 
     public void setPagEventosCalendario(PagEventosCalendario pagEventosCalendario) {
         this.pagEventosCalendario = pagEventosCalendario;
@@ -241,6 +249,10 @@ public class CtrlLetivo {
         map.put("class", tipo);
         return Executions.createComponents("/PagEventosAlocarProfessor.zul", null, map);
     }
+    
+    public Component abrirEventosSala() {
+        return Executions.createComponents("/PagEventosSala.zul", null, null);
+    }
 
     public Component abrirEventosCalendario() {
         return Executions.createComponents("/PagEventosCalendario.zul", null, null);
@@ -291,5 +303,67 @@ public class CtrlLetivo {
 
     public List<Turma> obterTurmaPesquisa(String parametro) throws AcademicoException{
         return aplC.obterTurmaPesquisa(parametro);
+    }
+    
+    public List<Equipamento> obterEquipamentos() throws AcademicoException {
+        return apl.obterEquipamentos();
+    }
+    
+    public Sala incluirSala (ArrayList<Object> args) throws AcademicoException {
+        Sala s = null;
+        try {
+            s = apl.incluirSala(args);
+            pagEventosSala.addSala(s);
+            pagEventosSala.setMensagemAviso("success", "Cadastro feito com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosSala.setMensagemAviso("error", "Erro ao cadastrar a sala");
+            System.err.println(ex.getMessage());
+        }
+        return s;
+    }
+    
+    public Sala alterarSala(Sala sala) throws AcademicoException {
+        Sala s = null;
+        try {
+            s = apl.alterarSala(sala);
+            pagEventosSala.refreshSala(s);
+            pagEventosSala.setMensagemAviso("success", "Sala editada com sucesso");
+        }
+        catch (AcademicoException ex) {
+            pagEventosTurma.setMensagemAviso("error", "Erro ao editar a sala");
+            System.err.println(ex.getMessage());
+        }
+        return s;
+    }
+     
+    public boolean apagarSala(Sala sala) throws AcademicoException {
+        return apl.apagarSala(sala);
+    }
+    
+    public List<Sala> obterSala() throws AcademicoException {
+        return apl.obterSala();
+    }
+    
+    public void abrirIncluirSala() {
+        Map map = new HashMap();
+        map.put("tipo", CtrlLetivo.SALVAR);
+        map.put("p", 1);
+        Executions.createComponents("/PagFormularioSala.zul", null, map);
+    }
+
+    public void abrirEditarSala(Sala sala) {
+        Map map = new HashMap();
+        map.put("tipo", CtrlLetivo.EDITAR);
+        map.put("obj", sala);
+        Executions.createComponents("/PagFormularioSala.zul", null, map);
+    }
+
+    public void abrirConsultarSala(Sala sala) {
+        Map map = new HashMap();
+        map.put("tipo", CtrlLetivo.CONSULTAR);
+        map.put("obj", sala);
+        map.put("p", 1);
+        Executions.createComponents("/PagFormularioSala.zul", null, map);
     }
 }

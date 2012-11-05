@@ -16,7 +16,7 @@
 package academico.controleinterno.cci;
 
 import academico.controleinterno.cdp.*;
-import academico.controleinterno.cgt.AplCadastrarCalendario;
+import academico.controleinterno.cgt.AplCadastrarCalendarioSala;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controleinterno.cih.PagEventosAluno;
 import academico.controleinterno.cih.PagEventosProfessor;
@@ -49,7 +49,7 @@ public class CtrlPessoa {
     private PagEventosAluno pagEventosAluno = null;
     private PagEventosProfessor pagEventosProfessor = null;
     private AplCadastrarPessoa apl = AplCadastrarPessoa.getInstance();
-    private AplCadastrarCalendario aplCalendario = AplCadastrarCalendario.getInstance();
+    private AplCadastrarCalendarioSala aplCalendario = AplCadastrarCalendarioSala.getInstance();
 
     public static CtrlPessoa getInstance() {
         CtrlPessoa instance = (CtrlPessoa) Executions.getCurrent().getSession().getAttribute("ctrlPessoa");

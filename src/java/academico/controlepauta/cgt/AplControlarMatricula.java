@@ -19,7 +19,7 @@ package academico.controlepauta.cgt;
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgd.DisciplinaDAO;
 import academico.controleinterno.cgd.TurmaDAO;
-import academico.controleinterno.cgt.AplCadastrarCalendario;
+import academico.controleinterno.cgt.AplCadastrarCalendarioSala;
 import academico.controleinterno.cgt.AplCadastrarCurso;
 import academico.controleinterno.cgt.AplCadastrarPessoa;
 import academico.controlepauta.cdp.Frequencia;
@@ -286,7 +286,7 @@ public class AplControlarMatricula {
     }
 
     public boolean verificaPeriodoMatricula(Curso curso) {
-        return AplCadastrarCalendario.getInstance().verificarPeriodoMatricula(curso);
+        return AplCadastrarCalendarioSala.getInstance().verificarPeriodoMatricula(curso);
     }
 
     public boolean gerarResultados(Turma obj, Double media) throws BadElementException, MalformedURLException, IOException, DocumentException {

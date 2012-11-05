@@ -93,7 +93,7 @@ public class AplCadastrarCurso {
             return false;
         if(!AplCadastrarPessoa.getInstance().obterAlunosporCurso(curso).isEmpty())
             return false;
-        if(!AplCadastrarCalendario.getInstance().obterCalendarios(curso).isEmpty())
+        if(!AplCadastrarCalendarioSala.getInstance().obterCalendarios(curso).isEmpty())
             return false;
         
         //exclusão

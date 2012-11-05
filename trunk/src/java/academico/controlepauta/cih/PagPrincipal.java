@@ -54,6 +54,7 @@ public class PagPrincipal extends GenericForwardComposer {
     private Toolbarbutton boletim;
     private Toolbarbutton historico;
     private Toolbarbutton about;
+    private Toolbarbutton sala;
     private Vlayout vlayout;
     private North north;
     private West west;
@@ -152,6 +153,14 @@ public class PagPrincipal extends GenericForwardComposer {
     public void onClick$disciplina(Event event) {
         border.getCenter().getChildren().clear();
         Window winDisciplina = (Window) CtrlCurso.getInstance().abrirEventosDisciplina();
+        winDisciplina.setWidth("100%");
+        winDisciplina.setHeight("100%");
+        winDisciplina.setParent(border.getCenter());
+    }
+    
+    public void onClick$sala(Event event) {
+        border.getCenter().getChildren().clear();
+        Window winDisciplina = (Window) CtrlLetivo.getInstance().abrirEventosSala();
         winDisciplina.setWidth("100%");
         winDisciplina.setHeight("100%");
         winDisciplina.setParent(border.getCenter());

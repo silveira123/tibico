@@ -57,6 +57,7 @@
                                 <toolbarbutton id="curso" label="Curso" />
                                 <toolbarbutton id="disciplina" label="Disciplina" />
                                 <toolbarbutton id="calendario" label="Calendário" />
+                                <toolbarbutton id="sala" label="Sala" />
                             </vbox>
                         </panelchildren>
                     </panel>

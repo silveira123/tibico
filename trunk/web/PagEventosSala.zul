@@ -1,0 +1,52 @@
+<?page title="Eventos Sala"?>
+
+<zk>
+
+    
+    <window title="Salas Cadastradas" border="normal" closable="true" sclass="windowStyle"
+            width="100%" id="winEventosSala" apply = "academico.controleinterno.cih.PagEventosSala">
+        <div align="center">
+            <image src="images/tibico6.png" width="30%" height="20%"/>
+
+     
+
+            <menubar>
+                <menuitem  tooltiptext="Incluir Sala"
+                           label="Incluir" id="incluir"/>
+                <menuitem tooltiptext="Alterar Sala"
+                          label="Alterar" id="alterar" />
+                <menuitem tooltiptext="Consultar Sala"
+                          label="Consultar" id="consultar" />
+                <menuitem tooltiptext="Excluir Sala"
+                          label="Excluir" id="excluir" />
+            </menubar>
+            
+            <div id="boxInformacao" class="" visible="false" tooltiptext="Clique para fechar">
+                <label id="msg" value=""/>
+            </div>
+            
+            <separator />
+            <separator />
+
+            <auxhead>
+                <auxheader align="center"
+                           label="Salas Cadastradas" />
+            </auxhead>
+
+            <separator />
+
+            <listbox id="listSalas" mold="paging">
+                <listhead>
+                    <listheader align="center" label="Nome"/>
+                    <listheader align="center" label="Número Bloco"/>
+                    <listheader align="center" label="Número Sala"/>
+                	<listheader align="center" label="Equipamentos"/>
+                </listhead>
+            </listbox>
+
+        </div>
+        <style src="/information.css"/>
+    </window>
+</zk>
+
+

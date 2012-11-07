@@ -1,0 +1,49 @@
+<?page title="Formulário Sala"?>
+
+<zk>
+    <div align="center">
+        <window title="Página Formulário Sala" id="winFormularioSala" action="show: slideDown;hide: slideUp" mode="modal" position="center"
+                closable="true" sclass="windowStyle" border="normal" width="60%" apply="academico.controleinterno.cih.PagFormularioSala">
+
+            <separator height="15px" />
+            <grid>
+                <columns>
+                    <column width="30%"/>
+                    <column width="5%"/>
+                    <column width="70%"/>
+                </columns>
+                <rows>
+                    <row>
+                        Número do Bloco:
+                        <cell colspan="2">
+                            <intbox id="numBloco" width="6%"/>
+                        </cell>
+                    </row>
+                    <row>
+                        Número da Sala:
+                        <cell colspan="2">
+                            <intbox id="numSala" width="6%"/>
+                        </cell>
+                    </row>
+                    <row style="background:#FFFFFF;">
+                        Equipamentos:
+                        <cell colspan="2">
+                            <listbox checkmark="true" multiple="true" height="200px" id="listEquipamentos"/>
+                        </cell>
+                    </row>
+						
+                </rows>
+            </grid>
+
+            <separator/>
+            <button  label="Salvar" id="salvar" />
+            <button  label="Voltar" id="voltar" />
+            <style src="/information.css"/> 
+        </window>
+    </div>
+	
+        
+	
+</zk>
+
+

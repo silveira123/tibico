@@ -1,0 +1,18 @@
+<?page title="AlocarHorarioSala" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Alocar Horario para a Sala" border="normal" closable="true" sclass="windowStyle"
+            width="60%" id="winAlocarHorarioSala" apply = "">
+            <listbox id="listbox" mold="paging">
+                <listhead>
+                    <listheader align="center" label="Horario" width="50%"/>
+                    <listheader align="center" label="Sala" width="25%"/>
+                </listhead>
+               
+                
+            </listbox>
+            <separator/>
+            <button  label="Salvar" id="salvar" />
+            <button  label="Voltar" id="voltar" />
+            <style src="/information.css"/> 
+</window>
+</zk>

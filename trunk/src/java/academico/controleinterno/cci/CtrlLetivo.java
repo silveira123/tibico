@@ -7,6 +7,7 @@ package academico.controleinterno.cci;
 import academico.controleinterno.cdp.*;
 import academico.controleinterno.cgt.AplCadastrarCalendarioSala;
 import academico.controleinterno.cgt.AplControlarTurma;
+import academico.controleinterno.cih.PagAlocarHorarioSala;
 import academico.controleinterno.cih.PagEventosCalendario;
 import academico.controleinterno.cih.PagEventosSala;
 import academico.controleinterno.cih.PagEventosTurma;
@@ -36,6 +37,7 @@ public class CtrlLetivo {
     private PagEventosTurma pagEventosTurma;
     private PagVisualizarTurmas pagVisualizarTurmas;
     private PagEventosSala pagEventosSala;
+    private PagAlocarHorarioSala pagAlocarHorarioSala;
     private AplControlarTurma aplC = AplControlarTurma.getInstance();
 
     public static CtrlLetivo getInstance() {
@@ -49,6 +51,9 @@ public class CtrlLetivo {
 
     public void setPagEventosSala(PagEventosSala pagEventosSala) {
         this.pagEventosSala = pagEventosSala;
+    }
+    public void setPagAlocarHorarioSala(PagAlocarHorarioSala pagAlocarHorarioSala) {
+        this.pagAlocarHorarioSala = pagAlocarHorarioSala;
     }
     
     
@@ -365,5 +370,10 @@ public class CtrlLetivo {
         map.put("obj", sala);
         map.put("p", 1);
         Executions.createComponents("/PagFormularioSala.zul", null, map);
+    }
+    public void abrirAlocarHorarioSala(Turma turma) {
+        Map map = new HashMap();
+        map.put("obj", turma);
+        Executions.createComponents("/PagAlocarHorarioSala.zul", null, map);
     }
 }

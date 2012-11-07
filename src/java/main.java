@@ -1,5 +1,12 @@
+import academico.controleinterno.cci.CtrlLetivo;
+import academico.controleinterno.cdp.Turma;
 import academico.controleinterno.cgd.AlunoDAO;
 import academico.controleinterno.cgd.AlunoDAOJPA;
+import academico.util.horario.cdp.DiaSemana;
+import academico.util.horario.cdp.Horario;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 //import academico.util.email.Mail;
 /*
  * To change this template, choose Tools | Templates
@@ -35,6 +42,15 @@ public class main {
 //       a.setCpf(Long.valueOf("32132132132"));
 //       a.setMatricula(Long.valueOf("32132132132"));
        AlunoDAO tdao = new AlunoDAOJPA();
+       Turma t = new Turma();
+       Horario h =new Horario();
+       h.setDia(DiaSemana.TERÇA);
+       h.setHorarioFim(Calendar.getInstance());
+       h.setHorarioInicio(Calendar.getInstance());
+       List<Horario> l = new ArrayList<Horario>();
+       l.add(h);
+       t.setHorario(l);
+       CtrlLetivo.getInstance().abrirAlocarHorarioSala(t);
        
 //       tdao.salvar(a);
         

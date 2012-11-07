@@ -95,11 +95,6 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
                     // verificando qual a area de conhecimento cadastrado
                     if (obj2.equals(curso.get(i).getValue())) {
                         cursoCombo.setSelectedItem(curso.get(i));
-                        List<Disciplina> disciplinas = ctrl.obterDisciplinas((Curso) curso.get(i).getValue());
-                        if (disciplinas != null) {
-                            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
-                        }
-                        ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
                     }
                 }
             }
@@ -169,6 +164,20 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
             listAreaConhecimentos.get(i).setDisabled(true);
         }
         cursoCombo.setDisabled(true);
+    }
+
+    public void onBlur$periodo() {
+        Comboitem cursoItem = cursoCombo.getSelectedItem();
+        if (cursoItem != null) {
+            List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+            listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+            
+            disciplinas = ctrl.obterCandidatosPrerequisito((Curso)cursoItem.getValue(), periodo.getValue());
+            if (disciplinas != null) {
+                listPreRequisitos.setModel(new ListModelList(disciplinas, true));
+            }
+            ((ListModelList) listPreRequisitos.getModel()).setMultiple(true);
+        }
     }
 
     public void onClick$salvarDisciplina(Event event) {
@@ -249,5 +258,4 @@ public class PagFormularioDisciplina extends GenericForwardComposer {
 
         return msg;
     }
-
 }

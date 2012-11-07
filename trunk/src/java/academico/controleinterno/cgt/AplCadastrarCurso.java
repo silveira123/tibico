@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Aplicação responsável por prover os eventos cadastrais de Curso e Disciplina.
- *
+ * <p/>
  * @author FS
  */
 public class AplCadastrarCurso {
@@ -89,16 +89,19 @@ public class AplCadastrarCurso {
      */
     public boolean excluirCurso(Curso curso) throws Exception {
         //validação
-        if(!this.obterDisciplinas(curso).isEmpty())
+        if (!this.obterDisciplinas(curso).isEmpty()) {
             return false;
-        if(!AplCadastrarPessoa.getInstance().obterAlunosporCurso(curso).isEmpty())
+        }
+        if (!AplCadastrarPessoa.getInstance().obterAlunosporCurso(curso).isEmpty()) {
             return false;
-        if(!AplCadastrarCalendarioSala.getInstance().obterCalendarios(curso).isEmpty())
+        }
+        if (!AplCadastrarCalendarioSala.getInstance().obterCalendarios(curso).isEmpty()) {
             return false;
-        
+        }
+
         //exclusão
         apDaoCurso.excluir(curso);
-        
+
         return true;
     }
 
@@ -148,21 +151,24 @@ public class AplCadastrarCurso {
         List<Turma> listas = AplControlarTurma.getInstance().obterTurmas(disciplina);
 
         // verificar se a disciplina tem turma
-        if (listas != null)
-        for (Turma turma : listas) {
-            if (turma.getDisciplina().equals(disciplina)) {
-                return false;
+        if (listas != null) {
+            for (Turma turma : listas) {
+                if (turma.getDisciplina().equals(disciplina)) {
+                    return false;
+                }
             }
         }
 
         //recebe a lista de disciplinas do curso
         List<Disciplina> dispList = AplCadastrarCurso.getInstance().obterDisciplinas(disciplina.getCurso());
-        
-        if (dispList != null)
-        for (Disciplina d : dispList) {
-            //se a disciplina a ser excluida estiver no grupo de prerrequisito de outras a exclusão é impedida
-            if (d.getPrerequisito().contains(disciplina))
-                return false;
+
+        if (dispList != null) {
+            for (Disciplina d : dispList) {
+                //se a disciplina a ser excluida estiver no grupo de prerrequisito de outras a exclusão é impedida
+                if (d.getPrerequisito().contains(disciplina)) {
+                    return false;
+                }
+            }
         }
 
         // exclui a disciplina
@@ -182,6 +188,13 @@ public class AplCadastrarCurso {
      */
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obter(curso);
+    }
+    
+    /**
+     * Obtém todas as disciplinas que podem ser prerequisitos.
+     */
+    public List<Disciplina> obterCandidatosPrerequisito(Curso curso, int periodo) {
+        return (List<Disciplina>) ((DisciplinaDAO) apDaoDisciplina).obterCadidatosPrerequisito(curso, periodo);
     }
 
     /**

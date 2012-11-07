@@ -127,7 +127,11 @@ public class CtrlCurso {
     public List<Disciplina> obterDisciplinas(Curso curso) {
         return apl.obterDisciplinas(curso);
     }
-
+    
+    public List<Disciplina> obterCandidatosPrerequisito(Curso curso, int periodo) {
+        return apl.obterCandidatosPrerequisito(curso, periodo);
+    }
+    
     public List<GrandeAreaConhecimento> obterGrandeAreaConhecimento() throws AcademicoException {
         return apl.obterGrandeAreaConhecimentos();
     }

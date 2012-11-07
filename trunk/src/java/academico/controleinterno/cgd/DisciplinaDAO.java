@@ -14,4 +14,5 @@ public interface DisciplinaDAO extends DAO<Disciplina> {
     public List<Disciplina> obter(Curso curso);
     public List<Disciplina> obterVinculadas(Aluno aluno);
     public List<Disciplina> obterAprovadas(Aluno aluno);
+    public List<Disciplina> obterCadidatosPrerequisito(Curso curso, int periodo);
 }

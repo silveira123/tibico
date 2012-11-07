@@ -20,7 +20,13 @@ public class DisciplinaDAOJPA extends DAOJPA<Disciplina> implements DisciplinaDA
         query.setParameter(1, c.getId());
         return query.getResultList();
     }
-
+    
+    public List<Disciplina> obterCadidatosPrerequisito(Curso c, int periodo) {
+        Query query = entityManager.createQuery("SELECT d FROM Disciplina d WHERE d.curso.id = ?1 and d.periodoCorrespondente < ?2");
+        query.setParameter(1, c.getId());
+        query.setParameter(2, periodo);
+        return query.getResultList();
+    }
     
     /** Obtém as disciplinas às quais um aluno está vinculado (aprovado, cursando ou
      * matriculado). */

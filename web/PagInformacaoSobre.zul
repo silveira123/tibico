@@ -8,7 +8,7 @@
     <div align="center">
         <window title="Sobre o Projeto Tibico" border="normal" closable="true" width="35%" mode="popup" position="center,center" >
             <div align="center" width="100%" height="100%">
-                <image sclass="imagem" align="left" src="images/fsw.png" width="30%" height="20%" border="normal"/>
+                <image sclass="imagem" align="left" src="images/LEDS.png" width="30%" height="20%" border="normal"/>
                     
                 <div align="left" height="100%">
                     <separator/>
@@ -18,13 +18,13 @@
                     <label value="Sistema de Registro Acadêmico" style="font-size:12px;"/>
 				
                     <separator height="10px"/>
-                    <label value="Copyright © 2012 Fábrica de Software IFES." style="font-size:12px;"/>
+                    <label value="Copyright © 2012 LEDS - IFES." style="font-size:12px;"/>
 				
                     <separator height="1px"/>
                     <label value="Todos os direitos reservados." style="font-size:12px;"/>
 				
                     <separator height="10px"/>
-                    <label value="O Tibico é desenvolvido pela Fábrica de Software, um projeto composto por alunos de graduação e professores do IFES (Instituto Federal do Espírito Santo)." style="font-size:12px; text-align:justify; text-justify:inter-word;"/>
+                    <label value="O Tibico é desenvolvido pelo LEDS, um projeto composto por alunos de graduação e professores do IFES (Instituto Federal do Espírito Santo)." style="font-size:12px; text-align:justify; text-justify:inter-word;"/>
                 </div>
             </div>
         </window>

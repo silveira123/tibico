@@ -106,7 +106,7 @@
                     </panel>
                     <div align="center">
                         <a href="http://200.137.75.208:8080/site/">
-                            <image src="images/fsw.png" width="150px" height="155px" />
+                            <image src="images/LEDS.png" width="150px" height="155px" />
                         </a>
                     </div>
                                         
@@ -130,7 +130,7 @@
                     <toolbarbutton label="Home" href="http://200.137.75.208:8080/site/"/>
                     <toolbarbutton id="about" label="About"/>
                     <separator orient="vertical" bar="true" />
-                    Powered by Fabrica de Software - IFES
+                    Powered by LEDS - IFES
                 </toolbar>
             </south>
         </borderlayout>

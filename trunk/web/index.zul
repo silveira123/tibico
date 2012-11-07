@@ -1,5 +1,5 @@
 <?page title="Tibico-SRA"?> 
-<?link rel="icon" type="image/x-icon" href="images/fsw2.png"?>
+<?link rel="icon" type="image/x-icon" href="images/favicon.png"?>
 <window id="loginWin" style="background-image:url('images/fundo.png'); background-size: 100%;" apply ="academico.controlepauta.cih.PagLogin" onOk="loginCheck()">
     <style>
         .login-box {

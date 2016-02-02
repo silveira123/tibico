@@ -1,0 +1,1 @@
+O projeto Tibico tem o propósito de disponibilizar um sistema no âmbito acadêmico, que dá suporte ao cadastro de alunos, professores, disciplinas entre outros, além do controle de notas e frequência, ou seja, visa facilitar o domínio do problema com uma solução mais automatizada.
